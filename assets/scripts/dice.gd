@@ -1,5 +1,7 @@
 extends Node2D
 
+onready var g = $"/root/Globals";
+
 enum DiceEnum { D4, D6, D8, D10, D12, D20 };
 
 export(DiceEnum) var kind;
@@ -63,3 +65,5 @@ func _on_Timer_timeout():
 	rng.randomize();
 	value = rng.randi_range(1, maxVal);	
 	$Label.text = String(value);
+	
+	g.damageCurrentEnemy(value);

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/timer_CW_75.png-0917207d96021f2f9aab326ae06aa785.stex"
+path="res://.import/timer_0.png-a7dba65725aa4281a24627986a385cbf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/timer_CW_75.png"
-dest_files=[ "res://.import/timer_CW_75.png-0917207d96021f2f9aab326ae06aa785.stex" ]
+source_file="res://assets/sprites/timer_0.png"
+dest_files=[ "res://.import/timer_0.png-a7dba65725aa4281a24627986a385cbf.stex" ]
 
 [params]
 
