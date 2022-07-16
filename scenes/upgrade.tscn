@@ -27,6 +27,9 @@ margin_right = 480.0
 rect_min_size = Vector2( 0, 100 )
 script = ExtResource( 3 )
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 15.0
+
 [node name="ColorRect" type="ColorRect" parent="."]
 self_modulate = Color( 0.462745, 0.462745, 0.462745, 1 )
 anchor_right = 1.0
@@ -103,4 +106,5 @@ anchor_right = 1.0
 anchor_bottom = 0.02
 color = Color( 0, 0, 0, 1 )
 
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="button_down" from="MouseOverlay" to="." method="_on_MouseOverlay_button_down"]

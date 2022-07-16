@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
@@ -7,8 +7,11 @@
 [ext_resource path="res://scenes/upgrade.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/scripts/currencyLabel.gd" type="Script" id=6]
 [ext_resource path="res://assets/sprites/upgrades/Add_Dice_Icon.png" type="Texture" id=7]
-[ext_resource path="res://assets/sprites/enemies/drentus cartoon.png" type="Texture" id=8]
-[ext_resource path="res://icon.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/upgrades/Auto_Roll.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/upgrades/Dice_Tray.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/upgrades/Dungeon_Master_Icon.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/upgrades/Upgrade_Dice_Icon.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/upgrades/Dice_Tower.png" type="Texture" id=12]
 
 [sub_resource type="DynamicFont" id=2]
 size = 60
@@ -55,43 +58,61 @@ align = 1
 valign = 1
 script = ExtResource( 6 )
 
-[node name="upgrade" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
+[node name="u_add" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 100.0
 margin_bottom = 200.0
-title = "Upgrade Dice"
-spriteTexture = ExtResource( 9 )
-
-[node name="upgrade2" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-margin_top = 200.0
-margin_bottom = 300.0
 title = "Add Dice"
+basePrice = 10
+levelupPriceIncrease = 3
 spriteTexture = ExtResource( 7 )
 
-[node name="upgrade3" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
+[node name="u_upgrade" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
+margin_top = 200.0
+margin_bottom = 300.0
+title = "Upgrade Dice"
+basePrice = 20
+kind = 1
+spriteTexture = ExtResource( 11 )
+
+[node name="u_dm" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 300.0
 margin_bottom = 400.0
 title = "Dungeon Master"
+basePrice = 50
+kind = 2
+spriteTexture = ExtResource( 10 )
 
-[node name="upgrade4" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
+[node name="u_tower" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 400.0
 margin_bottom = 500.0
 title = "Dice Tower"
+basePrice = 100
+kind = 3
+spriteTexture = ExtResource( 12 )
 
-[node name="upgrade5" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
+[node name="u_reroll" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 500.0
 margin_bottom = 600.0
-title = "???"
+title = "Re-roller"
+basePrice = 225
+kind = 4
 spriteTexture = ExtResource( 8 )
 
-[node name="upgrade6" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
+[node name="u_contract" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 600.0
 margin_bottom = 700.0
-title = "Dice Stand"
+title = "Contract"
+basePrice = 500
+kind = 6
 
-[node name="HBoxContainer" type="HBoxContainer" parent="uiRoot"]
-anchor_top = 0.85
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="u_tray" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
+visible = false
+margin_top = 700.0
+margin_bottom = 800.0
+title = "Dice Tray"
+basePrice = 999999
+kind = 5
+spriteTexture = ExtResource( 9 )
 
 [node name="enemyUi" type="Control" parent="uiRoot"]
 anchor_right = 0.7

@@ -48,7 +48,7 @@ func roll():
 		return;
 	rolling = true;
 	rng.randomize();
-	$Timer.wait_time = rng.randf_range(.5,5);
+	$Timer.wait_time = rng.randf_range(.5,4.5);
 	$Timer.start();
 	$Sprite/AnimationPlayer.play("rotate");
 	$Label.text = "";

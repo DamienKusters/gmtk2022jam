@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/ui.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/sprites/bg/parallax-forest-front-trees.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/scripts/diceList.gd" type="Script" id=6]
 [ext_resource path="res://assets/sprites/ui layout detail.png" type="Texture" id=7]
 [ext_resource path="res://assets/scripts/diceContainer.gd" type="Script" id=8]
+[ext_resource path="res://assets/sprites/gmtk2022.png" type="Texture" id=9]
 
 [node name="Node2D" type="Node2D"]
 
@@ -69,6 +70,11 @@ texture = ExtResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="Sprite" type="Sprite" parent="bg"]
+position = Vector2( 117.25, -22 )
+scale = Vector2( 0.0622033, 0.0622032 )
+texture = ExtResource( 9 )
 
 [node name="brown_trees" type="Sprite" parent="bg"]
 texture = ExtResource( 5 )
@@ -158,46 +164,67 @@ __meta__ = {
 script = ExtResource( 6 )
 
 [node name="r1d1" type="Position2D" parent="diceList"]
-position = Vector2( 85, 551 )
+position = Vector2( 85, 528 )
 
 [node name="r2d1" type="Position2D" parent="diceList"]
-position = Vector2( 85, 699 )
+position = Vector2( 85, 676 )
 
 [node name="r1d2" type="Position2D" parent="diceList"]
-position = Vector2( 242, 551 )
+position = Vector2( 242, 528 )
 
 [node name="r2d2" type="Position2D" parent="diceList"]
-position = Vector2( 242, 699 )
+position = Vector2( 242, 676 )
 
 [node name="r1d3" type="Position2D" parent="diceList"]
-position = Vector2( 401, 551 )
+position = Vector2( 401, 528 )
 
 [node name="r2d3" type="Position2D" parent="diceList"]
-position = Vector2( 401, 699 )
+position = Vector2( 401, 676 )
 
 [node name="r1d4" type="Position2D" parent="diceList"]
-position = Vector2( 558, 551 )
+position = Vector2( 558, 528 )
 
 [node name="r2d4" type="Position2D" parent="diceList"]
-position = Vector2( 558, 699 )
+position = Vector2( 558, 676 )
 
 [node name="r1d5" type="Position2D" parent="diceList"]
-position = Vector2( 723, 551 )
+position = Vector2( 723, 528 )
 
 [node name="r2d5" type="Position2D" parent="diceList"]
-position = Vector2( 723, 699 )
+position = Vector2( 723, 676 )
 
 [node name="r1d6" type="Position2D" parent="diceList"]
-position = Vector2( 883, 551 )
+position = Vector2( 883, 528 )
 
 [node name="r2d6" type="Position2D" parent="diceList"]
-position = Vector2( 883, 699 )
+position = Vector2( 883, 676 )
 
 [node name="r1d7" type="Position2D" parent="diceList"]
-position = Vector2( 1042, 551 )
+position = Vector2( 1042, 528 )
 
 [node name="r2d7" type="Position2D" parent="diceList"]
-position = Vector2( 1042, 699 )
+position = Vector2( 1042, 676 )
+
+[node name="r3d1" type="Position2D" parent="diceList"]
+position = Vector2( 85, 826 )
+
+[node name="r3d2" type="Position2D" parent="diceList"]
+position = Vector2( 242, 826 )
+
+[node name="r3d3" type="Position2D" parent="diceList"]
+position = Vector2( 401, 826 )
+
+[node name="r3d4" type="Position2D" parent="diceList"]
+position = Vector2( 558, 826 )
+
+[node name="r3d5" type="Position2D" parent="diceList"]
+position = Vector2( 723, 826 )
+
+[node name="r3d6" type="Position2D" parent="diceList"]
+position = Vector2( 883, 826 )
+
+[node name="r3d7" type="Position2D" parent="diceList"]
+position = Vector2( 1042, 826 )
 
 [node name="diceContainer" type="Node2D" parent="."]
 script = ExtResource( 8 )
