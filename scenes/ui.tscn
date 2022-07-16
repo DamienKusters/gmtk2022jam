@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
@@ -6,11 +6,9 @@
 [ext_resource path="res://assets/sprites/timer_0.png" type="Texture" id=4]
 [ext_resource path="res://scenes/upgrade.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/scripts/currencyLabel.gd" type="Script" id=6]
-
-[sub_resource type="DynamicFont" id=1]
-size = 60
-use_filter = true
-font_data = ExtResource( 2 )
+[ext_resource path="res://assets/sprites/upgrades/Add_Dice_Icon.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/enemies/drentus cartoon.png" type="Texture" id=8]
+[ext_resource path="res://icon.png" type="Texture" id=9]
 
 [sub_resource type="DynamicFont" id=2]
 size = 60
@@ -50,7 +48,8 @@ anchor_bottom = 1.0
 [node name="Label" type="Label" parent="uiRoot/VBoxContainer/Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.847059, 0.831373, 0, 1 )
+custom_fonts/font = SubResource( 2 )
 text = "$1234567890"
 align = 1
 valign = 1
@@ -60,11 +59,13 @@ script = ExtResource( 6 )
 margin_top = 100.0
 margin_bottom = 200.0
 title = "Upgrade Dice"
+spriteTexture = ExtResource( 9 )
 
 [node name="upgrade2" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 200.0
 margin_bottom = 300.0
 title = "Add Dice"
+spriteTexture = ExtResource( 7 )
 
 [node name="upgrade3" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 300.0
@@ -80,6 +81,7 @@ title = "Dice Tower"
 margin_top = 500.0
 margin_bottom = 600.0
 title = "???"
+spriteTexture = ExtResource( 8 )
 
 [node name="upgrade6" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 600.0

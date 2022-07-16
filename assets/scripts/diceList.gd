@@ -24,6 +24,6 @@ func addDice(type : int):
 	var dice = diceScene.instance();
 	dice.kind = type;
 	dice.position = spots[currentSpot].position;
-	get_parent().call_deferred("add_child", dice);
+	$"../diceContainer".call_deferred("add_child", dice);
 	currentSpot = currentSpot + 1;
 	
