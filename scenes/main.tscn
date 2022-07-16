@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/sprites/bg/parallax-forest-back-trees.png" type="Texture" id=3]
 [ext_resource path="res://assets/sprites/bg/parallax-forest-lights.png" type="Texture" id=4]
 [ext_resource path="res://assets/sprites/bg/parallax-forest-middle-trees.png" type="Texture" id=5]
-[ext_resource path="res://assets/sprites/dice/d4.png" type="Texture" id=6]
+[ext_resource path="res://assets/scripts/diceList.gd" type="Script" id=6]
 [ext_resource path="res://assets/sprites/ui layout detail.png" type="Texture" id=7]
 
 [node name="Node2D" type="Node2D"]
@@ -153,16 +153,8 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 85, 551 )
-texture = ExtResource( 6 )
-
-[node name="Sprite2" type="Sprite" parent="."]
-position = Vector2( 1050, 581 )
-texture = ExtResource( 6 )
-
 [node name="diceList" type="Node2D" parent="."]
+script = ExtResource( 6 )
 
 [node name="r1d1" type="Position2D" parent="diceList"]
 position = Vector2( 85, 551 )
@@ -205,8 +197,3 @@ position = Vector2( 1042, 551 )
 
 [node name="r2d7" type="Position2D" parent="diceList"]
 position = Vector2( 1042, 699 )
-
-[node name="Dice" type="Node2D" parent="."]
-
-[node name="Sprite" type="Sprite" parent="Dice"]
-texture = ExtResource( 6 )
