@@ -12,6 +12,7 @@ export(Upgrade) var kind;
 export var levelCap = -1;
 #export var level: int = 0;
 export(Texture) var spriteTexture;
+export(String) var description;
 
 var level = 0;
 var price = 0;

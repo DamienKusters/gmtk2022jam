@@ -1,8 +1,8 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
-[ext_resource path="res://assets/sprites/gmtk2022.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/ZhbjHEKA.png" type="Texture" id=3]
 [ext_resource path="res://assets/sprites/icons/timer_100.png" type="Texture" id=4]
 [ext_resource path="res://scenes/upgrade.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/scripts/currencyLabel.gd" type="Script" id=6]
@@ -19,6 +19,9 @@
 [ext_resource path="res://assets/sound/money.mp3" type="AudioStream" id=17]
 [ext_resource path="res://assets/sound/damage1.mp3" type="AudioStream" id=18]
 [ext_resource path="res://assets/sprites/upgrades/Contract.png" type="Texture" id=19]
+[ext_resource path="res://assets/scripts/openCredits.gd" type="Script" id=20]
+[ext_resource path="res://assets/sprites/Text_Popup.png" type="Texture" id=21]
+[ext_resource path="res://assets/scripts/help.gd" type="Script" id=22]
 
 [sub_resource type="DynamicFont" id=2]
 size = 60
@@ -184,8 +187,28 @@ bg_color = Color( 0.0117647, 0.72549, 0, 1 )
 bg_color = Color( 1, 1, 1, 1 )
 shadow_color = Color( 1, 0, 0, 0.6 )
 
+[sub_resource type="DynamicFont" id=13]
+size = 34
+font_data = ExtResource( 2 )
+
 [sub_resource type="DynamicFont" id=10]
 size = 77
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 90
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 40
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=14]
+size = 90
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=15]
+size = 50
 font_data = ExtResource( 2 )
 
 [node name="ui" type="CanvasLayer"]
@@ -233,6 +256,7 @@ basePrice = 10
 levelupPriceIncrease = 3
 levelCap = 20
 spriteTexture = ExtResource( 7 )
+description = "Adds another d3 dice"
 
 [node name="u_upgrade" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 200.0
@@ -242,6 +266,7 @@ basePrice = 10
 levelupPricePercentIncrease = 0
 kind = 1
 spriteTexture = ExtResource( 11 )
+description = "Upgrade lowest ranking dice to the next one. (d3, d6, d8 ,d10, d12, d20)"
 
 [node name="u_dm" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 300.0
@@ -251,6 +276,7 @@ basePrice = 50
 kind = 2
 levelCap = 10
 spriteTexture = ExtResource( 10 )
+description = "Automatically rolls a dice. (Level 1: every 10 seconds | Level 10: Every second)"
 
 [node name="u_tower" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 400.0
@@ -260,28 +286,31 @@ basePrice = 100
 kind = 3
 levelCap = 10
 spriteTexture = ExtResource( 12 )
+description = "Rolls dice every 10 seconds,. Amount of dice rolled is equal to the level"
 
 [node name="u_reroll" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 500.0
 margin_bottom = 600.0
 title = "Re-roller"
-basePrice = 150
+basePrice = 50
 levelupPriceIncrease = 35
-levelupPricePercentIncrease = 100
+levelupPricePercentIncrease = 60
 kind = 4
 levelCap = 10
 spriteTexture = ExtResource( 8 )
+description = "Automatically re-rolls any dice equal to or below the level of the upgrade"
 
 [node name="u_contract" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 600.0
 margin_bottom = 700.0
 title = "Contract"
-basePrice = 500
+basePrice = 70
 levelupPriceIncrease = 170
 levelupPricePercentIncrease = 0
 kind = 6
 levelCap = 4
 spriteTexture = ExtResource( 19 )
+description = "Extends the enemy encounters (More challenge & more loot)"
 
 [node name="u_tray" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 visible = false
@@ -411,6 +440,19 @@ custom_styles/bg = SubResource( 4 )
 value = 30.0
 percent_visible = false
 
+[node name="Button" type="Button" parent="uiRoot"]
+anchor_left = 0.7
+anchor_top = 0.85
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 90.0
+margin_top = 30.0
+margin_right = -90.0
+margin_bottom = -30.0
+custom_fonts/font = SubResource( 13 )
+text = "Credits"
+script = ExtResource( 20 )
+
 [node name="TextureRect" type="TextureRect" parent="uiRoot"]
 margin_left = -1369.0
 margin_top = -980.0
@@ -445,5 +487,208 @@ margin_top = 509.0
 margin_right = 3350.0
 margin_bottom = 2339.0
 
+[node name="About" type="ColorRect" parent="uiRoot"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.894118 )
+script = ExtResource( 16 )
+
+[node name="Button" type="Button" parent="uiRoot/About"]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Title" type="Label" parent="uiRoot/About"]
+anchor_right = 1.0
+anchor_bottom = 0.142
+custom_fonts/font = SubResource( 11 )
+text = "Dice & Dragons"
+align = 1
+valign = 1
+
+[node name="TextureRect" type="TextureRect" parent="uiRoot/About"]
+anchor_right = 0.2
+anchor_bottom = 0.25
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="ColorRect" type="ColorRect" parent="uiRoot/About"]
+anchor_left = 0.499
+anchor_top = 0.15
+anchor_right = 0.509
+anchor_bottom = 1.0
+margin_left = -152.0
+margin_right = -152.0
+color = Color( 1, 1, 1, 0.435294 )
+
+[node name="Title2" type="Label" parent="uiRoot/About"]
+anchor_right = 1.0
+anchor_bottom = 0.142
+margin_left = -152.0
+margin_top = 136.0
+margin_right = -976.0
+margin_bottom = 168.2
+custom_fonts/font = SubResource( 12 )
+text = "Developed By"
+align = 2
+valign = 1
+
+[node name="Title3" type="Label" parent="uiRoot/About"]
+anchor_right = 1.0
+anchor_bottom = 0.142
+margin_left = 690.0
+margin_top = 136.0
+margin_right = -152.0
+margin_bottom = 173.2
+custom_fonts/font = SubResource( 12 )
+text = "Damien Kusters
+& Marco van Stiphout"
+valign = 1
+
+[node name="Title4" type="Label" parent="uiRoot/About"]
+anchor_right = 1.0
+anchor_bottom = 0.142
+margin_left = -152.0
+margin_top = 338.0
+margin_right = -976.0
+margin_bottom = 336.2
+custom_fonts/font = SubResource( 12 )
+text = "Background Art"
+align = 2
+valign = 1
+
+[node name="Title5" type="Label" parent="uiRoot/About"]
+anchor_right = 1.0
+anchor_bottom = 0.142
+margin_left = 690.0
+margin_top = 319.0
+margin_right = -152.0
+margin_bottom = 356.2
+custom_fonts/font = SubResource( 12 )
+text = "Luis Zuno (@ansimuz)"
+valign = 1
+
+[node name="Title6" type="Label" parent="uiRoot/About"]
+anchor_right = 1.0
+anchor_bottom = 0.142
+margin_left = -152.0
+margin_top = 419.0
+margin_right = -976.0
+margin_bottom = 417.2
+custom_fonts/font = SubResource( 12 )
+text = "Iconography"
+align = 2
+valign = 1
+
+[node name="Title7" type="Label" parent="uiRoot/About"]
+anchor_right = 1.0
+anchor_bottom = 0.142
+margin_left = 690.0
+margin_top = 400.0
+margin_right = -152.0
+margin_bottom = 437.2
+custom_fonts/font = SubResource( 12 )
+text = "Kenney (www.kenney.nl)"
+valign = 1
+
+[node name="Title8" type="Label" parent="uiRoot/About"]
+anchor_right = 1.0
+anchor_bottom = 0.142
+margin_left = -152.0
+margin_top = 503.0
+margin_right = -976.0
+margin_bottom = 501.2
+custom_fonts/font = SubResource( 12 )
+text = "Font (Almendra)"
+align = 2
+valign = 1
+
+[node name="Title9" type="Label" parent="uiRoot/About"]
+anchor_right = 1.0
+anchor_bottom = 0.142
+margin_left = 690.0
+margin_top = 484.0
+margin_right = -152.0
+margin_bottom = 521.2
+custom_fonts/font = SubResource( 12 )
+text = "Fontsource (www.fontsource.org)"
+valign = 1
+
+[node name="Title10" type="Label" parent="uiRoot/About"]
+anchor_right = 1.0
+anchor_bottom = 0.142
+margin_left = -152.0
+margin_top = 644.0
+margin_right = -976.0
+margin_bottom = 642.2
+custom_fonts/font = SubResource( 12 )
+text = "Sound effects"
+align = 2
+valign = 1
+
+[node name="Title11" type="Label" parent="uiRoot/About"]
+anchor_right = 1.0
+anchor_bottom = 0.142
+margin_left = 690.0
+margin_top = 625.0
+margin_right = -24.0
+margin_bottom = 662.2
+custom_fonts/font = SubResource( 12 )
+text = "www.freesound.org/people/DWOBoyle/
+www.freesound.org/people/LittleRobotSoundFactory/"
+valign = 1
+
+[node name="Help" type="ColorRect" parent="uiRoot"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.376471 )
+script = ExtResource( 22 )
+
+[node name="TextureRect" type="TextureRect" parent="uiRoot/Help"]
+anchor_left = 0.1
+anchor_right = 0.9
+anchor_bottom = 1.0
+texture = ExtResource( 21 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect" type="TextureRect" parent="uiRoot/Help/TextureRect"]
+anchor_left = 0.067
+anchor_top = 0.208
+anchor_right = 0.231
+anchor_bottom = 0.422
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 6
+
+[node name="Title" type="Label" parent="uiRoot/Help/TextureRect/TextureRect"]
+anchor_left = 1.0
+anchor_right = 5.268
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 14 )
+text = "Re-Roller"
+valign = 1
+
+[node name="Title2" type="Label" parent="uiRoot/Help/TextureRect/TextureRect"]
+anchor_top = 1.0
+anchor_right = 5.268
+anchor_bottom = 2.663
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 15 )
+text = "Description"
+autowrap = true
+
+[node name="Button" type="Button" parent="uiRoot/Help"]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
 [connection signal="timeout" from="uiRoot/enemyUi/Timer" to="uiRoot/enemyUi" method="_on_Timer_timeout"]
+[connection signal="button_down" from="uiRoot/Button" to="uiRoot/Button" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/TextureRect/Button" to="uiRoot/TextureRect" method="_on_Button_button_down"]
+[connection signal="button_down" from="uiRoot/About/Button" to="uiRoot/About" method="_on_Button_button_down"]
+[connection signal="button_down" from="uiRoot/Help/Button" to="uiRoot/Help" method="_on_Button_button_down"]

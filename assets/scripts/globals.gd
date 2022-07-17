@@ -7,9 +7,10 @@ signal upgradeDice;
 signal rollRandomDice;
 signal damageEnemy;
 signal currencyUpdated;
+signal openHelp;
 
 var enemyPool = 4;
-var currency = 9999990;
+var currency = 0;
 
 var rng = RandomNumberGenerator.new();
 
@@ -27,6 +28,14 @@ func damageCurrentEnemy(value: int, dice: Node2D):
 	
 func upgradeEnemyPool():
 	enemyPool += 4;
+	
+func openHelp(txt: Texture, title: String, description: String):
+	var obj = {
+		"texture": txt,
+		"title": title,
+		"description": description
+	};
+	emit_signal("openHelp", obj);
 	
 func getEnemyFromPool():
 	var size = enemyPool;
@@ -63,18 +72,18 @@ var enemiesCommon = [
 		"sprite": "res://assets/sprites/enemies/Bird.png"
 	},
 	{
-		"name":"Goblin",
+		"name":"Wolf",
 		"health":10,
 		"currency":12,
-		"time":10,
-		"sprite": "res://assets/sprites/enemies/Regular_Goblin.png"
-	},
-	{
-		"name":"Wolf",
-		"health":17,
-		"currency":14,
 		"time":15,
 		"sprite": "res://assets/sprites/enemies/Wolf.png"
+	},
+	{
+		"name":"Goblin",
+		"health":17,
+		"currency":18,
+		"time":20,
+		"sprite": "res://assets/sprites/enemies/Regular_Goblin.png"
 	},
 	#Tier 2
 	{
