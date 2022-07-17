@@ -12,20 +12,19 @@ func _ready():
 	pass
 
 func rollRandomNonRollingDice():
-	rng.randomize();
+	var dice = get_children();
 	
-	var dice = get_children()[rng.randi_range(0,get_child_count()-1)];
-	
-	if(dice.rolling == false):
-		dice.roll();
-	pass
+	for d in dice:
+		if(d.rolling == false):
+			d.roll();
+			return;
 	
 func upgradeDice():
 	var dice = get_children();
 	
 	var idx = 0;
 	var diceKind = 0; # starts at d3;
-	while(diceKind <= 5):
+	while(diceKind <= 4):
 		for d in dice:
 			if(d.kind == diceKind):
 				remove_child(d);
@@ -37,3 +36,4 @@ func upgradeDice():
 				return;
 			idx += 1;
 		diceKind += 1;
+	print("none can be upgraded");

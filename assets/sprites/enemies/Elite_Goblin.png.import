@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/stepatus cartoon.png-2e70202c957e7bd39833b4d78718f4ca.stex"
+path="res://.import/Elite_Goblin.png-a423d87601a6a7c1f0d6f8f8bbe46b1d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemies/stepatus cartoon.png"
-dest_files=[ "res://.import/stepatus cartoon.png-2e70202c957e7bd39833b4d78718f4ca.stex" ]
+source_file="res://assets/sprites/enemies/Elite_Goblin.png"
+dest_files=[ "res://.import/Elite_Goblin.png-a423d87601a6a7c1f0d6f8f8bbe46b1d.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

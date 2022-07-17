@@ -66,4 +66,4 @@ func _on_Timer_timeout():
 	value = rng.randi_range(1, maxVal);	
 	$Label.text = String(value);
 	
-	g.damageCurrentEnemy(value);
+	g.damageCurrentEnemy(value, self);

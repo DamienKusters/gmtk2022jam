@@ -9,6 +9,7 @@ export var basePrice: int = 0;
 export var levelupPriceIncrease: int = 10;
 export var levelupPricePercentIncrease: int = 10;
 export(Upgrade) var kind;
+export var levelCap = -1;
 #export var level: int = 0;
 export(Texture) var spriteTexture;
 
@@ -20,53 +21,68 @@ func _ready():
 	$Control/TextureRect.texture = spriteTexture;
 	price = basePrice;
 	updateUi();
+	if(kind == 4):
+		g.connect("damageEnemy", self, "enemyDamaged");
 	
 func updateUi():
 	$LabelPrice.text = "$" + String(price);
-	if(level > 0):
-		$LabelLevel.text = String(level);
+	if(levelCap == -1):
+		if(level > 0):
+			$LabelLevel.text = String(level);
+		else:
+			$LabelLevel.text = "";
 	else:
-		$LabelLevel.text = "";
+		if(level > 0):
+			$LabelLevel.text = String(level) + "/" + String(levelCap);
+		else:
+			$LabelLevel.text = "";
 		
 func _on_MouseOverlay_button_down():
 	if(g.currency < price):
 		return;
+	if(levelCap != -1):
+		if(level >= levelCap):
+			return;
 	g.removeCurrency(price);
 	level = level + 1;
 	$CPUParticles2D.restart();
+	$AudioStreamPlayer.play();
 	
 	price = price + levelupPriceIncrease;
-	var priceIncrease: float = (float(price) / float(100)) * float(10);
+	var priceIncrease: float = 0;
+	if(levelupPricePercentIncrease != 0):
+		priceIncrease = (float(price) / float(100)) * float(levelupPricePercentIncrease);
 	price = price + ceil(priceIncrease);
 	updateUi();
 	action();
-	pass # Replace with function body.
 	
 func action():
 	if(kind == 0):
 		g.addDice();
 	if(kind == 1):
-		g.upgradeDice();
-	if(kind == 2 || kind == 3):
+		g.upgradeDice();# BUGGED
+	if(kind == 2):
 		$Timer.stop();
-		var timeDecrease: float = (float($Timer.wait_time) / float(100)) * float(10);
-		$Timer.wait_time = float($Timer.wait_time) - timeDecrease;
+		$Timer.wait_time = float($Timer.wait_time) - 1;
 		$Timer.start();
-	if(kind == 4):
-		pass
+	if(kind == 3):
+		if($Timer.is_stopped()):
+			$Timer.wait_time = 10;
+			$Timer.start();
 	if(kind == 6):
 		# contract
+		g.upgradeEnemyPool();
 		pass
-	if(kind == 5):
-		pass # dice tray
 		
 
 func _on_Timer_timeout():
 	if(kind == 2):
 		g.rollRandomDice();
 	if(kind == 3):
-		g.rollRandomDice();
-		g.rollRandomDice();
-		g.rollRandomDice();
-		g.rollRandomDice();
+		for i in level:
+			g.rollRandomDice();
 	pass # Replace with function body.
+	
+func enemyDamaged(value: int, dice: Node2D):
+	if(value <= level):
+		dice.roll();
