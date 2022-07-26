@@ -10,7 +10,7 @@ signal currencyUpdated;
 signal openHelp;
 
 var enemyPool = 4;
-var currency = 0;
+var currency = 9999990;
 
 var rng = RandomNumberGenerator.new();
 
@@ -61,28 +61,28 @@ var enemiesCommon = [
 		"name":"Slime",
 		"health":3,
 		"currency":3,
-		"time":7,
+		"time":10,
 		"sprite": "res://assets/sprites/enemies/Slime.png"
 	},
 	{
 		"name":"Bird",
 		"health":6,
 		"currency":8,
-		"time":5,
+		"time":10,
 		"sprite": "res://assets/sprites/enemies/Bird.png"
 	},
 	{
 		"name":"Wolf",
 		"health":10,
 		"currency":12,
-		"time":15,
+		"time":10,
 		"sprite": "res://assets/sprites/enemies/Wolf.png"
 	},
 	{
 		"name":"Goblin",
 		"health":17,
 		"currency":18,
-		"time":20,
+		"time":10,
 		"sprite": "res://assets/sprites/enemies/Regular_Goblin.png"
 	},
 	#Tier 2
@@ -104,7 +104,7 @@ var enemiesCommon = [
 		"name":"Elite Goblin",
 		"health":26,
 		"currency":40,
-		"time":6,
+		"time":10,
 		"sprite": "res://assets/sprites/enemies/Elite_Goblin.png"
 	},
 	{
@@ -114,33 +114,40 @@ var enemiesCommon = [
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Pirate.png"
 	},
+#	{#TODO
+#		"name":"Outlaw",
+#		"health":30,
+#		"currency":35,
+#		"time":10,
+#		"sprite": "res://assets/sprites/enemies/Outlaw.png"
+#	},
 	#Tier 3
 	{
 		"name":"Gaia",
 		"health":40,
 		"currency":35,
-		"time":25,
+		"time":10,
 		"sprite": "res://assets/sprites/enemies/Gaia.png"
 	},
 	{
 		"name":"Fire Feline",
 		"health":26,
 		"currency":30,
-		"time":5,
+		"time":10,
 		"sprite": "res://assets/sprites/enemies/Salamander.png"
 	},
 	{
 		"name":"Minotaur",
 		"health":37,
 		"currency":40,
-		"time":15,
+		"time":10,
 		"sprite": "res://assets/sprites/enemies/Minotaur.png"
 	},
 	{
 		"name":"Golem",
 		"health":55,
 		"currency":50,
-		"time":20,
+		"time":10,
 		"sprite": "res://assets/sprites/enemies/Nature_Gorilla.png"
 	},
 	#Tier 4
@@ -162,22 +169,30 @@ var enemiesCommon = [
 		"name":"Wrath",
 		"health":55,
 		"currency":70,
-		"time":15,
+		"time":10,
 		"sprite": "res://assets/sprites/enemies/Wtf.png"
 	},
 	{
 		"name":"Lich",
 		"health":66,
 		"currency":66,
-		"time":20,
+		"time":10,
 		"sprite": "res://assets/sprites/enemies/Lich.png"
 	},
 	#Tier 5
+	#Tier 6
 	{
 		"name":"Necromancer",
-		"health":200,
+		"health":400,
 		"currency":350,
-		"time":20,
+		"time":10,
 		"sprite": "res://assets/sprites/enemies/Necromancer.png"
+	},
+	{
+		"name":"Demon Lord",
+		"health":550,
+		"currency":400,
+		"time":10,
+		"sprite": "res://assets/sprites/enemies/Demon.png"
 	},
 ];

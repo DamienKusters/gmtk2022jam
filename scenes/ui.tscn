@@ -1,9 +1,8 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/sprites/ZhbjHEKA.png" type="Texture" id=3]
-[ext_resource path="res://assets/sprites/icons/timer_100.png" type="Texture" id=4]
 [ext_resource path="res://scenes/upgrade.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/scripts/currencyLabel.gd" type="Script" id=6]
 [ext_resource path="res://assets/sprites/upgrades/Add_Dice_Icon.png" type="Texture" id=7]
@@ -22,6 +21,11 @@
 [ext_resource path="res://assets/scripts/openCredits.gd" type="Script" id=20]
 [ext_resource path="res://assets/sprites/Text_Popup.png" type="Texture" id=21]
 [ext_resource path="res://assets/scripts/help.gd" type="Script" id=22]
+[ext_resource path="res://assets/scripts/removeSelfAndRoll.gd" type="Script" id=23]
+[ext_resource path="res://assets/sprites/ui/bar_progress_green.png" type="Texture" id=24]
+[ext_resource path="res://assets/sprites/ui/bar_front.png" type="Texture" id=25]
+[ext_resource path="res://assets/sprites/ui/bar_back.png" type="Texture" id=26]
+[ext_resource path="res://assets/sprites/ui/bar_progress_red.png" type="Texture" id=27]
 
 [sub_resource type="DynamicFont" id=2]
 size = 60
@@ -180,13 +184,6 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.584314, 0.584314, 0.584314, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.0117647, 0.72549, 0, 1 )
-
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 1, 1, 1, 1 )
-shadow_color = Color( 1, 0, 0, 0.6 )
-
 [sub_resource type="DynamicFont" id=13]
 size = 34
 font_data = ExtResource( 2 )
@@ -296,7 +293,7 @@ basePrice = 50
 levelupPriceIncrease = 35
 levelupPricePercentIncrease = 60
 kind = 4
-levelCap = 10
+levelCap = 20
 spriteTexture = ExtResource( 8 )
 description = "Automatically re-rolls any dice equal to or below the level of the upgrade"
 
@@ -338,26 +335,20 @@ volume_db = -10.0
 mix_target = 1
 bus = "Effect"
 
+[node name="Tween" type="Tween" parent="uiRoot/enemyUi"]
+
 [node name="Timer" type="Timer" parent="uiRoot/enemyUi"]
 autostart = true
-
-[node name="clock" type="TextureRect" parent="uiRoot/enemyUi"]
-self_modulate = Color( 0.341176, 0, 0, 0.647059 )
-margin_left = 942.0
-margin_top = 323.0
-margin_right = 1070.0
-margin_bottom = 451.0
-texture = ExtResource( 4 )
 
 [node name="EnemyContainer" type="Control" parent="uiRoot/enemyUi"]
 anchor_left = 0.2
 anchor_top = 0.3
 anchor_right = 0.8
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -10.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
 
 [node name="TextureEnemy" type="TextureRect" parent="uiRoot/enemyUi/EnemyContainer"]
 anchor_right = 1.0
@@ -397,18 +388,6 @@ text = "Enemy Name"
 align = 1
 valign = 1
 
-[node name="LabelTimer" type="Label" parent="uiRoot/enemyUi"]
-anchor_left = 0.8
-anchor_top = 0.7
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_colors/font_color = Color( 0.67451, 0, 0, 1 )
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 2 )
-text = "99"
-align = 1
-valign = 1
-
 [node name="LabelBounty" type="Label" parent="uiRoot/enemyUi"]
 anchor_left = 0.8
 anchor_right = 1.0
@@ -421,24 +400,35 @@ align = 1
 valign = 1
 
 [node name="Control" type="Control" parent="uiRoot/enemyUi"]
-anchor_right = 0.1
-anchor_bottom = 1.0
+anchor_right = 0.3
+anchor_bottom = 0.3
 margin_left = 10.0
 margin_top = 10.0
 margin_right = -10.0
 margin_bottom = -10.0
 
-[node name="ProgressBar" type="ProgressBar" parent="uiRoot/enemyUi/Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 436.0
-margin_right = 345.0
-margin_bottom = 94.0
-rect_rotation = -90.0
-custom_styles/fg = SubResource( 3 )
-custom_styles/bg = SubResource( 4 )
-value = 30.0
-percent_visible = false
+[node name="VBoxContainer" type="VBoxContainer" parent="uiRoot/enemyUi/Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 1.7, 1.7 )
+
+[node name="TextureProgress" type="TextureProgress" parent="uiRoot/enemyUi/Control/VBoxContainer"]
+margin_right = 194.0
+margin_bottom = 26.0
+value = 50.0
+texture_under = ExtResource( 26 )
+texture_over = ExtResource( 25 )
+texture_progress = ExtResource( 24 )
+
+[node name="TextureProgress2" type="TextureProgress" parent="uiRoot/enemyUi/Control/VBoxContainer"]
+margin_top = 30.0
+margin_right = 194.0
+margin_bottom = 56.0
+step = 0.01
+value = 50.0
+texture_under = ExtResource( 26 )
+texture_over = ExtResource( 25 )
+texture_progress = ExtResource( 27 )
 
 [node name="Button" type="Button" parent="uiRoot"]
 anchor_left = 0.7
@@ -460,7 +450,7 @@ margin_right = 1677.0
 margin_bottom = 2066.0
 texture = ExtResource( 14 )
 expand = true
-script = ExtResource( 16 )
+script = ExtResource( 23 )
 
 [node name="TextureRect" type="TextureRect" parent="uiRoot/TextureRect"]
 margin_left = 1548.0
@@ -551,9 +541,9 @@ valign = 1
 anchor_right = 1.0
 anchor_bottom = 0.142
 margin_left = -152.0
-margin_top = 338.0
+margin_top = 390.0
 margin_right = -976.0
-margin_bottom = 336.2
+margin_bottom = 388.2
 custom_fonts/font = SubResource( 12 )
 text = "Background Art"
 align = 2
@@ -563,20 +553,43 @@ valign = 1
 anchor_right = 1.0
 anchor_bottom = 0.142
 margin_left = 690.0
-margin_top = 319.0
+margin_top = 371.0
 margin_right = -152.0
-margin_bottom = 356.2
+margin_bottom = 408.2
 custom_fonts/font = SubResource( 12 )
 text = "Luis Zuno (@ansimuz)"
+valign = 1
+
+[node name="Title12" type="Label" parent="uiRoot/About"]
+anchor_right = 1.0
+anchor_bottom = 0.142
+margin_left = -152.0
+margin_top = 311.0
+margin_right = -976.0
+margin_bottom = 309.2
+custom_fonts/font = SubResource( 12 )
+text = "Enemy Art"
+align = 2
+valign = 1
+
+[node name="Title13" type="Label" parent="uiRoot/About"]
+anchor_right = 1.0
+anchor_bottom = 0.142
+margin_left = 690.0
+margin_top = 292.0
+margin_right = -152.0
+margin_bottom = 329.2
+custom_fonts/font = SubResource( 12 )
+text = "JosephSeraph"
 valign = 1
 
 [node name="Title6" type="Label" parent="uiRoot/About"]
 anchor_right = 1.0
 anchor_bottom = 0.142
 margin_left = -152.0
-margin_top = 419.0
+margin_top = 471.0
 margin_right = -976.0
-margin_bottom = 417.2
+margin_bottom = 469.2
 custom_fonts/font = SubResource( 12 )
 text = "Iconography"
 align = 2
@@ -586,9 +599,9 @@ valign = 1
 anchor_right = 1.0
 anchor_bottom = 0.142
 margin_left = 690.0
-margin_top = 400.0
+margin_top = 452.0
 margin_right = -152.0
-margin_bottom = 437.2
+margin_bottom = 489.2
 custom_fonts/font = SubResource( 12 )
 text = "Kenney (www.kenney.nl)"
 valign = 1
@@ -597,9 +610,9 @@ valign = 1
 anchor_right = 1.0
 anchor_bottom = 0.142
 margin_left = -152.0
-margin_top = 503.0
+margin_top = 555.0
 margin_right = -976.0
-margin_bottom = 501.2
+margin_bottom = 553.2
 custom_fonts/font = SubResource( 12 )
 text = "Font (Almendra)"
 align = 2
@@ -609,9 +622,9 @@ valign = 1
 anchor_right = 1.0
 anchor_bottom = 0.142
 margin_left = 690.0
-margin_top = 484.0
+margin_top = 536.0
 margin_right = -152.0
-margin_bottom = 521.2
+margin_bottom = 573.2
 custom_fonts/font = SubResource( 12 )
 text = "Fontsource (www.fontsource.org)"
 valign = 1
@@ -620,9 +633,9 @@ valign = 1
 anchor_right = 1.0
 anchor_bottom = 0.142
 margin_left = -152.0
-margin_top = 644.0
+margin_top = 696.0
 margin_right = -976.0
-margin_bottom = 642.2
+margin_bottom = 694.2
 custom_fonts/font = SubResource( 12 )
 text = "Sound effects"
 align = 2
@@ -632,9 +645,9 @@ valign = 1
 anchor_right = 1.0
 anchor_bottom = 0.142
 margin_left = 690.0
-margin_top = 625.0
+margin_top = 677.0
 margin_right = -24.0
-margin_bottom = 662.2
+margin_bottom = 714.2
 custom_fonts/font = SubResource( 12 )
 text = "www.freesound.org/people/DWOBoyle/
 www.freesound.org/people/LittleRobotSoundFactory/"
