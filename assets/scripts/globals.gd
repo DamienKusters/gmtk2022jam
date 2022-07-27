@@ -10,6 +10,7 @@ signal currencyUpdated;
 signal openHelp;
 
 var enemyPool = 4;
+var maxDiceRollTime = 4.5;
 var currency = 9999990;
 
 var rng = RandomNumberGenerator.new();

@@ -18,7 +18,7 @@ func respawnEnemy():
 	$LabelEnemy.text = enemy['name'];
 	$EnemyContainer/TextureEnemy.texture = load(enemy['sprite']);
 #	$LabelTimer.text = String(enemy['time']);
-	$LabelBounty.text = "+ $" + String(enemy['currency']);
+	$LabelEnemy/LabelBounty.text = "$" + String(enemy['currency']);
 	$Control/VBoxContainer/TextureProgress.max_value = enemy['health'];
 	$Control/VBoxContainer/TextureProgress.value = enemy['health'];
 	enemyHealth = enemy['health'];
@@ -34,6 +34,7 @@ func damage(value: int, dice: Node2D):
 	if(enemyHealth <= 0):
 		g.addCurrency(enemy['currency']);
 		$AudioMoney.play();
+		$EnemyContainer/CPUParticles2D.restart();
 		respawnEnemy();
 	else:
 		$Control/VBoxContainer/TextureProgress.value = enemyHealth;

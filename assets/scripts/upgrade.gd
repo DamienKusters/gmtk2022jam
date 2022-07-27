@@ -1,6 +1,6 @@
 extends Control
 
-enum Upgrade { ADD_DICE, UPGRADE_DICE, DUNGEON_MASTER, DICE_TOWER, REROLL, DICE_TRAY, CONTRACT };
+enum Upgrade { ADD_DICE, UPGRADE_DICE, DUNGEON_MASTER, DICE_TOWER, REROLL, DICE_TRAY, CONTRACT, ROLL_DECREASE };
 
 onready var g = $"/root/Globals";
 
@@ -64,7 +64,10 @@ func action():
 		g.upgradeDice();# BUGGED
 	if(kind == 2):
 		$Timer.stop();
-		$Timer.wait_time = float($Timer.wait_time) - 1;
+		if($Timer.wait_time <= 1):
+			$Timer.wait_time = float($Timer.wait_time) - .1;
+		else:
+			$Timer.wait_time = float($Timer.wait_time) - 1;
 		$Timer.start();
 	if(kind == 3):
 		if($Timer.is_stopped()):
@@ -74,6 +77,8 @@ func action():
 		# contract
 		g.upgradeEnemyPool();
 		pass
+	if(kind == 7):
+		g.maxDiceRollTime = g.maxDiceRollTime - .1;
 		
 
 func _on_Timer_timeout():
