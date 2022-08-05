@@ -57,43 +57,36 @@ func removeCurrency(value: int):
 	emit_signal("currencyUpdated", currency);
 
 var enemiesCommon = [
-	#Tier 1
+	#Tier 1: Basic
 	{
 		"name":"Slime",
 		"health":3,
-		"currency":3,
+		"currency":5,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Slime.png"
 	},
 	{
 		"name":"Bird",
-		"health":6,
-		"currency":8,
+		"health":4,
+		"currency":7,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Bird.png"
 	},
 	{
 		"name":"Wolf",
-		"health":10,
-		"currency":12,
+		"health":7,
+		"currency":10,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Wolf.png"
 	},
 	{
 		"name":"Goblin",
-		"health":17,
-		"currency":18,
+		"health":10,
+		"currency":15,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Regular_Goblin.png"
 	},
-	#Tier 2
-	{
-		"name":"Witch",
-		"health":20,
-		"currency":24,
-		"time":10,
-		"sprite": "res://assets/sprites/enemies/Witch.png"
-	},
+	#Tier 2: Advanced
 	{
 		"name":"Cobalt Wolf",
 		"health":26,
@@ -115,27 +108,27 @@ var enemiesCommon = [
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Pirate.png"
 	},
-#	{#TODO
-#		"name":"Outlaw",
-#		"health":30,
-#		"currency":35,
-#		"time":10,
-#		"sprite": "res://assets/sprites/enemies/Outlaw.png"
-#	},
-	#Tier 3
+	{
+		"name":"Outlaw",
+		"health":30,
+		"currency":35,
+		"time":10,
+		"sprite": "res://assets/sprites/enemies/Bandit.png"
+	},
+	#Tier 3: Mytical
+	{
+		"name":"Witch",
+		"health":34,
+		"currency":37,
+		"time":10,
+		"sprite": "res://assets/sprites/enemies/Witch.png"
+	},
 	{
 		"name":"Gaia",
 		"health":40,
 		"currency":35,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Gaia.png"
-	},
-	{
-		"name":"Fire Feline",
-		"health":26,
-		"currency":30,
-		"time":10,
-		"sprite": "res://assets/sprites/enemies/Salamander.png"
 	},
 	{
 		"name":"Minotaur",
@@ -151,7 +144,7 @@ var enemiesCommon = [
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Nature_Gorilla.png"
 	},
-	#Tier 4
+	#Tier 4: Magic
 	{
 		"name":"Pixie",
 		"health":40,
@@ -174,20 +167,40 @@ var enemiesCommon = [
 		"sprite": "res://assets/sprites/enemies/Wtf.png"
 	},
 	{
+		"name":"Necromancer",
+		"health":400,
+		"currency":350,
+		"time":10,
+		"sprite": "res://assets/sprites/enemies/Necromancer.png"
+	},
+	#Tier 5: Demons
+#	{
+#		"name":"Fire Demon",
+#		"health":26,
+#		"currency":30,
+#		"time":10,
+#		"sprite": "res://assets/sprites/enemies/Salamander.png"
+#	},
+	{
 		"name":"Lich",
 		"health":66,
 		"currency":66,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Lich.png"
 	},
-	#Tier 5
-	#Tier 6
 	{
-		"name":"Necromancer",
-		"health":400,
-		"currency":350,
+		"name":"Demon Pixie",
+		"health":40,
+		"currency":58,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Necromancer.png"
+		"sprite": "res://assets/sprites/enemies/Earth_Lady_Vampire.png"
+	},
+	{
+		"name":"Demon Pixie",
+		"health":45,
+		"currency":62,
+		"time":10,
+		"sprite": "res://assets/sprites/enemies/Pixie_Man_Vampire.png"
 	},
 	{
 		"name":"Demon Lord",
@@ -196,4 +209,70 @@ var enemiesCommon = [
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Demon.png"
 	},
+	#Tier 6: Elementals
+	{
+		"name":"Earth Elemental",
+		"health":550,
+		"currency":400,
+		"time":10,
+		"sprite": "res://assets/sprites/enemies/Earth_Elemental.png"
+	},
+	{
+		"name":"Fire Elemental",
+		"health":550,
+		"currency":400,
+		"time":10,
+		"sprite": "res://assets/sprites/enemies/Fire_Elemental.png"
+	},
+	{
+		"name":"Power Elemental",
+		"health":550,
+		"currency":400,
+		"time":10,
+		"sprite": "res://assets/sprites/enemies/Volt_Elemental.png"
+	},
+	{
+		"name":"Water Elemental",
+		"health":550,
+		"currency":400,
+		"time":10,
+		"sprite": "res://assets/sprites/enemies/Water_Elemental.png"
+	},
+	# Tier 7: Legendary
+	{
+		"name":"Darkness",
+		"health":550,
+		"currency":400,
+		"time":10,
+		"sprite": "res://assets/sprites/enemies/Darkness.png"
+	},
+	{
+		"name":"Light",
+		"health":550,
+		"currency":400,
+		"time":10,
+		"sprite": "res://assets/sprites/enemies/Light.png"
+	},
+	{
+		"name":"Angel",
+		"health":1600,
+		"currency":400,
+		"time":10,
+		"sprite": "res://assets/sprites/enemies/Angel.png"
+	},
+	# Tier 8: Future
+#	{
+#		"name":"Destroyer",
+#		"health":550,
+#		"currency":400,
+#		"time":10,
+#		"sprite": "res://assets/sprites/enemies/DestroyerV1.png"
+#	},
+#	{
+#		"name":"Destroyer MRK 2",
+#		"health":550,
+#		"currency":400,
+#		"time":10,
+#		"sprite": "res://assets/sprites/enemies/DestroyerV2.png"
+#	},
 ];

@@ -48,6 +48,9 @@ func _on_MouseOverlay_button_down():
 	level = level + 1;
 	$CPUParticles2D.restart();
 	$AudioStreamPlayer.play();
+	if(levelCap != -1):
+		if(level >= levelCap):
+			$LabelPrice.visible = false;
 	
 	price = price + levelupPriceIncrease;
 	var priceIncrease: float = 0;
@@ -57,6 +60,7 @@ func _on_MouseOverlay_button_down():
 	updateUi();
 	action();
 	
+	
 func action():
 	if(kind == 0):
 		g.addDice();
@@ -64,8 +68,15 @@ func action():
 		g.upgradeDice();# BUGGED
 	if(kind == 2):
 		$Timer.stop();
+		var tim = $Timer.wait_time;
 		if($Timer.wait_time <= 1):
 			$Timer.wait_time = float($Timer.wait_time) - .1;
+		elif(tim <= 2):
+			$Timer.wait_time = float($Timer.wait_time) - .2;
+		elif(tim <= 3):
+			$Timer.wait_time = float($Timer.wait_time) - .3;
+		elif(tim <= 4):
+			$Timer.wait_time = float($Timer.wait_time) - .4;
 		else:
 			$Timer.wait_time = float($Timer.wait_time) - 1;
 		$Timer.start();
@@ -78,7 +89,7 @@ func action():
 		g.upgradeEnemyPool();
 		pass
 	if(kind == 7):
-		g.maxDiceRollTime = g.maxDiceRollTime - .1;
+		g.maxDiceRollTime = g.maxDiceRollTime - .2;
 		
 
 func _on_Timer_timeout():

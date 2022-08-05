@@ -7,6 +7,8 @@ var timeLeft = -1;
 var enemyHealth = 0;
 var rng = RandomNumberGenerator.new();
 
+var secondDmg = 0;
+
 func _ready():
 	g.connect("damageEnemy", self, "damage");
 	respawnEnemy();
@@ -22,15 +24,18 @@ func respawnEnemy():
 	$Control/VBoxContainer/TextureProgress.max_value = enemy['health'];
 	$Control/VBoxContainer/TextureProgress.value = enemy['health'];
 	enemyHealth = enemy['health'];
-	timeLeft = enemy['time'];
+#	if(timeLeft == -1):
+#		timeLeft = enemy['time'];
+	timeLeft = 8;
 	$EnemyContainer/AnimationPlayer.play("spawn");
 	$Control/VBoxContainer/TextureProgress2.max_value = timeLeft;
 	$Control/VBoxContainer/TextureProgress2.value = timeLeft;
-	$Tween.interpolate_property($Control/VBoxContainer/TextureProgress2, "value", float(timeLeft), 0.3, timeLeft+1, Tween.TRANS_SINE, Tween.EASE_IN_OUT);
+	$Tween.interpolate_property($Control/VBoxContainer/TextureProgress2, "value", float(timeLeft), 0.2, timeLeft+1, Tween.TRANS_SINE, Tween.EASE_IN_OUT);
 	$Tween.start();
 
 func damage(value: int, dice: Node2D):
 	enemyHealth = enemyHealth - value;
+	secondDmg += value;
 	if(enemyHealth <= 0):
 		g.addCurrency(enemy['currency']);
 		$AudioMoney.play();
@@ -55,3 +60,9 @@ func playRandomDamageSound():
 	var pitch = rng.randf_range(0.80, 1.60);
 	$AudioDamage.pitch_scale = pitch;
 	$AudioDamage.play();
+
+
+func _on_dpsTimer_timeout():
+	$Label.text = String(secondDmg);
+	secondDmg = 0;
+	pass # Replace with function body.

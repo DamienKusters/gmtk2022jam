@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
@@ -190,6 +190,10 @@ outline_size = 4
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 2 )
 
+[sub_resource type="DynamicFont" id=17]
+size = 51
+font_data = ExtResource( 2 )
+
 [sub_resource type="DynamicFont" id=13]
 size = 34
 font_data = ExtResource( 2 )
@@ -225,7 +229,7 @@ mouse_filter = 2
 anchor_left = 0.7
 anchor_right = 1.0
 anchor_bottom = 0.85
-custom_constants/separation = 0
+custom_constants/separation = -5
 
 [node name="Control" type="Control" parent="uiRoot/VBoxContainer"]
 margin_right = 480.0
@@ -252,46 +256,73 @@ valign = 1
 script = ExtResource( 6 )
 
 [node name="u_add" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-margin_top = 100.0
-margin_bottom = 200.0
+margin_top = 95.0
+margin_bottom = 195.0
 title = "Add Dice"
 basePrice = 10
-levelupPriceIncrease = 3
+levelupPriceIncrease = 5
+levelupPricePercentIncrease = 12
 levelCap = 20
 spriteTexture = ExtResource( 7 )
 description = "Adds another d4 dice"
 
 [node name="u_upgrade" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-margin_top = 200.0
-margin_bottom = 300.0
+margin_top = 190.0
+margin_bottom = 290.0
 title = "Upgrade Dice"
 basePrice = 10
+levelupPriceIncrease = 5
 levelupPricePercentIncrease = 0
 kind = 1
 spriteTexture = ExtResource( 11 )
 description = "Upgrade lowest ranking dice to the next one. (d4, d6, d8 ,d10, d12, d20)"
 
 [node name="u_dm" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-margin_top = 300.0
-margin_bottom = 400.0
+margin_top = 285.0
+margin_bottom = 385.0
 title = "Dungeon Master"
-basePrice = 50
+basePrice = 25
+levelupPriceIncrease = 23
 kind = 2
-levelCap = 17
+levelCap = 20
 spriteTexture = ExtResource( 10 )
 description = "Automatically rolls a dice. (Level 1: every 10 seconds | Level 10: Every second)"
 
 [node name="u_rolltime" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-margin_top = 400.0
-margin_bottom = 500.0
+margin_top = 380.0
+margin_bottom = 480.0
 title = "Dice Tower"
-basePrice = 70
+basePrice = 25
 levelupPriceIncrease = 170
 levelupPricePercentIncrease = 0
 kind = 7
-levelCap = 40
+levelCap = 20
 spriteTexture = ExtResource( 12 )
-description = "Decreases the maximum dice rolling time by 0.1 second, each level."
+description = "Decreases maximum dice rolling time by each level."
+
+[node name="u_reroll" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
+margin_top = 475.0
+margin_bottom = 575.0
+title = "Re-roller"
+basePrice = 50
+levelupPriceIncrease = 35
+levelupPricePercentIncrease = 60
+kind = 4
+levelCap = 10
+spriteTexture = ExtResource( 8 )
+description = "Automatically re-rolls any dice equal to or below the level of the upgrade"
+
+[node name="u_contract" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
+margin_top = 570.0
+margin_bottom = 670.0
+title = "Contract"
+basePrice = 100
+levelupPriceIncrease = 170
+levelupPricePercentIncrease = 50
+kind = 6
+levelCap = 6
+spriteTexture = ExtResource( 19 )
+description = "Extends the enemy encounters (More challenge & more loot)"
 
 [node name="u_tower" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 visible = false
@@ -303,30 +334,6 @@ kind = 3
 levelCap = 10
 spriteTexture = ExtResource( 12 )
 description = "Rolls dice every 10 seconds,. Amount of dice rolled is equal to the level"
-
-[node name="u_reroll" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-margin_top = 500.0
-margin_bottom = 600.0
-title = "Re-roller"
-basePrice = 50
-levelupPriceIncrease = 35
-levelupPricePercentIncrease = 60
-kind = 4
-levelCap = 20
-spriteTexture = ExtResource( 8 )
-description = "Automatically re-rolls any dice equal to or below the level of the upgrade"
-
-[node name="u_contract" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-margin_top = 600.0
-margin_bottom = 700.0
-title = "Contract"
-basePrice = 70
-levelupPriceIncrease = 170
-levelupPricePercentIncrease = 0
-kind = 6
-levelCap = 4
-spriteTexture = ExtResource( 19 )
-description = "Extends the enemy encounters (More challenge & more loot)"
 
 [node name="u_tray" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 visible = false
@@ -391,6 +398,14 @@ texture = ExtResource( 3 )
 expand = true
 stretch_mode = 6
 
+[node name="TextureEnemyEnding" type="TextureRect" parent="uiRoot/enemyUi/EnemyContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="uiRoot/enemyUi/EnemyContainer"]
 root_node = NodePath("../TextureEnemy")
 anims/RESET = SubResource( 6 )
@@ -402,7 +417,7 @@ anims/damage = SubResource( 9 )
 
 [node name="LabelEnemy" type="Label" parent="uiRoot/enemyUi"]
 anchor_right = 1.0
-anchor_bottom = 0.3
+anchor_bottom = 0.25
 custom_fonts/font = SubResource( 2 )
 text = "Enemy Name"
 align = 1
@@ -450,6 +465,17 @@ value = 50.0
 texture_under = ExtResource( 26 )
 texture_over = ExtResource( 25 )
 texture_progress = ExtResource( 27 )
+
+[node name="Label" type="Label" parent="uiRoot/enemyUi"]
+margin_left = 58.0
+margin_top = 218.0
+margin_right = 98.0
+margin_bottom = 232.0
+custom_fonts/font = SubResource( 17 )
+text = "DPS: 9999"
+
+[node name="dpsTimer" type="Timer" parent="uiRoot/enemyUi"]
+autostart = true
 
 [node name="Button" type="Button" parent="uiRoot"]
 anchor_left = 0.7
@@ -722,6 +748,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [connection signal="timeout" from="uiRoot/enemyUi/Timer" to="uiRoot/enemyUi" method="_on_Timer_timeout"]
+[connection signal="timeout" from="uiRoot/enemyUi/dpsTimer" to="uiRoot/enemyUi" method="_on_dpsTimer_timeout"]
 [connection signal="button_down" from="uiRoot/Button" to="uiRoot/Button" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/TextureRect/Button" to="uiRoot/TextureRect" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/About/Button" to="uiRoot/About" method="_on_Button_button_down"]
