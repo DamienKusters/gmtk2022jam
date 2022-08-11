@@ -52,6 +52,7 @@ func roll():
 	rng.randomize();
 	$Timer.wait_time = rng.randf_range(minRollingSpeed,g.maxDiceRollTime);
 	$Timer.start();
+	$Sprite/AnimationPlayer.play("RESET");
 	$Sprite/AnimationPlayer.play("rotate");
 	$Label.text = "";
 
@@ -61,8 +62,13 @@ func _on_Area2D_input_event(viewport, event, shape_idx):
 
 func _on_Timer_timeout():
 	rolling = false;
-#	$Sprite/AnimationPlayer.stop();
 	$Sprite/AnimationPlayer.play("RESET");
+	# Cool effect Tweens are awesome
+#	$Sprite/AnimationPlayer.stop();
+#	var tweena := create_tween().set_trans(Tween.TRANS_BACK);
+#	var tweenb := create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT);
+#	tweena.tween_property($Sprite, "modulate",Color(1,1,1,1),.5);
+#	tweenb.tween_property($Sprite, "rotation_degrees",360.0,1.2);
 	
 	rng.randomize();
 	value = rng.randi_range(1, maxVal);	

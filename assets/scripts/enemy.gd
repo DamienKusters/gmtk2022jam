@@ -20,7 +20,7 @@ func respawnEnemy():
 	$LabelEnemy.text = enemy['name'];
 	$EnemyContainer/TextureEnemy.texture = load(enemy['sprite']);
 #	$LabelTimer.text = String(enemy['time']);
-	$LabelEnemy/LabelBounty.text = "$" + String(enemy['currency']);
+	$LabelEnemy/LabelBounty.text = "" + String(enemy['currency']);
 	$Control/VBoxContainer/TextureProgress.max_value = enemy['health'];
 	$Control/VBoxContainer/TextureProgress.value = enemy['health'];
 	enemyHealth = enemy['health'];

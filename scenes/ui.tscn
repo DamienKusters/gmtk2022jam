@@ -1,8 +1,9 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/sprites/ZhbjHEKA.png" type="Texture" id=3]
+[ext_resource path="res://assets/fonts/almendra-all-400-normal.woff" type="DynamicFontData" id=4]
 [ext_resource path="res://scenes/upgrade.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/scripts/currencyLabel.gd" type="Script" id=6]
 [ext_resource path="res://assets/sprites/upgrades/Add_Dice_Icon.png" type="Texture" id=7]
@@ -11,6 +12,7 @@
 [ext_resource path="res://assets/sprites/upgrades/Dungeon_Master_Icon.png" type="Texture" id=10]
 [ext_resource path="res://assets/sprites/upgrades/Upgrade_Dice_Icon.png" type="Texture" id=11]
 [ext_resource path="res://assets/sprites/upgrades/Dice_Tower.png" type="Texture" id=12]
+[ext_resource path="res://assets/sprites/ui/upgrade_item.png" type="Texture" id=13]
 [ext_resource path="res://assets/sprites/fader.png" type="Texture" id=14]
 [ext_resource path="res://assets/sprites/icons/arrow_right_curve.png" type="Texture" id=15]
 [ext_resource path="res://assets/scripts/removeSelf.gd" type="Script" id=16]
@@ -25,6 +27,7 @@
 [ext_resource path="res://assets/sprites/ui/bar_front.png" type="Texture" id=25]
 [ext_resource path="res://assets/sprites/ui/bar_back.png" type="Texture" id=26]
 [ext_resource path="res://assets/sprites/ui/bar_progress_red.png" type="Texture" id=27]
+[ext_resource path="res://assets/scripts/currencyIncrease.gd" type="Script" id=28]
 
 [sub_resource type="DynamicFont" id=2]
 size = 60
@@ -190,9 +193,125 @@ outline_size = 4
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 2 )
 
+[sub_resource type="DynamicFont" id=18]
+size = 19
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 4 )
+
 [sub_resource type="DynamicFont" id=17]
 size = 51
 font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=19]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "wiggle"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -4.0, 4.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.815686, 0.431373, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0.815686, 0.431373, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0.815686, 0.431373, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0.815686, 0.431373, 1 ) ]
+}
+
+[sub_resource type="Animation" id=21]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:margin_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "fade_up"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:margin_top")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 120, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [sub_resource type="DynamicFont" id=13]
 size = 34
@@ -236,7 +355,15 @@ margin_right = 480.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 0, 100 )
 
+[node name="TextureRect2" type="TextureRect" parent="uiRoot/VBoxContainer/Control"]
+self_modulate = Color( 0.623529, 0.513726, 0.384314, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 13 )
+expand = true
+
 [node name="Panel" type="Panel" parent="uiRoot/VBoxContainer/Control"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -274,6 +401,7 @@ basePrice = 10
 levelupPriceIncrease = 5
 levelupPricePercentIncrease = 0
 kind = 1
+levelCap = 105
 spriteTexture = ExtResource( 11 )
 description = "Upgrade lowest ranking dice to the next one. (d4, d6, d8 ,d10, d12, d20)"
 
@@ -286,7 +414,7 @@ levelupPriceIncrease = 23
 kind = 2
 levelCap = 20
 spriteTexture = ExtResource( 10 )
-description = "Automatically rolls a dice. (Level 1: every 10 seconds | Level 10: Every second)"
+description = "Automatically rolls a dice. The higher the level the faster it'll be."
 
 [node name="u_rolltime" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 380.0
@@ -308,7 +436,7 @@ basePrice = 50
 levelupPriceIncrease = 35
 levelupPricePercentIncrease = 60
 kind = 4
-levelCap = 10
+levelCap = 20
 spriteTexture = ExtResource( 8 )
 description = "Automatically re-rolls any dice equal to or below the level of the upgrade"
 
@@ -456,6 +584,15 @@ texture_under = ExtResource( 26 )
 texture_over = ExtResource( 25 )
 texture_progress = ExtResource( 24 )
 
+[node name="Label" type="Label" parent="uiRoot/enemyUi/Control/VBoxContainer/TextureProgress"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -10.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 18 )
+text = "Health"
+align = 2
+
 [node name="TextureProgress2" type="TextureProgress" parent="uiRoot/enemyUi/Control/VBoxContainer"]
 margin_top = 30.0
 margin_right = 194.0
@@ -465,6 +602,15 @@ value = 50.0
 texture_under = ExtResource( 26 )
 texture_over = ExtResource( 25 )
 texture_progress = ExtResource( 27 )
+
+[node name="Label" type="Label" parent="uiRoot/enemyUi/Control/VBoxContainer/TextureProgress2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -10.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 18 )
+text = "Time"
+align = 2
 
 [node name="Label" type="Label" parent="uiRoot/enemyUi"]
 margin_left = 58.0
@@ -476,6 +622,35 @@ text = "DPS: 9999"
 
 [node name="dpsTimer" type="Timer" parent="uiRoot/enemyUi"]
 autostart = true
+
+[node name="Control2" type="Control" parent="uiRoot/enemyUi"]
+anchor_left = 0.8
+anchor_right = 1.0
+anchor_bottom = 0.25
+script = ExtResource( 28 )
+
+[node name="LabelBounty" type="Label" parent="uiRoot/enemyUi/Control2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 112, 40 )
+custom_colors/font_color = Color( 0.847059, 0.831373, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 16 )
+text = "+ 99"
+align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="uiRoot/enemyUi/Control2/LabelBounty"]
+autoplay = "wiggle"
+anims/RESET = SubResource( 19 )
+anims/wiggle = SubResource( 20 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="uiRoot/enemyUi/Control2"]
+anims/RESET = SubResource( 21 )
+anims/fade_up = SubResource( 22 )
+
+[node name="Timer" type="Timer" parent="uiRoot/enemyUi/Control2"]
+wait_time = 1.5
+one_shot = true
 
 [node name="Button" type="Button" parent="uiRoot"]
 anchor_left = 0.7
@@ -749,6 +924,7 @@ anchor_bottom = 1.0
 
 [connection signal="timeout" from="uiRoot/enemyUi/Timer" to="uiRoot/enemyUi" method="_on_Timer_timeout"]
 [connection signal="timeout" from="uiRoot/enemyUi/dpsTimer" to="uiRoot/enemyUi" method="_on_dpsTimer_timeout"]
+[connection signal="timeout" from="uiRoot/enemyUi/Control2/Timer" to="uiRoot/enemyUi/Control2" method="_on_Timer_timeout"]
 [connection signal="button_down" from="uiRoot/Button" to="uiRoot/Button" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/TextureRect/Button" to="uiRoot/TextureRect" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/About/Button" to="uiRoot/About" method="_on_Button_button_down"]

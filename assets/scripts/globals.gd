@@ -4,9 +4,11 @@ enum DiceEnum { D4, D6, D8, D10, D12, D20 };
 
 signal addDice;
 signal upgradeDice;
+signal upgradeDiceSuccess;
 signal rollRandomDice;
 signal damageEnemy;
 signal currencyUpdated;
+signal currencyAddedSingular;
 signal openHelp;
 
 var enemyPool = 4;
@@ -18,8 +20,11 @@ var rng = RandomNumberGenerator.new();
 func addDice():
 	emit_signal("addDice", 0);#0 = default
 	
-func upgradeDice():
+func tryUpgradeDice():
 	emit_signal("upgradeDice");
+	
+func upgradeDiceSuccess():
+	emit_signal("upgradeDiceSuccess");
 
 func rollRandomDice():
 	emit_signal("rollRandomDice");
@@ -51,6 +56,7 @@ func getEnemyFromPool():
 func addCurrency(value: int):
 	currency += value;
 	emit_signal("currencyUpdated", currency);
+	emit_signal("currencyAddedSingular", value);
 	
 func removeCurrency(value: int):
 	currency -= value;

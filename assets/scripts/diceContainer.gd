@@ -33,6 +33,7 @@ func upgradeDice():
 				replaceDice.position = d.position;
 				add_child(replaceDice);
 				move_child(replaceDice,idx);
+				g.upgradeDiceSuccess();
 				return;
 			idx += 1;
 		diceKind += 1;

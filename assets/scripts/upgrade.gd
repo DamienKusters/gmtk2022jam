@@ -22,23 +22,34 @@ func _ready():
 	$Control/TextureRect.texture = spriteTexture;
 	price = basePrice;
 	updateUi();
+	if(kind == 1):
+		g.connect("upgradeDiceSuccess", self, "applyNextLevelUiUpdate");
 	if(kind == 4):
 		g.connect("damageEnemy", self, "enemyDamaged");
 	
 func updateUi():
-	$LabelPrice.text = "$" + String(price);
-	if(levelCap == -1):
-		if(level > 0):
-			$LabelLevel.text = String(level);
-		else:
-			$LabelLevel.text = "";
+	$LabelPrice.text = "" + String(price);
+#	if(levelCap == -1):
+	if(level == levelCap):
+		$LabelLevel.text = "max";
+	elif(level > 0):
+		$LabelLevel.text = String(level);
 	else:
-		if(level > 0):
-			$LabelLevel.text = String(level) + "/" + String(levelCap);
-		else:
-			$LabelLevel.text = "";
+		$LabelLevel.text = "";
+#	else:
+#		if(level > 0):
+#			$LabelLevel.text = String(level) + "/" + String(levelCap);
+#		else:
+#			$LabelLevel.text = "";
 		
 func _on_MouseOverlay_button_down():
+	if(kind == 1):# Quick fix for upgrade dice
+		action();
+	else:
+		applyNextLevelUiUpdate();
+		action();
+	
+func applyNextLevelUiUpdate():
 	if(g.currency < price):
 		return;
 	if(levelCap != -1):
@@ -58,19 +69,17 @@ func _on_MouseOverlay_button_down():
 		priceIncrease = (float(price) / float(100)) * float(levelupPricePercentIncrease);
 	price = price + ceil(priceIncrease);
 	updateUi();
-	action();
-	
 	
 func action():
 	if(kind == 0):
 		g.addDice();
 	if(kind == 1):
-		g.upgradeDice();# BUGGED
+		g.tryUpgradeDice();
 	if(kind == 2):
 		$Timer.stop();
 		var tim = $Timer.wait_time;
 		if($Timer.wait_time <= 1):
-			$Timer.wait_time = float($Timer.wait_time) - .1;
+			$Timer.wait_time = float($Timer.wait_time) - .1;# TODO: FIX
 		elif(tim <= 2):
 			$Timer.wait_time = float($Timer.wait_time) - .2;
 		elif(tim <= 3):
