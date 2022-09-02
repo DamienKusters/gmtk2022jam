@@ -26,6 +26,8 @@ func _ready():
 		g.connect("upgradeDiceSuccess", self, "applyNextLevelUiUpdate");
 	if(kind == 4):
 		g.connect("damageEnemy", self, "enemyDamaged");
+	g.connect("currencyUpdated", self, "setPayable");
+	setPayable(0);
 	
 func updateUi():
 	$LabelPrice.text = "" + String(price);
@@ -46,12 +48,12 @@ func _on_MouseOverlay_button_down():
 	if(kind == 1):# Quick fix for upgrade dice
 		action();
 	else:
-		applyNextLevelUiUpdate();
-		action();
+		if(applyNextLevelUiUpdate()):
+			action();
 	
 func applyNextLevelUiUpdate():
 	if(g.currency < price):
-		return;
+		return false;
 	if(levelCap != -1):
 		if(level >= levelCap):
 			return;
@@ -69,12 +71,14 @@ func applyNextLevelUiUpdate():
 		priceIncrease = (float(price) / float(100)) * float(levelupPricePercentIncrease);
 	price = price + ceil(priceIncrease);
 	updateUi();
+	setPayable(g.currency);
+	return true;
 	
 func action():
 	if(kind == 0):
 		g.addDice();
 	if(kind == 1):
-		g.tryUpgradeDice();
+		g.tryUpgradeDice(price);
 	if(kind == 2):
 		$Timer.stop();
 		var tim = $Timer.wait_time;
@@ -112,3 +116,10 @@ func _on_Timer_timeout():
 func enemyDamaged(value: int, dice: Node2D):
 	if(value <= level):
 		dice.roll();
+		
+func setPayable(value):
+	if(value >= price):
+		$LabelPrice.add_color_override("font_color", Color("d8d400"));
+	else:
+		$LabelPrice.add_color_override("font_color", Color("d83300"));
+		

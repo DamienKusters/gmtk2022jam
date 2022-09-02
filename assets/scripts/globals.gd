@@ -13,14 +13,16 @@ signal openHelp;
 
 var enemyPool = 4;
 var maxDiceRollTime = 4.5;
-var currency = 9999990;
+var currency = 0;
 
 var rng = RandomNumberGenerator.new();
 
 func addDice():
 	emit_signal("addDice", 0);#0 = default
 	
-func tryUpgradeDice():
+func tryUpgradeDice(price):
+	if(currency < price):
+		return;
 	emit_signal("upgradeDice");
 	
 func upgradeDiceSuccess():
@@ -80,14 +82,14 @@ var enemiesCommon = [
 	},
 	{
 		"name":"Wolf",
-		"health":7,
+		"health":5,
 		"currency":10,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Wolf.png"
 	},
 	{
 		"name":"Goblin",
-		"health":10,
+		"health":7,
 		"currency":15,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Regular_Goblin.png"
@@ -96,28 +98,28 @@ var enemiesCommon = [
 	{
 		"name":"Cobalt Wolf",
 		"health":26,
-		"currency":30,
+		"currency":40,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Cobald_Wolf.png"
 	},
 	{
 		"name":"Elite Goblin",
 		"health":26,
-		"currency":40,
+		"currency":50,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Elite_Goblin.png"
 	},
 	{
 		"name":"Bandit",
 		"health":30,
-		"currency":35,
+		"currency":45,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Pirate.png"
 	},
 	{
 		"name":"Outlaw",
 		"health":30,
-		"currency":35,
+		"currency":45,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Bandit.png"
 	},
@@ -125,28 +127,28 @@ var enemiesCommon = [
 	{
 		"name":"Witch",
 		"health":34,
-		"currency":37,
+		"currency":67,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Witch.png"
 	},
 	{
 		"name":"Gaia",
 		"health":40,
-		"currency":35,
+		"currency":65,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Gaia.png"
 	},
 	{
 		"name":"Minotaur",
 		"health":37,
-		"currency":40,
+		"currency":70,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Minotaur.png"
 	},
 	{
 		"name":"Golem",
 		"health":55,
-		"currency":50,
+		"currency":80,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Nature_Gorilla.png"
 	},
@@ -154,28 +156,28 @@ var enemiesCommon = [
 	{
 		"name":"Pixie",
 		"health":40,
-		"currency":58,
+		"currency":88,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Earth_Lady.png"
 	},
 	{
 		"name":"Pixie",
 		"health":45,
-		"currency":62,
+		"currency":92,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Pixie_Man.png"
 	},
 	{
 		"name":"Wrath",
 		"health":55,
-		"currency":70,
+		"currency":100,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Wtf.png"
 	},
 	{
 		"name":"Necromancer",
 		"health":400,
-		"currency":350,
+		"currency":444,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Necromancer.png"
 	},
@@ -190,28 +192,28 @@ var enemiesCommon = [
 	{
 		"name":"Lich",
 		"health":66,
-		"currency":66,
+		"currency":106,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Lich.png"
 	},
 	{
 		"name":"Demon Pixie",
 		"health":40,
-		"currency":58,
+		"currency":110,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Earth_Lady_Vampire.png"
 	},
 	{
 		"name":"Demon Pixie",
 		"health":45,
-		"currency":62,
+		"currency":110,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Pixie_Man_Vampire.png"
 	},
 	{
 		"name":"Demon Lord",
 		"health":550,
-		"currency":400,
+		"currency":666,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Demon.png"
 	},
@@ -219,28 +221,28 @@ var enemiesCommon = [
 	{
 		"name":"Earth Elemental",
 		"health":550,
-		"currency":400,
+		"currency":999,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Earth_Elemental.png"
 	},
 	{
 		"name":"Fire Elemental",
 		"health":550,
-		"currency":400,
+		"currency":999,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Fire_Elemental.png"
 	},
 	{
 		"name":"Power Elemental",
 		"health":550,
-		"currency":400,
+		"currency":999,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Volt_Elemental.png"
 	},
 	{
 		"name":"Water Elemental",
 		"health":550,
-		"currency":400,
+		"currency":999,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Water_Elemental.png"
 	},
@@ -248,21 +250,21 @@ var enemiesCommon = [
 	{
 		"name":"Darkness",
 		"health":550,
-		"currency":400,
+		"currency":999,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Darkness.png"
 	},
 	{
 		"name":"Light",
 		"health":550,
-		"currency":400,
+		"currency":999,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Light.png"
 	},
 	{
 		"name":"Angel",
 		"health":1600,
-		"currency":400,
+		"currency":999,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Angel.png"
 	},

@@ -5,6 +5,7 @@ onready var g = $"/root/Globals";
 var cachedValue = 0;
 
 func _ready():
+	$AnimationPlayer.play("RESET");
 	g.connect("currencyAddedSingular", self, "currencyAddedSingular");
 	pass
 	

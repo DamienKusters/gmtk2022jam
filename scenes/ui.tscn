@@ -282,7 +282,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"values": [ Color( 1, 1, 1, 0 ) ]
 }
 
 [sub_resource type="Animation" id=22]
@@ -310,7 +310,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 1, 1.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [sub_resource type="DynamicFont" id=13]
@@ -386,9 +386,9 @@ script = ExtResource( 6 )
 margin_top = 95.0
 margin_bottom = 195.0
 title = "Add Dice"
-basePrice = 10
+basePrice = 5
 levelupPriceIncrease = 5
-levelupPricePercentIncrease = 12
+levelupPricePercentIncrease = 11
 levelCap = 20
 spriteTexture = ExtResource( 7 )
 description = "Adds another d4 dice"
@@ -397,7 +397,7 @@ description = "Adds another d4 dice"
 margin_top = 190.0
 margin_bottom = 290.0
 title = "Upgrade Dice"
-basePrice = 10
+basePrice = 5
 levelupPriceIncrease = 5
 levelupPricePercentIncrease = 0
 kind = 1
@@ -409,8 +409,9 @@ description = "Upgrade lowest ranking dice to the next one. (d4, d6, d8 ,d10, d1
 margin_top = 285.0
 margin_bottom = 385.0
 title = "Dungeon Master"
-basePrice = 25
-levelupPriceIncrease = 23
+basePrice = 15
+levelupPriceIncrease = 4
+levelupPricePercentIncrease = 23
 kind = 2
 levelCap = 20
 spriteTexture = ExtResource( 10 )
@@ -420,9 +421,9 @@ description = "Automatically rolls a dice. The higher the level the faster it'll
 margin_top = 380.0
 margin_bottom = 480.0
 title = "Dice Tower"
-basePrice = 25
-levelupPriceIncrease = 170
-levelupPricePercentIncrease = 0
+basePrice = 15
+levelupPriceIncrease = 70
+levelupPricePercentIncrease = 14
 kind = 7
 levelCap = 20
 spriteTexture = ExtResource( 12 )
@@ -432,7 +433,7 @@ description = "Decreases maximum dice rolling time by each level."
 margin_top = 475.0
 margin_bottom = 575.0
 title = "Re-roller"
-basePrice = 50
+basePrice = 35
 levelupPriceIncrease = 35
 levelupPricePercentIncrease = 60
 kind = 4
@@ -444,13 +445,13 @@ description = "Automatically re-rolls any dice equal to or below the level of th
 margin_top = 570.0
 margin_bottom = 670.0
 title = "Contract"
-basePrice = 100
-levelupPriceIncrease = 170
-levelupPricePercentIncrease = 50
+basePrice = 50
+levelupPriceIncrease = 120
+levelupPricePercentIncrease = 35
 kind = 6
 levelCap = 6
 spriteTexture = ExtResource( 19 )
-description = "Extends the enemy encounters (More challenge & more loot)"
+description = "New enemy encounters (More challenge & more loot)"
 
 [node name="u_tower" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 visible = false
@@ -624,6 +625,7 @@ text = "DPS: 9999"
 autostart = true
 
 [node name="Control2" type="Control" parent="uiRoot/enemyUi"]
+modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.8
 anchor_right = 1.0
 anchor_bottom = 0.25
@@ -673,6 +675,9 @@ margin_bottom = 2066.0
 texture = ExtResource( 14 )
 expand = true
 script = ExtResource( 23 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="TextureRect" type="TextureRect" parent="uiRoot/TextureRect"]
 margin_left = 1548.0
@@ -698,6 +703,9 @@ margin_left = 1052.0
 margin_top = 509.0
 margin_right = 3350.0
 margin_bottom = 2339.0
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="About" type="ColorRect" parent="uiRoot"]
 visible = false

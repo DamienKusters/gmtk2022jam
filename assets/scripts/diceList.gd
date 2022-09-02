@@ -19,7 +19,7 @@ func _ready():
 	addDice(0);
 	pass
 
-func addDice(type : int):
+func addDice(type):
 	if(currentSpot == 21):
 		return;
 	var dice = diceScene.instance();
