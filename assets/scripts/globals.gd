@@ -98,72 +98,72 @@ var enemiesCommon = [
 	{
 		"name":"Cobalt Wolf",
 		"health":26,
-		"currency":40,
+		"currency":50,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Cobald_Wolf.png"
 	},
 	{
 		"name":"Elite Goblin",
 		"health":26,
-		"currency":50,
+		"currency":60,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Elite_Goblin.png"
 	},
 	{
 		"name":"Bandit",
 		"health":30,
-		"currency":45,
+		"currency":70,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Pirate.png"
 	},
 	{
 		"name":"Outlaw",
 		"health":30,
-		"currency":45,
+		"currency":70,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Bandit.png"
 	},
 	#Tier 3: Mytical
 	{
 		"name":"Witch",
-		"health":34,
-		"currency":67,
+		"health":45,
+		"currency":80,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Witch.png"
 	},
 	{
 		"name":"Gaia",
-		"health":40,
-		"currency":65,
+		"health":60,
+		"currency":100,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Gaia.png"
 	},
 	{
 		"name":"Minotaur",
-		"health":37,
-		"currency":70,
+		"health":55,
+		"currency":90,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Minotaur.png"
 	},
 	{
 		"name":"Golem",
-		"health":55,
-		"currency":80,
+		"health":90,
+		"currency":150,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Nature_Gorilla.png"
 	},
 	#Tier 4: Magic
 	{
 		"name":"Pixie",
-		"health":40,
-		"currency":88,
+		"health":70,
+		"currency":111,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Earth_Lady.png"
 	},
 	{
 		"name":"Pixie",
-		"health":45,
-		"currency":92,
+		"health":70,
+		"currency":111,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Pixie_Man.png"
 	},

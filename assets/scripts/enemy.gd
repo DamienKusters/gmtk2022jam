@@ -30,7 +30,7 @@ func respawnEnemy():
 	$EnemyContainer/AnimationPlayer.play("spawn");
 	$Control/VBoxContainer/TextureProgress2.max_value = timeLeft;
 	$Control/VBoxContainer/TextureProgress2.value = timeLeft;
-	$Tween.interpolate_property($Control/VBoxContainer/TextureProgress2, "value", float(timeLeft), 0.2, timeLeft+1, Tween.TRANS_SINE, Tween.EASE_IN_OUT);
+	$Tween.interpolate_property($Control/VBoxContainer/TextureProgress2, "value", float(timeLeft), 0.2, timeLeft+1, Tween.TRANS_LINEAR);
 	$Tween.start();
 
 func damage(value: int, dice: Node2D):

@@ -93,7 +93,7 @@ func action():
 		else:
 			$Timer.wait_time = float($Timer.wait_time) - 1;
 		$Timer.start();
-	if(kind == 3):
+	if(kind == 3):#Removed
 		if($Timer.is_stopped()):
 			$Timer.wait_time = 10;
 			$Timer.start();
@@ -102,7 +102,7 @@ func action():
 		g.upgradeEnemyPool();
 		pass
 	if(kind == 7):
-		g.maxDiceRollTime = g.maxDiceRollTime - .2;
+		g.maxDiceRollTime = g.maxDiceRollTime - .4;
 		
 
 func _on_Timer_timeout():

@@ -307,10 +307,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [sub_resource type="DynamicFont" id=13]
@@ -422,10 +422,10 @@ margin_top = 380.0
 margin_bottom = 480.0
 title = "Dice Tower"
 basePrice = 15
-levelupPriceIncrease = 70
-levelupPricePercentIncrease = 14
+levelupPriceIncrease = 72
+levelupPricePercentIncrease = 22
 kind = 7
-levelCap = 20
+levelCap = 10
 spriteTexture = ExtResource( 12 )
 description = "Decreases maximum dice rolling time by each level."
 
@@ -451,7 +451,7 @@ levelupPricePercentIncrease = 35
 kind = 6
 levelCap = 6
 spriteTexture = ExtResource( 19 )
-description = "New enemy encounters (More challenge & more loot)"
+description = "Adds new enemy encounters (More challenge & more loot)"
 
 [node name="u_tower" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 visible = false
