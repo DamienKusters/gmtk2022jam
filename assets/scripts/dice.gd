@@ -5,6 +5,8 @@ onready var g = $"/root/Globals";
 enum DiceEnum { D4, D6, D8, D10, D12, D20 };
 
 export(DiceEnum) var kind;
+export(float) var minRollingSpeed = .5;
+export(float) var maxRollingSpeed = 4.5;
 
 var maxVal = 4;
 var value = 0;
@@ -48,8 +50,9 @@ func roll():
 		return;
 	rolling = true;
 	rng.randomize();
-	$Timer.wait_time = rng.randf_range(.5,4.5);
+	$Timer.wait_time = rng.randf_range(minRollingSpeed,g.maxDiceRollTime);
 	$Timer.start();
+	$Sprite/AnimationPlayer.play("RESET");
 	$Sprite/AnimationPlayer.play("rotate");
 	$Label.text = "";
 
@@ -59,11 +62,19 @@ func _on_Area2D_input_event(viewport, event, shape_idx):
 
 func _on_Timer_timeout():
 	rolling = false;
-	$Sprite/AnimationPlayer.stop();
 	$Sprite/AnimationPlayer.play("RESET");
+	# Cool effect Tweens are awesome
+#	$Sprite/AnimationPlayer.stop();
+#	var tweena := create_tween().set_trans(Tween.TRANS_BACK);
+#	var tweenb := create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT);
+#	tweena.tween_property($Sprite, "modulate",Color(1,1,1,1),.5);
+#	tweenb.tween_property($Sprite, "rotation_degrees",360.0,1.2);
 	
 	rng.randomize();
 	value = rng.randi_range(1, maxVal);	
 	$Label.text = String(value);
+	$Label2.text = String(value);
+	$Label2/AnimationPlayer.play("RESET");
+	$Label2/AnimationPlayer.play("hit");
 	
 	g.damageCurrentEnemy(value, self);
