@@ -444,6 +444,7 @@ description = "Automatically re-rolls any dice equal to or below the level of th
 [node name="u_contract" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 570.0
 margin_bottom = 670.0
+locked = true
 title = "Contract"
 basePrice = 50
 levelupPriceIncrease = 120

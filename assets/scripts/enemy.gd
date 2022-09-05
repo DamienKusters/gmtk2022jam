@@ -38,6 +38,7 @@ func damage(value: int, dice: Node2D):
 	secondDmg += value;
 	if(enemyHealth <= 0):
 		g.addCurrency(enemy['currency']);
+		g.killEnemy(enemy);
 		$AudioMoney.play();
 		$EnemyContainer/CPUParticles2D.restart();
 		respawnEnemy();

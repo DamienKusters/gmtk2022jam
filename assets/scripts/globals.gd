@@ -10,10 +10,11 @@ signal damageEnemy;
 signal currencyUpdated;
 signal currencyAddedSingular;
 signal openHelp;
+signal enemyKilled;
 
 var enemyPool = 4;
 var maxDiceRollTime = 4.5;
-var currency = 0;
+var currency = 100000;
 
 var rng = RandomNumberGenerator.new();
 
@@ -36,6 +37,9 @@ func damageCurrentEnemy(value: int, dice: Node2D):
 	
 func upgradeEnemyPool():
 	enemyPool += 4;
+	
+func killEnemy(enemy):
+	emit_signal("enemyKilled", enemy);
 	
 func openHelp(txt: Texture, title: String, description: String):
 	var obj = {

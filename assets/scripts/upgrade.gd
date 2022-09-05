@@ -4,6 +4,7 @@ enum Upgrade { ADD_DICE, UPGRADE_DICE, DUNGEON_MASTER, DICE_TOWER, REROLL, DICE_
 
 onready var g = $"/root/Globals";
 
+export var locked = false;
 export var title: String = "Upgrade Name";
 export var basePrice: int = 0;
 export var levelupPriceIncrease: int = 10;
@@ -13,6 +14,15 @@ export var levelCap = -1;
 #export var level: int = 0;
 export(Texture) var spriteTexture;
 export(String) var description;
+var lockedEnemies = {
+	"Goblin":[false, "res://assets/sprites/enemies/Regular_Goblin.png"],
+	"Outlaw":[false, "res://assets/sprites/enemies/Bandit.png"],
+	"Golem":[false, "res://assets/sprites/enemies/Nature_Gorilla.png"],
+	"Necromancer":[false, "res://assets/sprites/enemies/Necromancer.png"],
+	"Demon Lord":[false, "res://assets/sprites/enemies/Demon.png"],
+	"Power Elemental":[false, "res://assets/sprites/enemies/Volt_Elemental.png"],
+};
+var killedEnemies = [];
 
 var level = 0;
 var price = 0;
@@ -26,8 +36,13 @@ func _ready():
 		g.connect("upgradeDiceSuccess", self, "applyNextLevelUiUpdate");
 	if(kind == 4):
 		g.connect("damageEnemy", self, "enemyDamaged");
+	if(kind == 6):
+		g.connect("enemyKilled", self, "enemyKilled");
+		$Tween.connect("tween_all_completed", self, "tween_completed");
 	g.connect("currencyUpdated", self, "setPayable");
 	setPayable(0);
+	$enemyLocker.visible = false;
+	setLocked(locked);
 	
 func updateUi():
 	$LabelPrice.text = "" + String(price);
@@ -43,13 +58,48 @@ func updateUi():
 #			$LabelLevel.text = String(level) + "/" + String(levelCap);
 #		else:
 #			$LabelLevel.text = "";
+
+func setLocked(value):
+	locked = value;
+	if(locked):
+		$Tween.interpolate_property(self, "margin_left", self.margin_left, 100, 1.5, Tween.TRANS_ELASTIC);
+		$Tween.start();
+		$LabelPrice.visible = false;
+	else:
+		$Tween.interpolate_property(self, "margin_left", self.margin_left, 0, 1.5, Tween.TRANS_ELASTIC);
+		$Tween.start();
+		$enemyLocker.visible = false;
+		$LabelPrice.visible = true;
 		
+func tween_completed():
+	
+	if(locked):
+		$enemyLocker.visible = true;
+		for e in lockedEnemies:
+			if lockedEnemies[e][0] == false:
+				$enemyLocker/TextureRect.texture = load(lockedEnemies[e][1]);
+				return;
+	else:
+		$enemyLocker.visible = false;
+
 func _on_MouseOverlay_button_down():
+	if(locked == true):
+		return;
 	if(kind == 1):# Quick fix for upgrade dice
 		action();
 	else:
 		if(applyNextLevelUiUpdate()):
 			action();
+			
+func enemyKilled(enemy):
+	if(!killedEnemies.has(enemy.name)):
+		for e in lockedEnemies:
+			if lockedEnemies[e][0] == false:
+				if(enemy.name == e):
+					setLocked(false);
+					lockedEnemies[e][0] = true;
+				return;
+		killedEnemies.push_back(enemy.name);
 	
 func applyNextLevelUiUpdate():
 	if(g.currency < price):
@@ -100,6 +150,10 @@ func action():
 	if(kind == 6):
 		# contract
 		g.upgradeEnemyPool();
+		for e in lockedEnemies:
+			if(lockedEnemies[e][0] == false):
+				setLocked(true);
+				return;
 		pass
 	if(kind == 7):
 		g.maxDiceRollTime = g.maxDiceRollTime - .4;
