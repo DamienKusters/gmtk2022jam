@@ -14,7 +14,7 @@ signal enemyKilled;
 
 var enemyPool = 4;
 var maxDiceRollTime = 4.5;
-var currency = 100000;
+var currency = 0;
 
 var rng = RandomNumberGenerator.new();
 
@@ -127,7 +127,7 @@ var enemiesCommon = [
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Bandit.png"
 	},
-	#Tier 3: Mytical
+	#Tier 3: Mytical (TODO: add 30% health)
 	{
 		"name":"Witch",
 		"health":45,
@@ -156,7 +156,7 @@ var enemiesCommon = [
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Nature_Gorilla.png"
 	},
-	#Tier 4: Magic
+	#Tier 4: Magic (TODO: Double health (except boss))
 	{
 		"name":"Pixie",
 		"health":70,
@@ -185,7 +185,7 @@ var enemiesCommon = [
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Necromancer.png"
 	},
-	#Tier 5: Demons
+	#Tier 5: Demons (TODO: double/triple health)
 #	{
 #		"name":"Fire Demon",
 #		"health":26,
@@ -215,13 +215,14 @@ var enemiesCommon = [
 		"sprite": "res://assets/sprites/enemies/Pixie_Man_Vampire.png"
 	},
 	{
+		#TODO:  health x 4-6
 		"name":"Demon Lord",
 		"health":550,
 		"currency":666,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Demon.png"
 	},
-	#Tier 6: Elementals
+	#Tier 6: Elementals (TODO: health x8)
 	{
 		"name":"Earth Elemental",
 		"health":550,
@@ -250,7 +251,7 @@ var enemiesCommon = [
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Water_Elemental.png"
 	},
-	# Tier 7: Legendary
+	# Tier 7: Legendary (TODO: Health x8-10)
 	{
 		"name":"Darkness",
 		"health":550,
@@ -265,13 +266,24 @@ var enemiesCommon = [
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Light.png"
 	},
-	{
+	{#Must be special, rare enemy, drops angel feathers
 		"name":"Angel",
 		"health":1600,
 		"currency":999,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Angel.png"
 	},
+	#Okay, dus: angel drops angel feathers, each feather makes you roll a 'prime dice'
+	# You can ascend deleting progress but you can purchase:
+	# options of dice:
+	#	DPS multiplier: d4 -> each roll stacks
+	#	Reroller starting level?
+#	Choose mountain map (more feathers, more challenge)
+# Also, dice tower is too powerful, must become more expensive
+#	Well everything must be more expensive to make up for the angel feathers
+#	Killing demon lord for the first time = 1 demon feather (you can ascend with that) (afterwards it is just 666 money)
+# demon feather unlocks new special ascend upgrade, you can upgrade it with angel feathers, and if you cant upgrade, you
+# get the option to ascend with x amount of rolls based on level (default roll = 1)  
 	# Tier 8: Future
 #	{
 #		"name":"Destroyer",
