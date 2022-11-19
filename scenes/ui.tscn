@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
@@ -28,10 +28,20 @@
 [ext_resource path="res://assets/sprites/ui/bar_back.png" type="Texture" id=26]
 [ext_resource path="res://assets/sprites/ui/bar_progress_red.png" type="Texture" id=27]
 [ext_resource path="res://assets/scripts/currencyIncrease.gd" type="Script" id=28]
+[ext_resource path="res://assets/sprites/icons/angel_feather.png" type="Texture" id=29]
+[ext_resource path="res://assets/sprites/icons/timer_100.png" type="Texture" id=30]
+[ext_resource path="res://assets/sprites/upgrades/Ascend_Icon.png" type="Texture" id=31]
+[ext_resource path="res://assets/scripts/feathersLabel.gd" type="Script" id=32]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=25]
 size = 60
 outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=26]
+size = 40
+outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 2 )
 
@@ -187,11 +197,49 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.584314, 0.584314, 0.584314, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="DynamicFont" id=2]
+size = 60
+outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
 [sub_resource type="DynamicFont" id=16]
 size = 52
 outline_size = 4
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=23]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "pulse"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 2, 2 ) ]
+}
 
 [sub_resource type="DynamicFont" id=18]
 size = 19
@@ -200,6 +248,8 @@ font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=17]
 size = 51
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 2 )
 
 [sub_resource type="Animation" id=19]
@@ -375,16 +425,56 @@ color = Color( 0.262745, 0.141176, 0, 1 )
 [node name="Label" type="Label" parent="uiRoot/VBoxContainer/Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 20.0
+margin_right = -20.0
 custom_colors/font_color = Color( 0.847059, 0.831373, 0, 1 )
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 25 )
 text = "$1234567890"
 align = 1
 valign = 1
 script = ExtResource( 6 )
 
-[node name="u_add" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
+[node name="HBoxContainer" type="HBoxContainer" parent="uiRoot/VBoxContainer/Control"]
+anchor_left = 0.7
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -10.0
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="uiRoot/VBoxContainer/Control/HBoxContainer"]
+margin_right = 50.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 50, 50 )
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
+
+[node name="LabelFeathers" type="Label" parent="uiRoot/VBoxContainer/Control/HBoxContainer"]
+margin_left = 54.0
+margin_top = 23.0
+margin_right = 135.0
+margin_bottom = 76.0
+custom_fonts/font = SubResource( 26 )
+text = "x 999"
+align = 1
+valign = 1
+script = ExtResource( 32 )
+
+[node name="u_ascend" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 95.0
 margin_bottom = 195.0
+title = "Ascend"
+basePrice = 1111
+levelupPriceIncrease = 0
+levelupPricePercentIncrease = 0
+kind = 8
+levelCap = 1
+spriteTexture = ExtResource( 31 )
+description = "Reset the universe"
+
+[node name="u_add" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
+margin_top = 190.0
+margin_bottom = 290.0
 title = "Add Dice"
 basePrice = 5
 levelupPriceIncrease = 5
@@ -394,8 +484,8 @@ spriteTexture = ExtResource( 7 )
 description = "Adds another d4 dice"
 
 [node name="u_upgrade" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-margin_top = 190.0
-margin_bottom = 290.0
+margin_top = 285.0
+margin_bottom = 385.0
 title = "Upgrade Dice"
 basePrice = 5
 levelupPriceIncrease = 5
@@ -406,8 +496,8 @@ spriteTexture = ExtResource( 11 )
 description = "Upgrade lowest ranking dice to the next one. (d4, d6, d8 ,d10, d12, d20)"
 
 [node name="u_dm" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-margin_top = 285.0
-margin_bottom = 385.0
+margin_top = 380.0
+margin_bottom = 480.0
 title = "Dungeon Master"
 basePrice = 15
 levelupPriceIncrease = 4
@@ -418,8 +508,8 @@ spriteTexture = ExtResource( 10 )
 description = "Automatically rolls a dice. The higher the level the faster it'll be."
 
 [node name="u_rolltime" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-margin_top = 380.0
-margin_bottom = 480.0
+margin_top = 475.0
+margin_bottom = 575.0
 title = "Dice Tower"
 basePrice = 15
 levelupPriceIncrease = 72
@@ -430,8 +520,8 @@ spriteTexture = ExtResource( 12 )
 description = "Decreases maximum dice rolling time by each level."
 
 [node name="u_reroll" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-margin_top = 475.0
-margin_bottom = 575.0
+margin_top = 570.0
+margin_bottom = 670.0
 title = "Re-roller"
 basePrice = 35
 levelupPriceIncrease = 35
@@ -442,8 +532,8 @@ spriteTexture = ExtResource( 8 )
 description = "Automatically re-rolls any dice equal to or below the level of the upgrade"
 
 [node name="u_contract" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-margin_top = 570.0
-margin_bottom = 670.0
+margin_top = 665.0
+margin_bottom = 765.0
 locked = true
 title = "Contract"
 basePrice = 50
@@ -565,6 +655,30 @@ text = "$99"
 align = 1
 valign = 1
 
+[node name="FeatherBounty" type="TextureRect" parent="uiRoot/enemyUi/LabelEnemy"]
+anchor_left = 0.493
+anchor_top = 0.695
+anchor_right = 0.571
+anchor_bottom = 1.135
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect" type="TextureRect" parent="uiRoot/enemyUi/LabelEnemy/FeatherBounty"]
+self_modulate = Color( 0.937255, 0.941176, 0, 0.333333 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 43, 24 )
+texture = ExtResource( 30 )
+expand = true
+stretch_mode = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="uiRoot/enemyUi/LabelEnemy/FeatherBounty/TextureRect"]
+autoplay = "pulse"
+anims/RESET = SubResource( 23 )
+anims/pulse = SubResource( 24 )
+
 [node name="Control" type="Control" parent="uiRoot/enemyUi"]
 anchor_right = 0.3
 anchor_bottom = 0.3
@@ -615,10 +729,10 @@ text = "Time"
 align = 2
 
 [node name="Label" type="Label" parent="uiRoot/enemyUi"]
-margin_left = 58.0
-margin_top = 218.0
-margin_right = 98.0
-margin_bottom = 232.0
+anchor_left = 0.014
+anchor_top = 0.26
+anchor_right = 0.296
+anchor_bottom = 0.26
 custom_fonts/font = SubResource( 17 )
 text = "DPS: 9999"
 

@@ -10,11 +10,12 @@ func _ready():
 	pass
 	
 func currencyAddedSingular(value: int):
-	cachedValue += value;
-	$LabelBounty.text = "+ " + String(cachedValue);
-	if $Timer.is_stopped():
-		$Timer.start();
-		$AnimationPlayer.play("fade_up");
+	if value > 0:
+		cachedValue += value;
+		$LabelBounty.text = "+ " + String(cachedValue);
+		if $Timer.is_stopped():
+			$Timer.start();
+			$AnimationPlayer.play("fade_up");
 
 
 func _on_Timer_timeout():

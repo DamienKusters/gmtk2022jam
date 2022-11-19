@@ -8,13 +8,15 @@ signal upgradeDiceSuccess;
 signal rollRandomDice;
 signal damageEnemy;
 signal currencyUpdated;
+signal feathersUpdated;
 signal currencyAddedSingular;
 signal openHelp;
 signal enemyKilled;
 
 var enemyPool = 4;
 var maxDiceRollTime = 4.5;
-var currency = 0;
+var currency = 999999990;
+var feathers = 0;
 
 var rng = RandomNumberGenerator.new();
 
@@ -68,6 +70,10 @@ func removeCurrency(value: int):
 	currency -= value;
 	emit_signal("currencyUpdated", currency);
 
+func addFeathers(value: int):
+	feathers += value;
+	emit_signal("feathersUpdated", feathers);
+
 var enemiesCommon = [
 	#Tier 1: Basic
 	{
@@ -75,28 +81,32 @@ var enemiesCommon = [
 		"health":3,
 		"currency":5,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Slime.png"
+		"sprite": "res://assets/sprites/enemies/Slime.png",
+		"feather":0
 	},
 	{
 		"name":"Bird",
 		"health":4,
 		"currency":7,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Bird.png"
+		"sprite": "res://assets/sprites/enemies/Bird.png",
+		"feather":0
 	},
 	{
 		"name":"Wolf",
 		"health":5,
 		"currency":10,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Wolf.png"
+		"sprite": "res://assets/sprites/enemies/Wolf.png",
+		"feather":0
 	},
 	{
 		"name":"Goblin",
 		"health":7,
 		"currency":15,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Regular_Goblin.png"
+		"sprite": "res://assets/sprites/enemies/Regular_Goblin.png",
+		"feather":0
 	},
 	#Tier 2: Advanced
 	{
@@ -104,88 +114,100 @@ var enemiesCommon = [
 		"health":26,
 		"currency":50,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Cobald_Wolf.png"
+		"sprite": "res://assets/sprites/enemies/Cobald_Wolf.png",
+		"feather":0
 	},
 	{
 		"name":"Elite Goblin",
 		"health":26,
 		"currency":60,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Elite_Goblin.png"
+		"sprite": "res://assets/sprites/enemies/Elite_Goblin.png",
+		"feather":0
 	},
 	{
 		"name":"Bandit",
 		"health":30,
 		"currency":70,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Pirate.png"
+		"sprite": "res://assets/sprites/enemies/Pirate.png",
+		"feather":0
 	},
 	{
 		"name":"Outlaw",
 		"health":30,
 		"currency":70,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Bandit.png"
+		"sprite": "res://assets/sprites/enemies/Bandit.png",
+		"feather":0
 	},
-	#Tier 3: Mytical (TODO: add 30% health)
+	#Tier 3: Mytical (TODO: add 60% health) 
 	{
 		"name":"Witch",
-		"health":45,
+		"health":60,
 		"currency":80,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Witch.png"
+		"sprite": "res://assets/sprites/enemies/Witch.png",
+		"feather":0
 	},
 	{
 		"name":"Gaia",
-		"health":60,
+		"health":80,
 		"currency":100,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Gaia.png"
+		"sprite": "res://assets/sprites/enemies/Gaia.png",
+		"feather":0
 	},
 	{
 		"name":"Minotaur",
-		"health":55,
+		"health":90,
 		"currency":90,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Minotaur.png"
+		"sprite": "res://assets/sprites/enemies/Minotaur.png",
+		"feather":0
 	},
 	{
 		"name":"Golem",
-		"health":90,
+		"health":190,
 		"currency":150,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Nature_Gorilla.png"
+		"sprite": "res://assets/sprites/enemies/Nature_Gorilla.png",
+		"feather":0
 	},
-	#Tier 4: Magic (TODO: Double health (except boss))
+	#Tier 4: Magic (TODO: triple health (except boss))
 	{
 		"name":"Pixie",
-		"health":70,
+		"health":250,
 		"currency":111,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Earth_Lady.png"
+		"sprite": "res://assets/sprites/enemies/Earth_Lady.png",
+		"feather":0
 	},
 	{
 		"name":"Pixie",
-		"health":70,
+		"health":280,
 		"currency":111,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Pixie_Man.png"
+		"sprite": "res://assets/sprites/enemies/Pixie_Man.png",
+		"feather":0
 	},
 	{
 		"name":"Wrath",
-		"health":55,
+		"health":340,
 		"currency":100,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Wtf.png"
+		"sprite": "res://assets/sprites/enemies/Wtf.png",
+		"feather":0
 	},
 	{
 		"name":"Necromancer",
 		"health":400,
 		"currency":444,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Necromancer.png"
+		"sprite": "res://assets/sprites/enemies/Necromancer.png",
+		"feather":1
 	},
-	#Tier 5: Demons (TODO: double/triple health)
+	#Tier 5: Demons (TODO: triple/quadruple health)
 #	{
 #		"name":"Fire Demon",
 #		"health":26,
@@ -195,83 +217,93 @@ var enemiesCommon = [
 #	},
 	{
 		"name":"Lich",
-		"health":66,
+		"health":500,
 		"currency":106,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Lich.png"
+		"sprite": "res://assets/sprites/enemies/Lich.png",
+		"feather":0
 	},
 	{
 		"name":"Demon Pixie",
-		"health":40,
+		"health":620,
 		"currency":110,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Earth_Lady_Vampire.png"
+		"sprite": "res://assets/sprites/enemies/Earth_Lady_Vampire.png",
+		"feather":0
 	},
 	{
 		"name":"Demon Pixie",
-		"health":45,
+		"health":650,
 		"currency":110,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Pixie_Man_Vampire.png"
+		"sprite": "res://assets/sprites/enemies/Pixie_Man_Vampire.png",
+		"feather":0
 	},
 	{
-		#TODO:  health x 4-6
 		"name":"Demon Lord",
-		"health":550,
+		"health":1200,
 		"currency":666,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Demon.png"
+		"sprite": "res://assets/sprites/enemies/Demon.png",
+		"feather":1
 	},
 	#Tier 6: Elementals (TODO: health x8)
 	{
 		"name":"Earth Elemental",
-		"health":550,
+		"health":4000,
 		"currency":999,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Earth_Elemental.png"
+		"sprite": "res://assets/sprites/enemies/Earth_Elemental.png",
+		"feather":0
 	},
 	{
 		"name":"Fire Elemental",
-		"health":550,
+		"health":4000,
 		"currency":999,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Fire_Elemental.png"
+		"sprite": "res://assets/sprites/enemies/Fire_Elemental.png",
+		"feather":0
 	},
 	{
 		"name":"Power Elemental",
-		"health":550,
+		"health":4000,
 		"currency":999,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Volt_Elemental.png"
+		"sprite": "res://assets/sprites/enemies/Volt_Elemental.png",
+		"feather":0
 	},
 	{
 		"name":"Water Elemental",
-		"health":550,
+		"health":4000,
 		"currency":999,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Water_Elemental.png"
+		"sprite": "res://assets/sprites/enemies/Water_Elemental.png",
+		"feather":0
 	},
 	# Tier 7: Legendary (TODO: Health x8-10)
 	{
 		"name":"Darkness",
-		"health":550,
-		"currency":999,
+		"health":5500,
+		"currency":0,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Darkness.png"
+		"sprite": "res://assets/sprites/enemies/Darkness.png",
+		"feather":1
 	},
 	{
 		"name":"Light",
-		"health":550,
-		"currency":999,
+		"health":5500,
+		"currency":0,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Light.png"
+		"sprite": "res://assets/sprites/enemies/Light.png",
+		"feather":1
 	},
 	{#Must be special, rare enemy, drops angel feathers
 		"name":"Angel",
-		"health":1600,
-		"currency":999,
+		"health":10000,
+		"currency":0,
 		"time":10,
-		"sprite": "res://assets/sprites/enemies/Angel.png"
+		"sprite": "res://assets/sprites/enemies/Angel.png",
+		"feather":-1
 	},
 	#Okay, dus: angel drops angel feathers, each feather makes you roll a 'prime dice'
 	# You can ascend deleting progress but you can purchase:
@@ -284,6 +316,7 @@ var enemiesCommon = [
 #	Killing demon lord for the first time = 1 demon feather (you can ascend with that) (afterwards it is just 666 money)
 # demon feather unlocks new special ascend upgrade, you can upgrade it with angel feathers, and if you cant upgrade, you
 # get the option to ascend with x amount of rolls based on level (default roll = 1)  
+# reroller as ascention upgrade?
 	# Tier 8: Future
 #	{
 #		"name":"Destroyer",

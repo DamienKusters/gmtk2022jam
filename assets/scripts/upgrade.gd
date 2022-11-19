@@ -1,6 +1,6 @@
 extends Control
 
-enum Upgrade { ADD_DICE, UPGRADE_DICE, DUNGEON_MASTER, DICE_TOWER, REROLL, DICE_TRAY, CONTRACT, ROLL_DECREASE };
+enum Upgrade { ADD_DICE, UPGRADE_DICE, DUNGEON_MASTER, DICE_TOWER, REROLL, DICE_TRAY, CONTRACT, ROLL_DECREASE, ASCEND };
 
 onready var g = $"/root/Globals";
 
@@ -43,6 +43,8 @@ func _ready():
 	setPayable(0);
 	$enemyLocker.visible = false;
 	setLocked(locked);
+	if kind == Upgrade.ASCEND:
+		$TextureRect.self_modulate = Color('563eff');
 	
 func updateUi():
 	$LabelPrice.text = "" + String(price);
@@ -157,7 +159,8 @@ func action():
 		pass
 	if(kind == 7):
 		g.maxDiceRollTime = g.maxDiceRollTime - .4;
-		
+	if(kind == 8):
+		var e = get_tree().change_scene("res://scenes/ascend.tscn");
 
 func _on_Timer_timeout():
 	if(kind == 2):
