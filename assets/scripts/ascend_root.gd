@@ -1,5 +1,6 @@
 extends Node2D
 
+onready var g = $"/root/Globals";
 
 func _ready():
 	var t = Tween.new();
@@ -7,4 +8,12 @@ func _ready():
 	t.interpolate_property(self, "modulate", Color('000'),Color('fff'), 2, Tween.TRANS_QUINT, Tween.EASE_IN);
 	t.interpolate_property($CanvasLayer/Ui, "modulate", Color('00ffffff'),Color('fff'), 4, Tween.TRANS_QUINT, Tween.EASE_IN);
 	t.start();
-	pass
+	g.connect("feathersUpdated", self, "updateFeathers");
+	updateFeathers(g.feathers);
+
+func updateFeathers(value):
+	$CanvasLayer/Ui/HBoxContainer/LabelFeathers.text = "x " + String(value);
+
+
+func _on_Button_pressed():
+	var e = get_tree().change_scene("res://scenes/main.tscn");

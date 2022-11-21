@@ -15,8 +15,12 @@ signal enemyKilled;
 
 var enemyPool = 4;
 var maxDiceRollTime = 4.5;
-var currency = 999999990;
-var feathers = 0;
+var currency = 99999999990;
+var feathers = 90;
+
+#TODO: Ascention upgrades:
+var ascention_dps_multiplier = 1;
+var ascention_reroller = 0;
 
 var rng = RandomNumberGenerator.new();
 
@@ -74,6 +78,10 @@ func addFeathers(value: int):
 	feathers += value;
 	emit_signal("feathersUpdated", feathers);
 
+func removeFeathers(value: int):
+	feathers -= value;
+	emit_signal("feathersUpdated", feathers);
+
 var enemiesCommon = [
 	#Tier 1: Basic
 	{
@@ -82,7 +90,7 @@ var enemiesCommon = [
 		"currency":5,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Slime.png",
-		"feather":0
+		"feather":0#Todo: make bool?
 	},
 	{
 		"name":"Bird",
@@ -303,7 +311,7 @@ var enemiesCommon = [
 		"currency":0,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Angel.png",
-		"feather":-1
+		"feather":1
 	},
 	#Okay, dus: angel drops angel feathers, each feather makes you roll a 'prime dice'
 	# You can ascend deleting progress but you can purchase:

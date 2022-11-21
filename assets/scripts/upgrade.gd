@@ -35,6 +35,8 @@ func _ready():
 	if(kind == 1):
 		g.connect("upgradeDiceSuccess", self, "applyNextLevelUiUpdate");
 	if(kind == 4):
+		level = g.ascention_reroller;
+		updateUi();
 		g.connect("damageEnemy", self, "enemyDamaged");
 	if(kind == 6):
 		g.connect("enemyKilled", self, "enemyKilled");
@@ -74,7 +76,6 @@ func setLocked(value):
 		$LabelPrice.visible = true;
 		
 func tween_completed():
-	
 	if(locked):
 		$enemyLocker.visible = true;
 		for e in lockedEnemies:

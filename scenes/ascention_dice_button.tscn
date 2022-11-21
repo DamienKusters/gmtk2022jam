@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/sprites/dice/d0.png" type="Texture" id=2]
+[ext_resource path="res://assets/fonts/almendra-all-400-normal.woff" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/scripts/ascention_dice_button.gd" type="Script" id=4]
+[ext_resource path="res://assets/sprites/upgrades/Auto_Roll.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/upgrades/Upgrade_Dice_Icon.png" type="Texture" id=6]
+
+[sub_resource type="DynamicFont" id=10]
+size = 60
+outline_color = Color( 0.392157, 0.392157, 0.392157, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 80
+font_data = ExtResource( 3 )
+
+[node name="AscentionDiceButton" type="HBoxContainer"]
+margin_right = 161.0
+margin_bottom = 128.0
+script = ExtResource( 4 )
+level = 1
+
+[node name="PrependLabel" type="Label" parent="."]
+margin_top = 24.0
+margin_right = 29.0
+margin_bottom = 103.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 10 )
+text = "x"
+
+[node name="TextureButton" type="TextureButton" parent="."]
+margin_left = 33.0
+margin_right = 161.0
+margin_bottom = 128.0
+texture_normal = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="TextureButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 11 )
+text = "4"
+align = 1
+valign = 1
+
+[node name="Control" type="Control" parent="TextureButton"]
+anchor_left = 1.0
+anchor_top = 0.3
+anchor_right = 2.5
+anchor_bottom = 0.7
+
+[node name="BtnReroll" type="Button" parent="TextureButton/Control"]
+anchor_right = 0.5
+anchor_bottom = 1.0
+icon = ExtResource( 5 )
+icon_align = 1
+expand_icon = true
+
+[node name="BtnUpgrade" type="Button" parent="TextureButton/Control"]
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+icon = ExtResource( 6 )
+icon_align = 1
+expand_icon = true
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]
+[connection signal="pressed" from="TextureButton/Control/BtnReroll" to="." method="_on_BtnReroll_pressed"]
+[connection signal="pressed" from="TextureButton/Control/BtnUpgrade" to="." method="_on_BtnUpgrade_pressed"]

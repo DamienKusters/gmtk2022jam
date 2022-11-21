@@ -41,8 +41,9 @@ func respawnEnemy():
 	$Tween.start();
 
 func damage(value: int, dice: Node2D):
-	enemyHealth = enemyHealth - value;
-	secondDmg += value;
+	var multipliedValue = value * g.ascention_dps_multiplier;
+	enemyHealth = enemyHealth - multipliedValue;
+	secondDmg += multipliedValue;
 	if(enemyHealth <= 0):
 		if enemy.feather != 0:
 			g.addFeathers(enemy['feather']);

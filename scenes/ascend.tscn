@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/sound/Luna's Theme (Dream Suite) - Animal Crossing_ New Horizons.mp3" type="AudioStream" id=7]
 [ext_resource path="res://assets/scripts/ascend_root.gd" type="Script" id=8]
 [ext_resource path="res://assets/sprites/icons/angel_feather.png" type="Texture" id=9]
+[ext_resource path="res://scenes/ascention_dice_button.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Shader" id=5]
 code = "shader_type canvas_item;
@@ -59,11 +60,6 @@ font_data = ExtResource( 6 )
 size = 60
 outline_size = 3
 outline_color = Color( 0.196078, 0.196078, 0.196078, 1 )
-font_data = ExtResource( 6 )
-
-[sub_resource type="DynamicFont" id=8]
-size = 60
-outline_color = Color( 0.392157, 0.392157, 0.392157, 1 )
 font_data = ExtResource( 6 )
 
 [node name="Ascend" type="Node2D"]
@@ -122,9 +118,9 @@ align = 1
 valign = 1
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Ui"]
-anchor_left = 0.1
+anchor_left = 0.2
 anchor_top = 0.2
-anchor_right = 0.9
+anchor_right = 0.8
 anchor_bottom = 0.9
 color = Color( 1, 1, 1, 0.270588 )
 
@@ -135,66 +131,54 @@ margin_left = 20.0
 margin_top = 20.0
 margin_right = -20.0
 margin_bottom = -20.0
+custom_constants/separation = 30
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Ui/ColorRect/VBoxContainer"]
-margin_right = 1240.0
-margin_bottom = 79.0
+margin_right = 920.0
+margin_bottom = 128.0
 
 [node name="Label" type="Label" parent="CanvasLayer/Ui/ColorRect/VBoxContainer/HBoxContainer"]
+margin_top = 24.0
 margin_right = 322.0
-margin_bottom = 79.0
+margin_bottom = 103.0
 size_flags_horizontal = 2
 custom_fonts/font = SubResource( 7 )
 text = "DPS Modifier"
 
-[node name="Label2" type="Label" parent="CanvasLayer/Ui/ColorRect/VBoxContainer/HBoxContainer"]
-margin_left = 1120.0
-margin_right = 1240.0
-margin_bottom = 79.0
-custom_colors/font_color = Color( 0.639216, 0, 1, 1 )
-custom_fonts/font = SubResource( 8 )
-text = "x 100"
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Ui/ColorRect/VBoxContainer"]
-margin_top = 83.0
-margin_right = 1240.0
-margin_bottom = 162.0
-
-[node name="Label" type="Label" parent="CanvasLayer/Ui/ColorRect/VBoxContainer/HBoxContainer3"]
-margin_right = 441.0
-margin_bottom = 79.0
-size_flags_horizontal = 2
-custom_fonts/font = SubResource( 7 )
-text = "DM Starting Level"
-
-[node name="Label2" type="Label" parent="CanvasLayer/Ui/ColorRect/VBoxContainer/HBoxContainer3"]
-margin_left = 1120.0
-margin_right = 1240.0
-margin_bottom = 79.0
-custom_colors/font_color = Color( 0.639216, 0, 1, 1 )
-custom_fonts/font = SubResource( 8 )
-text = "x 100"
+[node name="AscentionDiceButton" parent="CanvasLayer/Ui/ColorRect/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
+margin_left = 759.0
+margin_right = 920.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Ui/ColorRect/VBoxContainer"]
-margin_top = 166.0
-margin_right = 1240.0
-margin_bottom = 245.0
+margin_top = 158.0
+margin_right = 920.0
+margin_bottom = 286.0
 
 [node name="Label" type="Label" parent="CanvasLayer/Ui/ColorRect/VBoxContainer/HBoxContainer2"]
+margin_top = 24.0
 margin_right = 489.0
-margin_bottom = 79.0
+margin_bottom = 103.0
 size_flags_horizontal = 2
 custom_fonts/font = SubResource( 7 )
 text = "Re-roller Start Level"
 
-[node name="Label2" type="Label" parent="CanvasLayer/Ui/ColorRect/VBoxContainer/HBoxContainer2"]
-margin_left = 1120.0
-margin_right = 1240.0
-margin_bottom = 79.0
-custom_colors/font_color = Color( 0.639216, 0, 1, 1 )
-custom_fonts/font = SubResource( 8 )
-text = "x 100"
+[node name="AscentionDiceButton" parent="CanvasLayer/Ui/ColorRect/VBoxContainer/HBoxContainer2" instance=ExtResource( 10 )]
+margin_left = 759.0
+margin_right = 920.0
+ascention = 1
+value = 0
+prepend = "+"
+level = 0
+
+[node name="Button" type="Button" parent="CanvasLayer/Ui/ColorRect"]
+anchor_left = 0.645
+anchor_top = 0.862
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Ascend"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 autoplay = true
+
+[connection signal="pressed" from="CanvasLayer/Ui/ColorRect/Button" to="." method="_on_Button_pressed"]

@@ -2,6 +2,13 @@ extends Node2D
 
 onready var g = $"/root/Globals";
 
+var rollSounds = [
+	preload("res://assets/sound/dice/roll1.mp3"),
+	preload("res://assets/sound/dice/roll2.mp3"),
+	preload("res://assets/sound/dice/roll3.mp3"),
+	preload("res://assets/sound/dice/roll4.mp3"),
+];
+
 enum DiceEnum { D4, D6, D8, D10, D12, D20 };
 
 export(DiceEnum) var kind;
@@ -56,9 +63,18 @@ func roll():
 	$Sprite/AnimationPlayer.play("rotate");
 	$Label.text = "";
 
+func playRandomRollSound():
+	rng.randomize();
+	var stream = rollSounds[rng.randi_range(0, rollSounds.size()-1)];
+	$AudioStreamPlayer.stream = stream;
+	$AudioStreamPlayer.play();
+
 func _on_Area2D_input_event(viewport, event, shape_idx):
 	if (event is InputEventMouseButton && event.pressed):
+		if(rolling):
+			return;
 		roll();
+		playRandomRollSound();
 
 func _on_Timer_timeout():
 	rolling = false;

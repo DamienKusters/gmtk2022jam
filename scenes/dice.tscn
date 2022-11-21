@@ -145,5 +145,9 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+mix_target = 1
+bus = "Effect"
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="input_event" from="Area2D" to="." method="_on_Area2D_input_event"]
