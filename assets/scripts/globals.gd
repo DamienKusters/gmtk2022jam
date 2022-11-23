@@ -15,8 +15,8 @@ signal enemyKilled;
 
 var enemyPool = 4;
 var maxDiceRollTime = 4;
-var currency = 9999;
-var feathers = 90;
+var currency = 0;
+var feathers = 0;
 
 #TODO: Ascention upgrades:
 var ascention_dps_multiplier = 1;
@@ -24,8 +24,8 @@ var ascention_reroller = 0;
 
 var rng = RandomNumberGenerator.new();
 
-func reset():
-#	currency = 0;
+func ascendReset():
+	currency = 10 * feathers;
 	feathers = 0;
 	enemyPool = 4;
 	maxDiceRollTime = 4;

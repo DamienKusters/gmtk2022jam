@@ -3,6 +3,7 @@ extends Control
 enum Upgrade { ADD_DICE, UPGRADE_DICE, DUNGEON_MASTER, DICE_TOWER, REROLL, DICE_TRAY, CONTRACT, ROLL_DECREASE, ASCEND };
 
 onready var g = $"/root/Globals";
+onready var particle = preload("res://scenes/shared/single_particle_effect.tscn");
 
 export var locked = false;
 export var title: String = "Upgrade Name";
@@ -36,6 +37,8 @@ func _ready():
 		g.connect("upgradeDiceSuccess", self, "applyNextLevelUiUpdate");
 	if(kind == 4):
 		level = g.ascention_reroller;
+		for i in level:
+			price =+ calculatePriceIncrease(price,levelupPriceIncrease,levelupPricePercentIncrease);
 		updateUi();
 		g.connect("damageEnemy", self, "enemyDamaged");
 	if(kind == 6):
@@ -49,10 +52,11 @@ func _ready():
 		$TextureRect.self_modulate = Color('563eff');
 	
 func updateUi():
-	$LabelPrice.text = "" + String(price);
+	$LabelPrice.text = String(price);
 #	if(levelCap == -1):
 	if(level == levelCap):
 		$LabelLevel.text = "max";
+		$LabelPrice.text = "";
 	elif(level > 0):
 		$LabelLevel.text = String(level);
 	else:
@@ -112,21 +116,28 @@ func applyNextLevelUiUpdate():
 			return;
 	g.removeCurrency(price);
 	level = level + 1;
-	$CPUParticles2D.restart();
+#	$CPUParticles2D.restart();
+	var p = particle.instance();
+	p.position = $particle_point.position;
+	add_child(particle.instance());
 	$AudioStreamPlayer.play();
 	if(levelCap != -1):
 		if(level >= levelCap):
 			$LabelPrice.visible = false;
 	
-	price = price + levelupPriceIncrease;
-	var priceIncrease: float = 0;
-	if(levelupPricePercentIncrease != 0):
-		priceIncrease = (float(price) / float(100)) * float(levelupPricePercentIncrease);
-	price = price + ceil(priceIncrease);
+	price =+ calculatePriceIncrease(price,levelupPriceIncrease,levelupPricePercentIncrease);
 	updateUi();
 	setPayable(g.currency);
 	return true;
-	
+
+func calculatePriceIncrease(_currentPrice, _priceIncreaseValue, _priceIncreasePercent):
+	var output = _currentPrice + _priceIncreaseValue;
+	var increase: float = 0;
+	if(_priceIncreasePercent != 0):
+		increase = (float(output) / float(100)) * float(_priceIncreasePercent);
+	output = output + ceil(increase);
+	return output;
+
 func action():
 	if(kind == 0):
 		g.addDice();

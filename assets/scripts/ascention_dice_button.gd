@@ -10,15 +10,7 @@ onready var g = $"/root/Globals";
 export(Ascention) var ascention;
 export var value = 1;
 export var prepend = "x" setget setPrepend, getPrepend;
-export(Dice) var level 
-export var toggleButtons = false setget setToggleButtons, getToggleButtons;
-
-func setToggleButtons(value):
-	toggleButtons = value;
-	$TextureButton/Control.visible = value;
-	
-func getToggleButtons():
-	return toggleButtons;
+export(Dice) var level;
 
 func setPrepend(value):
 	prepend = value;
@@ -34,11 +26,7 @@ func _ready():
 		value = g.ascention_dps_multiplier;
 	elif(ascention == Ascention.REROLLER):
 		value = g.ascention_reroller;
-	setToggleButtons(false);
 	render();
-
-func _on_TextureButton_pressed():
-	setToggleButtons(!toggleButtons);
 
 #Sorry
 func getDiceData():
@@ -81,8 +69,7 @@ func getDiceData():
 
 func render():
 	var d = getDiceData();
-	if d['value'] != value:
-		$TextureButton.texture_normal = load(d['texture']);
+	$TextureButton.texture = load(d['texture']);
 	$TextureButton/Label.text = "";
 	$TextureButton/Label.text = str(value);
 
@@ -90,6 +77,8 @@ func render():
 func _on_BtnReroll_pressed():
 	var price = 1;
 	if g.feathers >= price:
+		if value == 20:
+			return;
 		if level == Dice.D0:
 			level = Dice.D4;
 		var d = getDiceData();
@@ -98,7 +87,6 @@ func _on_BtnReroll_pressed():
 		g.removeFeathers(price);
 		render();
 		emit_signal("valueUpdated", value);
-		setToggleButtons(false);
 		if(ascention == Ascention.DPS):
 			g.ascention_dps_multiplier = value;
 		elif(ascention == Ascention.REROLLER):
@@ -107,6 +95,8 @@ func _on_BtnReroll_pressed():
 func _on_BtnUpgrade_pressed():
 	var price = 2;
 	if g.feathers >= price:
+		if value == 20:
+			return;
 		if level == Dice.D0:
 				level = Dice.D4;
 		match level:
@@ -124,4 +114,3 @@ func _on_BtnUpgrade_pressed():
 				return;
 		g.removeFeathers(price);
 		render();
-		setToggleButtons(false);

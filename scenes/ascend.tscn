@@ -148,6 +148,8 @@ text = "DPS Modifier"
 [node name="AscentionDiceButton" parent="CanvasLayer/Ui/ColorRect/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
 margin_left = 759.0
 margin_right = 920.0
+value = 1
+level = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Ui/ColorRect/VBoxContainer"]
 margin_top = 158.0
@@ -166,9 +168,7 @@ text = "Re-roller Start Level"
 margin_left = 759.0
 margin_right = 920.0
 ascention = 1
-value = 0
 prepend = "+"
-level = 0
 
 [node name="Button" type="Button" parent="CanvasLayer/Ui/ColorRect"]
 anchor_left = 0.645

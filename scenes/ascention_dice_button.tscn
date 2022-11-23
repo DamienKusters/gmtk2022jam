@@ -20,7 +20,7 @@ font_data = ExtResource( 3 )
 margin_right = 161.0
 margin_bottom = 128.0
 script = ExtResource( 4 )
-level = 1
+value = 0
 
 [node name="PrependLabel" type="Label" parent="."]
 margin_top = 24.0
@@ -30,11 +30,11 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 10 )
 text = "x"
 
-[node name="TextureButton" type="TextureButton" parent="."]
+[node name="TextureButton" type="TextureRect" parent="."]
 margin_left = 33.0
 margin_right = 161.0
 margin_bottom = 128.0
-texture_normal = ExtResource( 2 )
+texture = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="TextureButton"]
 anchor_right = 1.0
@@ -46,10 +46,10 @@ align = 1
 valign = 1
 
 [node name="Control" type="Control" parent="TextureButton"]
-anchor_left = 1.0
-anchor_top = 0.3
-anchor_right = 2.5
-anchor_bottom = 0.7
+anchor_left = 1.2
+anchor_top = 0.2
+anchor_right = 3.0
+anchor_bottom = 0.8
 
 [node name="BtnReroll" type="Button" parent="TextureButton/Control"]
 anchor_right = 0.5
@@ -66,6 +66,5 @@ icon = ExtResource( 6 )
 icon_align = 1
 expand_icon = true
 
-[connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]
 [connection signal="pressed" from="TextureButton/Control/BtnReroll" to="." method="_on_BtnReroll_pressed"]
 [connection signal="pressed" from="TextureButton/Control/BtnUpgrade" to="." method="_on_BtnUpgrade_pressed"]
