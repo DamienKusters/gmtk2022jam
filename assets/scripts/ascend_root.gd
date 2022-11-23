@@ -16,4 +16,6 @@ func updateFeathers(value):
 
 
 func _on_Button_pressed():
+	g.currency = 10 * g.feathers;
+	g.feathers = 0;
 	var e = get_tree().change_scene("res://scenes/main.tscn");

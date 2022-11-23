@@ -13,7 +13,9 @@ func _ready():
 	g.connect("damageEnemy", self, "damage");
 	respawnEnemy();
 	$"../VBoxContainer/u_ascend".visible = false;
-	$"../VBoxContainer/Control/HBoxContainer".visible = false;showAscendUpgrade();
+	$"../VBoxContainer/Control/HBoxContainer".visible = false;
+	if g.feathers > 0:
+		showAscendUpgrade();
 	pass
 	
 func respawnEnemy():
@@ -46,7 +48,14 @@ func damage(value: int, dice: Node2D):
 	secondDmg += multipliedValue;
 	if(enemyHealth <= 0):
 		if enemy.feather != 0:
-			g.addFeathers(enemy['feather']);
+			var featherKind = enemy['feather'];
+			if(featherKind < 0):
+				g.addFeathers(1);# The angel will always give feathers
+			else:
+				g.addFeathers(1);
+				var index = g.enemiesCommon.find(enemy,0);
+				var f = g.enemiesCommon[index]['feather'];
+				g.enemiesCommon[index]['feather'] = f - 1;
 			showAscendUpgrade();
 		else:
 			g.addCurrency(enemy['currency']);

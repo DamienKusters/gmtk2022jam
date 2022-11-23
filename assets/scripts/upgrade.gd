@@ -42,7 +42,7 @@ func _ready():
 		g.connect("enemyKilled", self, "enemyKilled");
 		$Tween.connect("tween_all_completed", self, "tween_completed");
 	g.connect("currencyUpdated", self, "setPayable");
-	setPayable(0);
+	setPayable(g.currency);
 	$enemyLocker.visible = false;
 	setLocked(locked);
 	if kind == Upgrade.ASCEND:
@@ -159,7 +159,7 @@ func action():
 				return;
 		pass
 	if(kind == 7):
-		g.maxDiceRollTime = g.maxDiceRollTime - .4;
+		g.maxDiceRollTime = g.maxDiceRollTime - .35;
 	if(kind == 8):
 		var e = get_tree().change_scene("res://scenes/ascend.tscn");
 

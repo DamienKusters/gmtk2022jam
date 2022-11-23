@@ -334,10 +334,22 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:margin_left")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
 
 [sub_resource type="Animation" id=22]
 resource_name = "fade_up"
-length = 1.5
+length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:margin_top")
 tracks/0/interp = 2
@@ -345,10 +357,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5 ),
+"times": PoolRealArray( 0, 2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 120, 0.0 ]
+"values": [ 200, 0.0 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:modulate")
@@ -357,10 +369,22 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 1, 1.5 ),
+"times": PoolRealArray( 0, 0.1, 1.5, 2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:margin_left")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -549, 0 ]
 }
 
 [sub_resource type="DynamicFont" id=13]
@@ -425,8 +449,8 @@ color = Color( 0.262745, 0.141176, 0, 1 )
 [node name="Label" type="Label" parent="uiRoot/VBoxContainer/Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 20.0
-margin_right = -20.0
+margin_left = 30.0
+margin_right = -30.0
 custom_colors/font_color = Color( 0.847059, 0.831373, 0, 1 )
 custom_fonts/font = SubResource( 25 )
 text = "$1234567890"
@@ -435,14 +459,15 @@ valign = 1
 script = ExtResource( 6 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="uiRoot/VBoxContainer/Control"]
-anchor_left = 0.7
+anchor_left = 0.65
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -10.0
+margin_right = -30.0
 alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="uiRoot/VBoxContainer/Control/HBoxContainer"]
-margin_right = 50.0
+margin_left = 3.0
+margin_right = 53.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 50, 50 )
 texture = ExtResource( 29 )
@@ -450,9 +475,9 @@ expand = true
 stretch_mode = 6
 
 [node name="LabelFeathers" type="Label" parent="uiRoot/VBoxContainer/Control/HBoxContainer"]
-margin_left = 54.0
+margin_left = 57.0
 margin_top = 23.0
-margin_right = 135.0
+margin_right = 138.0
 margin_bottom = 76.0
 custom_fonts/font = SubResource( 26 )
 text = "x 999"

@@ -14,8 +14,8 @@ signal openHelp;
 signal enemyKilled;
 
 var enemyPool = 4;
-var maxDiceRollTime = 4.5;
-var currency = 99999999990;
+var maxDiceRollTime = 4;
+var currency = 9999;
 var feathers = 90;
 
 #TODO: Ascention upgrades:
@@ -23,6 +23,12 @@ var ascention_dps_multiplier = 1;
 var ascention_reroller = 0;
 
 var rng = RandomNumberGenerator.new();
+
+func reset():
+#	currency = 0;
+	feathers = 0;
+	enemyPool = 4;
+	maxDiceRollTime = 4;
 
 func addDice():
 	emit_signal("addDice", 0);#0 = default
@@ -90,7 +96,7 @@ var enemiesCommon = [
 		"currency":5,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Slime.png",
-		"feather":0#Todo: make bool?
+		"feather":0
 	},
 	{
 		"name":"Bird",
@@ -311,7 +317,7 @@ var enemiesCommon = [
 		"currency":0,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Angel.png",
-		"feather":1
+		"feather":-1
 	},
 	#Okay, dus: angel drops angel feathers, each feather makes you roll a 'prime dice'
 	# You can ascend deleting progress but you can purchase:
@@ -325,6 +331,18 @@ var enemiesCommon = [
 # demon feather unlocks new special ascend upgrade, you can upgrade it with angel feathers, and if you cant upgrade, you
 # get the option to ascend with x amount of rolls based on level (default roll = 1)  
 # reroller as ascention upgrade?
+#
+#
+#
+# TODO:
+#	Ascention screen
+#	- Reroll dice always 1 feather
+#	- Scale cost of upgrade dice with % of increase
+#		Example:
+#		rest = D6 - D4
+#		D4 = 100% + rest = ???%
+#
+#
 	# Tier 8: Future
 #	{
 #		"name":"Destroyer",

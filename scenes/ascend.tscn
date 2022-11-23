@@ -180,5 +180,6 @@ text = "Ascend"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 autoplay = true
+bus = "Music"
 
 [connection signal="pressed" from="CanvasLayer/Ui/ColorRect/Button" to="." method="_on_Button_pressed"]
