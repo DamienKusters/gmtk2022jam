@@ -46,6 +46,15 @@ anchor_bottom = 1.0
 texture = ExtResource( 7 )
 expand = true
 
+[node name="TextureProgress" type="TextureProgress" parent="."]
+self_modulate = Color( 1, 0.92549, 0.92549, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture_progress = ExtResource( 7 )
+nine_patch_stretch = true
+
+[node name="Tween" type="Tween" parent="TextureProgress"]
+
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
 self_modulate = Color( 0.462745, 0.462745, 0.462745, 1 )

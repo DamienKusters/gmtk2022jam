@@ -49,7 +49,7 @@ func _ready():
 	$enemyLocker.visible = false;
 	setLocked(locked);
 	if kind == Upgrade.ASCEND:
-		$TextureRect.self_modulate = Color('563eff');
+		$TextureRect.self_modulate = Color('f2ff56');
 	
 func updateUi():
 	$LabelPrice.text = String(price);
@@ -157,6 +157,11 @@ func action():
 		else:
 			$Timer.wait_time = float($Timer.wait_time) - 1;
 		$Timer.start();
+		if !(level > 15):
+			$TextureProgress/Tween.interpolate_property($TextureProgress, "value", 0, 100, $Timer.wait_time);
+			$TextureProgress/Tween.start();
+		else:
+			$TextureProgress.value = 0;
 	if(kind == 3):#Removed
 		if($Timer.is_stopped()):
 			$Timer.wait_time = 10;
@@ -177,6 +182,10 @@ func action():
 func _on_Timer_timeout():
 	if(kind == 2):
 		g.rollRandomDice();
+		$TextureProgress.value = 0;
+		if !(level > 15):
+			$TextureProgress/Tween.interpolate_property($TextureProgress, "value", 0, 100, $Timer.wait_time);
+			$TextureProgress/Tween.start();
 	if(kind == 3):
 		for i in level:
 			g.rollRandomDice();

@@ -2,9 +2,12 @@ extends Control
 
 onready var g = $"/root/Globals";
 
+onready var particle = preload("res://scenes/shared/single_particle_effect_enemy_death.tscn");
+
 var enemy = {};
 var timeLeft = -1;
 var enemyHealth = 0;
+var enemyShield = null;
 var rng = RandomNumberGenerator.new();
 
 var secondDmg = 0;
@@ -35,14 +38,28 @@ func respawnEnemy():
 	enemyHealth = enemy['health'];
 #	if(timeLeft == -1):
 #		timeLeft = enemy['time'];
-	timeLeft = 8;
+	timeLeft = 7;
 	$EnemyContainer/AnimationPlayer.play("spawn");
 	$Control/VBoxContainer/TextureProgress2.max_value = timeLeft;
 	$Control/VBoxContainer/TextureProgress2.value = timeLeft;
-	$Tween.interpolate_property($Control/VBoxContainer/TextureProgress2, "value", float(timeLeft), 0.2, timeLeft+1, Tween.TRANS_LINEAR);
+	$Tween.interpolate_property($Control/VBoxContainer/TextureProgress2, "value", float(timeLeft), 0.1, timeLeft+1, Tween.TRANS_LINEAR);
 	$Tween.start();
+	
+	if enemy['shield'] != null:
+		$Shield.setData(enemy['shield']);
+		enemyShield = enemy['shield'];
+		$Shield/AnimationPlayer.play("spawn");
+	else:
+		enemyShield = null;
+		$Shield/AnimationPlayer.play("RESET");
 
 func damage(value: int, dice: Node2D):
+	if enemyShield != null && dice.kind == enemyShield:
+		$Shield/AnimationPlayer.play("hit");
+		$AudioDamage.pitch_scale = 0.61;
+		$AudioDamage.play();
+		return;
+	
 	var multipliedValue = value * g.ascention_dps_multiplier;
 	enemyHealth = enemyHealth - multipliedValue;
 	secondDmg += multipliedValue;
@@ -61,7 +78,7 @@ func damage(value: int, dice: Node2D):
 			g.addCurrency(enemy['currency']);
 		g.killEnemy(enemy);
 		$AudioMoney.play();
-		$EnemyContainer/CPUParticles2D.restart();
+		$EnemyContainer.add_child(particle.instance());
 		respawnEnemy();
 	else:
 		$Control/VBoxContainer/TextureProgress.value = enemyHealth;

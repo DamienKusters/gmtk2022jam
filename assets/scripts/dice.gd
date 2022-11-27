@@ -3,7 +3,6 @@ extends Node2D
 onready var g = $"/root/Globals";
 
 var rollSounds = [
-	preload("res://assets/sound/dice/roll1.mp3"),
 	preload("res://assets/sound/dice/roll2.mp3"),
 	preload("res://assets/sound/dice/roll3.mp3"),
 	preload("res://assets/sound/dice/roll4.mp3"),
@@ -75,6 +74,7 @@ func _on_Area2D_input_event(viewport, event, shape_idx):
 			return;
 		roll();
 		playRandomRollSound();
+		Input.set_default_cursor_shape(Input.CURSOR_ARROW);
 
 func _on_Timer_timeout():
 	rolling = false;
@@ -94,3 +94,11 @@ func _on_Timer_timeout():
 	$Label2/AnimationPlayer.play("hit");
 	
 	g.damageCurrentEnemy(value, self);
+
+
+func _on_Area2D_mouse_entered():
+	if rolling == false:
+		Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND);
+
+func _on_Area2D_mouse_exited():
+	Input.set_default_cursor_shape(Input.CURSOR_ARROW);

@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
@@ -32,6 +32,9 @@
 [ext_resource path="res://assets/sprites/icons/timer_100.png" type="Texture" id=30]
 [ext_resource path="res://assets/sprites/upgrades/Ascend_Icon.png" type="Texture" id=31]
 [ext_resource path="res://assets/scripts/feathersLabel.gd" type="Script" id=32]
+[ext_resource path="res://scenes/ThemeButton.tscn" type="PackedScene" id=33]
+[ext_resource path="res://assets/sprites/icons/shield.png" type="Texture" id=34]
+[ext_resource path="res://assets/scripts/shield.gd" type="Script" id=35]
 
 [sub_resource type="DynamicFont" id=25]
 size = 60
@@ -195,6 +198,120 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.584314, 0.584314, 0.584314, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="DynamicFont" id=27]
+size = 70
+outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=28]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:margin_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=29]
+resource_name = "hit"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:margin_top")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=30]
+resource_name = "spawn"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:margin_top")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -50.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [sub_resource type="DynamicFont" id=2]
@@ -495,7 +612,7 @@ levelupPricePercentIncrease = 0
 kind = 8
 levelCap = 1
 spriteTexture = ExtResource( 31 )
-description = "Reset the universe"
+description = "Reset your progress and spend Angel Feathers for permanent upgrades"
 
 [node name="u_add" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 190.0
@@ -660,6 +777,34 @@ anims/spawn = SubResource( 7 )
 anims/RESET = SubResource( 8 )
 anims/damage = SubResource( 9 )
 
+[node name="Shield" type="TextureRect" parent="uiRoot/enemyUi"]
+modulate = Color( 1, 1, 1, 0 )
+self_modulate = Color( 0.203922, 0.203922, 0.203922, 1 )
+anchor_left = 0.2
+anchor_top = 0.45
+anchor_right = 0.35
+anchor_bottom = 0.8
+margin_right = -0.00012207
+rect_pivot_offset = Vector2( 83, 83 )
+texture = ExtResource( 34 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 35 )
+
+[node name="Label" type="Label" parent="uiRoot/enemyUi/Shield"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 27 )
+text = "20"
+align = 1
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="uiRoot/enemyUi/Shield"]
+autoplay = "hit"
+anims/RESET = SubResource( 28 )
+anims/hit = SubResource( 29 )
+anims/spawn = SubResource( 30 )
+
 [node name="LabelEnemy" type="Label" parent="uiRoot/enemyUi"]
 anchor_right = 1.0
 anchor_bottom = 0.25
@@ -754,6 +899,7 @@ text = "Time"
 align = 2
 
 [node name="Label" type="Label" parent="uiRoot/enemyUi"]
+visible = false
 anchor_left = 0.014
 anchor_top = 0.26
 anchor_right = 0.296
@@ -795,6 +941,7 @@ wait_time = 1.5
 one_shot = true
 
 [node name="Button" type="Button" parent="uiRoot"]
+visible = false
 anchor_left = 0.7
 anchor_top = 0.85
 anchor_right = 1.0
@@ -806,6 +953,30 @@ margin_bottom = -30.0
 custom_fonts/font = SubResource( 13 )
 text = "Credits"
 script = ExtResource( 20 )
+
+[node name="ThemeButton2" parent="uiRoot" instance=ExtResource( 33 )]
+self_modulate = Color( 0.254902, 0.176471, 0.0901961, 1 )
+anchor_left = 0.7
+anchor_top = 0.85
+anchor_right = 0.85
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 30.0
+margin_right = -20.0
+margin_bottom = -30.0
+button_text = "Options"
+
+[node name="ThemeButton" parent="uiRoot" instance=ExtResource( 33 )]
+self_modulate = Color( 0.254902, 0.176471, 0.0901961, 1 )
+anchor_left = 0.85
+anchor_top = 0.85
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 30.0
+margin_right = -20.0
+margin_bottom = -30.0
+button_text = "Credits"
 
 [node name="TextureRect" type="TextureRect" parent="uiRoot"]
 margin_left = -1369.0
@@ -1074,6 +1245,7 @@ anchor_bottom = 1.0
 [connection signal="timeout" from="uiRoot/enemyUi/dpsTimer" to="uiRoot/enemyUi" method="_on_dpsTimer_timeout"]
 [connection signal="timeout" from="uiRoot/enemyUi/Control2/Timer" to="uiRoot/enemyUi/Control2" method="_on_Timer_timeout"]
 [connection signal="button_down" from="uiRoot/Button" to="uiRoot/Button" method="_on_Button_button_down"]
+[connection signal="button_clicked" from="uiRoot/ThemeButton" to="uiRoot/Button" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/TextureRect/Button" to="uiRoot/TextureRect" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/About/Button" to="uiRoot/About" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/Help/Button" to="uiRoot/Help" method="_on_Button_button_down"]

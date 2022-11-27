@@ -15,8 +15,8 @@ signal enemyKilled;
 
 var enemyPool = 4;
 var maxDiceRollTime = 4;
-var currency = 0;
-var feathers = 0;
+var currency = 99999;
+var feathers = 90;
 
 #TODO: Ascention upgrades:
 var ascention_dps_multiplier = 1;
@@ -96,7 +96,8 @@ var enemiesCommon = [
 		"currency":5,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Slime.png",
-		"feather":0
+		"feather":0,
+		"shield":null,
 	},
 	{
 		"name":"Bird",
@@ -104,7 +105,8 @@ var enemiesCommon = [
 		"currency":7,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Bird.png",
-		"feather":0
+		"feather":0,
+		"shield":null,
 	},
 	{
 		"name":"Wolf",
@@ -112,7 +114,8 @@ var enemiesCommon = [
 		"currency":10,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Wolf.png",
-		"feather":0
+		"feather":0,
+		"shield":null,
 	},
 	{
 		"name":"Goblin",
@@ -120,7 +123,8 @@ var enemiesCommon = [
 		"currency":15,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Regular_Goblin.png",
-		"feather":0
+		"feather":0,
+		"shield":null,
 	},
 	#Tier 2: Advanced
 	{
@@ -129,7 +133,8 @@ var enemiesCommon = [
 		"currency":50,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Cobald_Wolf.png",
-		"feather":0
+		"feather":0,
+		"shield":null,
 	},
 	{
 		"name":"Elite Goblin",
@@ -137,7 +142,8 @@ var enemiesCommon = [
 		"currency":60,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Elite_Goblin.png",
-		"feather":0
+		"feather":0,
+		"shield":null,
 	},
 	{
 		"name":"Bandit",
@@ -145,7 +151,8 @@ var enemiesCommon = [
 		"currency":70,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Pirate.png",
-		"feather":0
+		"feather":0,
+		"shield":null,
 	},
 	{
 		"name":"Outlaw",
@@ -153,7 +160,8 @@ var enemiesCommon = [
 		"currency":70,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Bandit.png",
-		"feather":0
+		"feather":0,
+		"shield":null,
 	},
 	#Tier 3: Mytical (TODO: add 60% health) 
 	{
@@ -162,7 +170,8 @@ var enemiesCommon = [
 		"currency":80,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Witch.png",
-		"feather":0
+		"feather":0,
+		"shield":null,
 	},
 	{
 		"name":"Gaia",
@@ -170,7 +179,8 @@ var enemiesCommon = [
 		"currency":100,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Gaia.png",
-		"feather":0
+		"feather":0,
+		"shield":null,
 	},
 	{
 		"name":"Minotaur",
@@ -178,7 +188,8 @@ var enemiesCommon = [
 		"currency":90,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Minotaur.png",
-		"feather":0
+		"feather":0,
+		"shield":null,
 	},
 	{
 		"name":"Golem",
@@ -186,7 +197,8 @@ var enemiesCommon = [
 		"currency":150,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Nature_Gorilla.png",
-		"feather":0
+		"feather":0,
+		"shield":DiceEnum.D4,
 	},
 	#Tier 4: Magic (TODO: triple health (except boss))
 	{
@@ -195,7 +207,8 @@ var enemiesCommon = [
 		"currency":111,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Earth_Lady.png",
-		"feather":0
+		"feather":0,
+		"shield":null,
 	},
 	{
 		"name":"Pixie",
@@ -203,7 +216,8 @@ var enemiesCommon = [
 		"currency":111,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Pixie_Man.png",
-		"feather":0
+		"feather":0,
+		"shield":null,
 	},
 	{
 		"name":"Wrath",
@@ -211,7 +225,8 @@ var enemiesCommon = [
 		"currency":100,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Wtf.png",
-		"feather":0
+		"feather":0,
+		"shield":null,
 	},
 	{
 		"name":"Necromancer",
@@ -219,7 +234,8 @@ var enemiesCommon = [
 		"currency":444,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Necromancer.png",
-		"feather":1
+		"feather":1,
+		"shield":DiceEnum.D6,
 	},
 	#Tier 5: Demons (TODO: triple/quadruple health)
 #	{
@@ -235,7 +251,8 @@ var enemiesCommon = [
 		"currency":106,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Lich.png",
-		"feather":0
+		"feather":0,
+		"shield":null,
 	},
 	{
 		"name":"Demon Pixie",
@@ -243,7 +260,8 @@ var enemiesCommon = [
 		"currency":110,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Earth_Lady_Vampire.png",
-		"feather":0
+		"feather":0,
+		"shield":null,
 	},
 	{
 		"name":"Demon Pixie",
@@ -251,7 +269,8 @@ var enemiesCommon = [
 		"currency":110,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Pixie_Man_Vampire.png",
-		"feather":0
+		"feather":0,
+		"shield":null,
 	},
 	{
 		"name":"Demon Lord",
@@ -259,7 +278,8 @@ var enemiesCommon = [
 		"currency":666,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Demon.png",
-		"feather":1
+		"feather":1,
+		"shield":DiceEnum.D8,
 	},
 	#Tier 6: Elementals (TODO: health x8)
 	{
@@ -268,7 +288,8 @@ var enemiesCommon = [
 		"currency":999,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Earth_Elemental.png",
-		"feather":0
+		"feather":0,
+		"shield":DiceEnum.D10,
 	},
 	{
 		"name":"Fire Elemental",
@@ -276,7 +297,8 @@ var enemiesCommon = [
 		"currency":999,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Fire_Elemental.png",
-		"feather":0
+		"feather":0,
+		"shield":DiceEnum.D12,
 	},
 	{
 		"name":"Power Elemental",
@@ -284,7 +306,8 @@ var enemiesCommon = [
 		"currency":999,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Volt_Elemental.png",
-		"feather":0
+		"feather":0,
+		"shield":DiceEnum.D12,
 	},
 	{
 		"name":"Water Elemental",
@@ -292,7 +315,8 @@ var enemiesCommon = [
 		"currency":999,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Water_Elemental.png",
-		"feather":0
+		"feather":0,
+		"shield":DiceEnum.D10,
 	},
 	# Tier 7: Legendary (TODO: Health x8-10)
 	{
@@ -301,7 +325,8 @@ var enemiesCommon = [
 		"currency":0,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Darkness.png",
-		"feather":1
+		"feather":1,
+		"shield":DiceEnum.D20,
 	},
 	{
 		"name":"Light",
@@ -309,7 +334,8 @@ var enemiesCommon = [
 		"currency":0,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Light.png",
-		"feather":1
+		"feather":1,
+		"shield":DiceEnum.D20,
 	},
 	{#Must be special, rare enemy, drops angel feathers
 		"name":"Angel",
@@ -317,7 +343,8 @@ var enemiesCommon = [
 		"currency":0,
 		"time":10,
 		"sprite": "res://assets/sprites/enemies/Angel.png",
-		"feather":-1
+		"feather":-1,
+		"shield":null,
 	},
 	#Okay, dus: angel drops angel feathers, each feather makes you roll a 'prime dice'
 	# You can ascend deleting progress but you can purchase:
@@ -359,3 +386,42 @@ var enemiesCommon = [
 #		"sprite": "res://assets/sprites/enemies/DestroyerV2.png"
 #	},
 ];
+
+func getDiceData(enumValue):
+	match enumValue:
+		0:
+			return {
+				"value": 4,
+				"texture": "res://assets/sprites/dice/d4.png",
+				"color": Color(0.098, 0.639, 0.259)
+			};
+		1:
+			return {
+				"value": 6,
+				"texture": "res://assets/sprites/dice/d6.png",
+				"color": Color(0.114, 0.753, 0.827)
+			};
+		2:
+			return {
+				"value": 8,
+				"texture": "res://assets/sprites/dice/d8.png",
+				"color": Color(0.592, 0.231, 0.89)
+			};
+		3:
+			return {
+				"value": 10,
+				"texture": "res://assets/sprites/dice/d10.png",
+				"color": Color(0.89, 0.169, 0.588)
+			};
+		4:
+			return {
+				"value": 12,
+				"texture": "res://assets/sprites/dice/d12.png",
+				"color": Color(0.859, 0.235, 0.255)
+			};
+		5:
+			return {
+				"value": 20,
+				"texture": "res://assets/sprites/dice/d20.png",
+				"color": Color(0.953, 0.502, 0)
+			};
