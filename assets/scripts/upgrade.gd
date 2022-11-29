@@ -189,7 +189,6 @@ func _on_Timer_timeout():
 	if(kind == 3):
 		for i in level:
 			g.rollRandomDice();
-	pass # Replace with function body.
 	
 func enemyDamaged(value: int, dice: Node2D):
 	if(value <= level):

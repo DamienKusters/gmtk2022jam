@@ -623,7 +623,7 @@ levelupPriceIncrease = 5
 levelupPricePercentIncrease = 11
 levelCap = 20
 spriteTexture = ExtResource( 7 )
-description = "Adds another d4 dice"
+description = "Adds another D4 dice"
 
 [node name="u_upgrade" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 285.0
@@ -635,7 +635,7 @@ levelupPricePercentIncrease = 0
 kind = 1
 levelCap = 105
 spriteTexture = ExtResource( 11 )
-description = "Upgrade lowest ranking dice to the next one. (d4, d6, d8 ,d10, d12, d20)"
+description = "Upgrade lowest ranking dice to the next one. (D4, D6, D8 ,D10, D12, D20)"
 
 [node name="u_dm" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 380.0
@@ -659,7 +659,7 @@ levelupPricePercentIncrease = 22
 kind = 7
 levelCap = 10
 spriteTexture = ExtResource( 12 )
-description = "Decreases maximum dice rolling time by each level."
+description = "Decreases the average dice rolling time by each level."
 
 [node name="u_reroll" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 570.0

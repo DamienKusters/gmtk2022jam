@@ -38,7 +38,7 @@ func respawnEnemy():
 	enemyHealth = enemy['health'];
 #	if(timeLeft == -1):
 #		timeLeft = enemy['time'];
-	timeLeft = 7;
+	timeLeft = 8;
 	$EnemyContainer/AnimationPlayer.play("spawn");
 	$Control/VBoxContainer/TextureProgress2.max_value = timeLeft;
 	$Control/VBoxContainer/TextureProgress2.value = timeLeft;

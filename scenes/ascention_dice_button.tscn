@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/sprites/dice/d0.png" type="Texture" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://assets/scripts/ascention_dice_button.gd" type="Script" id=4]
 [ext_resource path="res://assets/sprites/upgrades/Auto_Roll.png" type="Texture" id=5]
 [ext_resource path="res://assets/sprites/upgrades/Upgrade_Dice_Icon.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/ui/ascention_upgrade.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/icons/angel_feather.png" type="Texture" id=8]
 
 [sub_resource type="DynamicFont" id=10]
 size = 60
@@ -16,13 +18,23 @@ font_data = ExtResource( 1 )
 size = 80
 font_data = ExtResource( 3 )
 
-[node name="AscentionDiceButton" type="HBoxContainer"]
+[sub_resource type="Gradient" id=12]
+offsets = PoolRealArray( 0, 0.0434783, 0.690821, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[node name="AscentionDiceButton" type="Control"]
 margin_right = 161.0
 margin_bottom = 128.0
+rect_min_size = Vector2( 161, 128 )
 script = ExtResource( 4 )
 value = 0
 
-[node name="PrependLabel" type="Label" parent="."]
+[node name="List" type="HBoxContainer" parent="."]
+margin_right = 465.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+
+[node name="PrependLabel" type="Label" parent="List"]
 margin_top = 24.0
 margin_right = 29.0
 margin_bottom = 103.0
@@ -30,13 +42,14 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 10 )
 text = "x"
 
-[node name="TextureButton" type="TextureRect" parent="."]
+[node name="TextureButton" type="TextureRect" parent="List"]
 margin_left = 33.0
 margin_right = 161.0
 margin_bottom = 128.0
+rect_pivot_offset = Vector2( 65, 65 )
 texture = ExtResource( 2 )
 
-[node name="Label" type="Label" parent="TextureButton"]
+[node name="Label" type="Label" parent="List/TextureButton"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -45,26 +58,67 @@ text = "4"
 align = 1
 valign = 1
 
-[node name="Control" type="Control" parent="TextureButton"]
-anchor_left = 1.2
-anchor_top = 0.2
-anchor_right = 3.0
-anchor_bottom = 0.8
+[node name="Tween" type="Tween" parent="List/TextureButton"]
 
-[node name="BtnReroll" type="Button" parent="TextureButton/Control"]
+[node name="Control" type="Control" parent="List"]
+margin_left = 165.0
+margin_right = 465.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 300, 0 )
+
+[node name="TextureButton" type="TextureButton" parent="List/Control"]
 anchor_right = 0.5
 anchor_bottom = 1.0
-icon = ExtResource( 5 )
-icon_align = 1
-expand_icon = true
+texture_normal = ExtResource( 7 )
+expand = true
+stretch_mode = 5
 
-[node name="BtnUpgrade" type="Button" parent="TextureButton/Control"]
+[node name="TextureRect" type="TextureRect" parent="List/Control/TextureButton"]
+anchor_right = 0.5
+anchor_bottom = 1.0
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton2" type="TextureButton" parent="List/Control"]
 anchor_left = 0.5
 anchor_right = 1.0
 anchor_bottom = 1.0
-icon = ExtResource( 6 )
-icon_align = 1
-expand_icon = true
+texture_normal = ExtResource( 7 )
+expand = true
+stretch_mode = 5
+flip_h = true
 
-[connection signal="pressed" from="TextureButton/Control/BtnReroll" to="." method="_on_BtnReroll_pressed"]
-[connection signal="pressed" from="TextureButton/Control/BtnUpgrade" to="." method="_on_BtnUpgrade_pressed"]
+[node name="TextureRect" type="TextureRect" parent="List/Control/TextureButton2"]
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2( 95, 63 )
+emitting = false
+amount = 1
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource( 8 )
+emission_shape = 1
+emission_sphere_radius = 2.0
+direction = Vector2( 0, -1 )
+initial_velocity = 99.43
+angular_velocity = 199.02
+angular_velocity_random = 0.27
+orbit_velocity = 0.3
+orbit_velocity_random = 0.33
+scale_amount = 6.0
+color_ramp = SubResource( 12 )
+
+[connection signal="mouse_entered" from="List/Control/TextureButton" to="." method="_on_Control_mouse_entered"]
+[connection signal="mouse_exited" from="List/Control/TextureButton" to="." method="_on_Control_mouse_exited"]
+[connection signal="pressed" from="List/Control/TextureButton" to="." method="_on_BtnReroll_pressed"]
+[connection signal="mouse_entered" from="List/Control/TextureButton2" to="." method="_on_Control_mouse_entered"]
+[connection signal="mouse_exited" from="List/Control/TextureButton2" to="." method="_on_Control_mouse_exited"]
+[connection signal="pressed" from="List/Control/TextureButton2" to="." method="_on_BtnUpgrade_pressed"]

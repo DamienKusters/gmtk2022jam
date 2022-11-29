@@ -7,7 +7,6 @@ var cachedValue = 0;
 func _ready():
 	$AnimationPlayer.play("RESET");
 	g.connect("currencyAddedSingular", self, "currencyAddedSingular");
-	pass
 	
 func currencyAddedSingular(value: int):
 	if value > 0:
@@ -17,7 +16,5 @@ func currencyAddedSingular(value: int):
 			$Timer.start();
 			$AnimationPlayer.play("fade_up");
 
-
 func _on_Timer_timeout():
 	cachedValue = 0;
-	pass # Replace with function body.

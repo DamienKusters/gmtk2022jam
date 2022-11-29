@@ -139,9 +139,9 @@ margin_bottom = 128.0
 
 [node name="Label" type="Label" parent="CanvasLayer/Ui/ColorRect/VBoxContainer/HBoxContainer"]
 margin_top = 24.0
-margin_right = 322.0
+margin_right = 755.0
 margin_bottom = 103.0
-size_flags_horizontal = 2
+size_flags_horizontal = 3
 custom_fonts/font = SubResource( 7 )
 text = "DPS Modifier"
 
@@ -158,9 +158,9 @@ margin_bottom = 286.0
 
 [node name="Label" type="Label" parent="CanvasLayer/Ui/ColorRect/VBoxContainer/HBoxContainer2"]
 margin_top = 24.0
-margin_right = 489.0
+margin_right = 755.0
 margin_bottom = 103.0
-size_flags_horizontal = 2
+size_flags_horizontal = 3
 custom_fonts/font = SubResource( 7 )
 text = "Re-roller Start Level"
 

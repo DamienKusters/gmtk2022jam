@@ -9,7 +9,6 @@ const badCoding = preload("res://scenes/dice.tscn");
 func _ready():
 	g.connect("rollRandomDice", self, "rollRandomNonRollingDice");
 	g.connect("upgradeDice", self, "upgradeDice");
-	pass
 
 func rollRandomNonRollingDice():
 	var dice = get_children();

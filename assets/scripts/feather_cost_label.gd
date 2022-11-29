@@ -7,7 +7,6 @@ export var value = 1 setget setValue, getValue;
 func _ready():
 	updateLabel();
 	g.connect("feathersUpdated", self, "updateLabel");
-	pass
 
 func getValue():
 	return value;

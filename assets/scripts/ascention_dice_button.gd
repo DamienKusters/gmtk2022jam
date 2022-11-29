@@ -1,4 +1,4 @@
-extends HBoxContainer
+extends Control
 
 enum Ascention {DPS,REROLLER};#TODO: Use resource
 enum Dice {D0,D4,D6,D8,D10,D12,D20};
@@ -14,7 +14,7 @@ export(Dice) var level;
 
 func setPrepend(value):
 	prepend = value;
-	$PrependLabel.text = prepend;
+	$List/PrependLabel.text = prepend;
 	
 func getPrepend():
 	return prepend;
@@ -69,9 +69,9 @@ func getDiceData():
 
 func render():
 	var d = getDiceData();
-	$TextureButton.texture = load(d['texture']);
-	$TextureButton/Label.text = "";
-	$TextureButton/Label.text = str(value);
+	$List/TextureButton.texture = load(d['texture']);
+	$List/TextureButton/Label.text = "";
+	$List/TextureButton/Label.text = str(value);
 
 
 func _on_BtnReroll_pressed():
@@ -85,6 +85,7 @@ func _on_BtnReroll_pressed():
 		rng.randomize();
 		value = rng.randi_range(1,d['value']);
 		g.removeFeathers(price);
+		particles(price);
 		render();
 		emit_signal("valueUpdated", value);
 		if(ascention == Ascention.DPS):
@@ -113,4 +114,32 @@ func _on_BtnUpgrade_pressed():
 			Dice.D20:
 				return;
 		g.removeFeathers(price);
+		particles(price);
 		render();
+
+func particles(amount):
+	$CPUParticles2D.amount = amount;
+	$CPUParticles2D.restart();
+
+func _on_Control_mouse_entered():
+	$List/TextureButton/Tween.stop_all();
+	$List/TextureButton/Tween.interpolate_property($List/TextureButton,
+		"rect_scale",
+		$List/TextureButton.rect_scale,
+		Vector2(1.2,1.2),
+		.2,
+		Tween.EASE_IN_OUT
+		);
+	$List/TextureButton/Tween.start();
+
+
+func _on_Control_mouse_exited():
+	$List/TextureButton/Tween.stop_all();
+	$List/TextureButton/Tween.interpolate_property($List/TextureButton,
+		"rect_scale",
+		$List/TextureButton.rect_scale,
+		Vector2(1,1),
+		.2,
+		Tween.EASE_IN_OUT
+		);
+	$List/TextureButton/Tween.start();
