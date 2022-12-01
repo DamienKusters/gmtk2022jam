@@ -16,13 +16,46 @@ signal enemyKilled;
 var enemyPool = 4;
 var maxDiceRollTime = 4;
 var currency = 0;
-var feathers = 990;
+var feathers = 999999;
 
 #TODO: Ascention upgrade resources:
 var ascention_dps_multiplier = 1;
 var ascention_reroller = 0;
 
 var rng = RandomNumberGenerator.new();
+
+var diceData = {
+	0:{
+		"value": 4,
+		"texture": "res://assets/sprites/dice/d4.png",
+		"color": Color(0.098, 0.639, 0.259)
+	},
+	1:{
+		"value": 6,
+		"texture": "res://assets/sprites/dice/d6.png",
+		"color": Color(0.114, 0.753, 0.827)
+	},
+	2:{
+		"value": 8,
+		"texture": "res://assets/sprites/dice/d8.png",
+		"color": Color(0.592, 0.231, 0.89)
+	},
+	3:{
+		"value": 10,
+		"texture": "res://assets/sprites/dice/d10.png",
+		"color": Color(0.89, 0.169, 0.588)
+	},
+	4:{
+		"value": 12,
+		"texture": "res://assets/sprites/dice/d12.png",
+		"color": Color(0.859, 0.235, 0.255)
+	},
+	5:{
+		"value": 20,
+		"texture": "res://assets/sprites/dice/d20.png",
+		"color": Color(0.953, 0.502, 0)
+	}
+};
 
 func ascendReset():
 	currency = 10 * feathers;
@@ -338,40 +371,4 @@ var enemiesCommon = [
 #		D4 = 100% + rest = ???%
 
 func getDiceData(enumValue):
-	match enumValue:
-		0:
-			return {
-				"value": 4,
-				"texture": "res://assets/sprites/dice/d4.png",
-				"color": Color(0.098, 0.639, 0.259)
-			};
-		1:
-			return {
-				"value": 6,
-				"texture": "res://assets/sprites/dice/d6.png",
-				"color": Color(0.114, 0.753, 0.827)
-			};
-		2:
-			return {
-				"value": 8,
-				"texture": "res://assets/sprites/dice/d8.png",
-				"color": Color(0.592, 0.231, 0.89)
-			};
-		3:
-			return {
-				"value": 10,
-				"texture": "res://assets/sprites/dice/d10.png",
-				"color": Color(0.89, 0.169, 0.588)
-			};
-		4:
-			return {
-				"value": 12,
-				"texture": "res://assets/sprites/dice/d12.png",
-				"color": Color(0.859, 0.235, 0.255)
-			};
-		5:
-			return {
-				"value": 20,
-				"texture": "res://assets/sprites/dice/d20.png",
-				"color": Color(0.953, 0.502, 0)
-			};
+	return diceData[enumValue];

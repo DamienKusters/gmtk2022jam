@@ -5,7 +5,9 @@ enum Dice {D0,D4,D6,D8,D10,D12,D20};
 
 signal valueUpdated;
 
-onready var g = $"/root/Globals";
+onready var particle = preload("res://scenes/shared/single_particle_effect_ascend.tscn");
+
+var resource = preload("res://resources/ascend_resource.gd").AscendResource.new();
 
 export(Ascention) var ascention;
 export var value = 1;
@@ -22,11 +24,23 @@ func getPrepend():
 var rng = RandomNumberGenerator.new();
 
 func _ready():
+	resource.connect("reload",self,"reload");
 	if(ascention == Ascention.DPS):
-		value = g.ascention_dps_multiplier;
+		value = Globals.ascention_dps_multiplier;
 	elif(ascention == Ascention.REROLLER):
-		value = g.ascention_reroller;
+		value = Globals.ascention_reroller;
 	render();
+
+func reload():
+	level = resource.level;
+	value = resource.value;
+	render();
+	
+	#Temp
+	if(ascention == Ascention.DPS):
+		Globals.ascention_dps_multiplier = value;
+	elif(ascention == Ascention.REROLLER):
+		Globals.ascention_reroller = value;
 
 #Sorry
 func getDiceData():
@@ -72,11 +86,22 @@ func render():
 	$List/TextureButton.texture = load(d['texture']);
 	$List/TextureButton/Label.text = "";
 	$List/TextureButton/Label.text = str(value);
-
+	
+	$List/Control/TextureButton.disabled = value != 0 && value == d['value'];
+	if $List/Control/TextureButton.disabled:
+		$List/Control/TextureButton.self_modulate = Color("6fff");
+	else:
+		$List/Control/TextureButton.self_modulate = Color("ffff");
+	
+	$List/Control/TextureButton2.disabled = level == 6;
+	if $List/Control/TextureButton2.disabled:
+		$List/Control/TextureButton2.self_modulate = Color("6fff");
+	else:
+		$List/Control/TextureButton2.self_modulate = Color("ffff");
 
 func _on_BtnReroll_pressed():
 	var price = 1;
-	if g.feathers >= price:
+	if Globals.feathers >= price:
 		if value == 20:
 			return;
 		if level == Dice.D0:
@@ -84,18 +109,18 @@ func _on_BtnReroll_pressed():
 		var d = getDiceData();
 		rng.randomize();
 		value = rng.randi_range(1,d['value']);
-		g.removeFeathers(price);
+		Globals.removeFeathers(price);
 		particles(price);
 		render();
 		emit_signal("valueUpdated", value);
 		if(ascention == Ascention.DPS):
-			g.ascention_dps_multiplier = value;
+			Globals.ascention_dps_multiplier = value;
 		elif(ascention == Ascention.REROLLER):
-			g.ascention_reroller = value;
+			Globals.ascention_reroller = value;
 
 func _on_BtnUpgrade_pressed():
 	var price = 2;
-	if g.feathers >= price:
+	if Globals.feathers >= price:
 		if value == 20:
 			return;
 		if level == Dice.D0:
@@ -113,13 +138,14 @@ func _on_BtnUpgrade_pressed():
 				level = Dice.D20;
 			Dice.D20:
 				return;
-		g.removeFeathers(price);
+		Globals.removeFeathers(price);
 		particles(price);
 		render();
 
 func particles(amount):
-	$CPUParticles2D.amount = amount;
-	$CPUParticles2D.restart();
+	var p = particle.instance();
+	p.amount = amount;
+	add_child(p);
 
 func _on_Control_mouse_entered():
 	$List/TextureButton/Tween.stop_all();
