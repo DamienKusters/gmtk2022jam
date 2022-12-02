@@ -1,18 +1,18 @@
 extends Control
 
 enum Ascention {DPS,REROLLER};#TODO: Use resource
-enum Dice {D0,D4,D6,D8,D10,D12,D20};
 
 signal valueUpdated;
 
 onready var particle = preload("res://scenes/shared/single_particle_effect_ascend.tscn");
+onready var zero_dice = preload("res://assets/sprites/dice/d0.png");
 
 var resource = preload("res://resources/ascend_resource.gd").AscendResource.new();
 
 export(Ascention) var ascention;
 export var value = 1;
 export var prepend = "x" setget setPrepend, getPrepend;
-export(Dice) var level;
+export var level = 0;
 
 var reroll_price = 1;
 var upgrade_price = 2;
@@ -29,9 +29,11 @@ var rng = RandomNumberGenerator.new();
 func _ready():
 	resource.connect("reload",self,"reload");
 	if(ascention == Ascention.DPS):
-		value = Globals.ascention_dps_multiplier;
+		value = Globals.ascention_dps_multiplier_value;
+		level = Globals.ascention_dps_multiplier_level;
 	elif(ascention == Ascention.REROLLER):
-		value = Globals.ascention_reroller;
+		value = Globals.ascention_reroller_value;
+		level = Globals.ascention_reroller_level;
 	render();
 
 func reload():
@@ -40,58 +42,21 @@ func reload():
 	render();
 	
 	#Temp
-	if(ascention == Ascention.DPS):
-		Globals.ascention_dps_multiplier = value;
-	elif(ascention == Ascention.REROLLER):
-		Globals.ascention_reroller = value;
-
-#Sorry
-func getDiceData(lvl):
-	match lvl:
-		Dice.D0:
-			return {
-				"value": 0,
-				"texture": "res://assets/sprites/dice/d0.png",
-			};
-		Dice.D4:
-			return {
-				"value": 4,
-				"texture": "res://assets/sprites/dice/d4.png",
-			};
-		Dice.D6:
-			return {
-				"value": 6,
-				"texture": "res://assets/sprites/dice/d6.png",
-			};
-		Dice.D8:
-			return {
-				"value": 8,
-				"texture": "res://assets/sprites/dice/d8.png",
-			};
-		Dice.D10:
-			return {
-				"value": 10,
-				"texture": "res://assets/sprites/dice/d10.png",
-			};
-		Dice.D12:
-			return {
-				"value": 12,
-				"texture": "res://assets/sprites/dice/d12.png",
-			};
-		Dice.D20:
-			return {
-				"value": 20,
-				"texture": "res://assets/sprites/dice/d20.png",
-			};
+#	if(ascention == Ascention.DPS):
+#		Globals.ascention_dps_multiplier_value = value;
+#	elif(ascention == Ascention.REROLLER):
+#		Globals.ascention_reroller_value = value;
 
 func render():
-	var d = getDiceData(level);
+	var d = Globals.getDiceData(level);
 	$List/TextureButton.texture = load(d['texture']);
 	$List/TextureButton/Label.text = "";
 	$List/TextureButton/Label.text = str(value);
+	if value == 0 && level == 0:
+		$List/TextureButton.texture = zero_dice;
 	
-	if(level != 6 && level != 0):
-		var change = getDiceData(level+1)['value'] - d['value'];
+	if(level != 5):
+		var change = Globals.getDiceData(level+1)['value'] - d['value'];
 		upgrade_price = d['value'] - 4 + change;
 		$List/Control/TextureButton2/HBoxContainer/Label.text = "-" + str(upgrade_price);
 	elif (level == 0):
@@ -106,7 +71,7 @@ func render():
 		$List/Control/TextureButton.self_modulate = Color("ffff");
 		$List/Control/TextureButton/HBoxContainer.visible = true;
 	
-	$List/Control/TextureButton2.disabled = level == 6;
+	$List/Control/TextureButton2.disabled = level == 5;
 	if $List/Control/TextureButton2.disabled:
 		$List/Control/TextureButton2.self_modulate = Color("6fff");
 		$List/Control/TextureButton2/HBoxContainer.visible = false;
@@ -119,9 +84,7 @@ func _on_BtnReroll_pressed():
 	if Globals.feathers >= price:
 		if value == 20:
 			return;
-		if level == Dice.D0:
-			level = Dice.D4;
-		var d = getDiceData(level);
+		var d = Globals.getDiceData(level);
 		rng.randomize();
 		value = rng.randi_range(1,d['value']);
 		Globals.removeFeathers(price);
@@ -129,32 +92,22 @@ func _on_BtnReroll_pressed():
 		render();
 		emit_signal("valueUpdated", value);
 		if(ascention == Ascention.DPS):
-			Globals.ascention_dps_multiplier = value;
+			Globals.ascention_dps_multiplier_value = value;
 		elif(ascention == Ascention.REROLLER):
-			Globals.ascention_reroller = value;
+			Globals.ascention_reroller_value = value;
 
 func _on_BtnUpgrade_pressed():
 	if Globals.feathers >= upgrade_price:
-		if value == 20:
+		if value == 20 || level == 5:
 			return;
-		if level == Dice.D0:
-				level = Dice.D4;
-		match level:
-			Dice.D4:
-				level = Dice.D6;
-			Dice.D6:
-				level = Dice.D8;
-			Dice.D8:
-				level = Dice.D10;
-			Dice.D10:
-				level = Dice.D12;
-			Dice.D12:
-				level = Dice.D20;
-			Dice.D20:
-				return;
+		level += 1;
 		Globals.removeFeathers(upgrade_price);
 		particles(upgrade_price);
 		render();
+		if(ascention == Ascention.DPS):
+			Globals.ascention_dps_multiplier_level = level;
+		elif(ascention == Ascention.REROLLER):
+			Globals.ascention_reroller_level = level;
 
 func particles(amount):
 	var p = particle.instance();

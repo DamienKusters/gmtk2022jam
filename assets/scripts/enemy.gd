@@ -61,7 +61,7 @@ func damage(value: int, dice: Node2D):
 		$AudioDamage.play();
 		return;
 	
-	var multipliedValue = value * g.ascention_dps_multiplier;
+	var multipliedValue = value * g.ascention_dps_multiplier_value;
 	enemyHealth = enemyHealth - multipliedValue;
 	secondDmg += multipliedValue;
 	if(enemyHealth <= 0):

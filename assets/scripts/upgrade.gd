@@ -36,7 +36,7 @@ func _ready():
 	if(kind == 1):
 		g.connect("upgradeDiceSuccess", self, "applyNextLevelUiUpdate");
 	if(kind == 4):
-		level = g.ascention_reroller;
+		level = g.ascention_reroller_value;
 		for i in level:
 			price =+ calculatePriceIncrease(price,levelupPriceIncrease,levelupPricePercentIncrease);
 		updateUi();

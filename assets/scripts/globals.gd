@@ -15,12 +15,14 @@ signal enemyKilled;
 
 var enemyPool = 4;
 var maxDiceRollTime = 4;
-var currency = 0;
-var feathers = 16;
+var currency = 999999999999;
+var feathers = 9999999999;
 
 #TODO: Ascention upgrade resources:
-var ascention_dps_multiplier = 1;
-var ascention_reroller = 0;
+var ascention_dps_multiplier_value = 1;
+var ascention_dps_multiplier_level = 0;
+var ascention_reroller_value = 0;
+var ascention_reroller_level = 0;
 
 var rng = RandomNumberGenerator.new();
 
@@ -141,7 +143,7 @@ var enemiesCommon = [
 	},
 	{
 		"name":"Wolf",
-		"health":12,
+		"health":10,
 		"currency":10,
 		"sprite": "res://assets/sprites/enemies/Wolf.png",
 		"feather":0,
@@ -372,3 +374,19 @@ var enemiesCommon = [
 
 func getDiceData(enumValue):
 	return diceData[enumValue];
+
+func exportSave():
+	#What needs to be saved?
+	# Currency
+	# Feathers
+	# Level of upgrades
+	#	(Use func calculatePriceIncrease() to recover price)
+	# Ascention Upgrades
+	#
+	#Format:
+	#{currency}|{feathers}|{u_add}/{u_upgrade}/{u_add}/{u_dm}/{u_rolltime}/{u_reroll}/{u_contract}|{a_dps_value}/{a_dps_level}|{a_reroll_value}/{a_reroll_value}
+	# ! Upgrades: Add & Dice Upgrade needs to be recovered differently
+	pass
+
+func importSave(saveString):
+	pass
