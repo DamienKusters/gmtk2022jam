@@ -3,6 +3,7 @@ extends Control
 onready var g = $"/root/Globals";
 
 onready var particle = preload("res://scenes/shared/single_particle_effect_enemy_death.tscn");
+onready var particleFeather = preload("res://scenes/shared/single_particle_effect_get_feather.tscn");
 
 var enemy = {};
 var timeLeft = -1;
@@ -73,6 +74,7 @@ func damage(value: int, dice: Node2D):
 				var index = g.enemiesCommon.find(enemy,0);
 				var f = g.enemiesCommon[index]['feather'];
 				g.enemiesCommon[index]['feather'] = f - 1;
+			$EnemyContainer.add_child(particleFeather.instance());
 			showAscendUpgrade();
 		else:
 			g.addCurrency(enemy['currency']);

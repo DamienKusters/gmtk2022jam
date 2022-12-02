@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=2]
+[gd_scene load_steps=66 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
@@ -467,6 +467,7 @@ tracks/2/keys = {
 [sub_resource type="Animation" id=22]
 resource_name = "fade_up"
 length = 2.0
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:margin_top")
 tracks/0/interp = 2
@@ -486,7 +487,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 1.5, 2 ),
+"times": PoolRealArray( 0, 0.1, 1.8, 2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -527,6 +528,21 @@ font_data = ExtResource( 2 )
 [sub_resource type="DynamicFont" id=15]
 size = 50
 font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=31]
+size = 50
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=32]
+size = 30
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=33]
+size = 20
+use_filter = true
+font_data = ExtResource( 4 )
 
 [node name="ui" type="CanvasLayer"]
 
@@ -1241,11 +1257,111 @@ self_modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
+[node name="Options" type="ColorRect" parent="uiRoot"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.392157 )
+script = ExtResource( 16 )
+
+[node name="Button" type="Button" parent="uiRoot/Options"]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="uiRoot/Options"]
+anchor_left = 0.25
+anchor_top = 0.1
+anchor_right = 0.75
+anchor_bottom = 0.9
+color = Color( 0, 0, 0, 0.862745 )
+
+[node name="HBoxContainer" type="VBoxContainer" parent="uiRoot/Options/ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 100.0
+margin_right = -100.0
+
+[node name="Label" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer"]
+margin_right = 600.0
+margin_bottom = 66.0
+custom_fonts/font = SubResource( 31 )
+text = "Options"
+align = 1
+
+[node name="Label3" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer"]
+margin_top = 70.0
+margin_right = 600.0
+margin_bottom = 110.0
+custom_fonts/font = SubResource( 32 )
+text = "~ Audio ~"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="uiRoot/Options/ColorRect/HBoxContainer"]
+margin_top = 114.0
+margin_right = 600.0
+margin_bottom = 144.0
+
+[node name="Label" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer"]
+margin_top = 1.0
+margin_right = 170.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+custom_fonts/font = SubResource( 33 )
+text = "Music"
+align = 2
+
+[node name="HSlider" type="HSlider" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer"]
+margin_left = 174.0
+margin_right = 600.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
+size_flags_horizontal = 3
+max_value = 10.0
+value = 10.0
+ticks_on_borders = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="uiRoot/Options/ColorRect/HBoxContainer"]
+margin_top = 148.0
+margin_right = 600.0
+margin_bottom = 178.0
+
+[node name="Label" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer2"]
+margin_top = 1.0
+margin_right = 170.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+custom_fonts/font = SubResource( 33 )
+text = "Sound Effects"
+align = 2
+
+[node name="HSlider" type="HSlider" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer2"]
+margin_left = 174.0
+margin_right = 600.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
+size_flags_horizontal = 3
+max_value = 10.0
+value = 10.0
+ticks_on_borders = true
+
+[node name="Label2" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer"]
+margin_top = 182.0
+margin_right = 600.0
+margin_bottom = 222.0
+custom_fonts/font = SubResource( 32 )
+text = "~ Save/Load ~"
+align = 1
+
 [connection signal="timeout" from="uiRoot/enemyUi/Timer" to="uiRoot/enemyUi" method="_on_Timer_timeout"]
 [connection signal="timeout" from="uiRoot/enemyUi/dpsTimer" to="uiRoot/enemyUi" method="_on_dpsTimer_timeout"]
 [connection signal="timeout" from="uiRoot/enemyUi/Control2/Timer" to="uiRoot/enemyUi/Control2" method="_on_Timer_timeout"]
 [connection signal="button_down" from="uiRoot/Button" to="uiRoot/Button" method="_on_Button_button_down"]
+[connection signal="button_clicked" from="uiRoot/ThemeButton2" to="uiRoot/Button" method="_on_ThemeButton2_button_clicked"]
 [connection signal="button_clicked" from="uiRoot/ThemeButton" to="uiRoot/Button" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/TextureRect/Button" to="uiRoot/TextureRect" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/About/Button" to="uiRoot/About" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/Help/Button" to="uiRoot/Help" method="_on_Button_button_down"]
+[connection signal="button_down" from="uiRoot/Options/Button" to="uiRoot/Options" method="_on_Button_button_down"]

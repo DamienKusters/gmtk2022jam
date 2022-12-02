@@ -31,7 +31,7 @@ func upgradeDice():
 				replaceDice.kind = d.kind + 1;
 				replaceDice.position = d.position;
 				add_child(replaceDice);
-				move_child(replaceDice,idx);
+				move_child(replaceDice,idx);# TODO: Fix
 				g.upgradeDiceSuccess();
 				return;
 			idx += 1;

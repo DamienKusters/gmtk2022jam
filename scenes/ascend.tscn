@@ -150,7 +150,6 @@ align = 2
 [node name="AscentionDiceButton" parent="CanvasLayer/Ui/ColorRect/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
 margin_left = 759.0
 margin_right = 920.0
-value = 1
 level = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Ui/ColorRect/VBoxContainer"]

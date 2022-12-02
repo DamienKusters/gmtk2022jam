@@ -16,7 +16,7 @@ signal enemyKilled;
 var enemyPool = 4;
 var maxDiceRollTime = 4;
 var currency = 0;
-var feathers = 999999;
+var feathers = 16;
 
 #TODO: Ascention upgrade resources:
 var ascention_dps_multiplier = 1;
@@ -149,7 +149,7 @@ var enemiesCommon = [
 	},
 	{
 		"name":"Goblin",
-		"health":22,
+		"health":25,
 		"currency":20,
 		"sprite": "res://assets/sprites/enemies/Regular_Goblin.png",
 		"feather":0,
@@ -310,7 +310,7 @@ var enemiesCommon = [
 		"currency":0,
 		"sprite": "res://assets/sprites/enemies/Volt_Elemental.png",
 		"feather":0,
-		"shield":DiceEnum.D12,
+		"shield":DiceEnum.D10,
 	},
 	{
 		"name":"Water Elemental",
@@ -318,7 +318,7 @@ var enemiesCommon = [
 		"currency":0,
 		"sprite": "res://assets/sprites/enemies/Water_Elemental.png",
 		"feather":0,
-		"shield":DiceEnum.D10,
+		"shield":DiceEnum.D12,
 	},
 	# Tier 7: Legendary (TODO: Health x8-10)
 	{

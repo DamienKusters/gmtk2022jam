@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/scripts/single_particle_effect.gd" type="Script" id=1]
+[ext_resource path="res://assets/sprites/icons/upgrade_bulb.png" type="Texture" id=2]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.132597, 0.850829 )
@@ -12,13 +13,13 @@ z_index = -1
 emitting = false
 amount = 10
 one_shot = true
+texture = ExtResource( 2 )
 emission_shape = 1
 emission_sphere_radius = 64.37
 gravity = Vector2( 0, 0 )
 initial_velocity = 256.89
 angular_velocity = 30.0
 orbit_velocity = 0.05
-scale_amount = 8.0
 color_ramp = SubResource( 1 )
 hue_variation = -0.88
 script = ExtResource( 1 )
