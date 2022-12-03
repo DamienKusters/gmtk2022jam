@@ -6,3 +6,4 @@ func _on_Button_button_down():
 
 func _on_ThemeButton2_button_clicked():
 	$"../Options".visible = true;
+	$"../Options/ColorRect".exportSave();

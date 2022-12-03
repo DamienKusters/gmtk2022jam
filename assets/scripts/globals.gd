@@ -1,5 +1,7 @@
 extends Node
 
+onready var game = "res://scenes/main.tscn";
+
 enum DiceEnum { D4, D6, D8, D10, D12, D20 };
 
 signal addDice;
@@ -15,10 +17,11 @@ signal enemyKilled;
 
 var enemyPool = 4;
 var maxDiceRollTime = 4;
-var currency = 999999999999;
-var feathers = 9999999999;
+var currency = 0;
+var feathers = 0;
 
-#TODO: Ascention upgrade resources:
+var upgrade_save_overrides;
+
 var ascention_dps_multiplier_value = 1;
 var ascention_dps_multiplier_level = 0;
 var ascention_reroller_value = 0;
@@ -375,6 +378,8 @@ var enemiesCommon = [
 func getDiceData(enumValue):
 	return diceData[enumValue];
 
+var saveResources = [];
+
 func exportSave():
 	#What needs to be saved?
 	# Currency
@@ -386,7 +391,49 @@ func exportSave():
 	#Format:
 	#{currency}|{feathers}|{u_add}/{u_upgrade}/{u_add}/{u_dm}/{u_rolltime}/{u_reroll}/{u_contract}|{a_dps_value}/{a_dps_level}|{a_reroll_value}/{a_reroll_value}
 	# ! Upgrades: Add & Dice Upgrade needs to be recovered differently
+	saveResources = [
+		currency,
+		feathers,
+		"TODO_UPGRADES",
+		str(ascention_dps_multiplier_value) + "/" + str(ascention_dps_multiplier_level),
+		str(ascention_reroller_value) + "/" + str(ascention_reroller_level),
+		"TODO_DICE_ARRAY",
+	];
+	
+	var save = "";
+	var i = 0;
+	for r in saveResources:
+		save += str(r)
+		if i != saveResources.size()-1:
+			save += "|";
+		i+=1;
+	print("Export");
+	print(save);
+	return save;
 	pass
 
-func importSave(saveString):
+func importSave(saveString: String):
+	saveString = saveString.strip_edges(true,true);
+	print("Import");
+	print(saveString);
+	
+	var s = saveString.split("|");
+	
+	currency = int(s[0]);
+	feathers = int(s[1]);
+	
+	upgrade_save_overrides = s[2];
+	
+	var a_dps = s[3].split("/");
+	ascention_dps_multiplier_value = int(a_dps[0]);
+	ascention_dps_multiplier_level = int(a_dps[1]);
+	var a_reroll = s[4].split("/");
+	ascention_reroller_value = int(a_reroll[0]);
+	ascention_reroller_level = int(a_reroll[1]);
+	
+	#Temp:
+	enemyPool = 4;
+	maxDiceRollTime = 4;
+	
+	var e = get_tree().change_scene(game);
 	pass

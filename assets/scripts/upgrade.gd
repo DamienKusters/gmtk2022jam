@@ -31,6 +31,10 @@ var price = 0;
 func _ready():
 	$LabelTitle.text = title;
 	$Control/TextureRect.texture = spriteTexture;
+	
+	if Globals.upgrade_save_overrides != null:
+		importSave(Globals.upgrade_save_overrides);
+	
 	price = basePrice;
 	updateUi();
 	if(kind == 1):
@@ -200,3 +204,17 @@ func setPayable(value):
 	else:
 		$LabelPrice.add_color_override("font_color", Color("d83300"));
 		
+func exportSave():
+	return str(level);
+
+func importSave(saveString):
+	#TODO
+	match kind:
+		0:#Add Dice
+			for i in level:
+				price =+ calculatePriceIncrease(price,levelupPriceIncrease,levelupPricePercentIncrease);
+		1:#Upgrade Dice
+			pass
+		2:#DM
+			pass
+	pass
