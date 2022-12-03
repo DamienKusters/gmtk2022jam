@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-montain-far.png" type="Texture" id=4]
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-foreground-trees.png" type="Texture" id=5]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=6]
-[ext_resource path="res://assets/sound/Luna's Theme (Dream Suite) - Animal Crossing_ New Horizons.mp3" type="AudioStream" id=7]
+[ext_resource path="res://assets/sound/Hiding_Your_Reality.mp3" type="AudioStream" id=7]
 [ext_resource path="res://assets/scripts/ascend_root.gd" type="Script" id=8]
 [ext_resource path="res://assets/sprites/icons/angel_feather.png" type="Texture" id=9]
 [ext_resource path="res://scenes/ascention_dice_button.tscn" type="PackedScene" id=10]
@@ -119,9 +119,9 @@ align = 1
 valign = 1
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Ui"]
-anchor_left = 0.25
+anchor_left = 0.3
 anchor_top = 0.25
-anchor_right = 0.75
+anchor_right = 0.7
 anchor_bottom = 0.75
 color = Color( 1, 1, 1, 0.270588 )
 
@@ -135,13 +135,13 @@ margin_bottom = -20.0
 custom_constants/separation = 30
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Ui/ColorRect/VBoxContainer"]
-margin_right = 760.0
+margin_right = 600.0
 margin_bottom = 128.0
 custom_constants/separation = 20
 
 [node name="Label" type="Label" parent="CanvasLayer/Ui/ColorRect/VBoxContainer/HBoxContainer"]
 margin_top = 24.0
-margin_right = 579.0
+margin_right = 419.0
 margin_bottom = 103.0
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 7 )
@@ -149,28 +149,28 @@ text = "DPS Modifier"
 align = 2
 
 [node name="AscentionDiceButton" parent="CanvasLayer/Ui/ColorRect/VBoxContainer/HBoxContainer" instance=ExtResource( 10 )]
-margin_left = 599.0
-margin_right = 760.0
+margin_left = 439.0
+margin_right = 600.0
 level = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Ui/ColorRect/VBoxContainer"]
 margin_top = 158.0
-margin_right = 760.0
+margin_right = 600.0
 margin_bottom = 286.0
 custom_constants/separation = 20
 
 [node name="Label" type="Label" parent="CanvasLayer/Ui/ColorRect/VBoxContainer/HBoxContainer2"]
 margin_top = 24.0
-margin_right = 579.0
+margin_right = 419.0
 margin_bottom = 103.0
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 7 )
-text = "Re-roller Start Level"
+text = "Re-roller Level"
 align = 2
 
 [node name="AscentionDiceButton" parent="CanvasLayer/Ui/ColorRect/VBoxContainer/HBoxContainer2" instance=ExtResource( 10 )]
-margin_left = 599.0
-margin_right = 760.0
+margin_left = 439.0
+margin_right = 600.0
 ascention = 1
 prepend = "+"
 
@@ -188,6 +188,8 @@ modulate_hover = Color( 0.313726, 0.180392, 0.286275, 1 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+volume_db = -5.0
+pitch_scale = 0.95
 autoplay = true
 bus = "Music"
 
