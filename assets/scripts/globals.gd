@@ -63,6 +63,7 @@ var diceData = {
 };
 
 func ascendReset():
+	upgrade_save_overrides = null;
 	currency = 10 * feathers;
 	feathers = 0;
 	enemyPool = 4;
@@ -377,27 +378,22 @@ var enemiesCommon = [
 
 func getDiceData(enumValue):
 	return diceData[enumValue];
+	
+func upgradeSavesUpdated(save):
+	upgrade_save_overrides = save;
+	print(save);
 
 var saveResources = [];
 
 func exportSave():
-	#What needs to be saved?
-	# Currency
-	# Feathers
-	# Level of upgrades
-	#	(Use func calculatePriceIncrease() to recover price)
-	# Ascention Upgrades
-	#
-	#Format:
-	#{currency}|{feathers}|{u_add}/{u_upgrade}/{u_add}/{u_dm}/{u_rolltime}/{u_reroll}/{u_contract}|{a_dps_value}/{a_dps_level}|{a_reroll_value}/{a_reroll_value}
-	# ! Upgrades: Add & Dice Upgrade needs to be recovered differently
 	saveResources = [
 		currency,
 		feathers,
-		"TODO_UPGRADES",
+		upgrade_save_overrides,
 		str(ascention_dps_multiplier_value) + "/" + str(ascention_dps_multiplier_level),
 		str(ascention_reroller_value) + "/" + str(ascention_reroller_level),
 		"TODO_DICE_ARRAY",
+		"TODO_ENEMY_EXCLUSIVE_FEATHERS -> base this off feathers (necro must have feather if feathers==0)"
 	];
 	
 	var save = "";

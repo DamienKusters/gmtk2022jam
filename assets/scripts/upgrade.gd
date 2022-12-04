@@ -1,5 +1,7 @@
 extends Control
 
+signal levelChanged;
+
 enum Upgrade { ADD_DICE, UPGRADE_DICE, DUNGEON_MASTER, DICE_TOWER, REROLL, DICE_TRAY, CONTRACT, ROLL_DECREASE, ASCEND };
 
 onready var g = $"/root/Globals";
@@ -32,19 +34,22 @@ func _ready():
 	$LabelTitle.text = title;
 	$Control/TextureRect.texture = spriteTexture;
 	
+	price = basePrice;
+	
 	if Globals.upgrade_save_overrides != null:
 		importSave(Globals.upgrade_save_overrides);
 	
-	price = basePrice;
 	updateUi();
 	if(kind == 1):
 		g.connect("upgradeDiceSuccess", self, "applyNextLevelUiUpdate");
 	if(kind == 4):
-		level = g.ascention_reroller_value;
-		for i in level:
-			price =+ calculatePriceIncrease(price,levelupPriceIncrease,levelupPricePercentIncrease);
+		if Globals.upgrade_save_overrides == null:
+			level = g.ascention_reroller_value;
+			for i in level:
+				price =+ calculatePriceIncrease(price,levelupPriceIncrease,levelupPricePercentIncrease);
 		updateUi();
 		g.connect("damageEnemy", self, "enemyDamaged");
+		emit_signal("levelChanged");	
 	if(kind == 6):
 		g.connect("enemyKilled", self, "enemyKilled");
 		$Tween.connect("tween_all_completed", self, "tween_completed");
@@ -132,6 +137,7 @@ func applyNextLevelUiUpdate():
 	price =+ calculatePriceIncrease(price,levelupPriceIncrease,levelupPricePercentIncrease);
 	updateUi();
 	setPayable(g.currency);
+	emit_signal("levelChanged");	
 	return true;
 
 func calculatePriceIncrease(_currentPrice, _priceIncreaseValue, _priceIncreasePercent):
@@ -166,10 +172,6 @@ func action():
 			$TextureProgress/Tween.start();
 		else:
 			$TextureProgress.value = 0;
-	if(kind == 3):#Removed
-		if($Timer.is_stopped()):
-			$Timer.wait_time = 10;
-			$Timer.start();
 	if(kind == 6):
 		# contract
 		g.upgradeEnemyPool();
@@ -208,13 +210,39 @@ func exportSave():
 	return str(level);
 
 func importSave(saveString):
-	#TODO
+	var save = saveString.split("/");
 	match kind:
 		0:#Add Dice
-			for i in level:
-				price =+ calculatePriceIncrease(price,levelupPriceIncrease,levelupPricePercentIncrease);
+			var save_level = int(save[0]);
+			setImportedLevel(save_level);
+			# This upgrade is restored differently
 		1:#Upgrade Dice
-			pass
+			var save_level = int(save[1]);
+			setImportedLevel(save_level);
+			# This upgrade is restored differently
 		2:#DM
-			pass
+			var save_level = int(save[2]);
+			setImportedLevel(save_level);
+			for s in save_level:
+				action();
+		4:#Reroll
+			var save_level = int(save[4]);
+			setImportedLevel(save_level);
+			for s in save_level:
+				action();
+		6:#Contract
+			var save_level = int(save[5]);
+			setImportedLevel(save_level);
+			for s in save_level:
+				action();
+		7:#Roll decrease
+			var save_level = int(save[3]);
+			setImportedLevel(save_level);
+			for s in save_level:
+				action();
 	pass
+	
+func setImportedLevel(save_level):
+	level = save_level;
+	for i in save_level:
+		price =+ calculatePriceIncrease(price,levelupPriceIncrease,levelupPricePercentIncrease);

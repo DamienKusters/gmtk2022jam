@@ -17,6 +17,12 @@ var currentSpot = 0;
 func _ready():
 	g.connect("addDice", self, "addDice");
 	addDice(0);
+	
+	#TODO: Different save string: 21 spots with values (D4-D20) restore accordingly
+	if Globals.upgrade_save_overrides != null:
+		var initDice = int(Globals.upgrade_save_overrides.split("/")[0]);
+		for d in initDice:
+			addDice(0);
 	pass
 
 func addDice(type):
