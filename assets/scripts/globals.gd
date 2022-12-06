@@ -21,6 +21,7 @@ var currency = 0;
 var feathers = 0;
 
 var upgrade_save_overrides;
+var upgrade_dice_overrides;
 
 var ascention_dps_multiplier_value = 1;
 var ascention_dps_multiplier_level = 0;
@@ -64,10 +65,12 @@ var diceData = {
 
 func ascendReset():
 	upgrade_save_overrides = null;
+	upgrade_dice_overrides = null;
 	currency = 10 * feathers;
 	feathers = 0;
 	enemyPool = 4;
 	maxDiceRollTime = 4;
+	#TODO: restore enemy feathers
 
 func addDice():
 	emit_signal("addDice", 0);#0 = default
@@ -377,11 +380,13 @@ var enemiesCommon = [
 #		D4 = 100% + rest = ???%
 
 func getDiceData(enumValue):
-	return diceData[enumValue];
+	return diceData[int(enumValue)];
 	
 func upgradeSavesUpdated(save):
 	upgrade_save_overrides = save;
-	print(save);
+	
+func upgradeDiceOverridesUpdated(save):
+	upgrade_dice_overrides = save;
 
 var saveResources = [];
 
@@ -392,9 +397,10 @@ func exportSave():
 		upgrade_save_overrides,
 		str(ascention_dps_multiplier_value) + "/" + str(ascention_dps_multiplier_level),
 		str(ascention_reroller_value) + "/" + str(ascention_reroller_level),
-		"TODO_DICE_ARRAY",
-		"TODO_ENEMY_EXCLUSIVE_FEATHERS -> base this off feathers (necro must have feather if feathers==0)"
+		upgrade_dice_overrides,
+		"TODO_ENEMY_EXCLUSIVE_FEATHERS"
 	];
+	
 	
 	var save = "";
 	var i = 0;
@@ -426,6 +432,10 @@ func importSave(saveString: String):
 	var a_reroll = s[4].split("/");
 	ascention_reroller_value = int(a_reroll[0]);
 	ascention_reroller_level = int(a_reroll[1]);
+	
+	upgrade_dice_overrides = s[5];
+	
+	# TODO: enemy feathers# -> base this off feathers (necro must have feather if feathers==0)
 	
 	#Temp:
 	enemyPool = 4;

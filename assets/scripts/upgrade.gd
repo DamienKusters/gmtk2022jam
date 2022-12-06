@@ -235,6 +235,13 @@ func importSave(saveString):
 			setImportedLevel(save_level);
 			for s in save_level:
 				action();
+			#TODO: restore enemy locks:
+#			for e in lockedEnemies:
+#				if lockedEnemies[e][0] == false:
+#					if(enemy.name == e):
+#						setLocked(false);
+#						lockedEnemies[e][0] = true;
+#					return;
 		7:#Roll decrease
 			var save_level = int(save[3]);
 			setImportedLevel(save_level);

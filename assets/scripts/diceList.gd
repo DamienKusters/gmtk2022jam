@@ -16,13 +16,20 @@ var currentSpot = 0;
 
 func _ready():
 	g.connect("addDice", self, "addDice");
-	addDice(0);
+	
+	if Globals.upgrade_dice_overrides == null:
+		Globals.upgradeDiceOverridesUpdated("0");
 	
 	#TODO: Different save string: 21 spots with values (D4-D20) restore accordingly
 	if Globals.upgrade_save_overrides != null:
 		var initDice = int(Globals.upgrade_save_overrides.split("/")[0]);
-		for d in initDice:
-			addDice(0);
+		var diceLevels = Globals.upgrade_dice_overrides.split("/");
+		for d in initDice+1:
+			if(d < diceLevels.size()):
+				addDice(int(diceLevels[d]));
+			else:
+				addDice(0);
+	$"../diceContainer".exportAllSaves();
 	pass
 
 func addDice(type):
@@ -31,6 +38,5 @@ func addDice(type):
 	var dice = diceScene.instance();
 	dice.kind = type;
 	dice.position = spots[currentSpot].position;
-	$"../diceContainer".call_deferred("add_child", dice);
+	$"../diceContainer".call_deferred("add_dice", dice);
 	currentSpot = currentSpot + 1;
-	

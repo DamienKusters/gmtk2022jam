@@ -33,7 +33,25 @@ func upgradeDice():
 				add_child(replaceDice);
 				move_child(replaceDice,idx);# TODO: Fix
 				g.upgradeDiceSuccess();
+				exportAllSaves();
 				return;
 			idx += 1;
 		diceKind += 1;
 	print("none can be upgraded");
+
+func exportAllSaves():
+	var dice = get_children();
+	var save = "";
+	var i = 0;
+	for d in dice:
+		save += d.exportSave();
+		if i != dice.size()-1:
+			save += "/";
+		i+=1;
+	Globals.upgradeDiceOverridesUpdated(save);
+	print(save);
+	return save;
+	
+func add_dice(dice):
+	add_child(dice);
+	exportAllSaves();
