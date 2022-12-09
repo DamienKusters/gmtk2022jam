@@ -10,10 +10,15 @@ var timeLeft = -1;
 var enemyHealth = 0;
 var enemyShield = null;
 var rng = RandomNumberGenerator.new();
+var enemiesTakenFeathers = [];
 
 var secondDmg = 0;
 
 func _ready():
+	if Globals.enemy_exclusive_feathers_overrides != null:
+		importSave(Globals.enemy_exclusive_feathers_overrides);
+	Globals.enemy_exclusive_feathers_overrides = exportSave();
+	
 	g.connect("damageEnemy", self, "damage");
 	respawnEnemy();
 	$"../VBoxContainer/u_ascend".visible = false;
@@ -74,6 +79,11 @@ func damage(value: int, dice: Node2D):
 				var index = g.enemiesCommon.find(enemy,0);
 				var f = g.enemiesCommon[index]['feather'];
 				g.enemiesCommon[index]['feather'] = f - 1;
+				enemiesTakenFeathers.append({
+					"index":index,
+					"feather":f - 1
+				});
+				Globals.enemy_exclusive_feathers_overrides = exportSave();
 			$EnemyContainer.add_child(particleFeather.instance());
 			showAscendUpgrade();
 		else:
@@ -109,3 +119,24 @@ func _on_dpsTimer_timeout():
 	$Label.text = "DPS: " + String(secondDmg);
 	secondDmg = 0;
 	pass # Replace with function body.
+	
+func importSave(saveString):
+	var save = saveString.split("/");
+	if save.size() >= 1 && save[0] != "":
+		for e in save:
+			var part = e.split("-");
+			enemiesTakenFeathers.append({
+				"index":int(part[0]),
+				"feather":int(part[1])
+			});
+			Globals.enemiesCommon[int(part[0])]['feather'] = int(part[1]);
+
+func exportSave():
+	var save = "";
+	var i = 0;
+	for e in enemiesTakenFeathers:
+		save+= str(e['index']) + "-" + str(e['feather']);
+		if i != enemiesTakenFeathers.size()-1:
+			save+="/";
+		i+=1;
+	return save;

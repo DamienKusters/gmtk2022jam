@@ -53,6 +53,7 @@ func _ready():
 	if(kind == 6):
 		g.connect("enemyKilled", self, "enemyKilled");
 		$Tween.connect("tween_all_completed", self, "tween_completed");
+		locked = level < levelCap;
 	g.connect("currencyUpdated", self, "setPayable");
 	setPayable(g.currency);
 	$enemyLocker.visible = false;
@@ -236,7 +237,12 @@ func importSave(saveString):
 			for s in save_level:
 				action();
 			#TODO: restore enemy locks:
-#			for e in lockedEnemies:
+			var i = 0;
+			for l in lockedEnemies:
+				if save_level > i:
+					lockedEnemies[l][0] = true;
+					print(l);
+				i+=1;
 #				if lockedEnemies[e][0] == false:
 #					if(enemy.name == e):
 #						setLocked(false);

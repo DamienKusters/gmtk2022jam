@@ -22,6 +22,7 @@ var feathers = 0;
 
 var upgrade_save_overrides;
 var upgrade_dice_overrides;
+var enemy_exclusive_feathers_overrides;
 
 var ascention_dps_multiplier_value = 1;
 var ascention_dps_multiplier_level = 0;
@@ -70,7 +71,7 @@ func ascendReset():
 	feathers = 0;
 	enemyPool = 4;
 	maxDiceRollTime = 4;
-	#TODO: restore enemy feathers
+	restoreEnemyFeathers();
 
 func addDice():
 	emit_signal("addDice", 0);#0 = default
@@ -371,6 +372,14 @@ var enemiesCommon = [
 #	},
 ];
 
+func restoreEnemyFeathers():
+	#The spaghetti is getting unreal, I hope I can release this soon.
+	enemiesCommon[15]['feather'] = 1;
+	enemiesCommon[19]['feather'] = 1;
+	enemiesCommon[24]['feather'] = 1;
+	enemiesCommon[25]['feather'] = 1;
+	enemy_exclusive_feathers_overrides = "";
+
 # TODO:
 #	Ascention screen
 #	- Reroll dice always 1 feather
@@ -398,7 +407,7 @@ func exportSave():
 		str(ascention_dps_multiplier_value) + "/" + str(ascention_dps_multiplier_level),
 		str(ascention_reroller_value) + "/" + str(ascention_reroller_level),
 		upgrade_dice_overrides,
-		"TODO_ENEMY_EXCLUSIVE_FEATHERS"
+		enemy_exclusive_feathers_overrides,
 	];
 	
 	
@@ -411,10 +420,12 @@ func exportSave():
 		i+=1;
 	print("Export");
 	print(save);
-	return save;
+	return save
+#	return Marshalls.utf8_to_base64(save);
 	pass
 
 func importSave(saveString: String):
+#	saveString = Marshalls.base64_to_utf8(saveString);
 	saveString = saveString.strip_edges(true,true);
 	print("Import");
 	print(saveString);
@@ -435,7 +446,7 @@ func importSave(saveString: String):
 	
 	upgrade_dice_overrides = s[5];
 	
-	# TODO: enemy feathers# -> base this off feathers (necro must have feather if feathers==0)
+	enemy_exclusive_feathers_overrides = s[6];
 	
 	#Temp:
 	enemyPool = 4;

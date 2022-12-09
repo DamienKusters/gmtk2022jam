@@ -697,7 +697,7 @@ levelupPricePercentIncrease = 23
 kind = 2
 levelCap = 20
 spriteTexture = ExtResource( 10 )
-description = "Automatically rolls a dice. The higher the level the faster it'll be."
+description = "Automatically rolls a dice."
 
 [node name="u_rolltime" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 475.0
@@ -726,7 +726,6 @@ description = "Automatically re-rolls any dice equal to or below the level of th
 [node name="u_contract" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 665.0
 margin_bottom = 765.0
-locked = true
 title = "Contract"
 basePrice = 50
 levelupPriceIncrease = 120
@@ -1315,11 +1314,11 @@ script = ExtResource( 37 )
 [node name="HBoxContainer" type="VBoxContainer" parent="uiRoot/Options/ColorRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 100.0
-margin_right = -100.0
+margin_left = 60.0
+margin_right = -60.0
 
 [node name="Label" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer"]
-margin_right = 600.0
+margin_right = 660.0
 margin_bottom = 66.0
 custom_fonts/font = SubResource( 31 )
 text = "Options"
@@ -1327,7 +1326,7 @@ align = 1
 
 [node name="Label3" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer"]
 margin_top = 70.0
-margin_right = 600.0
+margin_right = 660.0
 margin_bottom = 110.0
 custom_fonts/font = SubResource( 32 )
 text = "~ Audio ~"
@@ -1335,12 +1334,12 @@ align = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="uiRoot/Options/ColorRect/HBoxContainer"]
 margin_top = 114.0
-margin_right = 600.0
+margin_right = 660.0
 margin_bottom = 144.0
 
 [node name="Label" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer"]
 margin_top = 1.0
-margin_right = 170.0
+margin_right = 187.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
@@ -1349,8 +1348,8 @@ text = "Music"
 align = 2
 
 [node name="MusicSlider" type="HSlider" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer"]
-margin_left = 174.0
-margin_right = 600.0
+margin_left = 191.0
+margin_right = 660.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
 size_flags_horizontal = 3
@@ -1360,12 +1359,12 @@ ticks_on_borders = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="uiRoot/Options/ColorRect/HBoxContainer"]
 margin_top = 148.0
-margin_right = 600.0
+margin_right = 660.0
 margin_bottom = 178.0
 
 [node name="Label" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer2"]
 margin_top = 1.0
-margin_right = 170.0
+margin_right = 187.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
@@ -1374,8 +1373,8 @@ text = "Sound Effects"
 align = 2
 
 [node name="SoundSlider" type="HSlider" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer2"]
-margin_left = 174.0
-margin_right = 600.0
+margin_left = 191.0
+margin_right = 660.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
 size_flags_horizontal = 3
@@ -1385,7 +1384,7 @@ ticks_on_borders = true
 
 [node name="Label2" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer"]
 margin_top = 182.0
-margin_right = 600.0
+margin_right = 660.0
 margin_bottom = 222.0
 custom_fonts/font = SubResource( 32 )
 text = "~ Save/Load ~"
@@ -1393,7 +1392,7 @@ align = 1
 
 [node name="SaveTextEdit" type="TextEdit" parent="uiRoot/Options/ColorRect/HBoxContainer"]
 margin_top = 226.0
-margin_right = 600.0
+margin_right = 660.0
 margin_bottom = 248.0
 rect_min_size = Vector2( 0, 22 )
 size_flags_horizontal = 3
@@ -1401,7 +1400,7 @@ size_flags_vertical = 4
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="uiRoot/Options/ColorRect/HBoxContainer"]
 margin_top = 252.0
-margin_right = 600.0
+margin_right = 660.0
 margin_bottom = 296.0
 
 [node name="ExportButton" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer3" instance=ExtResource( 33 )]
@@ -1414,7 +1413,7 @@ button_text = "Export Save"
 
 [node name="ImportButton" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer3" instance=ExtResource( 33 )]
 self_modulate = Color( 0.254902, 0.176471, 0.0901961, 1 )
-margin_right = 600.0
+margin_right = 660.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 button_text = "Import Save"

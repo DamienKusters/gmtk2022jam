@@ -49,7 +49,6 @@ func exportAllSaves():
 			save += "/";
 		i+=1;
 	Globals.upgradeDiceOverridesUpdated(save);
-	print(save);
 	return save;
 	
 func add_dice(dice):
