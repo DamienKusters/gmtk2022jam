@@ -89,6 +89,15 @@ func _on_BtnReroll_pressed():
 		value = rng.randi_range(1,d['value']);
 		Globals.removeFeathers(price);
 		particles(price);
+		playRandomSound();
+		$List/TextureButton/Label/Tween.interpolate_property($List/TextureButton/Label,
+			"self_modulate",
+			Color("00ffffff"),
+			Color("ffffffff"),
+			.7,
+			Tween.EASE_OUT
+		);
+		$List/TextureButton/Label/Tween.start();
 		render();
 		emit_signal("valueUpdated", value);
 		if(ascention == Ascention.DPS):
@@ -103,6 +112,7 @@ func _on_BtnUpgrade_pressed():
 		level += 1;
 		Globals.removeFeathers(upgrade_price);
 		particles(upgrade_price);
+		playRandomSound();
 		render();
 		if(ascention == Ascention.DPS):
 			Globals.ascention_dps_multiplier_level = level;
@@ -136,3 +146,8 @@ func _on_Control_mouse_exited():
 		Tween.EASE_IN_OUT
 		);
 	$List/TextureButton/Tween.start();
+
+func playRandomSound():
+	rng.randomize();
+	$AudioStreamPlayer.pitch_scale = rng.randf_range(0.2, 0.3);
+	$AudioStreamPlayer.play();

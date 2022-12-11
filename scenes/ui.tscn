@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=2]
+[gd_scene load_steps=72 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
@@ -543,6 +543,11 @@ font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=33]
 size = 20
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=36]
+size = 21
 use_filter = true
 font_data = ExtResource( 4 )
 
@@ -1318,7 +1323,7 @@ margin_left = 60.0
 margin_right = -60.0
 
 [node name="Label" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer"]
-margin_right = 660.0
+margin_right = 680.0
 margin_bottom = 66.0
 custom_fonts/font = SubResource( 31 )
 text = "Options"
@@ -1326,7 +1331,7 @@ align = 1
 
 [node name="Label3" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer"]
 margin_top = 70.0
-margin_right = 660.0
+margin_right = 680.0
 margin_bottom = 110.0
 custom_fonts/font = SubResource( 32 )
 text = "~ Audio ~"
@@ -1334,12 +1339,12 @@ align = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="uiRoot/Options/ColorRect/HBoxContainer"]
 margin_top = 114.0
-margin_right = 660.0
+margin_right = 680.0
 margin_bottom = 144.0
 
 [node name="Label" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer"]
 margin_top = 1.0
-margin_right = 187.0
+margin_right = 193.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
@@ -1348,8 +1353,8 @@ text = "Music"
 align = 2
 
 [node name="MusicSlider" type="HSlider" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer"]
-margin_left = 191.0
-margin_right = 660.0
+margin_left = 197.0
+margin_right = 680.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
 size_flags_horizontal = 3
@@ -1359,12 +1364,12 @@ ticks_on_borders = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="uiRoot/Options/ColorRect/HBoxContainer"]
 margin_top = 148.0
-margin_right = 660.0
+margin_right = 680.0
 margin_bottom = 178.0
 
 [node name="Label" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer2"]
 margin_top = 1.0
-margin_right = 187.0
+margin_right = 193.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
@@ -1373,8 +1378,8 @@ text = "Sound Effects"
 align = 2
 
 [node name="SoundSlider" type="HSlider" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer2"]
-margin_left = 191.0
-margin_right = 660.0
+margin_left = 197.0
+margin_right = 680.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
 size_flags_horizontal = 3
@@ -1382,38 +1387,63 @@ max_value = 10.0
 value = 2.0
 ticks_on_borders = true
 
-[node name="Label2" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer"]
+[node name="Export Save" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer"]
 margin_top = 182.0
-margin_right = 660.0
+margin_right = 680.0
 margin_bottom = 222.0
 custom_fonts/font = SubResource( 32 )
-text = "~ Save/Load ~"
+text = "~ Export Save ~"
+align = 1
+
+[node name="Export Save2" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer"]
+margin_top = 226.0
+margin_right = 680.0
+margin_bottom = 285.0
+custom_fonts/font = SubResource( 36 )
+text = "This text represents your save data.
+You can copy it and save it to your local machine."
 align = 1
 
 [node name="SaveTextEdit" type="TextEdit" parent="uiRoot/Options/ColorRect/HBoxContainer"]
-margin_top = 226.0
-margin_right = 660.0
-margin_bottom = 248.0
+margin_top = 289.0
+margin_right = 680.0
+margin_bottom = 311.0
+rect_min_size = Vector2( 0, 22 )
+size_flags_horizontal = 3
+size_flags_vertical = 4
+readonly = true
+
+[node name="Import Save" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer"]
+margin_top = 315.0
+margin_right = 680.0
+margin_bottom = 355.0
+custom_fonts/font = SubResource( 32 )
+text = "~ Import Save ~"
+align = 1
+
+[node name="Export Save3" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer"]
+margin_top = 359.0
+margin_right = 680.0
+margin_bottom = 449.0
+custom_fonts/font = SubResource( 36 )
+text = "Paste your save data here and click 'Import Save'
+to restore your game.
+WARNING: The current running game will be overwritten."
+align = 1
+
+[node name="SaveTextImport" type="TextEdit" parent="uiRoot/Options/ColorRect/HBoxContainer"]
+margin_top = 453.0
+margin_right = 680.0
+margin_bottom = 475.0
 rect_min_size = Vector2( 0, 22 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="uiRoot/Options/ColorRect/HBoxContainer"]
-margin_top = 252.0
-margin_right = 660.0
-margin_bottom = 296.0
-
-[node name="ExportButton" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer3" instance=ExtResource( 33 )]
-visible = false
+[node name="ImportButton" parent="uiRoot/Options/ColorRect/HBoxContainer" instance=ExtResource( 33 )]
 self_modulate = Color( 0.254902, 0.176471, 0.0901961, 1 )
-margin_right = 298.0
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.5
-button_text = "Export Save"
-
-[node name="ImportButton" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer3" instance=ExtResource( 33 )]
-self_modulate = Color( 0.254902, 0.176471, 0.0901961, 1 )
-margin_right = 660.0
+margin_top = 479.0
+margin_right = 680.0
+margin_bottom = 523.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 button_text = "Import Save"
@@ -1441,5 +1471,5 @@ anims/spawn = SubResource( 35 )
 [connection signal="button_down" from="uiRoot/Options/Button" to="uiRoot/Options" method="_on_Button_button_down"]
 [connection signal="value_changed" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer/MusicSlider" to="uiRoot/Options/ColorRect" method="_on_MusicSlider_value_changed"]
 [connection signal="value_changed" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer2/SoundSlider" to="uiRoot/Options/ColorRect" method="_on_SoundSlider_value_changed"]
-[connection signal="button_clicked" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer3/ExportButton" to="uiRoot/Options/ColorRect" method="exportSave"]
-[connection signal="button_clicked" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer3/ImportButton" to="uiRoot/Options/ColorRect" method="importSave"]
+[connection signal="text_changed" from="uiRoot/Options/ColorRect/HBoxContainer/SaveTextImport" to="uiRoot/Options/ColorRect" method="_on_SaveTextImport_text_changed"]
+[connection signal="button_clicked" from="uiRoot/Options/ColorRect/HBoxContainer/ImportButton" to="uiRoot/Options/ColorRect" method="importSave"]

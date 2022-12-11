@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/sprites/dice/d0.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/sprites/upgrades/Upgrade_Dice_Icon.png" type="Texture" id=6]
 [ext_resource path="res://assets/sprites/ui/ascention_upgrade.png" type="Texture" id=7]
 [ext_resource path="res://assets/sprites/icons/angel_feather.png" type="Texture" id=8]
+[ext_resource path="res://assets/sound/upgrade.mp3" type="AudioStream" id=9]
 
 [sub_resource type="DynamicFont" id=10]
 size = 60
@@ -59,6 +60,8 @@ custom_fonts/font = SubResource( 11 )
 text = "4"
 align = 1
 valign = 1
+
+[node name="Tween" type="Tween" parent="List/TextureButton/Label"]
 
 [node name="Tween" type="Tween" parent="List/TextureButton"]
 
@@ -154,6 +157,11 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 13 )
 text = "-1"
 align = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+pitch_scale = 0.3
+bus = "Effect"
 
 [connection signal="mouse_entered" from="List/Control/TextureButton" to="." method="_on_Control_mouse_entered"]
 [connection signal="mouse_exited" from="List/Control/TextureButton" to="." method="_on_Control_mouse_exited"]
