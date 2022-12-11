@@ -38,6 +38,7 @@
 [ext_resource path="res://assets/scripts/autoremove.gd" type="Script" id=36]
 [ext_resource path="res://assets/scripts/options.gd" type="Script" id=37]
 [ext_resource path="res://assets/scripts/upgrade_saver.gd" type="Script" id=38]
+[ext_resource path="res://branding/logo_extended.png" type="Texture" id=39]
 
 [sub_resource type="DynamicFont" id=25]
 size = 60
@@ -513,10 +514,6 @@ font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=10]
 size = 77
-font_data = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=11]
-size = 90
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=12]
@@ -1085,168 +1082,189 @@ self_modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Title" type="Label" parent="uiRoot/About"]
-anchor_right = 1.0
-anchor_bottom = 0.142
-custom_fonts/font = SubResource( 11 )
-text = "Dice & Dragons"
-align = 1
-valign = 1
+[node name="TextureRect2" type="TextureRect" parent="uiRoot/About"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 39 )
 
 [node name="TextureRect" type="TextureRect" parent="uiRoot/About"]
-anchor_right = 0.2
-anchor_bottom = 0.25
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = -225.0
+margin_right = 320.0
+margin_bottom = -20.0
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 6
 
-[node name="ColorRect" type="ColorRect" parent="uiRoot/About"]
-anchor_left = 0.499
-anchor_top = 0.15
-anchor_right = 0.509
-anchor_bottom = 1.0
-margin_left = -152.0
-margin_right = -152.0
-color = Color( 1, 1, 1, 0.435294 )
+[node name="Label" type="Label" parent="uiRoot/About/TextureRect"]
+margin_top = -20.0
+rect_pivot_offset = Vector2( 0, 30 )
+custom_fonts/font = SubResource( 12 )
+text = "Original game from"
+valign = 1
 
-[node name="Title2" type="Label" parent="uiRoot/About"]
+[node name="Credits" type="HBoxContainer" parent="uiRoot/About"]
+anchor_left = 1.0
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 0.142
-margin_left = -152.0
-margin_top = 136.0
-margin_right = -976.0
-margin_bottom = 168.2
+anchor_bottom = 0.5
+margin_left = -769.0
+margin_top = -356.5
+margin_bottom = 356.5
+custom_constants/separation = 30
+
+[node name="Titles" type="VBoxContainer" parent="uiRoot/About/Credits"]
+margin_right = 271.0
+margin_bottom = 713.0
+custom_constants/separation = 30
+
+[node name="Label" type="Label" parent="uiRoot/About/Credits/Titles"]
+margin_right = 271.0
+margin_bottom = 53.0
 custom_fonts/font = SubResource( 12 )
 text = "Developed By"
 align = 2
 valign = 1
 
-[node name="Title3" type="Label" parent="uiRoot/About"]
-anchor_right = 1.0
-anchor_bottom = 0.142
-margin_left = 690.0
-margin_top = 136.0
-margin_right = -152.0
-margin_bottom = 173.2
+[node name="Label1" type="Label" parent="uiRoot/About/Credits/Titles"]
+margin_top = 83.0
+margin_right = 271.0
+margin_bottom = 136.0
 custom_fonts/font = SubResource( 12 )
-text = "Damien Kusters
-& Marco van Stiphout"
-valign = 1
-
-[node name="Title4" type="Label" parent="uiRoot/About"]
-anchor_right = 1.0
-anchor_bottom = 0.142
-margin_left = -152.0
-margin_top = 390.0
-margin_right = -976.0
-margin_bottom = 388.2
-custom_fonts/font = SubResource( 12 )
-text = "Background Art"
+text = "Assistance"
 align = 2
 valign = 1
 
-[node name="Title5" type="Label" parent="uiRoot/About"]
-anchor_right = 1.0
-anchor_bottom = 0.142
-margin_left = 690.0
-margin_top = 371.0
-margin_right = -152.0
-margin_bottom = 408.2
-custom_fonts/font = SubResource( 12 )
-text = "Luis Zuno (@ansimuz)"
-valign = 1
+[node name="Padding" type="ColorRect" parent="uiRoot/About/Credits/Titles"]
+margin_top = 166.0
+margin_right = 271.0
+margin_bottom = 186.0
+rect_min_size = Vector2( 5, 20 )
+color = Color( 1, 1, 1, 0 )
 
-[node name="Title12" type="Label" parent="uiRoot/About"]
-anchor_right = 1.0
-anchor_bottom = 0.142
-margin_left = -152.0
-margin_top = 311.0
-margin_right = -976.0
-margin_bottom = 309.2
+[node name="Label2" type="Label" parent="uiRoot/About/Credits/Titles"]
+margin_top = 216.0
+margin_right = 271.0
+margin_bottom = 269.0
 custom_fonts/font = SubResource( 12 )
 text = "Enemy Art"
 align = 2
 valign = 1
 
-[node name="Title13" type="Label" parent="uiRoot/About"]
-anchor_right = 1.0
-anchor_bottom = 0.142
-margin_left = 690.0
-margin_top = 292.0
-margin_right = -152.0
-margin_bottom = 329.2
+[node name="Label3" type="Label" parent="uiRoot/About/Credits/Titles"]
+margin_top = 299.0
+margin_right = 271.0
+margin_bottom = 352.0
 custom_fonts/font = SubResource( 12 )
-text = "JosephSeraph"
+text = "Background Art"
+align = 2
 valign = 1
 
-[node name="Title6" type="Label" parent="uiRoot/About"]
-anchor_right = 1.0
-anchor_bottom = 0.142
-margin_left = -152.0
-margin_top = 471.0
-margin_right = -976.0
-margin_bottom = 469.2
+[node name="Label4" type="Label" parent="uiRoot/About/Credits/Titles"]
+margin_top = 382.0
+margin_right = 271.0
+margin_bottom = 435.0
 custom_fonts/font = SubResource( 12 )
 text = "Iconography"
 align = 2
 valign = 1
 
-[node name="Title7" type="Label" parent="uiRoot/About"]
-anchor_right = 1.0
-anchor_bottom = 0.142
-margin_left = 690.0
-margin_top = 452.0
-margin_right = -152.0
-margin_bottom = 489.2
-custom_fonts/font = SubResource( 12 )
-text = "Kenney (www.kenney.nl)"
-valign = 1
-
-[node name="Title8" type="Label" parent="uiRoot/About"]
-anchor_right = 1.0
-anchor_bottom = 0.142
-margin_left = -152.0
-margin_top = 555.0
-margin_right = -976.0
-margin_bottom = 553.2
+[node name="Label5" type="Label" parent="uiRoot/About/Credits/Titles"]
+margin_top = 465.0
+margin_right = 271.0
+margin_bottom = 518.0
 custom_fonts/font = SubResource( 12 )
 text = "Font (Almendra)"
 align = 2
 valign = 1
 
-[node name="Title9" type="Label" parent="uiRoot/About"]
-anchor_right = 1.0
-anchor_bottom = 0.142
-margin_left = 690.0
-margin_top = 536.0
-margin_right = -152.0
-margin_bottom = 573.2
+[node name="Label6" type="Label" parent="uiRoot/About/Credits/Titles"]
+margin_top = 548.0
+margin_right = 271.0
+margin_bottom = 601.0
 custom_fonts/font = SubResource( 12 )
-text = "Fontsource (www.fontsource.org)"
-valign = 1
-
-[node name="Title10" type="Label" parent="uiRoot/About"]
-anchor_right = 1.0
-anchor_bottom = 0.142
-margin_left = -152.0
-margin_top = 696.0
-margin_right = -976.0
-margin_bottom = 694.2
-custom_fonts/font = SubResource( 12 )
-text = "Sound effects"
+text = "Sound Effects"
 align = 2
 valign = 1
 
-[node name="Title11" type="Label" parent="uiRoot/About"]
-anchor_right = 1.0
-anchor_bottom = 0.142
-margin_left = 690.0
-margin_top = 677.0
-margin_right = -24.0
-margin_bottom = 714.2
+[node name="Padding" type="ColorRect" parent="uiRoot/About/Credits"]
+margin_left = 301.0
+margin_right = 306.0
+margin_bottom = 713.0
+rect_min_size = Vector2( 5, 0 )
+
+[node name="Contributers" type="VBoxContainer" parent="uiRoot/About/Credits"]
+margin_left = 336.0
+margin_right = 769.0
+margin_bottom = 713.0
+custom_constants/separation = 30
+
+[node name="Label" type="Label" parent="uiRoot/About/Credits/Contributers"]
+margin_right = 433.0
+margin_bottom = 53.0
 custom_fonts/font = SubResource( 12 )
-text = "www.freesound.org/people/DWOBoyle/
-www.freesound.org/people/LittleRobotSoundFactory/"
+text = "Damien Kusters"
+valign = 1
+
+[node name="Label2" type="Label" parent="uiRoot/About/Credits/Contributers"]
+margin_top = 83.0
+margin_right = 433.0
+margin_bottom = 136.0
+custom_fonts/font = SubResource( 12 )
+text = "Marco van Stiphout"
+valign = 1
+
+[node name="Padding" type="ColorRect" parent="uiRoot/About/Credits/Contributers"]
+margin_top = 166.0
+margin_right = 433.0
+margin_bottom = 186.0
+rect_min_size = Vector2( 5, 20 )
+color = Color( 1, 1, 1, 0 )
+
+[node name="Label3" type="Label" parent="uiRoot/About/Credits/Contributers"]
+margin_top = 216.0
+margin_right = 433.0
+margin_bottom = 269.0
+custom_fonts/font = SubResource( 12 )
+text = "JosephSeraph"
+valign = 1
+
+[node name="Label4" type="Label" parent="uiRoot/About/Credits/Contributers"]
+margin_top = 299.0
+margin_right = 433.0
+margin_bottom = 352.0
+custom_fonts/font = SubResource( 12 )
+text = "Luis Zuno (@ansimuz)"
+valign = 1
+
+[node name="Label5" type="Label" parent="uiRoot/About/Credits/Contributers"]
+margin_top = 382.0
+margin_right = 433.0
+margin_bottom = 435.0
+custom_fonts/font = SubResource( 12 )
+text = "www.kenney.nl"
+valign = 1
+
+[node name="Label6" type="Label" parent="uiRoot/About/Credits/Contributers"]
+margin_top = 465.0
+margin_right = 433.0
+margin_bottom = 518.0
+custom_fonts/font = SubResource( 12 )
+text = "www.fontsource.org"
+valign = 1
+
+[node name="Label7" type="Label" parent="uiRoot/About/Credits/Contributers"]
+margin_top = 548.0
+margin_right = 433.0
+margin_bottom = 713.0
+custom_fonts/font = SubResource( 12 )
+text = "www.freesound.org
+- DWOBoyle
+- LittleRobotSoundFactory"
 valign = 1
 
 [node name="Help" type="ColorRect" parent="uiRoot"]
@@ -1396,6 +1414,7 @@ text = "~ Export Save ~"
 align = 1
 
 [node name="Export Save2" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer"]
+self_modulate = Color( 0.580392, 0.580392, 0.580392, 1 )
 margin_top = 226.0
 margin_right = 680.0
 margin_bottom = 285.0
@@ -1422,6 +1441,7 @@ text = "~ Import Save ~"
 align = 1
 
 [node name="Export Save3" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer"]
+self_modulate = Color( 0.580392, 0.580392, 0.580392, 1 )
 margin_top = 359.0
 margin_right = 680.0
 margin_bottom = 449.0
