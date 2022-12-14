@@ -16,7 +16,7 @@ signal openHelp;
 signal enemyKilled;
 
 var enemyPool = 4;
-var maxDiceRollTime = 4;
+var maxDiceRollTime = 4.5;
 var currency = 0;
 var feathers = 0;
 
@@ -70,7 +70,7 @@ func ascendReset():
 	currency = 10 * feathers;
 	feathers = 0;
 	enemyPool = 4;
-	maxDiceRollTime = 4;
+	maxDiceRollTime = 4.5;
 	restoreEnemyFeathers();
 
 func addDice():
@@ -135,7 +135,7 @@ var enemiesCommon = [
 	#Tier 1: Basic
 	{
 		"name":"Slime",
-		"health":5,
+		"health":4,
 		"currency":5,
 		"sprite": "res://assets/sprites/enemies/Slime.png",
 		"feather":0,
@@ -143,7 +143,7 @@ var enemiesCommon = [
 	},
 	{
 		"name":"Bird",
-		"health":7,
+		"health":6,
 		"currency":7,
 		"sprite": "res://assets/sprites/enemies/Bird.png",
 		"feather":0,
@@ -151,7 +151,7 @@ var enemiesCommon = [
 	},
 	{
 		"name":"Wolf",
-		"health":10,
+		"health":9,
 		"currency":10,
 		"sprite": "res://assets/sprites/enemies/Wolf.png",
 		"feather":0,
@@ -176,7 +176,7 @@ var enemiesCommon = [
 	},
 	{
 		"name":"Elite Goblin",
-		"health":26,
+		"health":30,
 		"currency":60,
 		"sprite": "res://assets/sprites/enemies/Elite_Goblin.png",
 		"feather":0,
@@ -184,7 +184,7 @@ var enemiesCommon = [
 	},
 	{
 		"name":"Bandit",
-		"health":30,
+		"health":35,
 		"currency":70,
 		"sprite": "res://assets/sprites/enemies/Pirate.png",
 		"feather":0,
@@ -192,7 +192,7 @@ var enemiesCommon = [
 	},
 	{
 		"name":"Outlaw",
-		"health":50,
+		"health":55,
 		"currency":70,
 		"sprite": "res://assets/sprites/enemies/Bandit.png",
 		"feather":0,
@@ -201,7 +201,7 @@ var enemiesCommon = [
 	#Tier 3: Mytical
 	{
 		"name":"Witch",
-		"health":60,
+		"health":65,
 		"currency":100,
 		"sprite": "res://assets/sprites/enemies/Witch.png",
 		"feather":0,
@@ -209,7 +209,7 @@ var enemiesCommon = [
 	},
 	{
 		"name":"Gaia",
-		"health":90,
+		"health":95,
 		"currency":111,
 		"sprite": "res://assets/sprites/enemies/Gaia.png",
 		"feather":0,
@@ -217,7 +217,7 @@ var enemiesCommon = [
 	},
 	{
 		"name":"Minotaur",
-		"health":115,
+		"health":120,
 		"currency":150,
 		"sprite": "res://assets/sprites/enemies/Minotaur.png",
 		"feather":0,
@@ -226,7 +226,7 @@ var enemiesCommon = [
 	{
 		"name":"Golem",
 		"health":190,
-		"currency":220,
+		"currency":200,
 		"sprite": "res://assets/sprites/enemies/Nature_Gorilla.png",
 		"feather":0,
 		"shield":DiceEnum.D4,
@@ -235,14 +235,14 @@ var enemiesCommon = [
 	{
 		"name":"Pixie",
 		"health":250,
-		"currency":250,
+		"currency":200,
 		"sprite": "res://assets/sprites/enemies/Earth_Lady.png",
 		"feather":0,
 		"shield":null,
 	},
 	{
-		"name":"Pixie",
-		"health":250,
+		"name":"Fairy",
+		"health":290,
 		"currency":250,
 		"sprite": "res://assets/sprites/enemies/Pixie_Man.png",
 		"feather":0,
@@ -250,7 +250,7 @@ var enemiesCommon = [
 	},
 	{
 		"name":"Wrath",
-		"health":300,
+		"health":320,
 		"currency":290,
 		"sprite": "res://assets/sprites/enemies/Wtf.png",
 		"feather":0,
@@ -258,41 +258,41 @@ var enemiesCommon = [
 	},
 	{
 		"name":"Necromancer",
-		"health":410,
+		"health":430,
 		"currency":444,
 		"sprite": "res://assets/sprites/enemies/Necromancer.png",
 		"feather":1,
 		"shield":DiceEnum.D6,
 	},
-	#Tier 5: Demons (TODO: triple/quadruple health)
-	{
-		"name":"Lich",
-		"health":500,
-		"currency":0,
-		"sprite": "res://assets/sprites/enemies/Lich.png",
-		"feather":0,
-		"shield":null,
-	},
+	#Tier 5: Demons
 	{
 		"name":"Demon Pixie",
 		"health":620,
-		"currency":0,
+		"currency":500,
 		"sprite": "res://assets/sprites/enemies/Earth_Lady_Vampire.png",
 		"feather":0,
 		"shield":null,
 	},
 	{
-		"name":"Demon Pixie",
+		"name":"Demon Fairy",
 		"health":650,
-		"currency":0,
+		"currency":550,
 		"sprite": "res://assets/sprites/enemies/Pixie_Man_Vampire.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Lich",
+		"health":800,
+		"currency":600,
+		"sprite": "res://assets/sprites/enemies/Lich.png",
 		"feather":0,
 		"shield":null,
 	},
 	{
 		"name":"Demon Lord",
 		"health":1200,
-		"currency":0,
+		"currency":666,
 		"sprite": "res://assets/sprites/enemies/Demon.png",
 		"feather":1,
 		"shield":DiceEnum.D8,
@@ -300,24 +300,24 @@ var enemiesCommon = [
 	#Tier 6: Elementals (TODO: health x8)
 	{
 		"name":"Earth Elemental",
-		"health":4000,
-		"currency":0,
+		"health":2000,
+		"currency":800,
 		"sprite": "res://assets/sprites/enemies/Earth_Elemental.png",
 		"feather":0,
 		"shield":DiceEnum.D10,
 	},
 	{
 		"name":"Fire Elemental",
-		"health":4000,
-		"currency":0,
+		"health":3000,
+		"currency":900,
 		"sprite": "res://assets/sprites/enemies/Fire_Elemental.png",
 		"feather":0,
 		"shield":DiceEnum.D12,
 	},
 	{
 		"name":"Power Elemental",
-		"health":4000,
-		"currency":0,
+		"health":5000,
+		"currency":1100,
 		"sprite": "res://assets/sprites/enemies/Volt_Elemental.png",
 		"feather":0,
 		"shield":DiceEnum.D10,
@@ -325,24 +325,24 @@ var enemiesCommon = [
 	{
 		"name":"Water Elemental",
 		"health":4000,
-		"currency":0,
+		"currency":1000,
 		"sprite": "res://assets/sprites/enemies/Water_Elemental.png",
 		"feather":0,
 		"shield":DiceEnum.D12,
 	},
-	# Tier 7: Legendary (TODO: Health x8-10)
+	# Tier 7: Legendary
 	{
 		"name":"Darkness",
-		"health":5500,
-		"currency":0,
+		"health":6000,
+		"currency":1111,
 		"sprite": "res://assets/sprites/enemies/Darkness.png",
 		"feather":1,
 		"shield":DiceEnum.D20,
 	},
 	{
 		"name":"Light",
-		"health":5500,
-		"currency":0,
+		"health":6000,
+		"currency":1111,
 		"sprite": "res://assets/sprites/enemies/Light.png",
 		"feather":1,
 		"shield":DiceEnum.D20,
@@ -380,14 +380,6 @@ func restoreEnemyFeathers():
 	enemiesCommon[25]['feather'] = 1;
 	enemy_exclusive_feathers_overrides = "";
 
-# TODO:
-#	Ascention screen
-#	- Reroll dice always 1 feather
-#	- Scale cost of upgrade dice with % of increase
-#		Example:
-#		rest = D6 - D4
-#		D4 = 100% + rest = ???%
-
 func getDiceData(enumValue):
 	return diceData[int(enumValue)];
 	
@@ -420,12 +412,15 @@ func exportSave():
 		i+=1;
 	print("Export");
 	print(save);
-	return save
-#	return Marshalls.utf8_to_base64(save);
+	return Marshalls.utf8_to_base64(save);
 	pass
 
 func importSave(saveString: String):
-#	saveString = Marshalls.base64_to_utf8(saveString);
+	saveString = Marshalls.base64_to_utf8(saveString);
+
+	enemyPool = 4;
+	maxDiceRollTime = 4.5;
+
 	saveString = saveString.strip_edges(true,true);
 	print("Import");
 	print(saveString);
@@ -447,10 +442,7 @@ func importSave(saveString: String):
 	upgrade_dice_overrides = s[5];
 	
 	enemy_exclusive_feathers_overrides = s[6];
+
 	
-	#Temp:
-	enemyPool = 4;
-	maxDiceRollTime = 4;
-	
-	var e = get_tree().change_scene(game);
+	var _e = get_tree().change_scene(game);
 	pass

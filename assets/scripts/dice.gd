@@ -12,7 +12,6 @@ enum DiceEnum { D4, D6, D8, D10, D12, D20 };
 
 export(DiceEnum) var kind;
 export(float) var minRollingSpeed = .5;
-export(float) var maxRollingSpeed = 4.5;
 
 var maxVal = 4;
 var value = 0;
@@ -48,7 +47,7 @@ func playRandomRollSound():
 	$AudioStreamPlayer.stream = stream;
 	$AudioStreamPlayer.play();
 
-func _on_Area2D_input_event(viewport, event, shape_idx):
+func _on_Area2D_input_event(_viewport, event, _shape_idx):
 	if (event is InputEventMouseButton && event.pressed):
 		if(rolling):
 			return;

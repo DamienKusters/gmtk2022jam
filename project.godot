@@ -10,8 +10,11 @@ config_version=4
 
 [application]
 
-config/name="gmtk2022jam"
+config/name="Dice & Dragons - Extended"
 run/main_scene="res://scenes/main.tscn"
+boot_splash/image="res://branding/logo_extended.png"
+boot_splash/fullsize=false
+boot_splash/bg_color=Color( 0.156863, 0.156863, 0.188235, 1 )
 config/icon="res://icon.png"
 
 [autoload]

@@ -26,5 +26,5 @@ func exportAllSaves():
 	Globals.upgradeSavesUpdated(save);
 	return save;
 	
-func importAllSaves(save):
+func importAllSaves(_save):
 	pass

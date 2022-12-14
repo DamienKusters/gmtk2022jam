@@ -52,7 +52,7 @@ func _ready():
 		emit_signal("levelChanged");	
 	if(kind == 6):
 		g.connect("enemyKilled", self, "enemyKilled");
-		$Tween.connect("tween_all_completed", self, "tween_completed");
+		var _e = $Tween.connect("tween_all_completed", self, "tween_completed");
 		locked = level < levelCap;
 	g.connect("currencyUpdated", self, "setPayable");
 	setPayable(g.currency);
@@ -183,8 +183,9 @@ func action():
 		pass
 	if(kind == 7):
 		g.maxDiceRollTime = g.maxDiceRollTime - .35;
+		$LabelTitle.text = title + " (" + str(g.maxDiceRollTime) + ")";
 	if(kind == 8):
-		var e = get_tree().change_scene("res://scenes/ascend.tscn");
+		var _e = get_tree().change_scene("res://scenes/ascend.tscn");
 
 func _on_Timer_timeout():
 	if(kind == 2):
