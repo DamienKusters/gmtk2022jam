@@ -25,6 +25,9 @@ func _ready():
 	$"../VBoxContainer/Control/HBoxContainer".visible = false;
 	if g.feathers > 0:
 		showAscendUpgrade();
+		
+	if g.ascention_dps_multiplier_value > 1: 
+		set_multiplier_text();
 	pass
 	
 func respawnEnemy():
@@ -114,7 +117,11 @@ func showAscendUpgrade():
 	$"../VBoxContainer/u_ascend".visible = true;
 	$"../VBoxContainer/Control/Label".align = HALIGN_LEFT;
 	$"../VBoxContainer/Control/HBoxContainer".visible = true;
-	
+
+func set_multiplier_text():
+	$Label.text = "Damage x " + String(g.ascention_dps_multiplier_value);
+	$Label.visible = true;
+
 func _on_dpsTimer_timeout():
 	$Label.text = "DPS: " + String(secondDmg);
 	secondDmg = 0;

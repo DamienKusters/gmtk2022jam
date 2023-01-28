@@ -333,19 +333,19 @@ var enemiesCommon = [
 	# Tier 7: Legendary
 	{
 		"name":"Darkness",
-		"health":6000,
+		"health":8500,
 		"currency":1111,
 		"sprite": "res://assets/sprites/enemies/Darkness.png",
 		"feather":1,
-		"shield":DiceEnum.D20,
+		"shield":DiceEnum.D10,
 	},
 	{
 		"name":"Light",
-		"health":6000,
+		"health":8500,
 		"currency":1111,
 		"sprite": "res://assets/sprites/enemies/Light.png",
 		"feather":1,
-		"shield":DiceEnum.D20,
+		"shield":DiceEnum.D12,
 	},
 	{#Special
 		"name":"Angel",

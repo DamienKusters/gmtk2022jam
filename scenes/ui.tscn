@@ -205,7 +205,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="DynamicFont" id=27]
-size = 70
+size = 60
 outline_size = 4
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 2 )
@@ -368,7 +368,7 @@ outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=17]
-size = 51
+size = 40
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 2 )
@@ -956,16 +956,15 @@ text = "Time"
 align = 2
 
 [node name="Label" type="Label" parent="uiRoot/enemyUi"]
-visible = false
+self_modulate = Color( 0.741176, 0.4, 0, 1 )
 anchor_left = 0.014
 anchor_top = 0.26
 anchor_right = 0.296
 anchor_bottom = 0.26
 custom_fonts/font = SubResource( 17 )
-text = "DPS: 9999"
+text = "Damage x 99"
 
 [node name="dpsTimer" type="Timer" parent="uiRoot/enemyUi"]
-autostart = true
 
 [node name="Control2" type="Control" parent="uiRoot/enemyUi"]
 modulate = Color( 1, 1, 1, 0 )

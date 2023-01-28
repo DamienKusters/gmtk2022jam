@@ -8,4 +8,4 @@ func _ready():
 func setData(dice):
 	var data = g.getDiceData(dice);
 	self_modulate = data['color'];
-	$Label.text = str(data['value']);
+	$Label.text = str("D"+str(data['value']));
