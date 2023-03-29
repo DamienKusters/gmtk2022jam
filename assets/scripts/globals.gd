@@ -24,10 +24,13 @@ var upgrade_save_overrides;
 var upgrade_dice_overrides;
 var enemy_exclusive_feathers_overrides;
 
-var ascention_dps_multiplier_value = 1;
+var ascention_dps_multiplier_value = 2;
 var ascention_dps_multiplier_level = 0;
 var ascention_reroller_value = 0;
 var ascention_reroller_level = 0;
+
+var options_music = 1;
+var options_sound = 2;
 
 var rng = RandomNumberGenerator.new();
 
@@ -392,6 +395,7 @@ func upgradeDiceOverridesUpdated(save):
 var saveResources = [];
 
 func exportSave():
+
 	saveResources = [
 		currency,
 		feathers,
@@ -446,3 +450,4 @@ func importSave(saveString: String):
 	
 	var _e = get_tree().change_scene(game);
 	pass
+		

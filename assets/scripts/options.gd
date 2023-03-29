@@ -2,8 +2,6 @@ extends Node
 
 func _ready():
 	toggleImportButton(false);
-	_on_MusicSlider_value_changed(1);
-	_on_SoundSlider_value_changed(3);
 	
 func exportSave():
 	$HBoxContainer/SaveTextEdit.text = Globals.exportSave();
@@ -14,6 +12,7 @@ func importSave():
 		Globals.importSave(importText);
 
 func _on_MusicSlider_value_changed(value):
+	Globals.options_music = value;
 	if value == 0:
 		AudioServer.set_bus_mute(1, true);
 	else:
@@ -23,6 +22,7 @@ func _on_MusicSlider_value_changed(value):
 
 
 func _on_SoundSlider_value_changed(value):
+	Globals.options_sound = value;
 	if value == 0:
 		AudioServer.set_bus_mute(2, true);
 	else:
@@ -40,3 +40,13 @@ func toggleImportButton(enabled):
 		$HBoxContainer/ImportButton.modulate = Color("ffffffff");
 	else:
 		$HBoxContainer/ImportButton.modulate = Color("64ffffff");
+
+
+func _on_MusicSlider_tree_entered():
+	_on_MusicSlider_value_changed(Globals.options_music);
+	$HBoxContainer/HBoxContainer/MusicSlider.value = Globals.options_music;
+
+
+func _on_SoundSlider_tree_entered():
+	_on_SoundSlider_value_changed(Globals.options_sound);
+	$HBoxContainer/HBoxContainer2/SoundSlider.value = Globals.options_sound

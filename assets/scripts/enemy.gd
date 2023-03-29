@@ -25,7 +25,8 @@ func _ready():
 	$"../VBoxContainer/Control/HBoxContainer".visible = false;
 	if g.feathers > 0:
 		showAscendUpgrade();
-		
+	
+	$Label.visible = false;
 	if g.ascention_dps_multiplier_value > 1: 
 		set_multiplier_text();
 	pass
