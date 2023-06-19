@@ -1,16 +1,5 @@
 extends Node
 
-func _ready():
-	toggleImportButton(false);
-	
-func exportSave():
-	$HBoxContainer/SaveTextEdit.text = Globals.exportSave();
-
-func importSave():
-	var importText = $HBoxContainer/SaveTextImport.text.strip_edges(true,true);
-	if importText != "":
-		Globals.importSave(importText);
-
 func _on_MusicSlider_value_changed(value):
 	Globals.options_music = value;
 	if value == 0:
@@ -18,8 +7,6 @@ func _on_MusicSlider_value_changed(value):
 	else:
 		AudioServer.set_bus_mute(1, false);
 		AudioServer.set_bus_volume_db(1, value)
-	pass # Replace with function body.
-
 
 func _on_SoundSlider_value_changed(value):
 	Globals.options_sound = value;
@@ -28,25 +15,32 @@ func _on_SoundSlider_value_changed(value):
 	else:
 		AudioServer.set_bus_mute(2, false);
 		AudioServer.set_bus_volume_db(2, value)
-	pass # Replace with function body.
-
-
-func _on_SaveTextImport_text_changed():
-	var importText = $HBoxContainer/SaveTextImport.text;
-	toggleImportButton(importText != "");
-
-func toggleImportButton(enabled):
-	if enabled:
-		$HBoxContainer/ImportButton.modulate = Color("ffffffff");
-	else:
-		$HBoxContainer/ImportButton.modulate = Color("64ffffff");
-
 
 func _on_MusicSlider_tree_entered():
 	_on_MusicSlider_value_changed(Globals.options_music);
 	$HBoxContainer/HBoxContainer/MusicSlider.value = Globals.options_music;
 
-
 func _on_SoundSlider_tree_entered():
 	_on_SoundSlider_value_changed(Globals.options_sound);
 	$HBoxContainer/HBoxContainer2/SoundSlider.value = Globals.options_sound
+
+func _on_Save_button_clicked():
+	var save = Globals.exportSave();
+	var file = File.new()
+	file.open(Globals.saveFileLocation, File.WRITE)
+	file.store_string(save)
+	file.close()
+	$"HBoxContainer/SaveButtons/Reset Info".visible = false;
+	$HBoxContainer/SaveButtons/Save.button_text = "Game Saved!"
+	
+func _on_ResetSave_button_clicked():
+	var file = File.new()
+	if file.file_exists(Globals.saveFileLocation) == true:
+		file.open(Globals.saveFileLocation, File.WRITE)
+		file.store_string("")
+		file.close()
+		$"HBoxContainer/SaveButtons/Reset Info".visible = true;
+		resetSaveButtonText();
+
+func resetSaveButtonText():
+	$HBoxContainer/SaveButtons/Save.button_text = "Save Game"

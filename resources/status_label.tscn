@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=17]
+size = 40
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=38]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.741176, 0.4, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=39]
+resource_name = "pulse"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.741176, 0.4, 0, 1 ), Color( 1, 0.537255, 0, 1 ) ]
+}
+
+[node name="Label" type="Label"]
+self_modulate = Color( 0.741176, 0.4, 0, 1 )
+margin_right = 206.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 17 )
+text = "Damage x 99"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "pulse"
+anims/RESET = SubResource( 38 )
+anims/pulse = SubResource( 39 )

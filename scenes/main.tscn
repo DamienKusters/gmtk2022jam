@@ -162,9 +162,6 @@ __meta__ = {
 
 [node name="grey_trees" type="Sprite" parent="bg"]
 texture = ExtResource( 2 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="grey_trees2" type="Sprite" parent="bg/grey_trees"]
 position = Vector2( 0, 159.75 )

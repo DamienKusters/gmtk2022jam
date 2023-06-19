@@ -26,7 +26,7 @@ func _ready():
 	if g.feathers > 0:
 		showAscendUpgrade();
 	
-	$Label.visible = false;
+	$VBoxContainer/Label.visible = false;
 	if g.ascention_dps_multiplier_value > 1: 
 		set_multiplier_text();
 	pass
@@ -120,11 +120,11 @@ func showAscendUpgrade():
 	$"../VBoxContainer/Control/HBoxContainer".visible = true;
 
 func set_multiplier_text():
-	$Label.text = "Damage x " + String(g.ascention_dps_multiplier_value);
-	$Label.visible = true;
+	$VBoxContainer/Label.text = "Damage x " + String(g.ascention_dps_multiplier_value);
+	$VBoxContainer/Label.visible = true;
 
 func _on_dpsTimer_timeout():
-	$Label.text = "DPS: " + String(secondDmg);
+	$VBoxContainer/Label.text = "DPS: " + String(secondDmg);
 	secondDmg = 0;
 	pass # Replace with function body.
 	

@@ -15,6 +15,7 @@ signal currencyAddedSingular;
 signal openHelp;
 signal enemyKilled;
 
+var saveFileLocation = "user://dnde.save"
 var enemyPool = 4;
 var maxDiceRollTime = 4.5;
 var currency = 0;
@@ -24,7 +25,7 @@ var upgrade_save_overrides;
 var upgrade_dice_overrides;
 var enemy_exclusive_feathers_overrides;
 
-var ascention_dps_multiplier_value = 2;
+var ascention_dps_multiplier_value = 1;
 var ascention_dps_multiplier_level = 0;
 var ascention_reroller_value = 0;
 var ascention_reroller_level = 0;
@@ -447,7 +448,21 @@ func importSave(saveString: String):
 	
 	enemy_exclusive_feathers_overrides = s[6];
 
-	
-	var _e = get_tree().change_scene(game);
+#	var _e = get_tree().change_scene(game);
 	pass
-		
+
+func _init():
+	autoImportSave();
+
+func autoImportSave():
+	var file = File.new()
+	if file.file_exists(saveFileLocation) == false:
+		file.close()
+		return
+	file.open(saveFileLocation, File.READ)
+	var content = file.get_as_text()
+	print(content)
+	file.close()
+	
+	if content != "":
+		importSave(content);
