@@ -8,6 +8,28 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Reference",
+"class": "EnemyModel",
+"language": "GDScript",
+"path": "res://models/enemy_model.gd"
+}, {
+"base": "Reference",
+"class": "EnemyPool",
+"language": "GDScript",
+"path": "res://models/enemy_pool.gd"
+}, {
+"base": "Reference",
+"class": "EnemyTier",
+"language": "GDScript",
+"path": "res://models/enemy_tier.gd"
+} ]
+_global_script_class_icons={
+"EnemyModel": "",
+"EnemyPool": "",
+"EnemyTier": ""
+}
+
 [application]
 
 config/name="Dice & Dragons - Extended"

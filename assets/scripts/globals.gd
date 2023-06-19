@@ -136,6 +136,299 @@ func removeFeathers(value: int):
 	emit_signal("feathersUpdated", feathers);
 
 var enemiesCommon = [
+	#Tier 1: Default
+	{
+		"name":"Slug",
+		"health":2,
+		"currency":2,
+		"sprite": "res://assets/sprites/enemies/Slug.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Bird",
+		"health":4,
+		"currency":5,
+		"sprite": "res://assets/sprites/enemies/Bird.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Bat",
+		"health":7,
+		"currency":8,
+		"sprite": "res://assets/sprites/enemies/Bat.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Slime",
+		"health":10,
+		"currency":10,
+		"sprite": "res://assets/sprites/enemies/Slime.png",
+		"feather":0,
+		"shield":null,
+	},
+	#Tier 2: Wild
+	{
+		"name":"Hornet",
+		"health":12,
+		"currency":13,
+		"sprite": "res://assets/sprites/enemies/GiantHornet.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Rat",
+		"health":16,
+		"currency":15,
+		"sprite": "res://assets/sprites/enemies/GiantRat.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Wolf",
+		"health":20,
+		"currency":19,
+		"sprite": "res://assets/sprites/enemies/Wolf.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Boar",
+		"health":25,
+		"currency":25,
+		"sprite": "res://assets/sprites/enemies/WildBoar.png",
+		"feather":0,
+		"shield":null,
+	},
+	# Tier 3: Goblins
+	{
+		"name":"Goblin",
+		"health":35,
+		"currency":30,
+		"sprite": "res://assets/sprites/enemies/Goblin.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Hobgoblin",
+		"health": 42,
+		"currency":43,
+		"sprite": "res://assets/sprites/enemies/Regular_Goblin.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Ogre",
+		"health": 49,
+		"currency":49,
+		"sprite": "res://assets/sprites/enemies/Ogre.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Orc",
+		"health": 57,
+		"currency":60,
+		"sprite": "res://assets/sprites/enemies/Orc.png",
+		"feather":0,
+		"shield":DiceEnum.D4,
+	},
+	#Tier 4: Nature
+	{
+		"name":"Living Roots",
+		"health":95,
+		"currency":111,
+		"sprite": "res://assets/sprites/enemies/AnimatedPlant.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Treant",
+		"health":95,
+		"currency":111,
+		"sprite": "res://assets/sprites/enemies/Treant.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Gaia",
+		"health":95,
+		"currency":111,
+		"sprite": "res://assets/sprites/enemies/Gaia.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Golem",
+		"health":190,
+		"currency":200,
+		"sprite": "res://assets/sprites/enemies/Nature_Gorilla.png",
+		"feather":0,
+		"shield":DiceEnum.D6,
+	},
+	#Tier 5: Ravagers
+	{
+		"name":"Pirate",
+		"health":35,
+		"currency":70,
+		"sprite": "res://assets/sprites/enemies/Pirate.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Bigfoot",
+		"health":35,
+		"currency":70,
+		"sprite": "res://assets/sprites/enemies/Bigfoot.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Outlaw",
+		"health":55,
+		"currency":70,
+		"sprite": "res://assets/sprites/enemies/Bandit.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Minotaur",
+		"health":120,
+		"currency":150,
+		"sprite": "res://assets/sprites/enemies/Minotaur.png",
+		"feather":0,
+		"shield":DiceEnum.D6,
+	},
+	# Tier 6: Mytical:
+	{
+		"name":"Pixie",
+		"health":65,
+		"currency":100,
+		"sprite": "res://assets/sprites/enemies/Fairy.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Witch",
+		"health":65,
+		"currency":100,
+		"sprite": "res://assets/sprites/enemies/Witch.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Fairy",
+		"health":290,
+		"currency":250,
+		"sprite": "res://assets/sprites/enemies/Pixie_Man.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Nymph",
+		"health":250,
+		"currency":200,
+		"sprite": "res://assets/sprites/enemies/Earth_Lady.png",
+		"feather":0,
+		"shield":DiceEnum.D8,
+	},
+	# Tier 7: Magic
+	{
+		"name":"Skeleton",
+		"health":320,
+		"currency":290,
+		"sprite": "res://assets/sprites/enemies/Skeleton.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Wrath",
+		"health":320,
+		"currency":290,
+		"sprite": "res://assets/sprites/enemies/Wrath.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Wizard",
+		"health":800,
+		"currency":600,
+		"sprite": "res://assets/sprites/enemies/Wizard.png",
+		"feather":0,
+		"shield":null,
+	},
+	{
+		"name":"Necromancer",
+		"health":430,
+		"currency":444,
+		"sprite": "res://assets/sprites/enemies/Necromancer.png",
+		"feather":1,
+		"shield":DiceEnum.D8,
+	},
+	
+	#Tier 8: Elementals
+	{
+		"name":"Earth Elemental",
+		"health":2000,
+		"currency":800,
+		"sprite": "res://assets/sprites/enemies/Earth_Elemental.png",
+		"feather":0,
+		"shield":DiceEnum.D10,
+	},
+	{
+		"name":"Fire Elemental",
+		"health":3000,
+		"currency":900,
+		"sprite": "res://assets/sprites/enemies/Fire_Elemental.png",
+		"feather":0,
+		"shield":DiceEnum.D12,
+	},
+	{
+		"name":"Power Elemental",
+		"health":5000,
+		"currency":1100,
+		"sprite": "res://assets/sprites/enemies/Volt_Elemental.png",
+		"feather":0,
+		"shield":DiceEnum.D10,
+	},
+	{
+		"name":"Water Elemental",
+		"health":4000,
+		"currency":1000,
+		"sprite": "res://assets/sprites/enemies/Water_Elemental.png",
+		"feather":0,
+		"shield":DiceEnum.D12,
+	},
+	# Tier 9: Legendary
+	{
+		"name":"Darkness",
+		"health":8500,
+		"currency":1111,
+		"sprite": "res://assets/sprites/enemies/Darkness.png",
+		"feather":1,
+		"shield":DiceEnum.D10,
+	},
+	{
+		"name":"Light",
+		"health":8500,
+		"currency":1111,
+		"sprite": "res://assets/sprites/enemies/Light.png",
+		"feather":1,
+		"shield":DiceEnum.D12,
+	},
+	{#Special
+		"name":"Angel",
+		"health":10000,
+		"currency":0,
+		"sprite": "res://assets/sprites/enemies/Angel.png",
+		"feather":-1,
+		"shield":null,
+	},
+];
+
+var oldenemiesCommon = [
 	#Tier 1: Basic
 	{
 		"name":"Slime",
@@ -153,7 +446,6 @@ var enemiesCommon = [
 		"feather":0,
 		"shield":null,
 	},
-	#SWAP ENEMY: BAT
 	{
 		"name":"Wolf",
 		"health":9,
@@ -212,21 +504,6 @@ var enemiesCommon = [
 		"feather":0,
 		"shield":null,
 	},
-	# new tier between 3 & 4
-	#ENEMY: AnimatedPlant tier 3
-	#ENEMY: Treant tier 3
-	#ENEMY: BanditNew NEW tier 4
-	#ENEMY: Bat tier 1
-	#ENEMY: Fairy tier 5
-	#ENEMY: Hornet tier 2
-	#ENEMY: Rat tier 2
-	#ENEMY: HobGoblin NEW tier 4
-	#ENEMY: Ogre (troll) NEW TIER tier 4
-	#ENEMY: Orc NEW TIER 4
-	#ENEMY: skeleton Tier 6 (demons)
-	#ENEMY: slug tier 2
-	#ENEMY: Boar tier 3
-	#ENEMY: Wizard tier 7
 	{
 		"name":"Gaia",
 		"health":95,
@@ -272,7 +549,7 @@ var enemiesCommon = [
 		"name":"Wrath",
 		"health":320,
 		"currency":290,
-		"sprite": "res://assets/sprites/enemies/Wtf.png",
+		"sprite": "res://assets/sprites/enemies/Wrath.png",
 		"feather":0,
 		"shield":null,
 	},

@@ -17,12 +17,22 @@ export var levelCap = -1;
 #export var level: int = 0;
 export(Texture) var spriteTexture;
 export(String) var description;
-var lockedEnemies = {
+var oldlockedEnemies = {
 	"Goblin":[false, "res://assets/sprites/enemies/Regular_Goblin.png"],
 	"Outlaw":[false, "res://assets/sprites/enemies/Bandit.png"],
 	"Golem":[false, "res://assets/sprites/enemies/Nature_Gorilla.png"],
 	"Necromancer":[false, "res://assets/sprites/enemies/Necromancer.png"],
 	"Demon Lord":[false, "res://assets/sprites/enemies/Demon.png"],
+	"Power Elemental":[false, "res://assets/sprites/enemies/Volt_Elemental.png"],
+};
+var lockedEnemies = {
+	"Slime":[false, "res://assets/sprites/enemies/Slime.png"],
+	"Boar":[false, "res://assets/sprites/enemies/WildBoar.png"],
+	"Orc":[false, "res://assets/sprites/enemies/Orc.png"],
+	"Golem":[false, "res://assets/sprites/enemies/Nature_Gorilla.png"],
+	"Minotaur":[false, "res://assets/sprites/enemies/Minotaur.png"],
+	"Nymph":[false, "res://assets/sprites/enemies/Earth_Lady.png"],
+	"Necromancer":[false, "res://assets/sprites/enemies/Necromancer.png"],
 	"Power Elemental":[false, "res://assets/sprites/enemies/Volt_Elemental.png"],
 };
 var killedEnemies = [];
