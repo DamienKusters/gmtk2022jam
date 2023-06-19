@@ -107,6 +107,7 @@ func _on_MouseOverlay_button_down():
 	else:
 		if(applyNextLevelUiUpdate()):
 			action();
+	Globals.saveGame();
 			
 func enemyKilled(enemy):
 	if(!killedEnemies.has(enemy.name)):

@@ -153,6 +153,7 @@ var enemiesCommon = [
 		"feather":0,
 		"shield":null,
 	},
+	#SWAP ENEMY: BAT
 	{
 		"name":"Wolf",
 		"health":9,
@@ -211,6 +212,21 @@ var enemiesCommon = [
 		"feather":0,
 		"shield":null,
 	},
+	# new tier between 3 & 4
+	#ENEMY: AnimatedPlant tier 3
+	#ENEMY: Treant tier 3
+	#ENEMY: BanditNew NEW tier 4
+	#ENEMY: Bat tier 1
+	#ENEMY: Fairy tier 5
+	#ENEMY: Hornet tier 2
+	#ENEMY: Rat tier 2
+	#ENEMY: HobGoblin NEW tier 4
+	#ENEMY: Ogre (troll) NEW TIER tier 4
+	#ENEMY: Orc NEW TIER 4
+	#ENEMY: skeleton Tier 6 (demons)
+	#ENEMY: slug tier 2
+	#ENEMY: Boar tier 3
+	#ENEMY: Wizard tier 7
 	{
 		"name":"Gaia",
 		"health":95,
@@ -448,11 +464,18 @@ func importSave(saveString: String):
 	
 	enemy_exclusive_feathers_overrides = s[6];
 
-#	var _e = get_tree().change_scene(game);
 	pass
 
 func _init():
 	autoImportSave();
+
+func saveGame():
+	var save = exportSave();
+	var file = File.new()
+	file.open(Globals.saveFileLocation, File.WRITE)
+	file.store_string(save)
+	file.close()
+	return true
 
 func autoImportSave():
 	var file = File.new()

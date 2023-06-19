@@ -25,13 +25,10 @@ func _on_SoundSlider_tree_entered():
 	$HBoxContainer/HBoxContainer2/SoundSlider.value = Globals.options_sound
 
 func _on_Save_button_clicked():
-	var save = Globals.exportSave();
-	var file = File.new()
-	file.open(Globals.saveFileLocation, File.WRITE)
-	file.store_string(save)
-	file.close()
-	$"HBoxContainer/SaveButtons/Reset Info".visible = false;
-	$HBoxContainer/SaveButtons/Save.button_text = "Game Saved!"
+	var saved = Globals.saveGame();
+	if saved == true:
+		$"HBoxContainer/SaveButtons/Reset Info".visible = false;
+		$HBoxContainer/SaveButtons/Save.button_text = "Game Saved!"
 	
 func _on_ResetSave_button_clicked():
 	var file = File.new()
