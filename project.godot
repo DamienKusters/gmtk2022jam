@@ -23,11 +23,17 @@ _global_script_classes=[ {
 "class": "EnemyTier",
 "language": "GDScript",
 "path": "res://models/enemy_tier.gd"
+}, {
+"base": "EnemyModel",
+"class": "HardEnemyModel",
+"language": "GDScript",
+"path": "res://models/hard_enemy_model.gd"
 } ]
 _global_script_class_icons={
 "EnemyModel": "",
 "EnemyPool": "",
-"EnemyTier": ""
+"EnemyTier": "",
+"HardEnemyModel": ""
 }
 
 [application]

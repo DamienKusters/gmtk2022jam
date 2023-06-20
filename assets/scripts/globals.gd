@@ -135,7 +135,22 @@ func removeFeathers(value: int):
 	feathers -= value;
 	emit_signal("feathersUpdated", feathers);
 
-var enemiesCommon = [
+var enemy_pool = [
+	EnemyTier.new([
+		EnemyModel.new("Slug", 2, 2),
+		EnemyModel.new("Bird", 4, 5),
+		EnemyModel.new("Bat", 7, 8),
+		EnemyModel.new("Slime", 10, 10),
+	]),
+	EnemyTier.new([
+		EnemyModel.new("Hornet", 2, 2,"GiantHornet"),
+		EnemyModel.new("Rat", 4, 5,"GiantRat"),
+		EnemyModel.new("Wolf", 7, 8),
+		EnemyModel.new("Bore", 10, 10,"WildBoar"),
+	]),
+]
+
+var newenemiesCommon = [
 	#Tier 1: Default
 	{
 		"name":"Slug",
@@ -428,7 +443,7 @@ var enemiesCommon = [
 	},
 ];
 
-var oldenemiesCommon = [
+var enemiesCommon = [
 	#Tier 1: Basic
 	{
 		"name":"Slime",

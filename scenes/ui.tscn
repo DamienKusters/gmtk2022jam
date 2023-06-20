@@ -956,7 +956,12 @@ margin_top = 118.0
 margin_right = 226.0
 margin_bottom = 171.0
 
+[node name="DpsLabel" parent="uiRoot/enemyUi/VBoxContainer" instance=ExtResource( 40 )]
+text = "DPS: 999"
+
 [node name="Label" parent="uiRoot/enemyUi/VBoxContainer" instance=ExtResource( 40 )]
+margin_top = 57.0
+margin_bottom = 110.0
 
 [node name="Label2" parent="uiRoot/enemyUi/VBoxContainer" instance=ExtResource( 40 )]
 visible = false
@@ -965,6 +970,7 @@ margin_bottom = 110.0
 text = "Combo x 100"
 
 [node name="dpsTimer" type="Timer" parent="uiRoot/enemyUi"]
+autostart = true
 
 [node name="Control2" type="Control" parent="uiRoot/enemyUi"]
 modulate = Color( 1, 1, 1, 0 )
@@ -1516,8 +1522,8 @@ anims/spawn = SubResource( 35 )
 [connection signal="button_down" from="uiRoot/About/Button2" to="uiRoot/About" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/Help/Button" to="uiRoot/Help" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/Options/Button" to="uiRoot/Options" method="_on_Button_button_down"]
-[connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="resetSaveButtonText"]
 [connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="_on_ColorRect_visibility_changed"]
+[connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="resetSaveButtonText"]
 [connection signal="tree_entered" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer/MusicSlider" to="uiRoot/Options/ColorRect" method="_on_MusicSlider_tree_entered"]
 [connection signal="value_changed" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer/MusicSlider" to="uiRoot/Options/ColorRect" method="_on_MusicSlider_value_changed"]
 [connection signal="tree_entered" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer2/SoundSlider" to="uiRoot/Options/ColorRect" method="_on_SoundSlider_tree_entered"]

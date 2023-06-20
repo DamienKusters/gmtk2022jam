@@ -124,7 +124,7 @@ func set_multiplier_text():
 	$VBoxContainer/Label.visible = true;
 
 func _on_dpsTimer_timeout():
-	$VBoxContainer/Label.text = "DPS: " + String(secondDmg);
+	$VBoxContainer/DpsLabel.text = "DPS: " + String(secondDmg);
 	secondDmg = 0;
 	pass # Replace with function body.
 	

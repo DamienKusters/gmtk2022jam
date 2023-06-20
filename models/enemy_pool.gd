@@ -1,8 +1,9 @@
 class_name EnemyPool
 
-var enemy_tiers: Array = [
-	EnemyTier.new(),
-]
+var rng = RandomNumberGenerator.new()
+
+export var enemy_tiers: Array = []
 
 func getRandomEnemyFromPool():
-	return enemy_tiers[0].getRandomEnemy()
+	rng.randomize()
+	return enemy_tiers[rng.randi_range(0, enemy_tiers.size() - 1)].getRandomEnemy()
