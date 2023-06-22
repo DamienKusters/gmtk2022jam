@@ -34,18 +34,18 @@ func _ready():
 func respawnEnemy():
 	#TODO: Rarity
 	enemy = g.getEnemyFromPool();
-	$LabelEnemy.text = enemy['name'];
-	$EnemyContainer/TextureEnemy.texture = load(enemy['sprite']);
+	$LabelEnemy.text = enemy.name;
+	$EnemyContainer/TextureEnemy.texture = enemy.sprite;
 #	$LabelTimer.text = String(enemy['time']);
 	if enemy["feather"] == 0:
-		$LabelEnemy/LabelBounty.text = "" + String(enemy['currency']);
+		$LabelEnemy/LabelBounty.text = "" + String(enemy.currency);
 		$LabelEnemy/FeatherBounty.visible = false;
 	else:
 		$LabelEnemy/LabelBounty.text = "";
 		$LabelEnemy/FeatherBounty.visible = true;
-	$Control/VBoxContainer/TextureProgress.max_value = enemy['health'];
-	$Control/VBoxContainer/TextureProgress.value = enemy['health'];
-	enemyHealth = enemy['health'];
+	$Control/VBoxContainer/TextureProgress.max_value = enemy.health;
+	$Control/VBoxContainer/TextureProgress.value = enemy.health;
+	enemyHealth = enemy.health;
 #	if(timeLeft == -1):
 #		timeLeft = enemy['time'];
 	timeLeft = 8;
@@ -55,9 +55,9 @@ func respawnEnemy():
 	$Tween.interpolate_property($Control/VBoxContainer/TextureProgress2, "value", float(timeLeft), 0.1, timeLeft+1, Tween.TRANS_LINEAR);
 	$Tween.start();
 	
-	if enemy['shield'] != null:
-		$Shield.setData(enemy['shield']);
-		enemyShield = enemy['shield'];
+	if enemy.shield != null:
+		$Shield.setData(enemy.shield);
+		enemyShield = enemy.shield;
 		$Shield/AnimationPlayer.play("spawn");
 	else:
 		enemyShield = null;
@@ -75,7 +75,7 @@ func damage(value: int, dice: Node2D):
 	secondDmg += multipliedValue;
 	if(enemyHealth <= 0):
 		if enemy.feather != 0:
-			var featherKind = enemy['feather'];
+			var featherKind = enemy.feather;
 			if(featherKind < 0):
 				g.addFeathers(1);# The angel will always give feathers
 			else:

@@ -2,7 +2,6 @@ extends Control
 
 signal levelChanged;
 
-enum Upgrade { ADD_DICE, UPGRADE_DICE, DUNGEON_MASTER, DICE_TOWER, REROLL, DICE_TRAY, CONTRACT, ROLL_DECREASE, ASCEND };
 
 onready var g = $"/root/Globals";
 onready var particle = preload("res://scenes/shared/single_particle_effect.tscn");
@@ -12,30 +11,13 @@ export var title: String = "Upgrade Name";
 export var basePrice: int = 0;
 export var levelupPriceIncrease: int = 10;
 export var levelupPricePercentIncrease: int = 10;
-export(Upgrade) var kind;
+export(Enums.Upgrade) var kind;
 export var levelCap = -1;
 #export var level: int = 0;
 export(Texture) var spriteTexture;
 export(String) var description;
-var lockedEnemies = {
-	"Goblin":[false, "res://assets/sprites/enemies/Regular_Goblin.png"],
-	"Outlaw":[false, "res://assets/sprites/enemies/Bandit.png"],
-	"Golem":[false, "res://assets/sprites/enemies/Nature_Gorilla.png"],
-	"Necromancer":[false, "res://assets/sprites/enemies/Necromancer.png"],
-	"Demon Lord":[false, "res://assets/sprites/enemies/Demon.png"],
-	"Power Elemental":[false, "res://assets/sprites/enemies/Volt_Elemental.png"],
-};
-var newlockedEnemies = {
-	"Slime":[false, "res://assets/sprites/enemies/Slime.png"],
-	"Boar":[false, "res://assets/sprites/enemies/WildBoar.png"],
-	"Orc":[false, "res://assets/sprites/enemies/Orc.png"],
-	"Golem":[false, "res://assets/sprites/enemies/Nature_Gorilla.png"],
-	"Minotaur":[false, "res://assets/sprites/enemies/Minotaur.png"],
-	"Nymph":[false, "res://assets/sprites/enemies/Earth_Lady.png"],
-	"Necromancer":[false, "res://assets/sprites/enemies/Necromancer.png"],
-	"Power Elemental":[false, "res://assets/sprites/enemies/Volt_Elemental.png"],
-};
 var killedEnemies = [];
+var test_contract;
 
 var level = 0;
 var price = 0;
@@ -61,14 +43,12 @@ func _ready():
 		g.connect("damageEnemy", self, "enemyDamaged");
 		emit_signal("levelChanged");	
 	if(kind == 6):
-		g.connect("enemyKilled", self, "enemyKilled");
-		var _e = $Tween.connect("tween_all_completed", self, "tween_completed");
-		locked = level < levelCap;
+		test_contract = Contract.new();
 	g.connect("currencyUpdated", self, "setPayable");
 	setPayable(g.currency);
 	$enemyLocker.visible = false;
 	setLocked(locked);
-	if kind == Upgrade.ASCEND:
+	if kind == Enums.Upgrade.ASCEND:
 		$TextureRect.self_modulate = Color('f2ff56');
 	
 func updateUi():
@@ -102,10 +82,10 @@ func setLocked(value):
 func tween_completed():
 	if(locked):
 		$enemyLocker.visible = true;
-		for e in lockedEnemies:
-			if lockedEnemies[e][0] == false:
-				$enemyLocker/TextureRect.texture = load(lockedEnemies[e][1]);
-				return;
+#		for e in lockedEnemies:
+#			if lockedEnemies[e][0] == false:
+#				$enemyLocker/TextureRect.texture = load(lockedEnemies[e][1]);
+#				return;
 	else:
 		$enemyLocker.visible = false;
 
@@ -120,14 +100,9 @@ func _on_MouseOverlay_button_down():
 	Globals.saveGame();
 			
 func enemyKilled(enemy):
-	if(!killedEnemies.has(enemy.name)):
-		for e in lockedEnemies:
-			if lockedEnemies[e][0] == false:
-				if(enemy.name == e):
-					setLocked(false);
-					lockedEnemies[e][0] = true;
-				return;
-		killedEnemies.push_back(enemy.name);
+	print(enemy.name)
+	if enemy == Globals.enemy_pool[Globals.contractLevel].enemy_pool.back():
+		Globals.upgradeEnemyPool()
 	
 func applyNextLevelUiUpdate():
 	if(g.currency < price):
@@ -184,14 +159,6 @@ func action():
 			$TextureProgress/Tween.start();
 		else:
 			$TextureProgress.value = 0;
-	if(kind == 6):
-		# contract
-		g.upgradeEnemyPool();
-		for e in lockedEnemies:
-			if(lockedEnemies[e][0] == false):
-				setLocked(true);
-				return;
-		pass
 	if(kind == 7):
 		g.maxDiceRollTime = g.maxDiceRollTime - .35;
 		$LabelTitle.text = title + " (" + str(g.maxDiceRollTime) + ")";
@@ -249,12 +216,12 @@ func importSave(saveString):
 			for s in save_level:
 				action();
 			#TODO: restore enemy locks:
-			var i = 0;
-			for l in lockedEnemies:
-				if save_level > i:
-					lockedEnemies[l][0] = true;
-					print(l);
-				i+=1;
+#			var i = 0;
+#			for l in lockedEnemies:
+#				if save_level > i:
+#					lockedEnemies[l][0] = true;
+#					print(l);
+#				i+=1;
 #				if lockedEnemies[e][0] == false:
 #					if(enemy.name == e):
 #						setLocked(false);
