@@ -1,18 +1,11 @@
 class_name EnemyModel
 
-
-export var name = "";
-export var health = 0;
-export var currency = 0;
-export var sprite: Texture;
-export var feather = 0;#External?
-export (Enums.DiceEnum) var shield = Enums.DiceEnum.D4;
-#TODO: abstractie???? of andere tiers?
-#export var dark = false
-#export var dark_name: String = self.name
-#export var dark_health_multiplier: float = 2.0
-#export var dark_currency_multiplier:float = 2.0
-#export var dark_sprite: Texture;
+export var name = ""
+export var health = 0
+export var currency = 0
+export var sprite: Texture
+export var special_loot = {} #TODO: special kind of loot
+export (Enums.DiceEnum) var shield = Enums.DiceEnum.D4
 
 func _init(name: String, health: int, currency: int, sprite: String = name, shield = null):
 	self.name = name

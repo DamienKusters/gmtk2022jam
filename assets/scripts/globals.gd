@@ -14,7 +14,7 @@ signal openHelp;
 signal enemyKilled;
 
 var saveFileLocation = "user://dnde.save"
-var contractLevel = 0;
+var contractLevel;
 var maxDiceRollTime = 4.5;
 var currency = 0;
 var feathers = 0;
@@ -127,6 +127,8 @@ func addFeathers(value: int):
 func removeFeathers(value: int):
 	feathers -= value;
 	emit_signal("feathersUpdated", feathers);
+
+#TODO: global rng object & seeded object
 
 var enemy_pool = [
 	EnemyTier.new([
@@ -499,6 +501,7 @@ func importSave(saveString: String):
 	pass
 
 func _init():
+	contractLevel = 0;
 	autoImportSave();
 
 func saveGame():

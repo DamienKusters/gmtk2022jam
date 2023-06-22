@@ -1,5 +1,7 @@
 class_name EnemyTier
 
+#TODO: feather rarity percentage of this tier
+
 var enemy_pool: Array = []
 var rng = RandomNumberGenerator.new()
 

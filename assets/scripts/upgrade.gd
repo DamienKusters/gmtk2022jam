@@ -2,8 +2,6 @@ extends Control
 
 signal levelChanged;
 
-
-onready var g = $"/root/Globals";
 onready var particle = preload("res://scenes/shared/single_particle_effect.tscn");
 
 export var locked = false;
@@ -33,19 +31,19 @@ func _ready():
 	
 	updateUi();
 	if(kind == 1):
-		g.connect("upgradeDiceSuccess", self, "applyNextLevelUiUpdate");
+		Globals.connect("upgradeDiceSuccess", self, "applyNextLevelUiUpdate");
 	if(kind == 4):
 		if Globals.upgrade_save_overrides == null:
-			level = g.ascention_reroller_value;
+			level = Globals.ascention_reroller_value;
 			for i in level:
 				price =+ calculatePriceIncrease(price,levelupPriceIncrease,levelupPricePercentIncrease);
 		updateUi();
-		g.connect("damageEnemy", self, "enemyDamaged");
+		Globals.connect("damageEnemy", self, "enemyDamaged");
 		emit_signal("levelChanged");	
 	if(kind == 6):
 		test_contract = Contract.new();
-	g.connect("currencyUpdated", self, "setPayable");
-	setPayable(g.currency);
+	Globals.connect("currencyUpdated", self, "setPayable");
+	setPayable(Globals.currency);
 	$enemyLocker.visible = false;
 	setLocked(locked);
 	if kind == Enums.Upgrade.ASCEND:
@@ -105,12 +103,12 @@ func enemyKilled(enemy):
 		Globals.upgradeEnemyPool()
 	
 func applyNextLevelUiUpdate():
-	if(g.currency < price):
+	if(Globals.currency < price):
 		return false;
 	if(levelCap != -1):
 		if(level >= levelCap):
 			return;
-	g.removeCurrency(price);
+	Globals.removeCurrency(price);
 	level = level + 1;
 #	$CPUParticles2D.restart();
 	var p = particle.instance();
@@ -123,7 +121,7 @@ func applyNextLevelUiUpdate():
 	
 	price =+ calculatePriceIncrease(price,levelupPriceIncrease,levelupPricePercentIncrease);
 	updateUi();
-	setPayable(g.currency);
+	setPayable(Globals.currency);
 	emit_signal("levelChanged");	
 	return true;
 
@@ -137,9 +135,9 @@ func calculatePriceIncrease(_currentPrice, _priceIncreaseValue, _priceIncreasePe
 
 func action():
 	if(kind == 0):
-		g.addDice();
+		Globals.addDice();
 	if(kind == 1):
-		g.tryUpgradeDice(price);
+		Globals.tryUpgradeDice(price);
 	if(kind == 2):
 		$Timer.stop();
 		var tim = $Timer.wait_time;
@@ -160,21 +158,21 @@ func action():
 		else:
 			$TextureProgress.value = 0;
 	if(kind == 7):
-		g.maxDiceRollTime = g.maxDiceRollTime - .35;
-		$LabelTitle.text = title + " (" + str(g.maxDiceRollTime) + ")";
+		Globals.maxDiceRollTime = Globals.maxDiceRollTime - .35;
+		$LabelTitle.text = title + " (" + str(Globals.maxDiceRollTime) + ")";
 	if(kind == 8):
 		var _e = get_tree().change_scene("res://scenes/ascend.tscn");
 
 func _on_Timer_timeout():
 	if(kind == 2):
-		g.rollRandomDice();
+		Globals.rollRandomDice();
 		$TextureProgress.value = 0;
 		if !(level > 15):
 			$TextureProgress/Tween.interpolate_property($TextureProgress, "value", 0, 100, $Timer.wait_time);
 			$TextureProgress/Tween.start();
 	if(kind == 3):
 		for i in level:
-			g.rollRandomDice();
+			Globals.rollRandomDice();
 	
 func enemyDamaged(value: int, dice: Node2D):
 	if(value <= level):
