@@ -4,7 +4,7 @@ class AscendResource:
 	signal reload;
 
 	export var value = 0;
-	export(Globals.DiceEnum) var level;
+	export(Enums.DiceEnum) var level;
 
 	func exportResource():
 		return str(value + "/" + level);

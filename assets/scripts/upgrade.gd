@@ -11,10 +11,8 @@ export var levelupPriceIncrease: int = 10;
 export var levelupPricePercentIncrease: int = 10;
 export(Enums.Upgrade) var kind;
 export var levelCap = -1;
-#export var level: int = 0;
 export(Texture) var spriteTexture;
 export(String) var description;
-var killedEnemies = [];
 var test_contract;
 
 var level = 0;
@@ -42,10 +40,12 @@ func _ready():
 		emit_signal("levelChanged");	
 	if(kind == 6):
 		test_contract = Contract.new();
+		test_contract.connect("complete_contract", self, "completeContract")
+		test_contract.connect("set_contract", self, "setContract")
+		setContract()
+	$enemyLocker.visible = false;
 	Globals.connect("currencyUpdated", self, "setPayable");
 	setPayable(Globals.currency);
-	$enemyLocker.visible = false;
-	setLocked(locked);
 	if kind == Enums.Upgrade.ASCEND:
 		$TextureRect.self_modulate = Color('f2ff56');
 	
@@ -65,27 +65,23 @@ func updateUi():
 #		else:
 #			$LabelLevel.text = "";
 
-func setLocked(value):
-	locked = value;
-	if(locked):
-		$Tween.interpolate_property(self, "margin_left", self.margin_left, 100, 1.5, Tween.TRANS_ELASTIC);
-		$Tween.start();
-		$LabelPrice.visible = false;
-	else:
-		$Tween.interpolate_property(self, "margin_left", self.margin_left, 0, 1.5, Tween.TRANS_ELASTIC);
-		$Tween.start();
-		$enemyLocker.visible = false;
-		$LabelPrice.visible = true;
-		
+func completeContract():
+	locked = false
+	$Tween.interpolate_property(self, "margin_left", self.margin_left, 0, 1.5, Tween.TRANS_ELASTIC);
+	$Tween.start();
+	$enemyLocker.visible = false;
+	$LabelPrice.visible = true;
+
+func setContract():
+	locked = true
+	$Tween.interpolate_property(self, "margin_left", self.margin_left, 100, 1.5, Tween.TRANS_ELASTIC);
+	$Tween.start();
+	$LabelPrice.visible = false;
+
 func tween_completed():
-	if(locked):
+	if locked == true:
 		$enemyLocker.visible = true;
-#		for e in lockedEnemies:
-#			if lockedEnemies[e][0] == false:
-#				$enemyLocker/TextureRect.texture = load(lockedEnemies[e][1]);
-#				return;
-	else:
-		$enemyLocker.visible = false;
+		$enemyLocker/TextureRect.texture = test_contract.target_enemy.sprite;
 
 func _on_MouseOverlay_button_down():
 	if(locked == true):
@@ -96,11 +92,6 @@ func _on_MouseOverlay_button_down():
 		if(applyNextLevelUiUpdate()):
 			action();
 	Globals.saveGame();
-			
-func enemyKilled(enemy):
-	print(enemy.name)
-	if enemy == Globals.enemy_pool[Globals.contractLevel].enemy_pool.back():
-		Globals.upgradeEnemyPool()
 	
 func applyNextLevelUiUpdate():
 	if(Globals.currency < price):
@@ -157,6 +148,9 @@ func action():
 			$TextureProgress/Tween.start();
 		else:
 			$TextureProgress.value = 0;
+	if kind == 6:
+		if test_contract != null:
+			test_contract.levelUp()
 	if(kind == 7):
 		Globals.maxDiceRollTime = Globals.maxDiceRollTime - .35;
 		$LabelTitle.text = title + " (" + str(Globals.maxDiceRollTime) + ")";
@@ -213,18 +207,6 @@ func importSave(saveString):
 			setImportedLevel(save_level);
 			for s in save_level:
 				action();
-			#TODO: restore enemy locks:
-#			var i = 0;
-#			for l in lockedEnemies:
-#				if save_level > i:
-#					lockedEnemies[l][0] = true;
-#					print(l);
-#				i+=1;
-#				if lockedEnemies[e][0] == false:
-#					if(enemy.name == e):
-#						setLocked(false);
-#						lockedEnemies[e][0] = true;
-#					return;
 		7:#Roll decrease
 			var save_level = int(save[3]);
 			setImportedLevel(save_level);

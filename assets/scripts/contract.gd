@@ -1,8 +1,11 @@
 extends Resource
 class_name Contract
 
+signal set_contract
+signal complete_contract
+
 var max_contract_level;
-var target_enemy;
+var target_enemy: EnemyModel;
 
 func _init():
 	tryImportSave(Globals.upgrade_save_overrides)
@@ -12,13 +15,16 @@ func _init():
 
 func _setTargetEnemy():
 	target_enemy = Globals.enemy_pool[Globals.contractLevel].enemy_pool.back()
+	emit_signal("set_contract")
+
+func levelUp():
+	Globals.upgradeEnemyPool();
+	_setTargetEnemy()
 
 func enemyKilled(enemy):
 	if Globals.contractLevel < max_contract_level:#TODO: contractlevel to local var?
 		if enemy == target_enemy:
-			#TODO: event here for parent implementation???
-			Globals.upgradeEnemyPool()#TODO: Only upgrade after player purchase
-			_setTargetEnemy()
+			emit_signal("complete_contract")
 
 func tryImportSave(saveString):
 	if saveString == null:

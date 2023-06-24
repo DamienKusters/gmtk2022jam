@@ -13,15 +13,14 @@ signal currencyAddedSingular;
 signal openHelp;
 signal enemyKilled;
 
-var saveFileLocation = "user://dnde.save"
+const saveFileLocation = "user://dnde.save"
 var contractLevel;
 var maxDiceRollTime = 4.5;
-var currency = 0;
+var currency = 99999990;
 var feathers = 0;
 
 var upgrade_save_overrides;
 var upgrade_dice_overrides;
-var enemy_exclusive_feathers_overrides;
 
 var ascention_dps_multiplier_value = 99;
 var ascention_dps_multiplier_level = 0;
@@ -31,9 +30,10 @@ var ascention_reroller_level = 0;
 var options_music = 1;
 var options_sound = 2;
 
+#TODO: global rng object & seeded object
 var rng = RandomNumberGenerator.new();
 
-var diceData = {
+const diceData = {
 	0:{
 		"value": 4,
 		"texture": "res://assets/sprites/dice/d4.png",
@@ -73,7 +73,6 @@ func ascendReset():
 	feathers = 0;
 	contractLevel = 0;
 	maxDiceRollTime = 4.5;
-	restoreEnemyFeathers();
 
 func addDice():
 	emit_signal("addDice", 0);#0 = default
@@ -105,11 +104,11 @@ func openHelp(txt: Texture, title: String, description: String):
 		"description": description
 	};
 	emit_signal("openHelp", obj);
-	
-func getEnemyFromPool():
+
+func getRandomEnemyTier():
 	rng.randomize();
 	var idx = rng.randi_range(0, contractLevel);
-	return enemy_pool[idx].getRandomEnemy();
+	return enemy_pool[idx]
 	
 func addCurrency(value: int):
 	currency += value;
@@ -128,63 +127,62 @@ func removeFeathers(value: int):
 	feathers -= value;
 	emit_signal("feathersUpdated", feathers);
 
-#TODO: global rng object & seeded object
-
 var enemy_pool = [
 	EnemyTier.new([
 		EnemyModel.new("Slug", 2, 2),
 		EnemyModel.new("Bird", 4, 5),
 		EnemyModel.new("Bat", 7, 8),
 		EnemyModel.new("Slime", 10, 10),
-	]),
+	], .001),
 	EnemyTier.new([
 		EnemyModel.new("Hornet", 12, 13,"GiantHornet"),
 		EnemyModel.new("Rat", 16, 15,"GiantRat"),
 		EnemyModel.new("Wolf", 20, 19),
 		EnemyModel.new("Boar", 25, 25,"WildBoar"),
-	]),
+	], .001),
 	EnemyTier.new([
 		EnemyModel.new("Goblin", 35, 30),
 		EnemyModel.new("Hobgoblin", 42, 43,"Regular_Goblin"),
 		EnemyModel.new("Ogre", 49, 49),
 		EnemyModel.new("Orc", 57, 60, "Orc",Enums.DiceEnum.D4),
-	]),
+	], .001),
 	EnemyTier.new([
 		EnemyModel.new("Living Roots", 95, 111, "AnimatedPlant"),
 		EnemyModel.new("Treant", 95, 111),
 		EnemyModel.new("Gaia", 95,111),
 		EnemyModel.new("Golem", 190, 200, "Nature_Gorilla",Enums.DiceEnum.D6),
-	]),
+	], .001),
 	EnemyTier.new([
 		EnemyModel.new("Pirate", 95, 111),
 		EnemyModel.new("Bigfoot", 95, 111),
 		EnemyModel.new("Outlaw", 95,111, "Bandit"),
 		EnemyModel.new("Minotaur", 190, 200, "Minotaur",Enums.DiceEnum.D6),
-	]),
+	], .005),
 	EnemyTier.new([
 		EnemyModel.new("Pixie", 95, 111, "Fairy"),
 		EnemyModel.new("Witch", 95, 111),
 		EnemyModel.new("Fairy", 95,111, "Pixie_Man"),
 		EnemyModel.new("Nymph", 190, 200, "Earth_Lady",Enums.DiceEnum.D8),
-	]),
+	], .01),
 	EnemyTier.new([
 		EnemyModel.new("Skeleton", 95, 111),
 		EnemyModel.new("Wrath", 95, 111),
 		EnemyModel.new("Wizard", 95,111),
 		EnemyModel.new("Necromancer", 190, 200, "Necromancer",Enums.DiceEnum.D10),
-	]),
+	], .02),
 	EnemyTier.new([
 		EnemyModel.new("Earth Elemental", 95, 111, "Earth_Elemental",Enums.DiceEnum.D10),
 		EnemyModel.new("Water Elemental", 190, 200, "Water_Elemental",Enums.DiceEnum.D10),
 		EnemyModel.new("Fire Elemental", 95, 111, "Fire_Elemental",Enums.DiceEnum.D12),
 		EnemyModel.new("Power Elemental", 95,111, "Volt_Elemental",Enums.DiceEnum.D12),
-	]),
+	], .05),
 	EnemyTier.new([
 		EnemyModel.new("Darkness", 10000, 111),
 		EnemyModel.new("Light", 10000, 200),
 		EnemyModel.new("Demon Lord", 10000, 200, "Demon"),
+		EnemyModel.new("Destroyer", 10000, 111, "DestroyerV1"),
 		EnemyModel.new("Angel", 10000, 200),
-	]),
+	], .1),
 ]
 
 var enemiesCommon = [
@@ -411,30 +409,7 @@ var enemiesCommon = [
 		"feather":-1,
 		"shield":null,
 	},
-	# Tier 8: Future
-#	{
-#		"name":"Destroyer",
-#		"health":550,
-#		"currency":400,
-#		
-#		"sprite": "res://assets/sprites/enemies/DestroyerV1.png"
-#	},
-#	{
-#		"name":"Destroyer MRK 2",
-#		"health":550,
-#		"currency":400,
-#		
-#		"sprite": "res://assets/sprites/enemies/DestroyerV2.png"
-#	},
 ];
-
-func restoreEnemyFeathers():
-	#The spaghetti is getting unreal, I hope I can release this soon.
-	enemiesCommon[15]['feather'] = 1;
-	enemiesCommon[19]['feather'] = 1;
-	enemiesCommon[24]['feather'] = 1;
-	enemiesCommon[25]['feather'] = 1;
-	enemy_exclusive_feathers_overrides = "";
 
 func getDiceData(enumValue):
 	return diceData[int(enumValue)];
@@ -455,7 +430,6 @@ func exportSave():
 		str(ascention_dps_multiplier_value) + "/" + str(ascention_dps_multiplier_level),
 		str(ascention_reroller_value) + "/" + str(ascention_reroller_level),
 		upgrade_dice_overrides,
-		enemy_exclusive_feathers_overrides,
 	];
 	
 	var save = "";
@@ -465,10 +439,8 @@ func exportSave():
 		if i != saveResources.size()-1:
 			save += "|";
 		i+=1;
-	print("Export");
-	print(save);
+	print("Game Exported");
 	return Marshalls.utf8_to_base64(save);
-	pass
 
 func importSave(saveString: String):
 	saveString = Marshalls.base64_to_utf8(saveString);
@@ -477,8 +449,7 @@ func importSave(saveString: String):
 	maxDiceRollTime = 4.5;
 
 	saveString = saveString.strip_edges(true,true);
-	print("Import");
-	print(saveString);
+	print("Game Imported");
 	
 	var s = saveString.split("|");
 	
@@ -496,8 +467,6 @@ func importSave(saveString: String):
 	
 	upgrade_dice_overrides = s[5];
 	
-	enemy_exclusive_feathers_overrides = s[6];
-
 	pass
 
 func _init():
@@ -519,7 +488,6 @@ func autoImportSave():
 		return
 	file.open(saveFileLocation, File.READ)
 	var content = file.get_as_text()
-	print(content)
 	file.close()
 	
 	if content != "":
