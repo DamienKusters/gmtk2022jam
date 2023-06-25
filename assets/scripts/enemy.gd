@@ -29,6 +29,7 @@ func respawnEnemy():
 	var enemyTier: EnemyTier = Globals.getRandomEnemyTier()
 	enemyHasFeather = enemyTier.enemyHasFeather();
 	enemy = enemyTier.getRandomEnemy()
+	enemyHasFeather = 	enemy.loot_type == Enums.LootType.FEATHER
 	
 	$LabelEnemy.text = enemy.name;
 	$EnemyContainer/TextureEnemy.texture = enemy.sprite;
@@ -37,7 +38,7 @@ func respawnEnemy():
 		$LabelEnemy/LabelBounty.text = "";
 		$LabelEnemy/FeatherBounty.visible = true;
 	else:
-		$LabelEnemy/LabelBounty.text = "" + String(enemy.currency);
+		$LabelEnemy/LabelBounty.text = str(enemy.currency);
 		$LabelEnemy/FeatherBounty.visible = false;
 	
 	enemyHealth = enemy.health;

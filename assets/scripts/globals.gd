@@ -15,7 +15,7 @@ signal enemyKilled;
 
 const saveFileLocation = "user://dnde.save"
 var contractLevel;
-var maxDiceRollTime = 4.5;
+var maxDiceRollTime = 5;
 var currency = 99999990;
 var feathers = 0;
 
@@ -72,7 +72,7 @@ func ascendReset():
 	currency = 10 * feathers;
 	feathers = 0;
 	contractLevel = 0;
-	maxDiceRollTime = 4.5;
+	maxDiceRollTime = 5;
 
 func addDice():
 	emit_signal("addDice", 0);#0 = default
@@ -127,19 +127,21 @@ func removeFeathers(value: int):
 	feathers -= value;
 	emit_signal("feathersUpdated", feathers);
 
+var upgrades
+
 var enemy_pool = [
 	EnemyTier.new([
 		EnemyModel.new("Slug", 2, 2),
 		EnemyModel.new("Bird", 4, 5),
 		EnemyModel.new("Bat", 7, 8),
 		EnemyModel.new("Slime", 10, 10),
-	], .001),
+	], 0),
 	EnemyTier.new([
 		EnemyModel.new("Hornet", 12, 13,"GiantHornet"),
 		EnemyModel.new("Rat", 16, 15,"GiantRat"),
 		EnemyModel.new("Wolf", 20, 19),
 		EnemyModel.new("Boar", 25, 25,"WildBoar"),
-	], .001),
+	], 0),
 	EnemyTier.new([
 		EnemyModel.new("Goblin", 35, 30),
 		EnemyModel.new("Hobgoblin", 42, 43,"Regular_Goblin"),
@@ -154,7 +156,7 @@ var enemy_pool = [
 	], .001),
 	EnemyTier.new([
 		EnemyModel.new("Pirate", 95, 111),
-		EnemyModel.new("Bigfoot", 95, 111),
+		EnemyModel.new("Barbarian", 95, 111, "Bigfoot"),
 		EnemyModel.new("Outlaw", 95,111, "Bandit"),
 		EnemyModel.new("Minotaur", 190, 200, "Minotaur",Enums.DiceEnum.D6),
 	], .005),
@@ -177,12 +179,14 @@ var enemy_pool = [
 		EnemyModel.new("Power Elemental", 95,111, "Volt_Elemental",Enums.DiceEnum.D12),
 	], .05),
 	EnemyTier.new([
-		EnemyModel.new("Darkness", 10000, 111),
 		EnemyModel.new("Light", 10000, 200),
-		EnemyModel.new("Demon Lord", 10000, 200, "Demon"),
-		EnemyModel.new("Destroyer", 10000, 111, "DestroyerV1"),
-		EnemyModel.new("Angel", 10000, 200),
+		EnemyModel.new("Darkness", 10000, 111),
+		EnemyModel.new("Demon Lord", 10000, 200, "Demon", null, Enums.LootType.DEMON_FEATHER),
+		EnemyModel.new("Angel", 10000, 200, "Angel", null, Enums.LootType.FEATHER),
 	], .1),
+	EnemyTier.new([
+		EnemyModel.new("Destroyer Drone", 10000, 111, "DestroyerV1", null, Enums.LootType.GEAR),
+	], 0),
 ]
 
 var enemiesCommon = [
@@ -446,7 +450,7 @@ func importSave(saveString: String):
 	saveString = Marshalls.base64_to_utf8(saveString);
 
 	contractLevel = 0;
-	maxDiceRollTime = 4.5;
+	maxDiceRollTime = 5;
 
 	saveString = saveString.strip_edges(true,true);
 	print("Game Imported");
@@ -472,6 +476,54 @@ func importSave(saveString: String):
 func _init():
 	contractLevel = 0;
 	autoImportSave();
+
+func _ready():
+	upgrades = [
+		UpgradeModel.new(
+			"Add Dice",
+			"Adds another D4 dice",
+			"res://assets/sprites/upgrades/Add_Dice_Icon.png",
+			AddDiceUpgrade.new()
+		),
+		UpgradeModel.new(
+			"Upgrade Dice",
+			"Upgrade the lowest ranking dice to the next one (D4, D6, D8 ,D10, D12, D20)",
+			"res://assets/sprites/upgrades/Upgrade_Dice_Icon.png",
+			Upgrade.new()
+		),
+		UpgradeModel.new(
+			"Dungeon Master",
+			"Automatically rolls a dice",
+			"res://assets/sprites/upgrades/Dungeon_Master_Icon.png",
+			Upgrade.new()
+		),
+		null,
+		UpgradeModel.new(
+			"Re-roller",
+			"Automatically re-rolls any dice equal to or below the level of the upgrade",
+			"res://assets/sprites/upgrades/Auto_Roll.png",
+			Upgrade.new()
+		),
+		null,
+		UpgradeModel.new(
+			"Contract",
+			"Adds new enemy encounters",
+			"res://assets/sprites/upgrades/Contract.png",
+			ContractUpgrade.new()
+		),
+		UpgradeModel.new(
+			"Dice Tower",
+			"Decreases the maximum dice rolling time by each level",
+			"res://assets/sprites/upgrades/Dice_Tower.png",
+			Upgrade.new()
+		),
+		UpgradeModel.new(
+			"Ascend",
+			"Reset your progress and spend Angel Feathers for permanent upgrades",
+			"res://assets/sprites/upgrades/Ascend_Icon.png",
+			Upgrade.new()
+		),
+	]
 
 func saveGame():
 	var save = exportSave();

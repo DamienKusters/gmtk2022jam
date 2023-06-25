@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=2]
+[gd_scene load_steps=72 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
@@ -8,7 +8,7 @@
 [ext_resource path="res://assets/scripts/currencyLabel.gd" type="Script" id=6]
 [ext_resource path="res://assets/sprites/upgrades/Add_Dice_Icon.png" type="Texture" id=7]
 [ext_resource path="res://assets/sprites/upgrades/Auto_Roll.png" type="Texture" id=8]
-[ext_resource path="res://assets/sprites/upgrades/Dice_Tray.png" type="Texture" id=9]
+[ext_resource path="res://scenes/ui/upgrade/upgrade.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/sprites/upgrades/Dungeon_Master_Icon.png" type="Texture" id=10]
 [ext_resource path="res://assets/sprites/upgrades/Upgrade_Dice_Icon.png" type="Texture" id=11]
 [ext_resource path="res://assets/sprites/upgrades/Dice_Tower.png" type="Texture" id=12]
@@ -52,10 +52,6 @@ size = 40
 outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 2 )
-
-[sub_resource type="Gradient" id=5]
-offsets = PoolRealArray( 0.132597, 0.850829 )
-colors = PoolColorArray( 0.849609, 0.836801, 0.0298691, 1, 1, 1, 1, 0 )
 
 [sub_resource type="Animation" id=6]
 length = 0.001
@@ -708,9 +704,9 @@ margin_bottom = 575.0
 title = "Dice Tower"
 basePrice = 15
 levelupPriceIncrease = 72
-levelupPricePercentIncrease = 33
+levelupPricePercentIncrease = 16
 kind = 7
-levelCap = 10
+levelCap = 20
 spriteTexture = ExtResource( 12 )
 description = "Decreases the maximum dice rolling time by each level"
 
@@ -738,25 +734,10 @@ levelCap = 8
 spriteTexture = ExtResource( 19 )
 description = "Adds new enemy encounters"
 
-[node name="u_tower" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-visible = false
-margin_top = 400.0
-margin_bottom = 500.0
-title = "Dice Tower"
-basePrice = 100
-kind = 3
-levelCap = 10
-spriteTexture = ExtResource( 12 )
-description = "Rolls dice every 10 seconds,. Amount of dice rolled is equal to the level"
-
-[node name="u_tray" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-visible = false
-margin_top = 700.0
-margin_bottom = 800.0
-title = "Dice Tray"
-basePrice = 999999
-kind = 5
-spriteTexture = ExtResource( 9 )
+[node name="Upgrade" parent="uiRoot/VBoxContainer" instance=ExtResource( 9 )]
+margin_top = 760.0
+margin_bottom = 860.0
+upgrade_type = 6
 
 [node name="enemyUi" type="Control" parent="uiRoot"]
 anchor_right = 0.7
@@ -789,21 +770,6 @@ margin_left = 5.0
 margin_top = 5.0
 margin_right = -5.0
 margin_bottom = -5.0
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="uiRoot/enemyUi/EnemyContainer"]
-position = Vector2( 328, 134 )
-emitting = false
-amount = 86
-one_shot = true
-emission_shape = 1
-emission_sphere_radius = 64.37
-gravity = Vector2( 0, 0 )
-initial_velocity = 256.89
-angular_velocity = 30.0
-orbit_velocity = 0.05
-scale_amount = 8.0
-color_ramp = SubResource( 5 )
-hue_variation = -0.88
 
 [node name="TextureEnemy" type="TextureRect" parent="uiRoot/enemyUi/EnemyContainer"]
 anchor_right = 1.0
@@ -1461,19 +1427,12 @@ align = 1
 [node name="SaveButtons" type="VBoxContainer" parent="uiRoot/Options/ColorRect/HBoxContainer"]
 margin_top = 264.0
 margin_right = 680.0
-margin_bottom = 356.0
+margin_bottom = 308.0
 alignment = 1
 
-[node name="Save" parent="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons" instance=ExtResource( 33 )]
-self_modulate = Color( 0.254902, 0.176471, 0.0901961, 1 )
-margin_right = 680.0
-size_flags_horizontal = 3
-button_text = "Save Game"
-
 [node name="HBoxContainer" type="HBoxContainer" parent="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons"]
-margin_top = 48.0
 margin_right = 680.0
-margin_bottom = 92.0
+margin_bottom = 44.0
 
 [node name="ResetSave" parent="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons/HBoxContainer" instance=ExtResource( 33 )]
 self_modulate = Color( 0.517647, 0.105882, 0.105882, 1 )
@@ -1483,18 +1442,19 @@ button_text = "Delete Save"
 modulate_default = Color( 0.517647, 0.105882, 0.105882, 1 )
 modulate_hover = Color( 0.686275, 0.105882, 0.105882, 1 )
 
-[node name="padding" type="Control" parent="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons/HBoxContainer"]
+[node name="Save" parent="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons/HBoxContainer" instance=ExtResource( 33 )]
+self_modulate = Color( 0.254902, 0.176471, 0.0901961, 1 )
 margin_left = 342.0
 margin_right = 680.0
-margin_bottom = 44.0
 size_flags_horizontal = 3
+button_text = "Save Game"
 
 [node name="Reset Info" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons"]
 visible = false
 self_modulate = Color( 0.580392, 0.580392, 0.580392, 1 )
-margin_top = 96.0
+margin_top = 48.0
 margin_right = 680.0
-margin_bottom = 186.0
+margin_bottom = 138.0
 custom_fonts/font = SubResource( 36 )
 text = "Save deleted!
 To permanently remove your save, refresh the web-page.
@@ -1522,11 +1482,11 @@ anims/spawn = SubResource( 35 )
 [connection signal="button_down" from="uiRoot/About/Button2" to="uiRoot/About" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/Help/Button" to="uiRoot/Help" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/Options/Button" to="uiRoot/Options" method="_on_Button_button_down"]
-[connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="resetSaveButtonText"]
 [connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="_on_ColorRect_visibility_changed"]
+[connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="resetSaveButtonText"]
 [connection signal="tree_entered" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer/MusicSlider" to="uiRoot/Options/ColorRect" method="_on_MusicSlider_tree_entered"]
 [connection signal="value_changed" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer/MusicSlider" to="uiRoot/Options/ColorRect" method="_on_MusicSlider_value_changed"]
 [connection signal="tree_entered" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer2/SoundSlider" to="uiRoot/Options/ColorRect" method="_on_SoundSlider_tree_entered"]
 [connection signal="value_changed" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer2/SoundSlider" to="uiRoot/Options/ColorRect" method="_on_SoundSlider_value_changed"]
-[connection signal="button_clicked" from="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons/Save" to="uiRoot/Options/ColorRect" method="_on_Save_button_clicked"]
 [connection signal="button_clicked" from="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons/HBoxContainer/ResetSave" to="uiRoot/Options/ColorRect" method="_on_ResetSave_button_clicked"]
+[connection signal="button_clicked" from="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons/HBoxContainer/Save" to="uiRoot/Options/ColorRect" method="_on_Save_button_clicked"]

@@ -39,9 +39,10 @@ func _ready():
 		Globals.connect("damageEnemy", self, "enemyDamaged");
 		emit_signal("levelChanged");	
 	if(kind == 6):
-		test_contract = Contract.new();
+		test_contract = ContractUpgrade.new();
 		test_contract.connect("complete_contract", self, "completeContract")
 		test_contract.connect("set_contract", self, "setContract")
+		levelCap = test_contract.max_level
 		setContract()
 	$enemyLocker.visible = false;
 	Globals.connect("currencyUpdated", self, "setPayable");
@@ -73,10 +74,13 @@ func completeContract():
 	$LabelPrice.visible = true;
 
 func setContract():
-	locked = true
-	$Tween.interpolate_property(self, "margin_left", self.margin_left, 100, 1.5, Tween.TRANS_ELASTIC);
-	$Tween.start();
-	$LabelPrice.visible = false;
+	if level != levelCap:
+		locked = true
+		$Tween.interpolate_property(self, "margin_left", self.margin_left, 100, 1.5, Tween.TRANS_ELASTIC);
+		$Tween.start();
+		$LabelPrice.visible = false;
+	else:
+		updateUi()
 
 func tween_completed():
 	if locked == true:
@@ -101,7 +105,6 @@ func applyNextLevelUiUpdate():
 			return;
 	Globals.removeCurrency(price);
 	level = level + 1;
-#	$CPUParticles2D.restart();
 	var p = particle.instance();
 	p.position = $particle_point.position;
 	add_child(particle.instance());
@@ -125,11 +128,11 @@ func calculatePriceIncrease(_currentPrice, _priceIncreaseValue, _priceIncreasePe
 	return output;
 
 func action():
-	if(kind == 0):
+	if(kind == Enums.Upgrade.ADD_DICE):
 		Globals.addDice();
-	if(kind == 1):
+	if(kind == Enums.Upgrade.UPGRADE_DICE):
 		Globals.tryUpgradeDice(price);
-	if(kind == 2):
+	if(kind == Enums.Upgrade.DUNGEON_MASTER):
 		$Timer.stop();
 		var tim = $Timer.wait_time;
 		if($Timer.wait_time <= 1):
@@ -148,13 +151,14 @@ func action():
 			$TextureProgress/Tween.start();
 		else:
 			$TextureProgress.value = 0;
-	if kind == 6:
+	if kind == Enums.Upgrade.CONTRACT:
 		if test_contract != null:
 			test_contract.levelUp()
-	if(kind == 7):
-		Globals.maxDiceRollTime = Globals.maxDiceRollTime - .35;
-		$LabelTitle.text = title + " (" + str(Globals.maxDiceRollTime) + ")";
+	if(kind == Enums.Upgrade.ROLL_DECREASE):
+		Globals.maxDiceRollTime = Globals.maxDiceRollTime - .2;
+		$LabelTitle.text = title + " (" + str(Globals.maxDiceRollTime) + ")"; #TODO :show percentage instead of raw value
 	if(kind == 8):
+		#TODO:animation
 		var _e = get_tree().change_scene("res://scenes/ascend.tscn");
 
 func _on_Timer_timeout():
@@ -184,30 +188,30 @@ func exportSave():
 func importSave(saveString):
 	var save = saveString.split("/");
 	match kind:
-		0:#Add Dice
+		Enums.Upgrade.ADD_DICE:
 			var save_level = int(save[0]);
 			setImportedLevel(save_level);
 			# This upgrade is restored differently
-		1:#Upgrade Dice
+		Enums.Upgrade.UPGRADE_DICE:
 			var save_level = int(save[1]);
 			setImportedLevel(save_level);
 			# This upgrade is restored differently
-		2:#DM
+		Enums.Upgrade.DUNGEON_MASTER:
 			var save_level = int(save[2]);
 			setImportedLevel(save_level);
 			for s in save_level:
 				action();
-		4:#Reroll
+		Enums.Upgrade.REROLL:
 			var save_level = int(save[4]);
 			setImportedLevel(save_level);
 			for s in save_level:
 				action();
-		6:#Contract
+		Enums.Upgrade.CONTRACT:
 			var save_level = int(save[5]);
 			setImportedLevel(save_level);
 			for s in save_level:
 				action();
-		7:#Roll decrease
+		Enums.Upgrade.ROLL_DECREASE:
 			var save_level = int(save[3]);
 			setImportedLevel(save_level);
 			for s in save_level:

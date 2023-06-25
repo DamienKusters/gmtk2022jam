@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/rhombus_question.png-bb56ffe2f02cdcea723c2517157b1bb9.stex"
+path="res://.import/upgrade_box.png-55baa33a83ffecd635eabf7725610280.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/icons/rhombus_question.png"
-dest_files=[ "res://.import/rhombus_question.png-bb56ffe2f02cdcea723c2517157b1bb9.stex" ]
+source_file="res://assets/sprites/ui/upgrade/upgrade_box.png"
+dest_files=[ "res://.import/upgrade_box.png-55baa33a83ffecd635eabf7725610280.stex" ]
 
 [params]
 
