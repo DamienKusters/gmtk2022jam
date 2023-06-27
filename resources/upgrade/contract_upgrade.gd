@@ -9,6 +9,10 @@ var target_enemy: EnemyModel;
 func _init():
 	tryImportSave(Globals.upgrade_save_overrides)
 	Globals.connect("enemyKilled", self, "enemyKilled")
+	base_price = 50
+	price = base_price
+	levelup_price_increase = 120
+	levelup_price_percent_increase = 37
 	max_level = Globals.enemy_pool.size() - 1
 	_setTargetEnemy()
 
@@ -17,10 +21,9 @@ func _setTargetEnemy():
 	emit_signal("set_contract")
 
 func levelUp() -> bool:
-	if level >= max_level:
+	if tryLevelUp() == false:
 		return false
-	Globals.upgradeEnemyPool();
-	level += 1
+	Globals.upgradeEnemyPool()
 	_setTargetEnemy()
 	return true
 

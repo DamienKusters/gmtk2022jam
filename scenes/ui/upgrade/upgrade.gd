@@ -1,5 +1,7 @@
 extends Control
 
+onready var particle = preload("res://scenes/shared/single_particle_effect.tscn");
+
 export(Enums.Upgrade) var upgrade_type
 export var background_color = Color("966833") setget setBackgroundColor
 
@@ -19,21 +21,35 @@ func _ready():
 	updateUi()
 
 func updateUi():
+	$"%LabelPrice".text = str(upgrade.price)
 	if upgrade.level >= upgrade.max_level:
-		$NinePatchRect/HBoxContainer/Control2/LabelLevel.text = "max"
-		$NinePatchRect/HBoxContainer/VBoxContainer/LabelPrice.visible = false
+		$"%LabelLevel".text = "max"
+		$"%LabelPrice".visible = false
 		$Tween.collapse()
 	elif(upgrade.level > 0):
-		$NinePatchRect/HBoxContainer/Control2/LabelLevel.text = str(upgrade.level);
+		$"%LabelLevel".text = str(upgrade.level);
 	else:
-		$NinePatchRect/HBoxContainer/Control2/LabelLevel.text = "";
+		$"%LabelLevel".text = "";
+
+#TODO: remove
+func setPayable(value):
+	if(value >= upgrade.price):
+		$"%LabelPrice".add_color_override("font_color", Color("d8d400"));
+	else:
+		$"%LabelPrice".add_color_override("font_color", Color("d83300"));
 
 func onPressed():
 	var success = upgrade.levelUp()
 	if success:
-		$AudioStreamPlayer.play();
+		$particle_point.add_child(particle.instance());
+		$AudioStreamPlayer.play()
+		if(upgrade.max_level != -1):
+			if(upgrade.level >= upgrade.max_level):
+				$"%LabelPrice".visible = false
+		
+		setPayable(Globals.currency);
 		updateUi()
-		Globals.saveGame();
+		Globals.saveGame()
 
 func _on_HelpButton_button_down():
 	Globals.openHelp(model.texture, model.title, model.description);
