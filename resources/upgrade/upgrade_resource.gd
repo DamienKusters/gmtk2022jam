@@ -20,22 +20,33 @@ func levelUp() -> bool:
 
 func tryLevelUp():
 	if(Globals.currency < price):
-		return false;
+		return false
 	if(max_level != -1):
 		if(level >= max_level):
-			return false;
+			return false
 			
-	Globals.removeCurrency(price);
-	level = level + 1;
-	price =+ calculatePriceIncrease(price,levelup_price_increase,levelup_price_percent_increase);
+	Globals.removeCurrency(price)
+	level = level + 1
+	price =+ calculatePriceIncrease(price,levelup_price_increase,levelup_price_percent_increase)
 	
-	emit_signal("updated");
-	return true;
+	emit_signal("updated")
+	return true
 
 func calculatePriceIncrease(_current_price, _price_increase_value, _price_increase_percent):
-	var output = _current_price + _price_increase_value;
-	var increase: float = 0;
+	var output = _current_price + _price_increase_value
+	var increase: float = 0
 	if(_price_increase_percent != 0):
-		increase = (float(output) / float(100)) * float(_price_increase_percent);
-	output = output + ceil(increase);
-	return output;
+		increase = (float(output) / float(100)) * float(_price_increase_percent)
+	output = output + ceil(increase)
+	return output
+
+func tryImportSave():
+	if Globals.upgrade_save_overrides == null:
+		return false
+	var save = Globals.upgrade_save_overrides.split("/")
+	
+	print("override this")
+	return true
+
+func exportSave():
+	return int(level)

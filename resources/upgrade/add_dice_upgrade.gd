@@ -19,3 +19,12 @@ func levelUp() -> bool:
 #	Globals.connect("upgradeDiceSuccess", self, "applyNextLevelUiUpdate");
 	Globals.addDice();
 	return true
+
+func tryImportSave():
+	if Globals.upgrade_save_overrides == null:
+		return false
+	var save = Globals.upgrade_save_overrides.split("/")
+	
+	level = int(save[0]);
+	for i in level:
+		price =+ calculatePriceIncrease(price,levelup_price_increase,levelup_price_percent_increase);

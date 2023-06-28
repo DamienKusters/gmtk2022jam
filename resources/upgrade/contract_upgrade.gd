@@ -7,7 +7,6 @@ signal complete_contract
 var target_enemy: EnemyModel;
 
 func _init():
-	tryImportSave(Globals.upgrade_save_overrides)
 	Globals.connect("enemyKilled", self, "enemyKilled")
 	base_price = 50
 	price = base_price
@@ -32,9 +31,13 @@ func enemyKilled(enemy):
 		if enemy == target_enemy:
 			emit_signal("complete_contract")
 
-func tryImportSave(saveString):
-	if saveString == null:
+func tryImportSave():
+	if Globals.upgrade_save_overrides == null:
 		return false
-	var save = saveString.split("/")
+	var save = Globals.upgrade_save_overrides.split("/")
 	Globals.contractLevel = int(save[5])
 	_setTargetEnemy()
+	
+	level = int(save[5]);
+	for i in level:
+		price =+ calculatePriceIncrease(price,levelup_price_increase,levelup_price_percent_increase);

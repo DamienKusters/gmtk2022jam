@@ -14,13 +14,17 @@ func setBackgroundColor(value):
 
 func _ready():
 	model = Globals.upgrades[upgrade_type]
-	$NinePatchRect/HBoxContainer/VBoxContainer/LabelTitle.text = model.title
+	$"%LabelTitle".text = model.title
 	$NinePatchRect/HBoxContainer/Control/TextureRect.texture = model.texture;
 	
 	upgrade = model.upgrade_resource
+	upgrade.tryImportSave()
 	updateUi()
+	upgrade.connect("updated", self, "upgradeUpdated")
 
 func updateUi():
+	if(upgrade.max_level != -1 && (upgrade.level >= upgrade.max_level)):
+		$"%LabelPrice".visible = false
 	$"%LabelPrice".text = str(upgrade.price)
 	if upgrade.level >= upgrade.max_level:
 		$"%LabelLevel".text = "max"
@@ -38,18 +42,19 @@ func setPayable(value):
 	else:
 		$"%LabelPrice".add_color_override("font_color", Color("d83300"));
 
+func upgradeUpdated():
+	setPayable(Globals.currency);
+	updateUi()
+	#TODO: save must first be exported: opt to change way upgrades are saved instead of relying on the 'upgrade_save'
+	# wrapper script
+#	Globals.upgradeSavesUpdated(str(upgrade.exportSave()) + "/0/0/0/0/0")# test
+	Globals.saveGame()
+
 func onPressed():
 	var success = upgrade.levelUp()
 	if success:
 		$particle_point.add_child(particle.instance());
 		$AudioStreamPlayer.play()
-		if(upgrade.max_level != -1):
-			if(upgrade.level >= upgrade.max_level):
-				$"%LabelPrice".visible = false
-		
-		setPayable(Globals.currency);
-		updateUi()
-		Globals.saveGame()
 
 func _on_HelpButton_button_down():
 	Globals.openHelp(model.texture, model.title, model.description);

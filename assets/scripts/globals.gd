@@ -444,6 +444,7 @@ func exportSave():
 			save += "|";
 		i+=1;
 	print("Game Exported");
+	print(save)
 	return Marshalls.utf8_to_base64(save);
 
 func importSave(saveString: String):
