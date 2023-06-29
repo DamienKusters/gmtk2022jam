@@ -6,7 +6,12 @@ export(Enums.Upgrade) var upgrade_type
 export var background_color = Color("966833") setget setBackgroundColor
 
 var model
-var upgrade;
+var upgrade
+var locked = false setget setLocked
+
+func setLocked(value):
+	locked = value
+	$"%LabelPrice".visible = !locked
 
 func setBackgroundColor(value):
 	background_color = value
@@ -21,6 +26,21 @@ func _ready():
 	upgrade.tryImportSave()
 	updateUi()
 	upgrade.connect("updated", self, "upgradeUpdated")
+	if upgrade.has_method("_setTargetEnemy"):
+		upgrade.connect("set_contract", self, "setContract")
+		upgrade.connect("complete_contract", self, "removeContract")
+		setContract()
+
+# relocate
+func setContract():
+	$TargetEnemy.texture = upgrade.target_enemy.sprite
+	$Tween.setTarget()
+	setLocked(true)
+
+# relocate
+func removeContract():
+	$Tween.removeTarget()
+	setLocked(false)
 
 func updateUi():
 	if(upgrade.max_level != -1 && (upgrade.level >= upgrade.max_level)):
@@ -51,6 +71,8 @@ func upgradeUpdated():
 	Globals.saveGame()
 
 func onPressed():
+	if locked:
+		return
 	var success = upgrade.levelUp()
 	if success:
 		$particle_point.add_child(particle.instance());
