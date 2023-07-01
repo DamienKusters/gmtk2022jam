@@ -45,7 +45,6 @@ func tryImportSave():
 		return false
 	var save = Globals.upgrade_save_overrides.split("/")
 	
-	print("override this")
 	return true
 
 func exportSave():

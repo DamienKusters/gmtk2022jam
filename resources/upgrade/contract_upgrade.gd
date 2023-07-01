@@ -30,6 +30,7 @@ func enemyKilled(enemy):
 	if Globals.contractLevel < max_level:#TODO: contractlevel to local var?
 		if enemy == target_enemy:
 			emit_signal("complete_contract")
+			target_enemy = null
 
 func tryImportSave():
 	if Globals.upgrade_save_overrides == null:

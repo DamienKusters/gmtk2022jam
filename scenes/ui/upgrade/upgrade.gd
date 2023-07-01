@@ -39,6 +39,7 @@ func setContract():
 
 # relocate
 func removeContract():
+	print("remove")
 	$Tween.removeTarget()
 	setLocked(false)
 

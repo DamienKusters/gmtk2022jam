@@ -664,7 +664,6 @@ spriteTexture = ExtResource( 31 )
 description = "Reset your progress and spend Angel Feathers for permanent upgrades"
 
 [node name="u_add" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-visible = false
 margin_top = 190.0
 margin_bottom = 290.0
 title = "Add Dice"
@@ -676,8 +675,9 @@ spriteTexture = ExtResource( 7 )
 description = "Adds another D4 dice"
 
 [node name="Add" parent="uiRoot/VBoxContainer" instance=ExtResource( 9 )]
-margin_top = 190.0
-margin_bottom = 290.0
+visible = false
+margin_top = 285.0
+margin_bottom = 385.0
 
 [node name="u_upgrade" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 285.0
@@ -728,7 +728,6 @@ spriteTexture = ExtResource( 8 )
 description = "Automatically re-rolls any dice equal to or below the level of the upgrade"
 
 [node name="u_contract" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-visible = false
 margin_top = 665.0
 margin_bottom = 765.0
 title = "Contract"
@@ -741,8 +740,9 @@ spriteTexture = ExtResource( 19 )
 description = "Adds new enemy encounters"
 
 [node name="Upgrade" parent="uiRoot/VBoxContainer" instance=ExtResource( 9 )]
-margin_top = 665.0
-margin_bottom = 765.0
+visible = false
+margin_top = 760.0
+margin_bottom = 860.0
 upgrade_type = 6
 
 [node name="enemyUi" type="Control" parent="uiRoot"]

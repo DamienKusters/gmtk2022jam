@@ -14,6 +14,17 @@ export var levelCap = -1;
 export(Texture) var spriteTexture;
 export(String) var description;
 var test_contract;
+var lockedEnemies = {
+	"Slime":[false, "res://assets/sprites/enemies/Slime.png"],
+	"Boar":[false, "res://assets/sprites/enemies/WildBoar.png"],
+	"Orc":[false, "res://assets/sprites/enemies/Orc.png"],
+	"Golem":[false, "res://assets/sprites/enemies/Nature_Gorilla.png"],
+	"Minotaur":[false, "res://assets/sprites/enemies/Minotaur.png"],
+	"Nymph":[false, "res://assets/sprites/enemies/Earth_Lady.png"],
+	"Necromancer":[false, "res://assets/sprites/enemies/Necromancer.png"],
+	"Power Elemental":[false, "res://assets/sprites/enemies/Volt_Elemental.png"],
+};
+var killedEnemies = [];
 
 var level = 0;
 var price = 0;
@@ -39,11 +50,11 @@ func _ready():
 		Globals.connect("damageEnemy", self, "enemyDamaged");
 		emit_signal("levelChanged");	
 	if(kind == 6):
-		test_contract = ContractUpgrade.new();
-		test_contract.connect("complete_contract", self, "completeContract")
-		test_contract.connect("set_contract", self, "setContract")
-		levelCap = test_contract.max_level
-		setContract()
+		Globals.connect("enemyKilled", self, "enemyKilled");
+		var _e = $Tween.connect("tween_all_completed", self, "tween_completed");
+		locked = level < levelCap;
+		$enemyLocker.visible = false;
+		setContract();
 	$enemyLocker.visible = false;
 	Globals.connect("currencyUpdated", self, "setPayable");
 	setPayable(Globals.currency);
@@ -83,9 +94,14 @@ func setContract():
 		updateUi()
 
 func tween_completed():
-	if locked == true:
+	if(locked):
 		$enemyLocker.visible = true;
-		$enemyLocker/TextureRect.texture = test_contract.target_enemy.sprite;
+		for e in lockedEnemies:
+			if lockedEnemies[e][0] == false:
+				$enemyLocker/TextureRect.texture = load(lockedEnemies[e][1]);
+				return;
+	else:
+		$enemyLocker.visible = false;
 
 func _on_MouseOverlay_button_down():
 	if(locked == true):
@@ -96,7 +112,17 @@ func _on_MouseOverlay_button_down():
 		if(applyNextLevelUiUpdate()):
 			action();
 	Globals.saveGame();
-	
+
+func enemyKilled(enemy):
+	if(!killedEnemies.has(enemy.name)):
+		for e in lockedEnemies:
+			if lockedEnemies[e][0] == false:
+				if(enemy.name == e):
+					completeContract();
+					lockedEnemies[e][0] = true;
+				return;
+		killedEnemies.push_back(enemy.name);
+
 func applyNextLevelUiUpdate():
 	if(Globals.currency < price):
 		return false;
@@ -152,8 +178,12 @@ func action():
 		else:
 			$TextureProgress.value = 0;
 	if kind == Enums.Upgrade.CONTRACT:
-		if test_contract != null:
-			test_contract.levelUp()
+		Globals.upgradeEnemyPool();
+		for e in lockedEnemies:
+			if(lockedEnemies[e][0] == false):
+				setContract();
+				return;
+		pass
 	if(kind == Enums.Upgrade.ROLL_DECREASE):
 		Globals.maxDiceRollTime = Globals.maxDiceRollTime - .2;
 		$LabelTitle.text = title + " (" + str(Globals.maxDiceRollTime) + ")"; #TODO :show percentage instead of raw value
@@ -211,6 +241,18 @@ func importSave(saveString):
 			setImportedLevel(save_level);
 			for s in save_level:
 				action();
+			#TODO: restore enemy locks:
+			var i = 0;
+			for l in lockedEnemies:
+				if save_level > i:
+					lockedEnemies[l][0] = true;
+					print(l);
+				i+=1;
+#				if lockedEnemies[e][0] == false:
+#					if(enemy.name == e):
+#						setLocked(false);
+#						lockedEnemies[e][0] = true;
+#					return;
 		Enums.Upgrade.ROLL_DECREASE:
 			var save_level = int(save[3]);
 			setImportedLevel(save_level);
