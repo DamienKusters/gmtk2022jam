@@ -24,6 +24,14 @@ var lockedEnemies = {
 	"Necromancer":[false, "res://assets/sprites/enemies/Necromancer.png"],
 	"Power Elemental":[false, "res://assets/sprites/enemies/Volt_Elemental.png"],
 };
+#var oldlockedEnemies = {
+#	"Goblin":[false, "res://assets/sprites/enemies/Regular_Goblin.png"],
+#	"Bandit":[false, "res://assets/sprites/enemies/Bandit.png"],
+#	"Golem":[false, "res://assets/sprites/enemies/Nature_Gorilla.png"],
+#	"Necromancer":[false, "res://assets/sprites/enemies/Necromancer.png"],
+#	"Demon Lord":[false, "res://assets/sprites/enemies/Demon.png"],
+#	"Power Elemental":[false, "res://assets/sprites/enemies/Volt_Elemental.png"],
+#};
 var killedEnemies = [];
 
 var level = 0;
@@ -133,7 +141,7 @@ func applyNextLevelUiUpdate():
 	level = level + 1;
 	var p = particle.instance();
 	p.position = $particle_point.position;
-	add_child(particle.instance());
+	add_child(p);
 	$AudioStreamPlayer.play();
 	if(levelCap != -1):
 		if(level >= levelCap):

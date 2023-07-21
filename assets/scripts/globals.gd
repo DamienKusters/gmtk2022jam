@@ -16,13 +16,13 @@ signal enemyKilled;
 const saveFileLocation = "user://dnde.save"
 var contractLevel;
 var maxDiceRollTime = 5;
-var currency = 99999990;
+var currency = 0;
 var feathers = 0;
 
 var upgrade_save_overrides;
 var upgrade_dice_overrides;
 
-var ascention_dps_multiplier_value = 99;
+var ascention_dps_multiplier_value = 1;
 var ascention_dps_multiplier_level = 0;
 var ascention_reroller_value = 0;
 var ascention_reroller_level = 0;
@@ -131,289 +131,107 @@ var upgrades
 
 var enemy_pool = [
 	EnemyTier.new([
-		EnemyModel.new("Slug", 2, 2),
-		EnemyModel.new("Bird", 4, 5),
-		EnemyModel.new("Bat", 7, 8),
-		EnemyModel.new("Slime", 10, 10),
+		EnemyModel.new("Slug", 4, 5),
+		EnemyModel.new("Bird", 6, 7),
+		EnemyModel.new("Bat", 9, 10),
+		EnemyModel.new("Slime", 25, 20),
 	], 0),
 	EnemyTier.new([
-		EnemyModel.new("Hornet", 12, 13,"GiantHornet"),
-		EnemyModel.new("Rat", 16, 15,"GiantRat"),
-		EnemyModel.new("Wolf", 20, 19),
-		EnemyModel.new("Boar", 25, 25,"WildBoar"),
-	], 0),
-	EnemyTier.new([
-		EnemyModel.new("Goblin", 35, 30),
-		EnemyModel.new("Hobgoblin", 42, 43,"Regular_Goblin"),
-		EnemyModel.new("Ogre", 49, 49),
-		EnemyModel.new("Orc", 57, 60, "Orc",Enums.DiceEnum.D4),
-	], .001),
-	EnemyTier.new([
-		EnemyModel.new("Living Roots", 95, 111, "AnimatedPlant"),
-		EnemyModel.new("Treant", 95, 111),
-		EnemyModel.new("Gaia", 95,111),
-		EnemyModel.new("Golem", 190, 200, "Nature_Gorilla",Enums.DiceEnum.D6),
-	], .001),
-	EnemyTier.new([
-		EnemyModel.new("Pirate", 95, 111),
-		EnemyModel.new("Barbarian", 95, 111, "Bigfoot"),
-		EnemyModel.new("Outlaw", 95,111, "Bandit"),
-		EnemyModel.new("Minotaur", 190, 200, "Minotaur",Enums.DiceEnum.D6),
-	], .005),
-	EnemyTier.new([
-		EnemyModel.new("Pixie", 95, 111, "Fairy"),
-		EnemyModel.new("Witch", 95, 111),
-		EnemyModel.new("Fairy", 95,111, "Pixie_Man"),
-		EnemyModel.new("Nymph", 190, 200, "Earth_Lady",Enums.DiceEnum.D8),
+		EnemyModel.new("Hornet", 26, 50, "GiantHornet"),
+		EnemyModel.new("Rat", 30, 60, "GiantRat"),
+		EnemyModel.new("Wolf", 35, 70),
+		EnemyModel.new("Boar", 55, 70, "WildBoar"),
 	], .01),
 	EnemyTier.new([
-		EnemyModel.new("Skeleton", 95, 111),
-		EnemyModel.new("Wrath", 95, 111),
-		EnemyModel.new("Wizard", 95,111),
-		EnemyModel.new("Necromancer", 190, 200, "Necromancer",Enums.DiceEnum.D10),
+		EnemyModel.new("Goblin", 65, 100),
+		EnemyModel.new("Hobgoblin", 95, 111, "Regular_Goblin"),
+		EnemyModel.new("Ogre", 120, 150),
+		EnemyModel.new("Orc", 190, 200, "Orc", Enums.DiceEnum.D4),
 	], .02),
 	EnemyTier.new([
-		EnemyModel.new("Earth Elemental", 95, 111, "Earth_Elemental",Enums.DiceEnum.D10),
-		EnemyModel.new("Water Elemental", 190, 200, "Water_Elemental",Enums.DiceEnum.D10),
-		EnemyModel.new("Fire Elemental", 95, 111, "Fire_Elemental",Enums.DiceEnum.D12),
-		EnemyModel.new("Power Elemental", 95,111, "Volt_Elemental",Enums.DiceEnum.D12),
+		EnemyModel.new("Living Roots", 250, 200, "AnimatedPlant"),
+		EnemyModel.new("Treant", 290, 250),
+		EnemyModel.new("Gaia", 320, 290),
+		EnemyModel.new("Golem", 430, 444, "Nature_Gorilla", Enums.DiceEnum.D6),
+	], .04),
+	EnemyTier.new([#TODO: buff slightly
+		EnemyModel.new("Pirate", 620, 500),
+		EnemyModel.new("Barbarian", 650, 550, "Bigfoot"),
+		EnemyModel.new("Bandit", 800, 600),
+		EnemyModel.new("Minotaur", 1200, 666, "Minotaur",Enums.DiceEnum.D6),
 	], .05),
+	EnemyTier.new([#TODO: Balance from here (x6 dmg is doable must be bit higher) boss 6000+ health?????
+		EnemyModel.new("Pixie", 2000, 800, "Fairy"),
+		EnemyModel.new("Witch", 4000, 1000),
+		EnemyModel.new("Fairy", 3000, 900, "Pixie_Man"),
+		EnemyModel.new("Nymph", 5000,1100, "Earth_Lady",Enums.DiceEnum.D8),
+	], .06),
+	EnemyTier.new([#steep incline buff massively
+		EnemyModel.new("Skeleton", 10000, 1111),
+		EnemyModel.new("Wrath", 14000, 1111),
+		EnemyModel.new("Wizard", 16000, 0),
+		EnemyModel.new("Necromancer", 20000, 1, "Necromancer",Enums.DiceEnum.D10),#d12??? , I mean (x6 dmg maxed out UNFEASABLE, make it possible at least?)
+	], .07),
 	EnemyTier.new([
-		EnemyModel.new("Light", 10000, 200),
-		EnemyModel.new("Darkness", 10000, 111),
-		EnemyModel.new("Demon Lord", 10000, 200, "Demon", null, Enums.LootType.DEMON_FEATHER),
-		EnemyModel.new("Angel", 10000, 200, "Angel", null, Enums.LootType.FEATHER),
-	], .1),
+		EnemyModel.new("Earth Elemental", 1, 1, "Earth_Elemental",Enums.DiceEnum.D10),
+		EnemyModel.new("Water Elemental", 1, 1, "Water_Elemental",Enums.DiceEnum.D10),
+		EnemyModel.new("Fire Elemental", 1, 1, "Fire_Elemental",Enums.DiceEnum.D12),
+		EnemyModel.new("Power Elemental", 1,1, "Volt_Elemental",Enums.DiceEnum.D12),
+	], .08),
+	EnemyTier.new([
+		EnemyModel.new("Light", 1, 1),
+		EnemyModel.new("Darkness", 1, 1),
+		EnemyModel.new("Demon Lord", 1, 1, "Demon", null, Enums.LootType.DEMON_FEATHER),
+		EnemyModel.new("Angel", 1, 1, "Angel", null, Enums.LootType.FEATHER),
+	], 0),
 	EnemyTier.new([
 		EnemyModel.new("Destroyer Drone", 10000, 111, "DestroyerV1", null, Enums.LootType.GEAR),
 	], 0),
 ]
 
-var enemiesCommon = [
-	#Tier 1: Basic
-	{
-		"name":"Slime",
-		"health":4,
-		"currency":5,
-		"sprite": "res://assets/sprites/enemies/Slime.png",
-		"feather":0,
-		"shield":null,#TODO: array
-	},
-	{
-		"name":"Bird",
-		"health":6,
-		"currency":7,
-		"sprite": "res://assets/sprites/enemies/Bird.png",
-		"feather":0,
-		"shield":null,
-	},
-	{
-		"name":"Wolf",
-		"health":9,
-		"currency":10,
-		"sprite": "res://assets/sprites/enemies/Wolf.png",
-		"feather":0,
-		"shield":null,
-	},
-	{
-		"name":"Goblin",
-		"health":25,
-		"currency":20,
-		"sprite": "res://assets/sprites/enemies/Regular_Goblin.png",
-		"feather":0,
-		"shield":null,
-	},
-	#Tier 2: Advanced
-	{
-		"name":"Cobalt Wolf",
-		"health":26,
-		"currency":50,
-		"sprite": "res://assets/sprites/enemies/Cobald_Wolf.png",
-		"feather":0,
-		"shield":null,
-	},
-	{
-		"name":"Elite Goblin",
-		"health":30,
-		"currency":60,
-		"sprite": "res://assets/sprites/enemies/Elite_Goblin.png",
-		"feather":0,
-		"shield":null,
-	},
-	{
-		"name":"Bandit",
-		"health":35,
-		"currency":70,
-		"sprite": "res://assets/sprites/enemies/Pirate.png",
-		"feather":0,
-		"shield":null,
-	},
-	{
-		"name":"Outlaw",
-		"health":55,
-		"currency":70,
-		"sprite": "res://assets/sprites/enemies/Bandit.png",
-		"feather":0,
-		"shield":null,
-	},
-	#Tier 3: Mytical
-	{
-		"name":"Witch",
-		"health":65,
-		"currency":100,
-		"sprite": "res://assets/sprites/enemies/Witch.png",
-		"feather":0,
-		"shield":null,
-	},
-	{
-		"name":"Gaia",
-		"health":95,
-		"currency":111,
-		"sprite": "res://assets/sprites/enemies/Gaia.png",
-		"feather":0,
-		"shield":null,
-	},
-	{
-		"name":"Minotaur",
-		"health":120,
-		"currency":150,
-		"sprite": "res://assets/sprites/enemies/Minotaur.png",
-		"feather":0,
-		"shield":null,
-	},
-	{
-		"name":"Golem",
-		"health":190,
-		"currency":200,
-		"sprite": "res://assets/sprites/enemies/Nature_Gorilla.png",
-		"feather":0,
-		"shield":Enums.DiceEnum.D4,
-	},
-	#Tier 4: Magic
-	{
-		"name":"Pixie",
-		"health":250,
-		"currency":200,
-		"sprite": "res://assets/sprites/enemies/Earth_Lady.png",
-		"feather":0,
-		"shield":null,
-	},
-	{
-		"name":"Fairy",
-		"health":290,
-		"currency":250,
-		"sprite": "res://assets/sprites/enemies/Pixie_Man.png",
-		"feather":0,
-		"shield":null,
-	},
-	{
-		"name":"Wrath",
-		"health":320,
-		"currency":290,
-		"sprite": "res://assets/sprites/enemies/Wrath.png",
-		"feather":0,
-		"shield":null,
-	},
-	{
-		"name":"Necromancer",
-		"health":430,
-		"currency":444,
-		"sprite": "res://assets/sprites/enemies/Necromancer.png",
-		"feather":1,
-		"shield":Enums.DiceEnum.D6,
-	},
-	#Tier 5: Demons
-	{
-		"name":"Demon Pixie",
-		"health":620,
-		"currency":500,
-		"sprite": "res://assets/sprites/enemies/Earth_Lady_Vampire.png",
-		"feather":0,
-		"shield":null,
-	},
-	{
-		"name":"Demon Fairy",
-		"health":650,
-		"currency":550,
-		"sprite": "res://assets/sprites/enemies/Pixie_Man_Vampire.png",
-		"feather":0,
-		"shield":null,
-	},
-	{
-		"name":"Lich",
-		"health":800,
-		"currency":600,
-		"sprite": "res://assets/sprites/enemies/Lich.png",
-		"feather":0,
-		"shield":null,
-	},
-	{
-		"name":"Demon Lord",
-		"health":1200,
-		"currency":666,
-		"sprite": "res://assets/sprites/enemies/Demon.png",
-		"feather":1,
-		"shield":Enums.DiceEnum.D8,
-	},
-	#Tier 6: Elementals (TODO: health x8)
-	{
-		"name":"Earth Elemental",
-		"health":2000,
-		"currency":800,
-		"sprite": "res://assets/sprites/enemies/Earth_Elemental.png",
-		"feather":0,
-		"shield":Enums.DiceEnum.D10,
-	},
-	{
-		"name":"Fire Elemental",
-		"health":3000,
-		"currency":900,
-		"sprite": "res://assets/sprites/enemies/Fire_Elemental.png",
-		"feather":0,
-		"shield":Enums.DiceEnum.D12,
-	},
-	{
-		"name":"Power Elemental",
-		"health":5000,
-		"currency":1100,
-		"sprite": "res://assets/sprites/enemies/Volt_Elemental.png",
-		"feather":0,
-		"shield":Enums.DiceEnum.D10,
-	},
-	{
-		"name":"Water Elemental",
-		"health":4000,
-		"currency":1000,
-		"sprite": "res://assets/sprites/enemies/Water_Elemental.png",
-		"feather":0,
-		"shield":Enums.DiceEnum.D12,
-	},
-	# Tier 7: Legendary
-	{
-		"name":"Darkness",
-		"health":8500,
-		"currency":1111,
-		"sprite": "res://assets/sprites/enemies/Darkness.png",
-		"feather":1,
-		"shield":Enums.DiceEnum.D10,
-	},
-	{
-		"name":"Light",
-		"health":8500,
-		"currency":1111,
-		"sprite": "res://assets/sprites/enemies/Light.png",
-		"feather":1,
-		"shield":Enums.DiceEnum.D12,
-	},
-	{#Special
-		"name":"Angel",
-		"health":10000,
-		"currency":0,
-		"sprite": "res://assets/sprites/enemies/Angel.png",
-		"feather":-1,
-		"shield":null,
-	},
-];
+#var old_enemy_pool = [
+#	EnemyTier.new([
+#		EnemyModel.new("Slime", 4, 5),
+#		EnemyModel.new("Bird", 6, 7),
+#		EnemyModel.new("Wolf", 9, 10),
+#		EnemyModel.new("Goblin", 25, 20, "Regular_Goblin"),
+#	], 0),
+#	EnemyTier.new([
+#		EnemyModel.new("Cobalt Wolf", 26, 50,"Cobald_Wolf"),
+#		EnemyModel.new("Hobgoblin", 30, 60,"Elite_Goblin"),
+#		EnemyModel.new("Pirate", 35, 70),
+#		EnemyModel.new("Bandit", 55, 70),
+#	], 0),
+#	EnemyTier.new([
+#		EnemyModel.new("Witch", 65, 100),
+#		EnemyModel.new("Gaia", 95, 111),
+#		EnemyModel.new("Minotaur", 120, 150),
+#		EnemyModel.new("Golem", 190, 200, "Nature_Gorilla",Enums.DiceEnum.D4),
+#	], .001),
+#	EnemyTier.new([
+#		EnemyModel.new("Pixie", 250, 200, "Earth_Lady"),
+#		EnemyModel.new("Fairy", 290, 250, "Pixie_Man"),
+#		EnemyModel.new("Wrath", 320,290),
+#		EnemyModel.new("Necromancer", 430, 444, "Necromancer",Enums.DiceEnum.D6),
+#	], .001),
+#	EnemyTier.new([
+#		EnemyModel.new("Demon Pixie", 620, 500, "Earth_Lady_Vampire"),
+#		EnemyModel.new("Demon Fairy", 650, 550, "Pixie_Man_Vampire"),
+#		EnemyModel.new("Lich", 800,600),
+#		EnemyModel.new("Demon Lord", 1200, 666, "Demon",Enums.DiceEnum.D8),
+#	], .005),
+#	EnemyTier.new([
+#		EnemyModel.new("Earth Elemental", 2000, 800, "Earth_Elemental",Enums.DiceEnum.D10),
+#		EnemyModel.new("Water Elemental", 4000, 1000, "Water_Elemental",Enums.DiceEnum.D12),
+#		EnemyModel.new("Fire Elemental", 3000, 900, "Fire_Elemental",Enums.DiceEnum.D12),
+#		EnemyModel.new("Power Elemental", 5000,1100, "Volt_Elemental",Enums.DiceEnum.D10),
+#	], .05),
+#	EnemyTier.new([
+#		EnemyModel.new("Light", 8500, 1111, "Light", null, Enums.DiceEnum.D12),
+#		EnemyModel.new("Darkness", 8500, 1111, "Darkness", null, Enums.DiceEnum.D10),
+#		EnemyModel.new("Angel", 10000, 0, "Angel", null, Enums.LootType.FEATHER),
+#	], .1),
+#]
 
 func getDiceData(enumValue):
 	return diceData[int(enumValue)];

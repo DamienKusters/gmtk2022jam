@@ -27,9 +27,10 @@ func _ready():
 	
 func respawnEnemy():
 	var enemyTier: EnemyTier = Globals.getRandomEnemyTier()
-	enemyHasFeather = enemyTier.enemyHasFeather();
 	enemy = enemyTier.getRandomEnemy()
 	enemyHasFeather = 	enemy.loot_type == Enums.LootType.FEATHER
+	if enemyHasFeather == false:
+		enemyHasFeather = enemyTier.enemyHasFeather();
 	
 	$LabelEnemy.text = enemy.name;
 	$EnemyContainer/TextureEnemy.texture = enemy.sprite;
