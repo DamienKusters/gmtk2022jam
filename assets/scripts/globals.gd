@@ -147,45 +147,46 @@ var enemy_pool = [
 		EnemyModel.new("Hobgoblin", 95, 111, "Regular_Goblin"),
 		EnemyModel.new("Ogre", 120, 150),
 		EnemyModel.new("Orc", 190, 200, "Orc", Enums.DiceEnum.D4),
-	], .02),
+	], .02),#lower slightly?
 	EnemyTier.new([
 		EnemyModel.new("Living Roots", 250, 200, "AnimatedPlant"),
 		EnemyModel.new("Treant", 290, 250),
 		EnemyModel.new("Gaia", 320, 290),
 		EnemyModel.new("Golem", 430, 444, "Nature_Gorilla", Enums.DiceEnum.D6),
-	], .04),
-	EnemyTier.new([#TODO: buff slightly
-		EnemyModel.new("Pirate", 620, 500),
-		EnemyModel.new("Barbarian", 650, 550, "Bigfoot"),
-		EnemyModel.new("Bandit", 800, 600),
-		EnemyModel.new("Minotaur", 1200, 666, "Minotaur",Enums.DiceEnum.D6),
-	], .05),
-	EnemyTier.new([#TODO: Balance from here (x6 dmg is doable must be bit higher) boss 6000+ health?????
-		EnemyModel.new("Pixie", 2000, 800, "Fairy"),
-		EnemyModel.new("Witch", 4000, 1000),
-		EnemyModel.new("Fairy", 3000, 900, "Pixie_Man"),
-		EnemyModel.new("Nymph", 5000,1100, "Earth_Lady",Enums.DiceEnum.D8),
+	], .04),#lower slightly? nah
+	EnemyTier.new([
+		EnemyModel.new("Pirate", 680, 500),
+		EnemyModel.new("Barbarian", 800, 550, "Bigfoot"),
+		EnemyModel.new("Bandit", 900, 600),
+		EnemyModel.new("Minotaur", 1300, 666, "Minotaur",Enums.DiceEnum.D8),
+	], .05),## All prior stuff is balanced quite good (x12 dmg and got 7 fets in small time)
+	EnemyTier.new([# x12 is doable -> thats too high (x6 +) test this out
+		EnemyModel.new("Pixie", 2100, 880, "Fairy"),
+		EnemyModel.new("Witch", 3000, 900),
+		EnemyModel.new("Fairy", 5000, 1000, "Pixie_Man"),
+		EnemyModel.new("Nymph", 7000, 1550, "Earth_Lady",Enums.DiceEnum.D10),
 	], .06),
-	EnemyTier.new([#steep incline buff massively
-		EnemyModel.new("Skeleton", 10000, 1111),
-		EnemyModel.new("Wrath", 14000, 1111),
-		EnemyModel.new("Wizard", 16000, 0),
-		EnemyModel.new("Necromancer", 20000, 1, "Necromancer",Enums.DiceEnum.D10),#d12??? , I mean (x6 dmg maxed out UNFEASABLE, make it possible at least?)
+	EnemyTier.new([#Too buffed! boss is hard with x12 dmg maxed -> 12 is half of the dice so or x8 should suffice create new hp and currency balance
+		EnemyModel.new("Skeleton", 14000, 2000),
+		EnemyModel.new("Wrath", 16000, 2100),
+		EnemyModel.new("Wizard", 18000, 2300),
+		EnemyModel.new("Necromancer", 21000, 2700, "Necromancer",Enums.DiceEnum.D12),
 	], .07),
-	EnemyTier.new([
-		EnemyModel.new("Earth Elemental", 1, 1, "Earth_Elemental",Enums.DiceEnum.D10),
-		EnemyModel.new("Water Elemental", 1, 1, "Water_Elemental",Enums.DiceEnum.D10),
-		EnemyModel.new("Fire Elemental", 1, 1, "Fire_Elemental",Enums.DiceEnum.D12),
-		EnemyModel.new("Power Elemental", 1,1, "Volt_Elemental",Enums.DiceEnum.D12),
+	EnemyTier.new([# 12x must be difficult -> use hp from previous tier!!!!!
+		EnemyModel.new("Earth Elemental", 16000, 2100, "Earth_Elemental",Enums.DiceEnum.D10),
+		EnemyModel.new("Water Elemental", 18000, 2300, "Water_Elemental",Enums.DiceEnum.D10),
+		EnemyModel.new("Fire Elemental", 19000, 2700, "Fire_Elemental",Enums.DiceEnum.D12),
+		EnemyModel.new("Power Elemental", 21000, 3000, "Volt_Elemental",Enums.DiceEnum.D12),
 	], .08),
-	EnemyTier.new([
+	EnemyTier.new([# higher then x14 for light and dark higher then x16 for angel higher then x19 for demon? 
+		#redo tier with 1 special enemy? remove demon for 'shadow dark update?'
 		EnemyModel.new("Light", 1, 1),
 		EnemyModel.new("Darkness", 1, 1),
 		EnemyModel.new("Demon Lord", 1, 1, "Demon", null, Enums.LootType.DEMON_FEATHER),
 		EnemyModel.new("Angel", 1, 1, "Angel", null, Enums.LootType.FEATHER),
 	], 0),
-	EnemyTier.new([
-		EnemyModel.new("Destroyer Drone", 10000, 111, "DestroyerV1", null, Enums.LootType.GEAR),
+	EnemyTier.new([# x18 or higher to kill, need buffer enemies? or make this one difficult as it is (reuse bosses?)
+		EnemyModel.new("Destroyer Drone", 40000, 0, "DestroyerV1", null, Enums.LootType.GEAR),
 	], 0),
 ]
 
