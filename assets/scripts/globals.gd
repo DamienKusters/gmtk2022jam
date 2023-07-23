@@ -27,8 +27,8 @@ var ascention_dps_multiplier_level = 0;
 var ascention_reroller_value = 0;
 var ascention_reroller_level = 0;
 
-var options_music = 1;
-var options_sound = 2;
+var options_music = 0#1;
+var options_sound = 0#2;
 
 #TODO: global rng object & seeded object
 var rng = RandomNumberGenerator.new();
@@ -179,15 +179,15 @@ var enemy_pool = [
 		EnemyModel.new("Power Elemental", 23000, 3300, "Volt_Elemental",Enums.DiceEnum.D12),
 	], .08),
 	EnemyTier.new([
+		EnemyModel.new("Light", 29500, 4000),
 		EnemyModel.new("Angel", 32000, 0, "Angel", null, Enums.LootType.FEATHER),
-		EnemyModel.new("Light", 38000, 4000),
-		EnemyModel.new("Light", 38000, 4000),
 		#TODO: demon
-#		EnemyModel.new("Demon Lord", 55000, 666, "Demon", Enums.DiceEnum.D20, Enums.LootType.DEMON_FEATHER),
-		EnemyModel.new("Darkness", 40000, 5000),
+		EnemyModel.new("Demon Lord", 38000, 666, "Demon", null, Enums.LootType.DEMON_FEATHER),
+		EnemyModel.new("Darkness", 40000, 4000),
 	], 0),
 	EnemyTier.new([
-		EnemyModel.new("Destroyer Drone", 70000, 0, "DestroyerV1", null, Enums.LootType.GEAR),
+		#TODO: new upgrades to make it possible to destroy this one
+		EnemyModel.new("Destroyer Drone", 400000, 0, "DestroyerV1", null, Enums.LootType.GEAR),
 	], 0),
 ]
 

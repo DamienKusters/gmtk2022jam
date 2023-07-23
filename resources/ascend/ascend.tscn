@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-mountains.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-trees.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://assets/sprites/upgrades/Descend_Icon.png" type="Texture" id=10]
 [ext_resource path="res://assets/sprites/bg2/sun.png" type="Texture" id=11]
 [ext_resource path="res://assets/sprites/bg2/clounds_forsun.png" type="Texture" id=12]
+[ext_resource path="res://scenes/ThemeButton.tscn" type="PackedScene" id=13]
 
 [sub_resource type="Animation" id=20]
 length = 0.001
@@ -221,14 +222,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.0862745, 0.0313726, 0.0196078, 1 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="canvas" type="CanvasLayer" parent="."]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="canvas"]
 autoplay = "spawn_screen"
 anims/RESET = SubResource( 20 )
 anims/spawn_screen = SubResource( 21 )
 
-[node name="bg" type="TextureRect" parent="CanvasLayer"]
+[node name="bg" type="TextureRect" parent="canvas"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 3 )
@@ -238,7 +239,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="sun" type="TextureRect" parent="CanvasLayer/bg"]
+[node name="sun" type="TextureRect" parent="canvas/bg"]
 margin_left = 665.0
 margin_top = 79.0
 margin_right = 929.0
@@ -246,14 +247,14 @@ margin_bottom = 344.0
 texture = ExtResource( 11 )
 expand = true
 
-[node name="backmountains" type="TextureRect" parent="CanvasLayer/bg"]
+[node name="backmountains" type="TextureRect" parent="canvas/bg"]
 material = SubResource( 6 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 1 )
 stretch_mode = 7
 
-[node name="destroyer idle" type="TextureRect" parent="CanvasLayer/bg"]
+[node name="destroyer" type="TextureRect" parent="canvas/bg"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -261,50 +262,51 @@ anchor_bottom = 0.5
 margin_left = -117.0
 margin_top = -312.0
 margin_right = 112.0
-margin_bottom = -165.014
+margin_bottom = -165.016
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/bg/destroyer idle"]
+[node name="TextureRect" type="TextureRect" parent="canvas/bg/destroyer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 6 )
 stretch_mode = 6
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/bg/destroyer idle"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="canvas/bg/destroyer"]
+autoplay = "spawn"
 anims/HIDE = SubResource( 19 )
 anims/RESET = SubResource( 11 )
 anims/hover = SubResource( 12 )
 anims/spawn = SubResource( 13 )
 
-[node name="AnimationTree" type="AnimationTree" parent="CanvasLayer/bg/destroyer idle"]
+[node name="AnimationTree" type="AnimationTree" parent="canvas/bg/destroyer"]
 tree_root = SubResource( 17 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 18 )
 
-[node name="centermountain" type="TextureRect" parent="CanvasLayer/bg"]
+[node name="centermountain" type="TextureRect" parent="canvas/bg"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 4 )
 stretch_mode = 7
 
-[node name="bgtrees" type="TextureRect" parent="CanvasLayer/bg"]
+[node name="bgtrees" type="TextureRect" parent="canvas/bg"]
 material = SubResource( 4 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 2 )
 stretch_mode = 7
 
-[node name="fgtrees" type="TextureRect" parent="CanvasLayer/bg"]
+[node name="fgtrees" type="TextureRect" parent="canvas/bg"]
 material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 5 )
 stretch_mode = 7
 
-[node name="clouds" type="TextureRect" parent="CanvasLayer/bg"]
+[node name="clouds" type="TextureRect" parent="canvas/bg"]
 self_modulate = Color( 1, 1, 1, 0.933333 )
 margin_left = 581.0
 margin_top = 50.0
@@ -314,93 +316,111 @@ texture = ExtResource( 12 )
 expand = true
 stretch_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+[node name="ui" type="Control" parent="canvas"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="labels" type="HBoxContainer" parent="canvas/ui"]
+anchor_top = 0.387
+anchor_right = 1.0
+anchor_bottom = 0.439
+
+[node name="ang" type="Label" parent="canvas/ui/labels"]
+margin_right = 530.0
+margin_bottom = 47.0
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 10 )
+text = "Angelic Upgrades"
+align = 1
+
+[node name="des" type="Label" parent="canvas/ui/labels"]
+margin_left = 534.0
+margin_right = 1065.0
+margin_bottom = 47.0
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 10 )
+text = "The Destroyer"
+align = 1
+
+[node name="dem" type="Label" parent="canvas/ui/labels"]
+margin_left = 1069.0
+margin_right = 1600.0
+margin_bottom = 47.0
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 10 )
+text = "Demonic Upgrades"
+align = 1
+
+[node name="ThemeButton" parent="canvas/ui" instance=ExtResource( 13 )]
+self_modulate = Color( 0.184314, 0.129412, 0.219608, 1 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -170.0
+margin_top = -130.0
+margin_right = 170.0
+margin_bottom = -53.0
+button_text = "Ascend"
+modulate_default = Color( 0.184314, 0.129412, 0.219608, 1 )
+modulate_hover = Color( 0.313726, 0.180392, 0.286275, 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="canvas/ui"]
 anchor_top = 0.08
 anchor_right = 1.0
 anchor_bottom = 0.4
-margin_left = 30.0
-margin_top = -0.200005
-margin_right = -30.0
-margin_bottom = 0.299988
 custom_constants/separation = 70
 alignment = 1
 
-[node name="Button" type="Button" parent="CanvasLayer/HBoxContainer"]
-margin_right = 466.0
+[node name="Button" type="Button" parent="canvas/ui/HBoxContainer"]
+margin_right = 486.0
 margin_bottom = 288.0
 size_flags_horizontal = 3
 flat = true
 
-[node name="Control" type="Control" parent="CanvasLayer/HBoxContainer/Button"]
+[node name="Control" type="Control" parent="canvas/ui/HBoxContainer/Button"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 300, 220 )
 mouse_filter = 1
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HBoxContainer/Button/Control"]
+[node name="TextureRect" type="TextureRect" parent="canvas/ui/HBoxContainer/Button/Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 9 )
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="CanvasLayer/HBoxContainer/Button/Control"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -47.0
-mouse_filter = 1
-custom_fonts/font = SubResource( 10 )
-text = "Angelic Upgrades"
-align = 1
-
-[node name="Button2" type="Button" parent="CanvasLayer/HBoxContainer"]
-margin_left = 536.0
-margin_right = 1003.0
+[node name="Button2" type="Button" parent="canvas/ui/HBoxContainer"]
+margin_left = 556.0
+margin_right = 1043.0
 margin_bottom = 288.0
 size_flags_horizontal = 3
 flat = true
 
-[node name="Control2" type="Control" parent="CanvasLayer/HBoxContainer/Button2"]
+[node name="Button3" type="Button" parent="canvas/ui/HBoxContainer"]
+margin_left = 1113.0
+margin_right = 1600.0
+margin_bottom = 288.0
+size_flags_horizontal = 3
+flat = true
+
+[node name="Control3" type="Control" parent="canvas/ui/HBoxContainer/Button3"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 300, 220 )
 mouse_filter = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/HBoxContainer/Button2/Control2"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -47.0
-mouse_filter = 1
-custom_fonts/font = SubResource( 10 )
-text = "The Destroyer"
-align = 1
-
-[node name="Button3" type="Button" parent="CanvasLayer/HBoxContainer"]
-margin_left = 1073.0
-margin_right = 1540.0
-margin_bottom = 288.0
-size_flags_horizontal = 3
-flat = true
-
-[node name="Control3" type="Control" parent="CanvasLayer/HBoxContainer/Button3"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_min_size = Vector2( 300, 220 )
-mouse_filter = 1
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HBoxContainer/Button3/Control3"]
+[node name="TextureRect" type="TextureRect" parent="canvas/ui/HBoxContainer/Button3/Control3"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 10 )
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="CanvasLayer/HBoxContainer/Button3/Control3"]
-anchor_top = 1.0
+[node name="fader" type="ColorRect" parent="canvas"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -47.0
-mouse_filter = 1
-custom_fonts/font = SubResource( 10 )
-text = "Demonic Upgrades"
-align = 1
+color = Color( 1, 1, 1, 0.270588 )

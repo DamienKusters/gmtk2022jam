@@ -15,7 +15,8 @@ func _ready():
 	Globals.connect("damageEnemy", self, "damage");
 	respawnEnemy();
 	$"../VBoxContainer/u_ascend".visible = false;
-	$"../VBoxContainer/Control/HBoxContainer".visible = false;
+	$"../VBoxContainer/inv_basic".visible = true
+	$"../VBoxContainer/inv_advanced".visible = false
 	if Globals.feathers > 0:
 		showAscendUpgrade();
 	
@@ -97,9 +98,9 @@ func playRandomDamageSound():
 	$AudioDamage.play()
 
 func showAscendUpgrade():
-	$"../VBoxContainer/u_ascend".visible = true;
-	$"../VBoxContainer/Control/Label".align = HALIGN_LEFT;
-	$"../VBoxContainer/Control/HBoxContainer".visible = true;
+	$"../VBoxContainer/u_ascend".visible = true
+	$"../VBoxContainer/inv_basic".visible = false
+	$"../VBoxContainer/inv_advanced".visible = true
 
 func set_multiplier_text():
 	$VBoxContainer/Label.text = "Damage x " + String(Globals.ascention_dps_multiplier_value)
