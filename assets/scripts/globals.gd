@@ -147,92 +147,49 @@ var enemy_pool = [
 		EnemyModel.new("Hobgoblin", 95, 111, "Regular_Goblin"),
 		EnemyModel.new("Ogre", 120, 150),
 		EnemyModel.new("Orc", 190, 200, "Orc", Enums.DiceEnum.D4),
-	], .02),#lower slightly?
+	], .03),
 	EnemyTier.new([
 		EnemyModel.new("Living Roots", 250, 200, "AnimatedPlant"),
 		EnemyModel.new("Treant", 290, 250),
 		EnemyModel.new("Gaia", 320, 290),
 		EnemyModel.new("Golem", 430, 444, "Nature_Gorilla", Enums.DiceEnum.D6),
-	], .04),#lower slightly? nah
+	], .04),
 	EnemyTier.new([
 		EnemyModel.new("Pirate", 680, 500),
 		EnemyModel.new("Barbarian", 800, 550, "Bigfoot"),
 		EnemyModel.new("Bandit", 900, 600),
-		EnemyModel.new("Minotaur", 1300, 666, "Minotaur",Enums.DiceEnum.D8),
-	], .05),## All prior stuff is balanced quite good (x12 dmg and got 7 fets in small time)
-	EnemyTier.new([# x12 is doable -> thats too high (x6 +) test this out
-		EnemyModel.new("Pixie", 2100, 880, "Fairy"),
-		EnemyModel.new("Witch", 3000, 900),
-		EnemyModel.new("Fairy", 5000, 1000, "Pixie_Man"),
+		EnemyModel.new("Minotaur", 1300, 700, "Minotaur",Enums.DiceEnum.D8),
+	], .05),
+	EnemyTier.new([
+		EnemyModel.new("Pixie", 2100, 900, "Fairy"),
+		EnemyModel.new("Witch", 3000, 1000),
+		EnemyModel.new("Fairy", 5000, 1200, "Pixie_Man"),
 		EnemyModel.new("Nymph", 7000, 1550, "Earth_Lady",Enums.DiceEnum.D10),
 	], .06),
-	EnemyTier.new([#Too buffed! boss is hard with x12 dmg maxed -> 12 is half of the dice so or x8 should suffice create new hp and currency balance
-		EnemyModel.new("Skeleton", 14000, 2000),
-		EnemyModel.new("Wrath", 16000, 2100),
-		EnemyModel.new("Wizard", 18000, 2300),
-		EnemyModel.new("Necromancer", 21000, 2700, "Necromancer",Enums.DiceEnum.D12),
-	], .07),
-	EnemyTier.new([# 12x must be difficult -> use hp from previous tier!!!!!
-		EnemyModel.new("Earth Elemental", 16000, 2100, "Earth_Elemental",Enums.DiceEnum.D10),
-		EnemyModel.new("Water Elemental", 18000, 2300, "Water_Elemental",Enums.DiceEnum.D10),
-		EnemyModel.new("Fire Elemental", 19000, 2700, "Fire_Elemental",Enums.DiceEnum.D12),
-		EnemyModel.new("Power Elemental", 21000, 3000, "Volt_Elemental",Enums.DiceEnum.D12),
+	EnemyTier.new([
+		EnemyModel.new("Skeleton", 8000, 1800),
+		EnemyModel.new("Wizard", 10500, 2023),
+		EnemyModel.new("Wrath", 11500, 2200),
+		EnemyModel.new("Necromancer", 13000, 2500, "Necromancer",Enums.DiceEnum.D12),
+	], .06),
+	EnemyTier.new([
+		EnemyModel.new("Earth Elemental", 19000, 2700, "Earth_Elemental",Enums.DiceEnum.D10),
+		EnemyModel.new("Water Elemental", 20000, 2900, "Water_Elemental",Enums.DiceEnum.D10),
+		EnemyModel.new("Fire Elemental", 22000, 3000, "Fire_Elemental",Enums.DiceEnum.D12),
+		EnemyModel.new("Power Elemental", 23000, 3300, "Volt_Elemental",Enums.DiceEnum.D12),
 	], .08),
-	EnemyTier.new([# higher then x14 for light and dark higher then x16 for angel higher then x19 for demon? 
-		#redo tier with 1 special enemy? remove demon for 'shadow dark update?'
-		EnemyModel.new("Light", 1, 1),
-		EnemyModel.new("Darkness", 1, 1),
-		EnemyModel.new("Demon Lord", 1, 1, "Demon", null, Enums.LootType.DEMON_FEATHER),
-		EnemyModel.new("Angel", 1, 1, "Angel", null, Enums.LootType.FEATHER),
+	EnemyTier.new([
+		EnemyModel.new("Angel", 32000, 0, "Angel", null, Enums.LootType.FEATHER),
+		EnemyModel.new("Light", 38000, 4000),
+		EnemyModel.new("Light", 38000, 4000),
+		#TODO: demon
+#		EnemyModel.new("Demon Lord", 55000, 666, "Demon", Enums.DiceEnum.D20, Enums.LootType.DEMON_FEATHER),
+		EnemyModel.new("Darkness", 40000, 5000),
 	], 0),
-	EnemyTier.new([# x18 or higher to kill, need buffer enemies? or make this one difficult as it is (reuse bosses?)
-		EnemyModel.new("Destroyer Drone", 40000, 0, "DestroyerV1", null, Enums.LootType.GEAR),
+	EnemyTier.new([
+		EnemyModel.new("Destroyer Drone", 70000, 0, "DestroyerV1", null, Enums.LootType.GEAR),
 	], 0),
 ]
-
-#var old_enemy_pool = [
-#	EnemyTier.new([
-#		EnemyModel.new("Slime", 4, 5),
-#		EnemyModel.new("Bird", 6, 7),
-#		EnemyModel.new("Wolf", 9, 10),
-#		EnemyModel.new("Goblin", 25, 20, "Regular_Goblin"),
-#	], 0),
-#	EnemyTier.new([
-#		EnemyModel.new("Cobalt Wolf", 26, 50,"Cobald_Wolf"),
-#		EnemyModel.new("Hobgoblin", 30, 60,"Elite_Goblin"),
-#		EnemyModel.new("Pirate", 35, 70),
-#		EnemyModel.new("Bandit", 55, 70),
-#	], 0),
-#	EnemyTier.new([
-#		EnemyModel.new("Witch", 65, 100),
-#		EnemyModel.new("Gaia", 95, 111),
-#		EnemyModel.new("Minotaur", 120, 150),
-#		EnemyModel.new("Golem", 190, 200, "Nature_Gorilla",Enums.DiceEnum.D4),
-#	], .001),
-#	EnemyTier.new([
-#		EnemyModel.new("Pixie", 250, 200, "Earth_Lady"),
-#		EnemyModel.new("Fairy", 290, 250, "Pixie_Man"),
-#		EnemyModel.new("Wrath", 320,290),
-#		EnemyModel.new("Necromancer", 430, 444, "Necromancer",Enums.DiceEnum.D6),
-#	], .001),
-#	EnemyTier.new([
-#		EnemyModel.new("Demon Pixie", 620, 500, "Earth_Lady_Vampire"),
-#		EnemyModel.new("Demon Fairy", 650, 550, "Pixie_Man_Vampire"),
-#		EnemyModel.new("Lich", 800,600),
-#		EnemyModel.new("Demon Lord", 1200, 666, "Demon",Enums.DiceEnum.D8),
-#	], .005),
-#	EnemyTier.new([
-#		EnemyModel.new("Earth Elemental", 2000, 800, "Earth_Elemental",Enums.DiceEnum.D10),
-#		EnemyModel.new("Water Elemental", 4000, 1000, "Water_Elemental",Enums.DiceEnum.D12),
-#		EnemyModel.new("Fire Elemental", 3000, 900, "Fire_Elemental",Enums.DiceEnum.D12),
-#		EnemyModel.new("Power Elemental", 5000,1100, "Volt_Elemental",Enums.DiceEnum.D10),
-#	], .05),
-#	EnemyTier.new([
-#		EnemyModel.new("Light", 8500, 1111, "Light", null, Enums.DiceEnum.D12),
-#		EnemyModel.new("Darkness", 8500, 1111, "Darkness", null, Enums.DiceEnum.D10),
-#		EnemyModel.new("Angel", 10000, 0, "Angel", null, Enums.LootType.FEATHER),
-#	], .1),
-#]
 
 func getDiceData(enumValue):
 	return diceData[int(enumValue)];

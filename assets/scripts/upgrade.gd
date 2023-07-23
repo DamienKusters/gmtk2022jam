@@ -23,6 +23,7 @@ var lockedEnemies = {
 	"Nymph":[false, "res://assets/sprites/enemies/Earth_Lady.png"],
 	"Necromancer":[false, "res://assets/sprites/enemies/Necromancer.png"],
 	"Power Elemental":[false, "res://assets/sprites/enemies/Volt_Elemental.png"],
+	"Darkness":[false, "res://assets/sprites/enemies/Darkness.png"],
 };
 #var oldlockedEnemies = {
 #	"Goblin":[false, "res://assets/sprites/enemies/Regular_Goblin.png"],

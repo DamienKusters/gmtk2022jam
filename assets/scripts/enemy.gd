@@ -5,7 +5,6 @@ onready var particleFeather = preload("res://scenes/shared/single_particle_effec
 
 var enemy: EnemyModel
 var enemyHasFeather: bool
-var timeLeft = -1;
 var enemyHealth = 0;
 var enemyShield = null;
 var rng = RandomNumberGenerator.new();
@@ -46,13 +45,13 @@ func respawnEnemy():
 	$Control/VBoxContainer/TextureProgress.max_value = enemy.health;
 	$Control/VBoxContainer/TextureProgress.value = enemy.health;
 	
-	timeLeft = 8;
-	$Control/VBoxContainer/TextureProgress2.max_value = timeLeft;
-	$Control/VBoxContainer/TextureProgress2.value = timeLeft;
+	$Control/VBoxContainer/TextureProgress2.max_value = 10;
+	$Control/VBoxContainer/TextureProgress2.value = 10;
 	
 	$EnemyContainer/AnimationPlayer.play("spawn");
-	$Tween.interpolate_property($Control/VBoxContainer/TextureProgress2, "value", float(timeLeft), 0.1, timeLeft+1, Tween.TRANS_LINEAR);
+	$Tween.interpolate_property($Control/VBoxContainer/TextureProgress2, "value", 10, 0, $Timer.wait_time, Tween.TRANS_LINEAR);
 	$Tween.start();
+	$Timer.start()
 	
 	if enemy.shield != null:
 		$Shield.setData(enemy.shield);
@@ -90,9 +89,7 @@ func damage(value: int, dice: Node2D):
 	pass
 
 func _on_Timer_timeout():
-	timeLeft = timeLeft -1
-	if(timeLeft < 0):
-		respawnEnemy()
+	respawnEnemy()
 
 func playRandomDamageSound():
 	rng.randomize()

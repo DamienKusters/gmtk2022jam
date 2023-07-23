@@ -12,7 +12,7 @@
 [ext_resource path="res://scenes/ascention_dice_button.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/ThemeButton.tscn" type="PackedScene" id=11]
 
-[sub_resource type="Shader" id=5]
+[sub_resource type="Shader" id=7]
 code = "shader_type canvas_item;
 
 uniform float speed;
@@ -22,10 +22,10 @@ void fragment () {
 }"
 
 [sub_resource type="ShaderMaterial" id=6]
-shader = SubResource( 5 )
+shader = SubResource( 7 )
 shader_param/speed = -0.003
 
-[sub_resource type="Shader" id=3]
+[sub_resource type="Shader" id=8]
 code = "shader_type canvas_item;
 
 uniform float speed;
@@ -35,10 +35,10 @@ void fragment () {
 }"
 
 [sub_resource type="ShaderMaterial" id=4]
-shader = SubResource( 3 )
+shader = SubResource( 8 )
 shader_param/speed = 0.03
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="Shader" id=9]
 code = "shader_type canvas_item;
 
 uniform float speed;
@@ -48,16 +48,16 @@ void fragment () {
 }"
 
 [sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
+shader = SubResource( 9 )
 shader_param/speed = 0.06
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=11]
 size = 80
 outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=12]
 size = 60
 outline_size = 3
 outline_color = Color( 0.196078, 0.196078, 0.196078, 1 )
@@ -119,7 +119,7 @@ margin_left = 258.0
 margin_top = 37.0
 margin_right = 491.0
 margin_bottom = 142.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 11 )
 text = "x 99999"
 align = 1
 valign = 1
@@ -150,7 +150,7 @@ margin_top = 24.0
 margin_right = 451.0
 margin_bottom = 103.0
 size_flags_horizontal = 3
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 12 )
 text = "Damage Modifier"
 align = 2
 
@@ -170,7 +170,7 @@ margin_top = 24.0
 margin_right = 451.0
 margin_bottom = 103.0
 size_flags_horizontal = 3
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 12 )
 text = "Re-roller Level"
 align = 2
 
