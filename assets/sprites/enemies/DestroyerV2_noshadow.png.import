@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cover1.png-bd108d8a64919a749a2f42cbfb4ea2d2.stex"
+path="res://.import/DestroyerV2_noshadow.png-909d1fafc603a7904a04660a9386fdab.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://branding/cover1.png"
-dest_files=[ "res://.import/cover1.png-bd108d8a64919a749a2f42cbfb4ea2d2.stex" ]
+source_file="res://assets/sprites/enemies/DestroyerV2_noshadow.png"
+dest_files=[ "res://.import/DestroyerV2_noshadow.png-909d1fafc603a7904a04660a9386fdab.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

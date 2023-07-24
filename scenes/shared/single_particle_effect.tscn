@@ -8,7 +8,6 @@ offsets = PoolRealArray( 0, 0.607735, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [node name="SingleParticleEffect" type="CPUParticles2D"]
-position = Vector2( 412, 54 )
 emitting = false
 amount = 20
 lifetime = 0.7
@@ -16,6 +15,7 @@ one_shot = true
 speed_scale = 1.58
 explosiveness = 0.65
 randomness = 0.16
+local_coords = false
 texture = ExtResource( 2 )
 emission_shape = 1
 emission_sphere_radius = 19.79

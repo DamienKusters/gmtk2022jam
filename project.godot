@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Upgrade",
+"class": "AddDiceUpgrade",
+"language": "GDScript",
+"path": "res://resources/upgrade/add_dice_upgrade.gd"
+}, {
+"base": "Upgrade",
+"class": "ContractUpgrade",
+"language": "GDScript",
+"path": "res://resources/upgrade/contract_upgrade.gd"
+}, {
 "base": "Reference",
 "class": "EnemyModel",
 "language": "GDScript",
@@ -24,30 +34,41 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://models/enemy_tier.gd"
 }, {
-"base": "EnemyModel",
-"class": "HardEnemyModel",
+"base": "Resource",
+"class": "Upgrade",
 "language": "GDScript",
-"path": "res://models/hard_enemy_model.gd"
+"path": "res://resources/upgrade/upgrade_resource.gd"
+}, {
+"base": "Reference",
+"class": "UpgradeModel",
+"language": "GDScript",
+"path": "res://models/upgrade_model.gd"
 } ]
 _global_script_class_icons={
+"AddDiceUpgrade": "",
+"ContractUpgrade": "",
 "EnemyModel": "",
 "EnemyPool": "",
 "EnemyTier": "",
-"HardEnemyModel": ""
+"Upgrade": "",
+"UpgradeModel": ""
 }
 
 [application]
 
 config/name="Dice & Dragons - Extended"
 run/main_scene="res://scenes/main.tscn"
-boot_splash/image="res://branding/logo_extended.png"
+boot_splash/image="res://assets/sprites/logo_extended.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0.156863, 0.156863, 0.188235, 1 )
 config/icon="res://icon.png"
 
 [autoload]
 
-Globals="*res://assets/scripts/globals.gd"
+Enums="*res://assets/scripts/_enums.gd"
+Database="*res://assets/scripts/_database.gd"
+Save="*res://assets/scripts/_save.gd"
+Globals="*res://assets/scripts/_globals.gd"
 
 [display]
 

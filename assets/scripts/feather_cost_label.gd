@@ -2,14 +2,11 @@ extends HBoxContainer
 
 onready var g = $"/root/Globals";
 
-export var value = 1 setget setValue, getValue;
+export var value = 1 setget setValue;
 
 func _ready():
 	updateLabel();
 	g.connect("feathersUpdated", self, "updateLabel");
-
-func getValue():
-	return value;
 
 func setValue(v):
 	value = v;

@@ -17,8 +17,8 @@ export var level = 0;
 var reroll_price = 1;
 var upgrade_price = 2;
 
-func setPrepend(value):
-	prepend = value;
+func setPrepend(v):
+	prepend = v;
 	$List/PrependLabel.text = prepend;
 	
 func getPrepend():

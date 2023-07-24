@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ui layout detail.png-e1b8eed2811dd03a53096e8f209ee4e6.stex"
+path="res://.import/Descend_Icon.png-ee0d05ea27c50796724e9cb6c4357f9b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/ui layout detail.png"
-dest_files=[ "res://.import/ui layout detail.png-e1b8eed2811dd03a53096e8f209ee4e6.stex" ]
+source_file="res://assets/sprites/upgrades/Descend_Icon.png"
+dest_files=[ "res://.import/Descend_Icon.png-ee0d05ea27c50796724e9cb6c4357f9b.stex" ]
 
 [params]
 

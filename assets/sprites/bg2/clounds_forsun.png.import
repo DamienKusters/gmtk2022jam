@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/upgrade_item.png-5e5cf03a78b82c0107eb0bb6f987ffc8.stex"
+path="res://.import/clounds_forsun.png-4bd207f731065418e6a9da0a2fcf52ca.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/ui/upgrade_item.png"
-dest_files=[ "res://.import/upgrade_item.png-5e5cf03a78b82c0107eb0bb6f987ffc8.stex" ]
+source_file="res://assets/sprites/bg2/clounds_forsun.png"
+dest_files=[ "res://.import/clounds_forsun.png-4bd207f731065418e6a9da0a2fcf52ca.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

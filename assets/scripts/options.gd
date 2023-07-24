@@ -28,7 +28,7 @@ func _on_Save_button_clicked():
 	var saved = Globals.saveGame();
 	if saved == true:
 		$"HBoxContainer/SaveButtons/Reset Info".visible = false;
-		$HBoxContainer/SaveButtons/Save.button_text = "Game Saved!"
+		$HBoxContainer/SaveButtons/HBoxContainer/Save.button_text = "Game Saved!"
 	
 func _on_ResetSave_button_clicked():
 	var file = File.new()
@@ -40,4 +40,4 @@ func _on_ResetSave_button_clicked():
 		resetSaveButtonText();
 
 func resetSaveButtonText():
-	$HBoxContainer/SaveButtons/Save.button_text = "Save Game"
+	$HBoxContainer/SaveButtons/HBoxContainer/Save.button_text = "Save Game"

@@ -1,7 +1,7 @@
-extends Button
-
-func _on_Button_button_down():
-	$"../About".visible = true;
+extends Control
 
 func _on_ThemeButton2_button_clicked():
 	$"../Options".visible = true;
+
+func _on_ThemeButton_button_clicked():
+	$"../About".visible = true;

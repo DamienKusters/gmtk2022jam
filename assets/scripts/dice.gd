@@ -1,16 +1,12 @@
 extends Node2D
 
-onready var g = $"/root/Globals";
-
 var rollSounds = [
 	preload("res://assets/sound/dice/roll2.mp3"),
 	preload("res://assets/sound/dice/roll3.mp3"),
 	preload("res://assets/sound/dice/roll4.mp3"),
 ];
 
-enum DiceEnum { D4, D6, D8, D10, D12, D20 };
-
-export(DiceEnum) var kind;
+export(Enums.DiceEnum) var kind;
 export(float) var minRollingSpeed = .5;
 
 var maxVal = 4;
@@ -24,7 +20,7 @@ func _ready():
 	$Label.text = "";
 	
 func updateDice():
-	var diceData = g.getDiceData(kind);
+	var diceData = Globals.getDiceData(kind);
 	$Sprite.texture = load(diceData['texture']);
 	$Sprite.self_modulate = diceData['color'];
 	maxVal = diceData['value'];
@@ -35,7 +31,7 @@ func roll():
 	rolling = true;
 	$Tween.stop_all();
 	rng.randomize();
-	$Timer.wait_time = rng.randf_range(minRollingSpeed,g.maxDiceRollTime);
+	$Timer.wait_time = rng.randf_range(minRollingSpeed,Globals.maxDiceRollTime);
 	$Timer.start();
 	$Sprite/AnimationPlayer.play("RESET");
 	$Sprite/AnimationPlayer.play("rotate");
@@ -70,7 +66,7 @@ func _on_Timer_timeout():
 	$Label2/AnimationPlayer.play("RESET");
 	$Label2/AnimationPlayer.play("hit");
 	
-	g.damageCurrentEnemy(value, self);
+	Globals.emit_signal("damageEnemy", value, self);
 
 func _on_Area2D_mouse_entered():
 	if rolling == false:
