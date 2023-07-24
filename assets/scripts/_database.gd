@@ -91,10 +91,11 @@ var enemy_pool = [
 	], 0),
 	EnemyTier.new([
 		#TODO: new upgrades to make it possible to destroy this one
-		EnemyModel.new("Destroyer Drone", 400000, 0, "DestroyerV1", null, Enums.LootType.GEAR),
+		EnemyModel.new("Destroyer Drone", 400000, 0, "DestroyerV1", null, Enums.LootType.BOLT),
 	], 0),
 ]
 
+#var upgrades
 #func loadUpgrades():
 #	return [
 #		UpgradeModel.new(
