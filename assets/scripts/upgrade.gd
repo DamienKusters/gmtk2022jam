@@ -49,23 +49,22 @@ func _ready():
 	
 	updateUi();
 	if(kind == 1):
-		Globals.connect("upgradeDiceSuccess", self, "applyNextLevelUiUpdate");
+		var _a = Globals.connect("upgradeDiceSuccess", self, "applyNextLevelUiUpdate");
 	if(kind == 4):
 		if Globals.upgrade_save_overrides == null:
 			level = Globals.ascention_reroller_value;
 			for i in level:
 				price =+ calculatePriceIncrease(price,levelupPriceIncrease,levelupPricePercentIncrease);
 		updateUi();
-		Globals.connect("damageEnemy", self, "enemyDamaged");
+		var _a = Globals.connect("damageEnemy", self, "enemyDamaged");
 		emit_signal("levelChanged");	
 	if(kind == 6):
-		Globals.connect("enemyKilled", self, "enemyKilled");
-		var _e = $Tween.connect("tween_all_completed", self, "tween_completed");
+		var _a = Globals.connect("enemyKilled", self, "enemyKilled");
 		locked = level < levelCap;
 		$enemyLocker.visible = false;
 		setContract();
 	$enemyLocker.visible = false;
-	Globals.connect("currencyUpdated", self, "setPayable");
+	var _a = Globals.connect("currencyUpdated", self, "setPayable");
 	setPayable(Globals.currency);
 	if kind == Enums.Upgrade.ASCEND:
 		$TextureRect.self_modulate = Color('f2ff56');

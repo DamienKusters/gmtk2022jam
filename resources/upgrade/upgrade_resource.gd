@@ -43,7 +43,7 @@ func calculatePriceIncrease(_current_price, _price_increase_value, _price_increa
 func tryImportSave():
 	if Globals.upgrade_save_overrides == null:
 		return false
-	var save = Globals.upgrade_save_overrides.split("/")
+	var _a = Globals.upgrade_save_overrides.split("/")
 	
 	return true
 

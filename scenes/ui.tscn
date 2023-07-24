@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=2]
+[gd_scene load_steps=73 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
@@ -12,7 +12,7 @@
 [ext_resource path="res://assets/sprites/upgrades/Dungeon_Master_Icon.png" type="Texture" id=10]
 [ext_resource path="res://assets/sprites/upgrades/Upgrade_Dice_Icon.png" type="Texture" id=11]
 [ext_resource path="res://assets/sprites/upgrades/Dice_Tower.png" type="Texture" id=12]
-[ext_resource path="res://assets/sprites/ui/upgrade_item.png" type="Texture" id=13]
+[ext_resource path="res://assets/sprites/ui/upgrade/upgrade_box.png" type="Texture" id=13]
 [ext_resource path="res://assets/sprites/fader.png" type="Texture" id=14]
 [ext_resource path="res://assets/sprites/icons/arrow_right_curve.png" type="Texture" id=15]
 [ext_resource path="res://assets/scripts/removeSelf.gd" type="Script" id=16]
@@ -506,10 +506,6 @@ tracks/2/keys = {
 "values": [ -549, 0 ]
 }
 
-[sub_resource type="DynamicFont" id=13]
-size = 34
-font_data = ExtResource( 2 )
-
 [sub_resource type="DynamicFont" id=10]
 size = 77
 font_data = ExtResource( 2 )
@@ -597,20 +593,24 @@ anchor_right = 1.0
 anchor_bottom = 0.85
 custom_constants/separation = -5
 
-[node name="inv_basic" type="Control" parent="uiRoot/VBoxContainer"]
-visible = false
+[node name="inventory" type="NinePatchRect" parent="uiRoot/VBoxContainer"]
+self_modulate = Color( 0.368627, 0.207843, 0.0784314, 1 )
 margin_right = 480.0
 margin_bottom = 100.0
-rect_min_size = Vector2( 0, 100 )
+rect_min_size = Vector2( 480, 100 )
+texture = ExtResource( 13 )
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 5
+patch_margin_bottom = 20
 
-[node name="TextureRect2" type="TextureRect" parent="uiRoot/VBoxContainer/inv_basic"]
-self_modulate = Color( 0.623529, 0.513726, 0.384314, 1 )
+[node name="inv_basic" type="Control" parent="uiRoot/VBoxContainer/inventory"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 13 )
-expand = true
+rect_min_size = Vector2( 0, 100 )
 
-[node name="Label" type="Label" parent="uiRoot/VBoxContainer/inv_basic"]
+[node name="Label" type="Label" parent="uiRoot/VBoxContainer/inventory/inv_basic"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 30.0
@@ -622,19 +622,12 @@ align = 1
 valign = 1
 script = ExtResource( 6 )
 
-[node name="inv_advanced" type="Control" parent="uiRoot/VBoxContainer"]
-margin_right = 480.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 0, 100 )
-
-[node name="TextureRect2" type="TextureRect" parent="uiRoot/VBoxContainer/inv_advanced"]
-self_modulate = Color( 0.623529, 0.513726, 0.384314, 1 )
+[node name="inv_advanced" type="Control" parent="uiRoot/VBoxContainer/inventory"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 13 )
-expand = true
+rect_min_size = Vector2( 0, 100 )
 
-[node name="Label" type="Label" parent="uiRoot/VBoxContainer/inv_advanced"]
+[node name="Label" type="Label" parent="uiRoot/VBoxContainer/inventory/inv_advanced"]
 anchor_right = 1.0
 anchor_bottom = 0.53
 custom_colors/font_color = Color( 0.847059, 0.831373, 0, 1 )
@@ -644,18 +637,18 @@ align = 1
 valign = 1
 script = ExtResource( 6 )
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="uiRoot/VBoxContainer/inv_advanced"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="uiRoot/VBoxContainer/inventory/inv_advanced"]
 anchor_top = 0.53
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="feathers" type="HBoxContainer" parent="uiRoot/VBoxContainer/inv_advanced/HBoxContainer2"]
+[node name="feathers" type="HBoxContainer" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2"]
 margin_left = 25.0
 margin_right = 131.0
 margin_bottom = 47.0
 size_flags_horizontal = 6
 
-[node name="TextureRect" type="TextureRect" parent="uiRoot/VBoxContainer/inv_advanced/HBoxContainer2/feathers"]
+[node name="TextureRect" type="TextureRect" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2/feathers"]
 margin_right = 35.0
 margin_bottom = 47.0
 rect_min_size = Vector2( 35, 35 )
@@ -663,7 +656,7 @@ texture = ExtResource( 29 )
 expand = true
 stretch_mode = 6
 
-[node name="LabelFeathers" type="Label" parent="uiRoot/VBoxContainer/inv_advanced/HBoxContainer2/feathers"]
+[node name="LabelFeathers" type="Label" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2/feathers"]
 margin_left = 39.0
 margin_top = 1.0
 margin_right = 106.0
@@ -674,14 +667,14 @@ align = 1
 valign = 1
 script = ExtResource( 32 )
 
-[node name="gears" type="HBoxContainer" parent="uiRoot/VBoxContainer/inv_advanced/HBoxContainer2"]
+[node name="gears" type="HBoxContainer" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2"]
 margin_left = 186.0
 margin_right = 292.0
 margin_bottom = 47.0
 size_flags_horizontal = 6
 alignment = 2
 
-[node name="TextureRect" type="TextureRect" parent="uiRoot/VBoxContainer/inv_advanced/HBoxContainer2/gears"]
+[node name="TextureRect" type="TextureRect" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2/gears"]
 margin_right = 35.0
 margin_bottom = 47.0
 rect_min_size = Vector2( 35, 35 )
@@ -689,7 +682,7 @@ texture = ExtResource( 41 )
 expand = true
 stretch_mode = 6
 
-[node name="LabelFeathers" type="Label" parent="uiRoot/VBoxContainer/inv_advanced/HBoxContainer2/gears"]
+[node name="LabelFeathers" type="Label" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2/gears"]
 margin_left = 39.0
 margin_top = 1.0
 margin_right = 106.0
@@ -700,14 +693,14 @@ align = 1
 valign = 1
 script = ExtResource( 32 )
 
-[node name="demonfeathers" type="HBoxContainer" parent="uiRoot/VBoxContainer/inv_advanced/HBoxContainer2"]
+[node name="demonfeathers" type="HBoxContainer" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2"]
 margin_left = 348.0
 margin_right = 454.0
 margin_bottom = 47.0
 size_flags_horizontal = 6
 alignment = 2
 
-[node name="TextureRect" type="TextureRect" parent="uiRoot/VBoxContainer/inv_advanced/HBoxContainer2/demonfeathers"]
+[node name="TextureRect" type="TextureRect" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2/demonfeathers"]
 margin_right = 35.0
 margin_bottom = 47.0
 rect_min_size = Vector2( 35, 35 )
@@ -715,7 +708,7 @@ texture = ExtResource( 9 )
 expand = true
 stretch_mode = 6
 
-[node name="LabelFeathers" type="Label" parent="uiRoot/VBoxContainer/inv_advanced/HBoxContainer2/demonfeathers"]
+[node name="LabelFeathers" type="Label" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2/demonfeathers"]
 margin_left = 39.0
 margin_top = 1.0
 margin_right = 106.0
@@ -1006,8 +999,8 @@ margin_bottom = 110.0
 
 [node name="Label2" parent="uiRoot/enemyUi/VBoxContainer" instance=ExtResource( 40 )]
 visible = false
-margin_top = 57.0
-margin_bottom = 110.0
+margin_top = 114.0
+margin_bottom = 167.0
 text = "Combo x 100"
 
 [node name="dpsTimer" type="Timer" parent="uiRoot/enemyUi"]
@@ -1043,45 +1036,41 @@ anims/fade_up = SubResource( 22 )
 wait_time = 1.5
 one_shot = true
 
-[node name="Button" type="Button" parent="uiRoot"]
-visible = false
-anchor_left = 0.7
-anchor_top = 0.85
+[node name="Control" type="Control" parent="uiRoot"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 90.0
-margin_top = 30.0
-margin_right = -90.0
-margin_bottom = -30.0
-custom_fonts/font = SubResource( 13 )
-text = "Credits"
+mouse_filter = 2
 script = ExtResource( 20 )
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="ThemeButton2" parent="uiRoot" instance=ExtResource( 33 )]
+[node name="ThemeButton2" parent="uiRoot/Control" instance=ExtResource( 33 )]
 self_modulate = Color( 0.254902, 0.176471, 0.0901961, 1 )
 anchor_left = 0.7
 anchor_top = 0.85
 anchor_right = 0.85
 anchor_bottom = 1.0
-margin_left = 20.0
+margin_left = 15.0
 margin_top = 30.0
-margin_right = -20.0
+margin_right = -15.0
 margin_bottom = -30.0
 button_text = "Options"
 
-[node name="ThemeButton" parent="uiRoot" instance=ExtResource( 33 )]
+[node name="ThemeButton" parent="uiRoot/Control" instance=ExtResource( 33 )]
 self_modulate = Color( 0.254902, 0.176471, 0.0901961, 1 )
 anchor_left = 0.85
 anchor_top = 0.85
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 20.0
+margin_left = 15.0
 margin_top = 30.0
-margin_right = -20.0
+margin_right = -15.0
 margin_bottom = -30.0
 button_text = "Credits"
 
 [node name="TextureRect" type="TextureRect" parent="uiRoot"]
+visible = false
 margin_left = -1369.0
 margin_top = -980.0
 margin_right = 1677.0
@@ -1536,13 +1525,16 @@ To permanently remove your save, refresh the web-page.
 To restore your save, click the 'Save Game' button again."
 align = 1
 
-[node name="ColorRect" type="ColorRect" parent="uiRoot"]
+[node name="IntroFader" type="ColorRect" parent="uiRoot"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.266667, 0.188235, 0.145098, 0 )
 script = ExtResource( 36 )
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="uiRoot/ColorRect"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="uiRoot/IntroFader"]
 autoplay = "spawn"
 anims/RESET = SubResource( 34 )
 anims/spawn = SubResource( 35 )
@@ -1550,9 +1542,8 @@ anims/spawn = SubResource( 35 )
 [connection signal="timeout" from="uiRoot/enemyUi/Timer" to="uiRoot/enemyUi" method="_on_Timer_timeout"]
 [connection signal="timeout" from="uiRoot/enemyUi/dpsTimer" to="uiRoot/enemyUi" method="_on_dpsTimer_timeout"]
 [connection signal="timeout" from="uiRoot/enemyUi/Control2/Timer" to="uiRoot/enemyUi/Control2" method="_on_Timer_timeout"]
-[connection signal="button_down" from="uiRoot/Button" to="uiRoot/Button" method="_on_Button_button_down"]
-[connection signal="button_clicked" from="uiRoot/ThemeButton2" to="uiRoot/Button" method="_on_ThemeButton2_button_clicked"]
-[connection signal="button_clicked" from="uiRoot/ThemeButton" to="uiRoot/Button" method="_on_Button_button_down"]
+[connection signal="button_clicked" from="uiRoot/Control/ThemeButton2" to="uiRoot/Control" method="_on_ThemeButton2_button_clicked"]
+[connection signal="button_clicked" from="uiRoot/Control/ThemeButton" to="uiRoot/Control" method="_on_ThemeButton_button_clicked"]
 [connection signal="button_down" from="uiRoot/TextureRect/Button" to="uiRoot/TextureRect" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/About/Button2" to="uiRoot/About" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/Help/Button" to="uiRoot/Help" method="_on_Button_button_down"]
