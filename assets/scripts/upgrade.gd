@@ -25,14 +25,6 @@ var lockedEnemies = {
 	"Power Elemental":[false, "res://assets/sprites/enemies/Volt_Elemental.png"],
 	"Darkness":[false, "res://assets/sprites/enemies/Darkness.png"],
 };
-#var oldlockedEnemies = {
-#	"Goblin":[false, "res://assets/sprites/enemies/Regular_Goblin.png"],
-#	"Bandit":[false, "res://assets/sprites/enemies/Bandit.png"],
-#	"Golem":[false, "res://assets/sprites/enemies/Nature_Gorilla.png"],
-#	"Necromancer":[false, "res://assets/sprites/enemies/Necromancer.png"],
-#	"Demon Lord":[false, "res://assets/sprites/enemies/Demon.png"],
-#	"Power Elemental":[false, "res://assets/sprites/enemies/Volt_Elemental.png"],
-#};
 var killedEnemies = [];
 
 var level = 0;
@@ -67,7 +59,7 @@ func _ready():
 	var _a = Globals.connect("currencyUpdated", self, "setPayable");
 	setPayable(Globals.currency);
 	if kind == Enums.Upgrade.ASCEND:
-		$TextureRect.self_modulate = Color('f2ff56');
+		$bg.self_modulate = Color('8E6811');
 	
 func updateUi():
 	$LabelPrice.text = String(price);
@@ -150,7 +142,7 @@ func applyNextLevelUiUpdate():
 	price =+ calculatePriceIncrease(price,levelupPriceIncrease,levelupPricePercentIncrease);
 	updateUi();
 	setPayable(Globals.currency);
-	emit_signal("levelChanged");	
+	emit_signal("levelChanged");
 	return true;
 
 func calculatePriceIncrease(_currentPrice, _priceIncreaseValue, _priceIncreasePercent):
@@ -163,7 +155,7 @@ func calculatePriceIncrease(_currentPrice, _priceIncreaseValue, _priceIncreasePe
 
 func action():
 	if(kind == Enums.Upgrade.ADD_DICE):
-		Globals.addDice();
+		Globals.emit_signal("addDice", 0);
 	if(kind == Enums.Upgrade.UPGRADE_DICE):
 		Globals.tryUpgradeDice(price);
 	if(kind == Enums.Upgrade.DUNGEON_MASTER):
@@ -179,6 +171,7 @@ func action():
 			$Timer.wait_time = float($Timer.wait_time) - .4;
 		else:
 			$Timer.wait_time = float($Timer.wait_time) - 1;
+		#should be lvl 1 = 4s   -> .1s currently is: 3.9 -> .1 at 19 and .1 at 20
 		$Timer.start();
 		if !(level > 15):
 			$TextureProgress/Tween.interpolate_property($TextureProgress, "value", 0, 100, $Timer.wait_time);
@@ -195,20 +188,16 @@ func action():
 	if(kind == Enums.Upgrade.ROLL_DECREASE):
 		Globals.maxDiceRollTime = Globals.maxDiceRollTime - .2;
 		$LabelTitle.text = title + " (" + str(Globals.maxDiceRollTime) + ")"; #TODO :show percentage instead of raw value
-	if(kind == 8):
-		#TODO:animation
+	if(kind == Enums.Upgrade.ASCEND):
 		var _e = get_tree().change_scene("res://scenes/ascend.tscn");
 
 func _on_Timer_timeout():
-	if(kind == 2):
-		Globals.rollRandomDice();
+	if(kind == Enums.Upgrade.DUNGEON_MASTER):
+		Globals.emit_signal("rollRandomDice")
 		$TextureProgress.value = 0;
 		if !(level > 15):
 			$TextureProgress/Tween.interpolate_property($TextureProgress, "value", 0, 100, $Timer.wait_time);
 			$TextureProgress/Tween.start();
-	if(kind == 3):
-		for i in level:
-			Globals.rollRandomDice();
 	
 func enemyDamaged(value: int, dice: Node2D):
 	if(value <= level):

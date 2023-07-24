@@ -80,7 +80,7 @@ func damage(value: int, dice: Node2D):
 		else:
 			Globals.addCurrency(enemy.currency);
 			$AudioMoney.play();
-		Globals.killEnemy(enemy);
+		Globals.emit_signal("enemyKilled", enemy);
 		$EnemyContainer.add_child(particle.instance());
 		respawnEnemy();
 	else:

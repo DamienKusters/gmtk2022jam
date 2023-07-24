@@ -1,14 +1,12 @@
 extends Node2D
 
-onready var g = $"/root/Globals";
-
 var rng = RandomNumberGenerator.new();
 
 const badCoding = preload("res://scenes/dice.tscn");
 
 func _ready():
-	g.connect("rollRandomDice", self, "rollRandomNonRollingDice");
-	g.connect("upgradeDice", self, "upgradeDice");
+	var _a = Globals.connect("rollRandomDice", self, "rollRandomNonRollingDice")
+	var _b = Globals.connect("upgradeDice", self, "upgradeDice")
 
 func rollRandomNonRollingDice():
 	var dice = get_children();
@@ -32,7 +30,7 @@ func upgradeDice():
 				replaceDice.position = d.position;
 				add_child(replaceDice);
 				move_child(replaceDice,idx);# TODO: Fix
-				g.upgradeDiceSuccess();
+				Globals.emit_signal("upgradeDiceSuccess")
 				exportAllSaves();
 				return;
 			idx += 1;

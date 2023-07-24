@@ -38,7 +38,7 @@
 [ext_resource path="res://assets/scripts/autoremove.gd" type="Script" id=36]
 [ext_resource path="res://assets/scripts/options.gd" type="Script" id=37]
 [ext_resource path="res://assets/scripts/upgrade_saver.gd" type="Script" id=38]
-[ext_resource path="res://branding/logo_extended.png" type="Texture" id=39]
+[ext_resource path="res://assets/sprites/logo_extended.png" type="Texture" id=39]
 [ext_resource path="res://resources/status_label.tscn" type="PackedScene" id=40]
 [ext_resource path="res://assets/sprites/enemies/DestroyerV2_noshadow.png" type="Texture" id=41]
 
@@ -1036,7 +1036,7 @@ anims/fade_up = SubResource( 22 )
 wait_time = 1.5
 one_shot = true
 
-[node name="Control" type="Control" parent="uiRoot"]
+[node name="MenuButtons" type="Control" parent="uiRoot"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -1045,7 +1045,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="ThemeButton2" parent="uiRoot/Control" instance=ExtResource( 33 )]
+[node name="ThemeButton2" parent="uiRoot/MenuButtons" instance=ExtResource( 33 )]
 self_modulate = Color( 0.254902, 0.176471, 0.0901961, 1 )
 anchor_left = 0.7
 anchor_top = 0.85
@@ -1057,7 +1057,7 @@ margin_right = -15.0
 margin_bottom = -30.0
 button_text = "Options"
 
-[node name="ThemeButton" parent="uiRoot/Control" instance=ExtResource( 33 )]
+[node name="ThemeButton" parent="uiRoot/MenuButtons" instance=ExtResource( 33 )]
 self_modulate = Color( 0.254902, 0.176471, 0.0901961, 1 )
 anchor_left = 0.85
 anchor_top = 0.85
@@ -1542,14 +1542,14 @@ anims/spawn = SubResource( 35 )
 [connection signal="timeout" from="uiRoot/enemyUi/Timer" to="uiRoot/enemyUi" method="_on_Timer_timeout"]
 [connection signal="timeout" from="uiRoot/enemyUi/dpsTimer" to="uiRoot/enemyUi" method="_on_dpsTimer_timeout"]
 [connection signal="timeout" from="uiRoot/enemyUi/Control2/Timer" to="uiRoot/enemyUi/Control2" method="_on_Timer_timeout"]
-[connection signal="button_clicked" from="uiRoot/Control/ThemeButton2" to="uiRoot/Control" method="_on_ThemeButton2_button_clicked"]
-[connection signal="button_clicked" from="uiRoot/Control/ThemeButton" to="uiRoot/Control" method="_on_ThemeButton_button_clicked"]
+[connection signal="button_clicked" from="uiRoot/MenuButtons/ThemeButton2" to="uiRoot/MenuButtons" method="_on_ThemeButton2_button_clicked"]
+[connection signal="button_clicked" from="uiRoot/MenuButtons/ThemeButton" to="uiRoot/MenuButtons" method="_on_ThemeButton_button_clicked"]
 [connection signal="button_down" from="uiRoot/TextureRect/Button" to="uiRoot/TextureRect" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/About/Button2" to="uiRoot/About" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/Help/Button" to="uiRoot/Help" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/Options/Button" to="uiRoot/Options" method="_on_Button_button_down"]
-[connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="_on_ColorRect_visibility_changed"]
 [connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="resetSaveButtonText"]
+[connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="_on_ColorRect_visibility_changed"]
 [connection signal="tree_entered" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer/MusicSlider" to="uiRoot/Options/ColorRect" method="_on_MusicSlider_tree_entered"]
 [connection signal="value_changed" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer/MusicSlider" to="uiRoot/Options/ColorRect" method="_on_MusicSlider_value_changed"]
 [connection signal="tree_entered" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer2/SoundSlider" to="uiRoot/Options/ColorRect" method="_on_SoundSlider_tree_entered"]

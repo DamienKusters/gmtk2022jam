@@ -46,7 +46,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, -900 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Shader" id=7]
+[sub_resource type="Shader" id=22]
 code = "shader_type canvas_item;
 
 uniform float speed;
@@ -56,7 +56,7 @@ void fragment () {
 }"
 
 [sub_resource type="ShaderMaterial" id=6]
-shader = SubResource( 7 )
+shader = SubResource( 22 )
 shader_param/speed = -0.003
 
 [sub_resource type="Animation" id=19]
@@ -181,7 +181,7 @@ end_node = "hover"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=18]
 
-[sub_resource type="Shader" id=8]
+[sub_resource type="Shader" id=23]
 code = "shader_type canvas_item;
 
 uniform float speed;
@@ -191,10 +191,10 @@ void fragment () {
 }"
 
 [sub_resource type="ShaderMaterial" id=4]
-shader = SubResource( 8 )
+shader = SubResource( 23 )
 shader_param/speed = 0.03
 
-[sub_resource type="Shader" id=9]
+[sub_resource type="Shader" id=24]
 code = "shader_type canvas_item;
 
 uniform float speed;
@@ -204,7 +204,7 @@ void fragment () {
 }"
 
 [sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 9 )
+shader = SubResource( 24 )
 shader_param/speed = 0.06
 
 [sub_resource type="DynamicFont" id=10]
@@ -262,7 +262,7 @@ anchor_bottom = 0.5
 margin_left = -117.0
 margin_top = -312.0
 margin_right = 112.0
-margin_bottom = -165.016
+margin_bottom = -165.017
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6
