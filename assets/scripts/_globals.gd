@@ -13,10 +13,9 @@ signal currencyAddedSingular;
 signal openHelp;
 signal enemyKilled;
 
-const saveFileLocation = "user://dnde.save"
 var contractLevel;
 var maxDiceRollTime = 5;
-var currency = 999999999999990
+var currency = 0
 var feathers = 0;
 var upgrade_save_overrides;
 var upgrade_dice_overrides;
@@ -91,76 +90,14 @@ func upgradeSavesUpdated(save):
 func upgradeDiceOverridesUpdated(save):
 	upgrade_dice_overrides = save;
 
-var saveResources = [];
-
-func exportSave():
-	saveResources = [
-		currency,
-		feathers,
-		upgrade_save_overrides,
-		str(ascention_dps_multiplier_value) + "/" + str(ascention_dps_multiplier_level),
-		str(ascention_reroller_value) + "/" + str(ascention_reroller_level),
-		upgrade_dice_overrides,
-	];
-	
-	var save = "";
-	var i = 0;
-	for r in saveResources:
-		save += str(r)
-		if i != saveResources.size()-1:
-			save += "|";
-		i+=1;
-	print("Game Exported");
-	print(save)
-	return Marshalls.utf8_to_base64(save);
-
-func importSave(saveString: String):
-	saveString = Marshalls.base64_to_utf8(saveString);
-
+func _init():
 	contractLevel = 0;
 	maxDiceRollTime = 5;
-
-	saveString = saveString.strip_edges(true,true);
-	print("Game Imported");
-	
-	var s = saveString.split("|");
 	
 	currency = Save.importSave(Enums.SaveFlag.CURRENCY, 0);
 	feathers = Save.importSave(Enums.SaveFlag.FEATHERS, 0);
 	
-	upgrade_save_overrides = s[2];
-	
-	var a_dps = s[3].split("/");
 	ascention_dps_multiplier_value = Save.importSave(Enums.SaveFlag.A_MULTIPLIER_VALUE, 1);
 	ascention_dps_multiplier_level = Save.importSave(Enums.SaveFlag.A_MULTIPLIER_LEVEL, 0);
-	var a_reroll = s[4].split("/");
 	ascention_reroller_value = Save.importSave(Enums.SaveFlag.A_REROLL_VALUE, 0);
 	ascention_reroller_level = Save.importSave(Enums.SaveFlag.A_REROLL_LEVEL, 0);
-	
-	upgrade_dice_overrides = s[5];
-	
-	pass
-
-func _init():
-	contractLevel = 0;
-	autoImportSave();
-
-func saveGame():
-	var save = exportSave();
-	var file = File.new()
-	file.open(Globals.saveFileLocation, File.WRITE)
-	file.store_string(save)
-	file.close()
-	return true
-
-func autoImportSave():
-	var file = File.new()
-	if file.file_exists(saveFileLocation) == false:
-		file.close()
-		return
-	file.open(saveFileLocation, File.READ)
-	var content = file.get_as_text()
-	file.close()
-	
-	if content != "":
-		importSave(content);

@@ -2,17 +2,22 @@ extends Node
 
 signal import_save
 
-const save_file_location = "user://test.save"
+const save_file_location = "user://dnde.save"
 var save = {}
 
-func importSave(_flag, _default_value):
+func importSave(_flag, _default_value, to_int = true):
+	var ret
 	if save.has(_flag):
-		return save[_flag]
+		ret = save[_flag]
 	else:
-		return _default_value
+		ret = _default_value
+	if to_int:
+		return int(ret)
+	else:
+		return str(ret)
 
-func exportSave(_flag, _value: int):
-	var v = int(_value)
+func exportSave(_flag, _value):
+	var v = str(_value)
 	save[_flag] = v
 	
 	saveGame()#debug
@@ -29,26 +34,30 @@ func saveGame():
 	
 	var file = File.new()
 	file.open(save_file_location, File.WRITE)
-	file.store_string(_save)
+	var raw_save = _save
+	raw_save = Marshalls.utf8_to_base64(_save)
+	file.store_string(raw_save)
 	file.close()
-	pass
+	return true
 	
 func loadGame():
 	var file = File.new()
+	
 	if file.file_exists(save_file_location) == false:
 		file.close()
 		return
 	file.open(save_file_location, File.READ)
-	var content = file.get_as_text()
+	var raw_save = file.get_as_text()
 	file.close()
 	
-	var s = content.split("|")
+	raw_save = Marshalls.base64_to_utf8(raw_save);
+	var s = raw_save.split("|")
 	
 	save = {}
 	var x = 0
 	for i in s:
 		if i != "":
-			save[x] = int(i)
+			save[x] = str(i)
 		x += 1
 	pass
 

@@ -25,15 +25,15 @@ func _on_SoundSlider_tree_entered():
 	$HBoxContainer/HBoxContainer2/SoundSlider.value = Globals.options_sound
 
 func _on_Save_button_clicked():
-	var saved = Globals.saveGame();
+	var saved = Save.saveGame();
 	if saved == true:
 		$"HBoxContainer/SaveButtons/Reset Info".visible = false;
 		$HBoxContainer/SaveButtons/HBoxContainer/Save.button_text = "Game Saved!"
 	
 func _on_ResetSave_button_clicked():
 	var file = File.new()
-	if file.file_exists(Globals.saveFileLocation) == true:
-		file.open(Globals.saveFileLocation, File.WRITE)
+	if file.file_exists(Save.save_file_location) == true:
+		file.open(Save.save_file_location, File.WRITE)
 		file.store_string("")
 		file.close()
 		$"HBoxContainer/SaveButtons/Reset Info".visible = true;

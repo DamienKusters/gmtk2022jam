@@ -44,9 +44,10 @@ func exportAllSaves():
 	for d in dice:
 		save += d.exportSave();
 		if i != dice.size()-1:
-			save += "/";
+			save += "";
 		i+=1;
-	Globals.upgradeDiceOverridesUpdated(save);
+	Save.exportSave(Enums.SaveFlag.DICE, save)
+	print(save)
 	return save;
 	
 func add_dice(dice):

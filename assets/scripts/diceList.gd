@@ -17,18 +17,16 @@ var currentSpot = 0;
 func _ready():
 	g.connect("addDice", self, "addDice");
 	
-	if Globals.upgrade_dice_overrides == null:
-		Globals.upgradeDiceOverridesUpdated("0");
-	
-	#TODO: Different save string: 21 spots with values (D4-D20) restore accordingly
-	if Globals.upgrade_save_overrides != null:
-		var initDice = int(Globals.upgrade_save_overrides.split("/")[0]);
-		var diceLevels = Globals.upgrade_dice_overrides.split("/");
-		for d in initDice+1:
-			if(d < diceLevels.size()):
-				addDice(int(diceLevels[d]));
-			else:
-				addDice(0);
+	var initDice = Save.importSave(Enums.SaveFlag.U_ADD_DICE, 0)
+	var diceLevels = Save.importSave(Enums.SaveFlag.DICE, "000000000000000000000", false)
+	for d in initDice+1:
+		var level = 0
+		if diceLevels[d] != null:
+			level = diceLevels[d]
+		addDice(level);
+		
+	#TODO: fix upgrade dice
+		
 	$"../diceContainer".exportAllSaves();
 	pass
 
@@ -36,7 +34,7 @@ func addDice(type):
 	if(currentSpot == 21):
 		return;
 	var dice = diceScene.instance();
-	dice.kind = type;
+	dice.kind = int(type);
 	dice.position = spots[currentSpot].position;
 	$"../diceContainer".call_deferred("add_dice", dice);
 	currentSpot = currentSpot + 1;

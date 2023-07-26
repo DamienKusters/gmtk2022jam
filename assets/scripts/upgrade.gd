@@ -15,18 +15,7 @@ export(Texture) var spriteTexture;
 export(String) var description;
 export(Enums.SaveFlag) var saveFlag
 var test_contract;
-var lockedEnemies = {
-	"Slime":[false, "res://assets/sprites/enemies/Slime.png"],
-	"Boar":[false, "res://assets/sprites/enemies/WildBoar.png"],
-	"Orc":[false, "res://assets/sprites/enemies/Orc.png"],
-	"Golem":[false, "res://assets/sprites/enemies/Nature_Gorilla.png"],
-	"Minotaur":[false, "res://assets/sprites/enemies/Minotaur.png"],
-	"Nymph":[false, "res://assets/sprites/enemies/Earth_Lady.png"],
-	"Necromancer":[false, "res://assets/sprites/enemies/Necromancer.png"],
-	"Power Elemental":[false, "res://assets/sprites/enemies/Volt_Elemental.png"],
-	"Darkness":[false, "res://assets/sprites/enemies/Darkness.png"],
-};
-var killedEnemies = [];
+var target_enemy: EnemyModel
 
 var level = 0;
 var price = 0;
@@ -40,25 +29,18 @@ func _ready():
 	if kind != Enums.Upgrade.ASCEND:
 		setImportedLevel(Save.importSave(saveFlag, 0))
 	
-#	if Globals.upgrade_save_overrides != null:
-#		importSave(Globals.upgrade_save_overrides);
-	
 	updateUi();
 	if(kind == 1):
 		var _a = Globals.connect("upgradeDiceSuccess", self, "applyNextLevelUiUpdate");
 	if(kind == 4):
-		if Globals.upgrade_save_overrides == null:
-			level = Globals.ascention_reroller_value;
-			for i in level:
-				price =+ calculatePriceIncrease(price,levelupPriceIncrease,levelupPricePercentIncrease);
 		updateUi();
 		var _a = Globals.connect("damageEnemy", self, "enemyDamaged");
 		emit_signal("levelChanged");	
 	if(kind == 6):
 		var _a = Globals.connect("enemyKilled", self, "enemyKilled");
-		locked = level < levelCap;
+		if level >= levelCap:
+			locked = true
 		$enemyLocker.visible = false;
-		setContract();
 	$enemyLocker.visible = false;
 	var _a = Globals.connect("currencyUpdated", self, "setPayable");
 	setPayable(Globals.currency);
@@ -67,7 +49,6 @@ func _ready():
 	
 func updateUi():
 	$LabelPrice.text = String(price);
-#	if(levelCap == -1):
 	if(level == levelCap):
 		$LabelLevel.text = "max";
 		$LabelPrice.text = "";
@@ -75,11 +56,6 @@ func updateUi():
 		$LabelLevel.text = String(level);
 	else:
 		$LabelLevel.text = "";
-#	else:
-#		if(level > 0):
-#			$LabelLevel.text = String(level) + "/" + String(levelCap);
-#		else:
-#			$LabelLevel.text = "";
 
 func completeContract():
 	locked = false
@@ -87,6 +63,7 @@ func completeContract():
 	$Tween.start();
 	$enemyLocker.visible = false;
 	$LabelPrice.visible = true;
+	Save.exportSave(Enums.SaveFlag.TARGET_ENEMY_BEATEN, 1)
 
 func setContract():
 	if level != levelCap:
@@ -94,16 +71,14 @@ func setContract():
 		$Tween.interpolate_property(self, "margin_left", self.margin_left, 100, 1.5, Tween.TRANS_ELASTIC);
 		$Tween.start();
 		$LabelPrice.visible = false;
+		Save.exportSave(Enums.SaveFlag.TARGET_ENEMY_BEATEN, 0)
 	else:
 		updateUi()
 
 func tween_completed():
 	if(locked):
 		$enemyLocker.visible = true;
-		for e in lockedEnemies:
-			if lockedEnemies[e][0] == false:
-				$enemyLocker/TextureRect.texture = load(lockedEnemies[e][1]);
-				return;
+		$enemyLocker/TextureRect.texture = target_enemy.sprite
 	else:
 		$enemyLocker.visible = false;
 
@@ -118,14 +93,10 @@ func _on_MouseOverlay_button_down():
 	Save.exportSave(saveFlag, level)
 
 func enemyKilled(enemy):
-	if(!killedEnemies.has(enemy.name)):
-		for e in lockedEnemies:
-			if lockedEnemies[e][0] == false:
-				if(enemy.name == e):
-					completeContract();
-					lockedEnemies[e][0] = true;
-				return;
-		killedEnemies.push_back(enemy.name);
+	if locked == false:
+		return
+	if(enemy.name == target_enemy.name):
+		completeContract();
 
 func applyNextLevelUiUpdate():
 	if(Globals.currency < price):
@@ -184,11 +155,8 @@ func action():
 			$TextureProgress.value = 0;
 	if kind == Enums.Upgrade.CONTRACT:
 		Globals.upgradeEnemyPool();
-		for e in lockedEnemies:
-			if(lockedEnemies[e][0] == false):
-				setContract();
-				return;
-		pass
+		target_enemy = Database.enemy_pool[level].enemy_pool.back()
+		setContract()
 	if(kind == Enums.Upgrade.ROLL_DECREASE):
 		Globals.maxDiceRollTime = Globals.maxDiceRollTime - .2;
 		$LabelTitle.text = title + " (" + str(Globals.maxDiceRollTime) + ")"; #TODO :show percentage instead of raw value
@@ -213,54 +181,6 @@ func setPayable(value):
 	else:
 		$LabelPrice.add_color_override("font_color", Color("d83300"));
 		
-func exportSave():
-	return str(level);
-
-func importSave(saveString):
-	var save = saveString.split("/");
-	match kind:
-		Enums.Upgrade.ADD_DICE:
-			var save_level = int(save[0]);
-			setImportedLevel(save_level);
-			# This upgrade is restored differently
-		Enums.Upgrade.UPGRADE_DICE:
-			var save_level = int(save[1]);
-			setImportedLevel(save_level);
-			# This upgrade is restored differently
-		Enums.Upgrade.DUNGEON_MASTER:
-			var save_level = int(save[2]);
-			setImportedLevel(save_level);
-			for s in save_level:
-				action();
-		Enums.Upgrade.REROLL:
-			var save_level = int(save[4]);
-			setImportedLevel(save_level);
-			for s in save_level:
-				action();
-		Enums.Upgrade.CONTRACT:
-			var save_level = int(save[5]);
-			setImportedLevel(save_level);
-			for s in save_level:
-				action();
-			#TODO: restore enemy locks:
-			var i = 0;
-			for l in lockedEnemies:
-				if save_level > i:
-					lockedEnemies[l][0] = true;
-					print(l);
-				i+=1;
-#				if lockedEnemies[e][0] == false:
-#					if(enemy.name == e):
-#						setLocked(false);
-#						lockedEnemies[e][0] = true;
-#					return;
-		Enums.Upgrade.ROLL_DECREASE:
-			var save_level = int(save[3]);
-			setImportedLevel(save_level);
-			for s in save_level:
-				action();
-	pass
-	
 func setImportedLevel(save_level):
 	level = save_level;
 	for i in save_level:
@@ -269,13 +189,14 @@ func setImportedLevel(save_level):
 	if kind == Enums.Upgrade.ADD_DICE || kind == Enums.Upgrade.UPGRADE_DICE:
 		return
 	
+	if kind == Enums.Upgrade.CONTRACT:
+		target_enemy = Database.enemy_pool[level].enemy_pool.back() 
+		var t = bool(Save.importSave(Enums.SaveFlag.TARGET_ENEMY_BEATEN, 0))
+		if t == false:
+			setContract()
+		for s in save_level:
+			Globals.upgradeEnemyPool();
+		return
+		
 	for s in save_level:
 		action(); 
-	
-	if kind == Enums.Upgrade.CONTRACT:
-		var i = 0;
-		for l in lockedEnemies:
-			if save_level > i:
-				lockedEnemies[l][0] = true;
-				print(l);
-			i+=1;
