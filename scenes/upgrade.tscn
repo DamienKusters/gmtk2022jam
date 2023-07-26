@@ -12,6 +12,7 @@
 load_path = "res://.import/upgrade_box.png-55baa33a83ffecd635eabf7725610280.stex"
 
 [sub_resource type="StreamTexture" id=4]
+flags = 4
 load_path = "res://.import/upgrade_item.png-5e5cf03a78b82c0107eb0bb6f987ffc8.stex"
 
 [sub_resource type="DynamicFont" id=3]

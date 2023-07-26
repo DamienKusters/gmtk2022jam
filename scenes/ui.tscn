@@ -741,6 +741,7 @@ levelupPricePercentIncrease = 11
 levelCap = 20
 spriteTexture = ExtResource( 7 )
 description = "Adds another D4 dice"
+saveFlag = 4
 
 [node name="u_upgrade" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 285.0
@@ -753,6 +754,7 @@ kind = 1
 levelCap = 105
 spriteTexture = ExtResource( 11 )
 description = "Upgrade the lowest ranking dice to the next one (D4, D6, D8 ,D10, D12, D20)"
+saveFlag = 5
 
 [node name="u_dm" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 380.0
@@ -765,6 +767,7 @@ kind = 2
 levelCap = 20
 spriteTexture = ExtResource( 10 )
 description = "Automatically rolls a dice"
+saveFlag = 6
 
 [node name="u_rolltime" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 475.0
@@ -777,6 +780,7 @@ kind = 7
 levelCap = 20
 spriteTexture = ExtResource( 12 )
 description = "Decreases the maximum dice rolling time by each level"
+saveFlag = 7
 
 [node name="u_reroll" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 570.0
@@ -789,6 +793,7 @@ kind = 4
 levelCap = 20
 spriteTexture = ExtResource( 8 )
 description = "Automatically re-rolls any dice equal to or below the level of the upgrade"
+saveFlag = 8
 
 [node name="u_contract" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 665.0
@@ -801,6 +806,7 @@ kind = 6
 levelCap = 9
 spriteTexture = ExtResource( 19 )
 description = "Adds new enemy encounters"
+saveFlag = 9
 
 [node name="enemyUi" type="Control" parent="uiRoot"]
 anchor_right = 0.7

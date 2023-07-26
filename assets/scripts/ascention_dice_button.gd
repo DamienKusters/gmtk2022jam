@@ -102,8 +102,10 @@ func _on_BtnReroll_pressed():
 		emit_signal("valueUpdated", value);
 		if(ascention == Ascention.DPS):
 			Globals.ascention_dps_multiplier_value = value;
+			Save.exportSave(Enums.SaveFlag.A_MULTIPLIER_VALUE, value)
 		elif(ascention == Ascention.REROLLER):
 			Globals.ascention_reroller_value = value;
+			Save.exportSave(Enums.SaveFlag.A_REROLL_VALUE, value)
 
 func _on_BtnUpgrade_pressed():
 	if Globals.feathers >= upgrade_price:
@@ -116,8 +118,10 @@ func _on_BtnUpgrade_pressed():
 		render();
 		if(ascention == Ascention.DPS):
 			Globals.ascention_dps_multiplier_level = level;
+			Save.exportSave(Enums.SaveFlag.A_MULTIPLIER_LEVEL, level)
 		elif(ascention == Ascention.REROLLER):
 			Globals.ascention_reroller_level = level;
+			Save.exportSave(Enums.SaveFlag.A_REROLL_LEVEL, level)
 
 func particles(amount):
 	var p = particle.instance();

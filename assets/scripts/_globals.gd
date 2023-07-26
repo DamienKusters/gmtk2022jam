@@ -16,9 +16,8 @@ signal enemyKilled;
 const saveFileLocation = "user://dnde.save"
 var contractLevel;
 var maxDiceRollTime = 5;
-var currency = 0;
+var currency = 999999999999990
 var feathers = 0;
-
 var upgrade_save_overrides;
 var upgrade_dice_overrides;
 
@@ -36,7 +35,7 @@ var rng = RandomNumberGenerator.new();
 func ascendReset():
 	upgrade_save_overrides = null;
 	upgrade_dice_overrides = null;
-	currency = 10 * feathers;
+	self.currency = 10 * feathers;
 	feathers = 0;
 	contractLevel = 0;
 	maxDiceRollTime = 5;
@@ -63,22 +62,26 @@ func getRandomEnemyTier():#change to get random enemy instead????
 	return Database.enemy_pool[idx]
 	
 func addCurrency(value: int):
-	currency += value;
+	self.currency += value;
 	emit_signal("currencyUpdated", currency);
 	emit_signal("currencyAddedSingular", value);
+	Save.exportSave(Enums.SaveFlag.CURRENCY, currency)
 	
 func removeCurrency(value: int):
-	currency -= value;
+	self.currency -= value;
 	emit_signal("currencyUpdated", currency);
+	Save.exportSave(Enums.SaveFlag.CURRENCY, currency)
 
 func addFeathers(value: int):
 	feathers += value;
 	emit_signal("feathersUpdated", feathers);
-
+	Save.exportSave(Enums.SaveFlag.FEATHERS, feathers)
+	
 func removeFeathers(value: int):
 	feathers -= value;
 	emit_signal("feathersUpdated", feathers);
-
+	Save.exportSave(Enums.SaveFlag.FEATHERS, feathers)
+	
 func getDiceData(enumValue):
 	return Database.dice_data[int(enumValue)];
 	
@@ -122,17 +125,17 @@ func importSave(saveString: String):
 	
 	var s = saveString.split("|");
 	
-	currency = int(s[0]);
-	feathers = int(s[1]);
+	currency = Save.importSave(Enums.SaveFlag.CURRENCY, 0);
+	feathers = Save.importSave(Enums.SaveFlag.FEATHERS, 0);
 	
 	upgrade_save_overrides = s[2];
 	
 	var a_dps = s[3].split("/");
-	ascention_dps_multiplier_value = int(a_dps[0]);
-	ascention_dps_multiplier_level = int(a_dps[1]);
+	ascention_dps_multiplier_value = Save.importSave(Enums.SaveFlag.A_MULTIPLIER_VALUE, 1);
+	ascention_dps_multiplier_level = Save.importSave(Enums.SaveFlag.A_MULTIPLIER_LEVEL, 0);
 	var a_reroll = s[4].split("/");
-	ascention_reroller_value = int(a_reroll[0]);
-	ascention_reroller_level = int(a_reroll[1]);
+	ascention_reroller_value = Save.importSave(Enums.SaveFlag.A_REROLL_VALUE, 0);
+	ascention_reroller_level = Save.importSave(Enums.SaveFlag.A_REROLL_LEVEL, 0);
 	
 	upgrade_dice_overrides = s[5];
 	

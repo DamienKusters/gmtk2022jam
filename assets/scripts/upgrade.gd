@@ -13,6 +13,7 @@ export(Enums.Upgrade) var kind;
 export var levelCap = -1;
 export(Texture) var spriteTexture;
 export(String) var description;
+export(Enums.SaveFlag) var saveFlag
 var test_contract;
 var lockedEnemies = {
 	"Slime":[false, "res://assets/sprites/enemies/Slime.png"],
@@ -36,8 +37,11 @@ func _ready():
 	
 	price = basePrice;
 	
-	if Globals.upgrade_save_overrides != null:
-		importSave(Globals.upgrade_save_overrides);
+	if kind != Enums.Upgrade.ASCEND:
+		setImportedLevel(Save.importSave(saveFlag, 0))
+	
+#	if Globals.upgrade_save_overrides != null:
+#		importSave(Globals.upgrade_save_overrides);
 	
 	updateUi();
 	if(kind == 1):
@@ -111,7 +115,7 @@ func _on_MouseOverlay_button_down():
 	else:
 		if(applyNextLevelUiUpdate()):
 			action();
-	Globals.saveGame();
+	Save.exportSave(saveFlag, level)
 
 func enemyKilled(enemy):
 	if(!killedEnemies.has(enemy.name)):
@@ -261,3 +265,17 @@ func setImportedLevel(save_level):
 	level = save_level;
 	for i in save_level:
 		price =+ calculatePriceIncrease(price,levelupPriceIncrease,levelupPricePercentIncrease);
+	
+	if kind == Enums.Upgrade.ADD_DICE || kind == Enums.Upgrade.UPGRADE_DICE:
+		return
+	
+	for s in save_level:
+		action(); 
+	
+	if kind == Enums.Upgrade.CONTRACT:
+		var i = 0;
+		for l in lockedEnemies:
+			if save_level > i:
+				lockedEnemies[l][0] = true;
+				print(l);
+			i+=1;
