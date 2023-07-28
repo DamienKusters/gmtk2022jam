@@ -9,6 +9,8 @@ signal rollRandomDice;
 signal damageEnemy;
 signal currencyUpdated;
 signal feathersUpdated;
+signal boltsUpdated;
+signal dFeathersUpdated;
 signal currencyAddedSingular;
 signal openHelp;
 signal enemyKilled;
@@ -17,6 +19,8 @@ var contractLevel;
 var maxDiceRollTime = 5;
 var currency = 0
 var feathers = 0;
+var bolts = 0 setget setBolts;
+var dFeathers = 0 setget setDFeathers;
 var upgrade_save_overrides;
 var upgrade_dice_overrides;
 
@@ -31,13 +35,25 @@ var options_sound = 0#2;
 #TODO: global rng object & seeded object
 var rng = RandomNumberGenerator.new();
 
+func setBolts(value):
+	bolts = value
+	emit_signal("boltsUpdated", value)
+	Save.exportSave(Enums.SaveFlag.BOLTS, value)
+
+func setDFeathers(value):
+	dFeathers = value
+	emit_signal("dFeathersUpdated", value)
+	Save.exportSave(Enums.SaveFlag.DEMON_FEATHERS, value)
+
 func ascendReset():
 	upgrade_save_overrides = null;
 	upgrade_dice_overrides = null;
-	self.currency = 10 * feathers;
+	currency = 10 * feathers;
 	feathers = 0;
 	contractLevel = 0;
 	maxDiceRollTime = 5;
+	Save.exportSave(Enums.SaveFlag.CURRENCY, currency)
+	Save.exportSave(Enums.SaveFlag.FEATHERS, feathers)
 	
 func tryUpgradeDice(price):
 	if(currency < price):
@@ -61,13 +77,13 @@ func getRandomEnemyTier():#change to get random enemy instead????
 	return Database.enemy_pool[idx]
 	
 func addCurrency(value: int):
-	self.currency += value;
+	currency += value;
 	emit_signal("currencyUpdated", currency);
 	emit_signal("currencyAddedSingular", value);
 	Save.exportSave(Enums.SaveFlag.CURRENCY, currency)
 	
 func removeCurrency(value: int):
-	self.currency -= value;
+	currency -= value;
 	emit_signal("currencyUpdated", currency);
 	Save.exportSave(Enums.SaveFlag.CURRENCY, currency)
 
@@ -96,6 +112,8 @@ func _init():
 	
 	currency = Save.importSave(Enums.SaveFlag.CURRENCY, 0);
 	feathers = Save.importSave(Enums.SaveFlag.FEATHERS, 0);
+	bolts = Save.importSave(Enums.SaveFlag.BOLTS, 0);
+	dFeathers = Save.importSave(Enums.SaveFlag.DEMON_FEATHERS, 0);
 	
 	ascention_dps_multiplier_value = Save.importSave(Enums.SaveFlag.A_MULTIPLIER_VALUE, 1);
 	ascention_dps_multiplier_level = Save.importSave(Enums.SaveFlag.A_MULTIPLIER_LEVEL, 0);

@@ -2,9 +2,10 @@ extends Control
 
 onready var particle = preload("res://scenes/shared/single_particle_effect_enemy_death.tscn");
 onready var particleFeather = preload("res://scenes/shared/single_particle_effect_get_feather.tscn");
+onready var particleDFeather = preload("res://scenes/shared/single_particle_effect_get_dfeather.tscn");
 
 var enemy: EnemyModel
-var enemyHasFeather: bool
+var enemy_loot
 var enemyHealth = 0;
 var enemyShield = null;
 var rng = RandomNumberGenerator.new();
@@ -14,11 +15,10 @@ var secondDmg = 0;
 func _ready():
 	var _a = Globals.connect("damageEnemy", self, "damage");
 	respawnEnemy();
-	$"../VBoxContainer/u_ascend".visible = false;
 	$"../VBoxContainer/inventory/inv_basic".visible = true
 	$"../VBoxContainer/inventory/inv_advanced".visible = false
-	if Globals.feathers > 0:
-		showAscendUpgrade();
+	if Globals.feathers > 0 || Globals.bolts > 0 || Globals.dFeathers > 0:
+		showAdvancedUi();
 	
 	$VBoxContainer/Label.visible = false;
 	if Globals.ascention_dps_multiplier_value > 1: 
@@ -28,19 +28,23 @@ func _ready():
 func respawnEnemy():
 	var enemyTier: EnemyTier = Globals.getRandomEnemyTier()
 	enemy = enemyTier.getRandomEnemy()
-	enemyHasFeather = 	enemy.loot_type == Enums.LootType.FEATHER
-	if enemyHasFeather == false:
-		enemyHasFeather = enemyTier.enemyHasFeather();
+	
+	enemy_loot = enemy.loot_type
+	if enemy_loot == Enums.LootType.CURRENCY:
+		if (enemyTier.enemyHasFeather() == true):
+			enemy_loot = Enums.LootType.FEATHERS
 	
 	$LabelEnemy.text = enemy.name;
 	$EnemyContainer/TextureEnemy.texture = enemy.sprite;
 	
-	if enemyHasFeather == true:
+	$LabelEnemy/Bounty.visible = enemy_loot != Enums.LootType.CURRENCY
+	$LabelEnemy/Bounty/Feather.visible = enemy_loot == Enums.LootType.FEATHERS
+	$LabelEnemy/Bounty/Bolt.visible = enemy_loot == Enums.LootType.BOLTS
+	$LabelEnemy/Bounty/Demon.visible = enemy_loot == Enums.LootType.DEMON_FEATHERS
+	if enemy_loot != Enums.LootType.CURRENCY:
 		$LabelEnemy/LabelBounty.text = "";
-		$LabelEnemy/FeatherBounty.visible = true;
 	else:
 		$LabelEnemy/LabelBounty.text = str(enemy.currency);
-		$LabelEnemy/FeatherBounty.visible = false;
 	
 	enemyHealth = enemy.health;
 	$Control/VBoxContainer/TextureProgress.max_value = enemy.health;
@@ -73,13 +77,24 @@ func damage(value: int, dice: Node2D):
 	enemyHealth = enemyHealth - multipliedValue;
 	secondDmg += multipliedValue;
 	if(enemyHealth <= 0):
-		if enemyHasFeather == true:
-			Globals.addFeathers(1);
-			$EnemyContainer.add_child(particleFeather.instance());
-			showAscendUpgrade();
-		else:
-			Globals.addCurrency(enemy.currency);
-			$AudioMoney.play();
+		match(enemy_loot):
+			Enums.LootType.CURRENCY:
+				Globals.addCurrency(enemy.currency)
+				$AudioMoney.play()
+			Enums.LootType.FEATHERS:
+				Globals.addFeathers(1)
+				$EnemyContainer.add_child(particleFeather.instance())
+				showAdvancedUi()
+			Enums.LootType.BOLTS:
+				Globals.bolts += 1
+				$EnemyContainer.add_child(particleDFeather.instance())
+				showAdvancedUi()
+				pass
+			Enums.LootType.DEMON_FEATHERS:
+				Globals.dFeathers += enemy.currency
+				$EnemyContainer.add_child(particleDFeather.instance())
+				showAdvancedUi()
+			
 		Globals.emit_signal("enemyKilled", enemy);
 		$EnemyContainer.add_child(particle.instance());
 		respawnEnemy();
@@ -97,8 +112,7 @@ func playRandomDamageSound():
 	$AudioDamage.pitch_scale = rng.randf_range(0.80, 1.60)
 	$AudioDamage.play()
 
-func showAscendUpgrade():
-	$"../VBoxContainer/u_ascend".visible = true
+func showAdvancedUi():
 	$"../VBoxContainer/inventory/inv_basic".visible = false
 	$"../VBoxContainer/inventory/inv_advanced".visible = true
 

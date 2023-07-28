@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-montain-far.png" type="Texture" id=4]
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-foreground-trees.png" type="Texture" id=5]
 [ext_resource path="res://assets/sprites/enemies/DestroyerV2_eyes.png" type="Texture" id=6]
-[ext_resource path="res://assets/sprites/enemies/DestroyerV2_dark.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/enemies/DestroyerV2_noshadow.png" type="Texture" id=7]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=8]
 [ext_resource path="res://assets/sprites/upgrades/Ascend_Icon.png" type="Texture" id=9]
 [ext_resource path="res://assets/sprites/upgrades/Descend_Icon.png" type="Texture" id=10]
@@ -255,6 +255,7 @@ texture = ExtResource( 1 )
 stretch_mode = 7
 
 [node name="destroyer" type="TextureRect" parent="canvas/bg"]
+self_modulate = Color( 0, 0, 0, 1 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -262,7 +263,7 @@ anchor_bottom = 0.5
 margin_left = -117.0
 margin_top = -312.0
 margin_right = 112.0
-margin_bottom = -165.017
+margin_bottom = -165.018
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6

@@ -2,7 +2,7 @@ extends Node
 
 enum DiceEnum { D4, D6, D8, D10, D12, D20 };
 enum Upgrade { ADD_DICE, UPGRADE_DICE, DUNGEON_MASTER, DICE_TOWER, REROLL, DICE_TRAY, CONTRACT, ROLL_DECREASE, ASCEND };
-enum LootType { CURRENCY, FEATHER, DEMON_FEATHER, BOLT };
+enum LootType { CURRENCY, FEATHERS, DEMON_FEATHERS, BOLTS };
 #Order is crucial in this enum do not move items around:
 enum SaveFlag {
 	CURRENCY,

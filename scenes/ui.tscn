@@ -1,14 +1,12 @@
-[gd_scene load_steps=73 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/sprites/ZhbjHEKA.png" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/almendra-all-400-normal.woff" type="DynamicFontData" id=4]
 [ext_resource path="res://scenes/upgrade.tscn" type="PackedScene" id=5]
-[ext_resource path="res://assets/scripts/currencyLabel.gd" type="Script" id=6]
 [ext_resource path="res://assets/sprites/upgrades/Add_Dice_Icon.png" type="Texture" id=7]
 [ext_resource path="res://assets/sprites/upgrades/Auto_Roll.png" type="Texture" id=8]
-[ext_resource path="res://assets/sprites/upgrades/Descend_Icon.png" type="Texture" id=9]
 [ext_resource path="res://assets/sprites/upgrades/Dungeon_Master_Icon.png" type="Texture" id=10]
 [ext_resource path="res://assets/sprites/upgrades/Upgrade_Dice_Icon.png" type="Texture" id=11]
 [ext_resource path="res://assets/sprites/upgrades/Dice_Tower.png" type="Texture" id=12]
@@ -29,18 +27,19 @@
 [ext_resource path="res://assets/sprites/ui/bar_progress_red.png" type="Texture" id=27]
 [ext_resource path="res://assets/scripts/currencyIncrease.gd" type="Script" id=28]
 [ext_resource path="res://assets/sprites/icons/angel_feather.png" type="Texture" id=29]
-[ext_resource path="res://assets/sprites/icons/timer_100.png" type="Texture" id=30]
+[ext_resource path="res://scenes/EnemyBounty.tscn" type="PackedScene" id=30]
 [ext_resource path="res://assets/sprites/upgrades/Ascend_Icon.png" type="Texture" id=31]
-[ext_resource path="res://assets/scripts/feathersLabel.gd" type="Script" id=32]
+[ext_resource path="res://assets/scripts/variableLabel.gd" type="Script" id=32]
 [ext_resource path="res://scenes/ThemeButton.tscn" type="PackedScene" id=33]
 [ext_resource path="res://assets/sprites/icons/shield.png" type="Texture" id=34]
 [ext_resource path="res://assets/scripts/shield.gd" type="Script" id=35]
 [ext_resource path="res://assets/scripts/autoremove.gd" type="Script" id=36]
 [ext_resource path="res://assets/scripts/options.gd" type="Script" id=37]
-[ext_resource path="res://scenes/please remove me.gd" type="Script" id=38]
+[ext_resource path="res://assets/scripts/ascend_button.gd" type="Script" id=38]
 [ext_resource path="res://assets/sprites/logo_extended.png" type="Texture" id=39]
 [ext_resource path="res://resources/status_label.tscn" type="PackedScene" id=40]
 [ext_resource path="res://assets/sprites/enemies/DestroyerV2_noshadow.png" type="Texture" id=41]
+[ext_resource path="res://assets/sprites/icons/demon_feather.png" type="Texture" id=42]
 
 [sub_resource type="DynamicFont" id=25]
 size = 60
@@ -334,38 +333,6 @@ outline_size = 4
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 2 )
 
-[sub_resource type="Animation" id=23]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=24]
-resource_name = "pulse"
-length = 3.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_scale")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 2, 2 ) ]
-}
-
 [sub_resource type="DynamicFont" id=18]
 size = 19
 outline_color = Color( 0, 0, 0, 1 )
@@ -601,6 +568,7 @@ patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 5
 patch_margin_bottom = 20
+script = ExtResource( 38 )
 
 [node name="TextureRect" type="TextureRect" parent="uiRoot/AscendButton"]
 anchor_left = 0.1
@@ -615,7 +583,6 @@ stretch_mode = 6
 anchor_right = 1.0
 anchor_bottom = 1.0
 flat = true
-script = ExtResource( 38 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="uiRoot"]
 anchor_left = 0.7
@@ -650,7 +617,7 @@ custom_fonts/font = SubResource( 25 )
 text = "$1234567890"
 align = 1
 valign = 1
-script = ExtResource( 6 )
+script = ExtResource( 32 )
 
 [node name="inv_advanced" type="Control" parent="uiRoot/VBoxContainer/inventory"]
 anchor_right = 1.0
@@ -665,7 +632,7 @@ custom_fonts/font = SubResource( 38 )
 text = "$1234567890"
 align = 1
 valign = 1
-script = ExtResource( 6 )
+script = ExtResource( 32 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="uiRoot/VBoxContainer/inventory/inv_advanced"]
 anchor_top = 0.53
@@ -687,6 +654,7 @@ expand = true
 stretch_mode = 6
 
 [node name="LabelFeathers" type="Label" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2/feathers"]
+self_modulate = Color( 0.92549, 0.901961, 0.690196, 1 )
 margin_left = 39.0
 margin_top = 1.0
 margin_right = 106.0
@@ -696,15 +664,17 @@ text = "x 999"
 align = 1
 valign = 1
 script = ExtResource( 32 )
+targetEvent = "feathersUpdated"
+defaultSaveFlag = 1
 
-[node name="gears" type="HBoxContainer" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2"]
+[node name="bolts" type="HBoxContainer" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2"]
 margin_left = 186.0
 margin_right = 292.0
 margin_bottom = 47.0
 size_flags_horizontal = 6
 alignment = 2
 
-[node name="TextureRect" type="TextureRect" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2/gears"]
+[node name="TextureRect" type="TextureRect" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2/bolts"]
 margin_right = 35.0
 margin_bottom = 47.0
 rect_min_size = Vector2( 35, 35 )
@@ -712,7 +682,8 @@ texture = ExtResource( 41 )
 expand = true
 stretch_mode = 6
 
-[node name="LabelFeathers" type="Label" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2/gears"]
+[node name="LabelFeathers" type="Label" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2/bolts"]
+self_modulate = Color( 0.0588235, 0.54902, 0.729412, 1 )
 margin_left = 39.0
 margin_top = 1.0
 margin_right = 106.0
@@ -722,6 +693,8 @@ text = "x 999"
 align = 1
 valign = 1
 script = ExtResource( 32 )
+targetEvent = "boltsUpdated"
+defaultSaveFlag = 2
 
 [node name="demonfeathers" type="HBoxContainer" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2"]
 margin_left = 348.0
@@ -734,11 +707,12 @@ alignment = 2
 margin_right = 35.0
 margin_bottom = 47.0
 rect_min_size = Vector2( 35, 35 )
-texture = ExtResource( 9 )
+texture = ExtResource( 42 )
 expand = true
 stretch_mode = 6
 
 [node name="LabelFeathers" type="Label" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2/demonfeathers"]
+self_modulate = Color( 0.447059, 0.396078, 0.580392, 1 )
 margin_left = 39.0
 margin_top = 1.0
 margin_right = 106.0
@@ -748,22 +722,12 @@ text = "x 999"
 align = 1
 valign = 1
 script = ExtResource( 32 )
-
-[node name="u_ascend" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-margin_top = 95.0
-margin_bottom = 195.0
-title = "Ascend"
-basePrice = 1111
-levelupPriceIncrease = 0
-levelupPricePercentIncrease = 0
-kind = 8
-levelCap = 1
-spriteTexture = ExtResource( 31 )
-description = "Reset your progress and spend Angel Feathers for permanent upgrades"
+targetEvent = "dFeathersUpdated"
+defaultSaveFlag = 3
 
 [node name="u_add" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-margin_top = 190.0
-margin_bottom = 290.0
+margin_top = 95.0
+margin_bottom = 195.0
 title = "Add Dice"
 basePrice = 5
 levelupPriceIncrease = 5
@@ -774,8 +738,8 @@ description = "Adds another D4 dice"
 saveFlag = 4
 
 [node name="u_upgrade" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-margin_top = 285.0
-margin_bottom = 385.0
+margin_top = 190.0
+margin_bottom = 290.0
 title = "Upgrade Dice"
 basePrice = 5
 levelupPriceIncrease = 5
@@ -787,8 +751,8 @@ description = "Upgrade the lowest ranking dice to the next one (D4, D6, D8 ,D10,
 saveFlag = 5
 
 [node name="u_dm" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-margin_top = 380.0
-margin_bottom = 480.0
+margin_top = 285.0
+margin_bottom = 385.0
 title = "Dungeon Master"
 basePrice = 15
 levelupPriceIncrease = 6
@@ -800,8 +764,8 @@ description = "Automatically rolls a dice"
 saveFlag = 6
 
 [node name="u_rolltime" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-margin_top = 475.0
-margin_bottom = 575.0
+margin_top = 380.0
+margin_bottom = 480.0
 title = "Dice Tower"
 basePrice = 15
 levelupPriceIncrease = 72
@@ -813,8 +777,8 @@ description = "Decreases the maximum dice rolling time by each level"
 saveFlag = 7
 
 [node name="u_reroll" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-margin_top = 570.0
-margin_bottom = 670.0
+margin_top = 475.0
+margin_bottom = 575.0
 title = "Re-roller"
 basePrice = 35
 levelupPriceIncrease = 35
@@ -826,8 +790,8 @@ description = "Automatically re-rolls any dice equal to or below the level of th
 saveFlag = 8
 
 [node name="u_contract" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
-margin_top = 665.0
-margin_bottom = 765.0
+margin_top = 570.0
+margin_bottom = 670.0
 title = "Contract"
 basePrice = 50
 levelupPriceIncrease = 120
@@ -944,29 +908,25 @@ text = "$99"
 align = 1
 valign = 1
 
-[node name="FeatherBounty" type="TextureRect" parent="uiRoot/enemyUi/LabelEnemy"]
+[node name="Bounty" type="Control" parent="uiRoot/enemyUi/LabelEnemy"]
 anchor_left = 0.493
 anchor_top = 0.695
 anchor_right = 0.571
 anchor_bottom = 1.135
+
+[node name="Feather" parent="uiRoot/enemyUi/LabelEnemy/Bounty" instance=ExtResource( 30 )]
 texture = ExtResource( 29 )
-expand = true
-stretch_mode = 6
+itemTexture = ExtResource( 29 )
 
-[node name="TextureRect" type="TextureRect" parent="uiRoot/enemyUi/LabelEnemy/FeatherBounty"]
-self_modulate = Color( 0.937255, 0.941176, 0, 0.333333 )
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 43, 24 )
-texture = ExtResource( 30 )
-expand = true
-stretch_mode = 6
+[node name="Bolt" parent="uiRoot/enemyUi/LabelEnemy/Bounty" instance=ExtResource( 30 )]
+texture = ExtResource( 41 )
+itemTexture = ExtResource( 41 )
+shadeColor = Color( 0.0352941, 0.415686, 0.556863, 1 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="uiRoot/enemyUi/LabelEnemy/FeatherBounty/TextureRect"]
-autoplay = "pulse"
-anims/RESET = SubResource( 23 )
-anims/pulse = SubResource( 24 )
+[node name="Demon" parent="uiRoot/enemyUi/LabelEnemy/Bounty" instance=ExtResource( 30 )]
+texture = ExtResource( 42 )
+itemTexture = ExtResource( 42 )
+shadeColor = Color( 0.447059, 0.396078, 0.580392, 1 )
 
 [node name="Control" type="Control" parent="uiRoot/enemyUi"]
 anchor_right = 0.3
@@ -1028,11 +988,10 @@ margin_right = 226.0
 margin_bottom = 171.0
 
 [node name="DpsLabel" parent="uiRoot/enemyUi/VBoxContainer" instance=ExtResource( 40 )]
+visible = false
 text = "DPS: 999"
 
 [node name="Label" parent="uiRoot/enemyUi/VBoxContainer" instance=ExtResource( 40 )]
-margin_top = 57.0
-margin_bottom = 110.0
 
 [node name="Label2" parent="uiRoot/enemyUi/VBoxContainer" instance=ExtResource( 40 )]
 visible = false
@@ -1577,7 +1536,7 @@ autoplay = "spawn"
 anims/RESET = SubResource( 34 )
 anims/spawn = SubResource( 35 )
 
-[connection signal="pressed" from="uiRoot/AscendButton/Button" to="uiRoot/AscendButton/Button" method="_on_Button_pressed"]
+[connection signal="pressed" from="uiRoot/AscendButton/Button" to="uiRoot/AscendButton" method="_on_Button_pressed"]
 [connection signal="timeout" from="uiRoot/enemyUi/Timer" to="uiRoot/enemyUi" method="_on_Timer_timeout"]
 [connection signal="timeout" from="uiRoot/enemyUi/dpsTimer" to="uiRoot/enemyUi" method="_on_dpsTimer_timeout"]
 [connection signal="timeout" from="uiRoot/enemyUi/Control2/Timer" to="uiRoot/enemyUi/Control2" method="_on_Timer_timeout"]
@@ -1587,8 +1546,8 @@ anims/spawn = SubResource( 35 )
 [connection signal="button_down" from="uiRoot/About/Button2" to="uiRoot/About" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/Help/Button" to="uiRoot/Help" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/Options/Button" to="uiRoot/Options" method="_on_Button_button_down"]
-[connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="_on_ColorRect_visibility_changed"]
 [connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="resetSaveButtonText"]
+[connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="_on_ColorRect_visibility_changed"]
 [connection signal="tree_entered" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer/MusicSlider" to="uiRoot/Options/ColorRect" method="_on_MusicSlider_tree_entered"]
 [connection signal="value_changed" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer/MusicSlider" to="uiRoot/Options/ColorRect" method="_on_MusicSlider_value_changed"]
 [connection signal="tree_entered" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer2/SoundSlider" to="uiRoot/Options/ColorRect" method="_on_SoundSlider_tree_entered"]

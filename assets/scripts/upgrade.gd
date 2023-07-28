@@ -182,6 +182,11 @@ func setPayable(value):
 		$LabelPrice.add_color_override("font_color", Color("d83300"));
 		
 func setImportedLevel(save_level):
+	if kind == Enums.Upgrade.REROLL:
+		var x = Save.importSave(Enums.SaveFlag.A_REROLL_VALUE, 0)
+		if x > save_level:
+			save_level = x
+		
 	level = save_level;
 	for i in save_level:
 		price =+ calculatePriceIncrease(price,levelupPriceIncrease,levelupPricePercentIncrease);
@@ -197,6 +202,9 @@ func setImportedLevel(save_level):
 		for s in save_level:
 			Globals.upgradeEnemyPool();
 		return
+	
+
 		
+	
 	for s in save_level:
 		action(); 

@@ -76,23 +76,63 @@ var enemy_pool = [
 		EnemyModel.new("Wrath", 11500, 2200),
 		EnemyModel.new("Necromancer", 13000, 2500, "Necromancer",Enums.DiceEnum.D12),
 	], .06),
-	EnemyTier.new([
+	EnemyTier.new([#TODO: Test balancing from this part
 		EnemyModel.new("Earth Elemental", 19000, 2700, "Earth_Elemental",Enums.DiceEnum.D10),
 		EnemyModel.new("Water Elemental", 20000, 2900, "Water_Elemental",Enums.DiceEnum.D10),
 		EnemyModel.new("Fire Elemental", 22000, 3000, "Fire_Elemental",Enums.DiceEnum.D12),
 		EnemyModel.new("Power Elemental", 23000, 3300, "Volt_Elemental",Enums.DiceEnum.D12),
 	], .08),
 	EnemyTier.new([
-		EnemyModel.new("Light", 29500, 4000),
-		EnemyModel.new("Angel", 32000, 0, "Angel", null, Enums.LootType.FEATHER),
-		#TODO: demon
-		EnemyModel.new("Demon Lord", 38000, 666, "Demon", null, Enums.LootType.DEMON_FEATHER),
-		EnemyModel.new("Darkness", 40000, 4000),
+		EnemyModel.new("Light", 36000, 4000),
+		EnemyModel.new("Light", 36000, 4000),
+		EnemyModel.new("Angel", 32000, 0, "Angel", null, Enums.LootType.FEATHERS),
+		EnemyModel.new("Light", 36000, 4000),
+#		EnemyModel.new("Darkness", 36000, 4200),
 	], 0),
 	EnemyTier.new([
-		#TODO: new upgrades to make it possible to destroy this one
-		EnemyModel.new("Destroyer Drone", 400000, 0, "DestroyerV1", null, Enums.LootType.BOLT),
+		EnemyModel.new("Demon Lord", 41000, 1, "Demon", null, Enums.LootType.BOLTS),
 	], 0),
+	#Move drone to the proposed 'secondary dark enemy pool'
+#	EnemyTier.new([
+#		#TODO: new upgrades to make it possible to destroy this one
+#		EnemyModel.new("Destroyer Drone", 400000, 0, "DestroyerV1", null, Enums.LootType.BOLTS),
+#	], 0),
+]
+
+var dark_enemy_pool = [
+	EnemyTier.new([
+		EnemyModel.new("Dark Slug", 4, 5, "SlugB"),
+		EnemyModel.new("Dark Bat", 9, 10, "BatB"),
+		EnemyModel.new("Dark Hornet", 26, 50, "GiantHornetB"),
+	], 0),
+	EnemyTier.new([
+		EnemyModel.new("Dark Rat", 30, 60, "GiantRatB"),
+		EnemyModel.new("Dark Wolf", 35, 70, "Cobald_Wolf"),
+		EnemyModel.new("Dark Boar", 55, 70, "WildBoarB"),
+	], 0),
+	EnemyTier.new([
+		EnemyModel.new("Dark Goblin", 65, 100, "GoblinB"),
+		EnemyModel.new("Dark Hobgoblin", 95, 111, "Elite_Goblin"),
+		EnemyModel.new("Dark Ogre", 120, 150, "OgreB"),
+	], 0),
+	EnemyTier.new([
+		EnemyModel.new("Dark Orc", 190, 200, "OrcB", Enums.DiceEnum.D4),
+		EnemyModel.new("Dark Living Roots", 250, 200, "AnimatedPlantB"),
+		EnemyModel.new("Dark Treant", 290, 250, "TreantB"),
+	], 0),
+	EnemyTier.new([
+		EnemyModel.new("Dark Pixie", 2100, 900, "FairyB"),
+		EnemyModel.new("Dark Fairy", 5000, 1200, "Pixie_Man_Vampire"),
+		EnemyModel.new("Dark Nymph", 7000, 1550, "Earth_Lady_Vampire",Enums.DiceEnum.D10),
+	], 0),
+	EnemyTier.new([
+		EnemyModel.new("Skeleton", 8000, 1800, "SkeletonB"),
+		EnemyModel.new("Wizard", 10500, 2023, "WizardB"),
+		EnemyModel.new("Darkness", 36000, 4200),
+	], 0),
+	#todo: salamander & lich
+	# 4x 6 = 24 enemies?
+	# add drone at mid-way point
 ]
 
 #var upgrades

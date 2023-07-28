@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/timer_100.png-418d0066f5b51cf83ea8e1910f8d4df9.stex"
+path="res://.import/demon_feather.png-6a5c6a1cb3d1055e3c75b03a9adbcb15.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/icons/timer_100.png"
-dest_files=[ "res://.import/timer_100.png-418d0066f5b51cf83ea8e1910f8d4df9.stex" ]
+source_file="res://assets/sprites/icons/demon_feather.png"
+dest_files=[ "res://.import/demon_feather.png-6a5c6a1cb3d1055e3c75b03a9adbcb15.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

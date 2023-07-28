@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/sprites/bg/parallax-forest-lights.png" type="Texture" id=4]
 [ext_resource path="res://assets/sprites/bg/parallax-forest-middle-trees.png" type="Texture" id=5]
 [ext_resource path="res://assets/scripts/diceList.gd" type="Script" id=6]
+[ext_resource path="res://assets/sprites/enemies/DestroyerV2_noshadow.png" type="Texture" id=7]
 [ext_resource path="res://assets/scripts/diceContainer.gd" type="Script" id=8]
 [ext_resource path="res://assets/sound/A Hero's Tale.mp3" type="AudioStream" id=9]
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-bg.png" type="Texture" id=10]
@@ -15,7 +16,6 @@
 [ext_resource path="res://assets/sprites/bg2/sun.png" type="Texture" id=14]
 [ext_resource path="res://assets/sprites/bg2/clounds_forsun.png" type="Texture" id=15]
 [ext_resource path="res://assets/sprites/enemies/DestroyerV2_eyes.png" type="Texture" id=16]
-[ext_resource path="res://assets/sprites/enemies/DestroyerV2_dark.png" type="Texture" id=17]
 
 [sub_resource type="Animation" id=3]
 length = 0.001
@@ -286,7 +286,7 @@ texture = ExtResource( 14 )
 self_modulate = Color( 0, 0, 0, 0.87451 )
 position = Vector2( 103, -40.5 )
 scale = Vector2( 0.364286, 0.364286 )
-texture = ExtResource( 17 )
+texture = ExtResource( 7 )
 
 [node name="Sprite" type="Sprite" parent="Backgrounds/bg2/destroyer"]
 texture = ExtResource( 16 )
