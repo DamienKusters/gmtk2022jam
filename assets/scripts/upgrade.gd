@@ -91,12 +91,14 @@ func _on_MouseOverlay_button_down():
 		if(applyNextLevelUiUpdate()):
 			action();
 	Save.exportSave(saveFlag, level)
+	Save.saveGame()
 
 func enemyKilled(enemy):
 	if locked == false:
 		return
 	if(enemy.name == target_enemy.name):
 		completeContract();
+		Save.saveGame()
 
 func applyNextLevelUiUpdate():
 	if(Globals.currency < price):
@@ -186,14 +188,14 @@ func setImportedLevel(save_level):
 		var x = Save.importSave(Enums.SaveFlag.A_REROLL_VALUE, 0)
 		if x > save_level:
 			save_level = x
-		
+			
 	level = save_level;
 	for i in save_level:
 		price =+ calculatePriceIncrease(price,levelupPriceIncrease,levelupPricePercentIncrease);
-	
+		
 	if kind == Enums.Upgrade.ADD_DICE || kind == Enums.Upgrade.UPGRADE_DICE:
 		return
-	
+		
 	if kind == Enums.Upgrade.CONTRACT:
 		target_enemy = Database.enemy_pool[level].enemy_pool.back() 
 		var t = bool(Save.importSave(Enums.SaveFlag.TARGET_ENEMY_BEATEN, 0))
@@ -202,9 +204,6 @@ func setImportedLevel(save_level):
 		for s in save_level:
 			Globals.upgradeEnemyPool();
 		return
-	
-
 		
-	
 	for s in save_level:
 		action(); 

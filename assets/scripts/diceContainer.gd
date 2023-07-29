@@ -47,7 +47,7 @@ func exportAllSaves():
 			save += "";
 		i+=1;
 	Save.exportSave(Enums.SaveFlag.DICE, save)
-	print(save)
+	Save.saveGame()
 	return save;
 	
 func add_dice(dice):

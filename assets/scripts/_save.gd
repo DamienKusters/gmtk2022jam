@@ -1,7 +1,5 @@
 extends Node
 
-signal import_save
-
 const save_file_location = "user://dnde.save"
 var save = {}
 
@@ -16,13 +14,15 @@ func importSave(_flag, _default_value, to_int = true):
 	else:
 		return str(ret)
 
-func exportSave(_flag, _value):
+func exportSave(_flag, _value, autosave = false):
 	var v = str(_value)
 	save[_flag] = v
 	
-	saveGame()#debug
+	if autosave:
+		saveGame()
 
-#TODO: Reset save to default (use for ascention and local reset)
+func resetSave():
+	save = {}
 
 func saveGame():
 	var _save = ""
@@ -32,7 +32,7 @@ func saveGame():
 		else:
 			_save += "|"
 	
-	#TODO: save file use field identifier so it can be restored no matter order of enum
+	#TODO: save file use set order so it can be restored no matter order of enum
 	
 	var file = File.new()
 	file.open(save_file_location, File.WRITE)
@@ -62,6 +62,15 @@ func loadGame():
 			save[x] = str(i)
 		x += 1
 	pass
+
+func deleteGame():
+	var file = File.new()
+	if file.file_exists(save_file_location) == true:
+		file.open(Save.save_file_location, File.WRITE)
+		file.store_string("")
+		file.close()
+		return true
+	return false
 
 func _init():
 	loadGame()

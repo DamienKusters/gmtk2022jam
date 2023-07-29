@@ -12,7 +12,7 @@ func levelUp() -> bool:
 	if tryLevelUp() == false:
 		return false
 	
-	Globals.addDice();
+	Globals.emit_signal("addDice", 0);
 	return true
 
 func tryImportSave():

@@ -30,6 +30,11 @@ const dice_data = {
 		"value": 20,
 		"texture": "res://assets/sprites/dice/d20.png",
 		"color": Color(0.953, 0.502, 0)
+	},
+	6:{
+		"value": 100,
+		"texture": "res://assets/sprites/dice/d100.png",
+		"color": Color("545454")
 	}
 }
 
@@ -90,7 +95,7 @@ var enemy_pool = [
 #		EnemyModel.new("Darkness", 36000, 4200),
 	], 0),
 	EnemyTier.new([
-		EnemyModel.new("Demon Lord", 41000, 1, "Demon", null, Enums.LootType.BOLTS),
+		EnemyModel.new("Demon Lord", 41000, 1, "Demon", null, Enums.LootType.DEMON_FEATHERS),
 	], 0),
 	#Move drone to the proposed 'secondary dark enemy pool'
 #	EnemyTier.new([
@@ -107,7 +112,7 @@ var dark_enemy_pool = [
 	], 0),
 	EnemyTier.new([
 		EnemyModel.new("Dark Rat", 30, 60, "GiantRatB"),
-		EnemyModel.new("Dark Wolf", 35, 70, "Cobald_Wolf"),
+		EnemyModel.new("Cobald Wolf", 35, 70, "Cobald_Wolf"),
 		EnemyModel.new("Dark Boar", 55, 70, "WildBoarB"),
 	], 0),
 	EnemyTier.new([
@@ -126,8 +131,8 @@ var dark_enemy_pool = [
 		EnemyModel.new("Dark Nymph", 7000, 1550, "Earth_Lady_Vampire",Enums.DiceEnum.D10),
 	], 0),
 	EnemyTier.new([
-		EnemyModel.new("Skeleton", 8000, 1800, "SkeletonB"),
-		EnemyModel.new("Wizard", 10500, 2023, "WizardB"),
+		EnemyModel.new("Dark Skeleton", 8000, 1800, "SkeletonB"),
+		EnemyModel.new("Dark Wizard", 10500, 2023, "WizardB"),
 		EnemyModel.new("Darkness", 36000, 4200),
 	], 0),
 	#todo: salamander & lich
@@ -135,51 +140,55 @@ var dark_enemy_pool = [
 	# add drone at mid-way point
 ]
 
-#var upgrades
-#func loadUpgrades():
-#	return [
-#		UpgradeModel.new(
-#			"Add Dice",
-#			"Adds another D4 dice",
-#			"res://assets/sprites/upgrades/Add_Dice_Icon.png",
-#			AddDiceUpgrade.new()
-#		),
-#		UpgradeModel.new(
-#			"Upgrade Dice",
-#			"Upgrade the lowest ranking dice to the next one (D4, D6, D8 ,D10, D12, D20)",
-#			"res://assets/sprites/upgrades/Upgrade_Dice_Icon.png",
-#			Upgrade.new()
-#		),
-#		UpgradeModel.new(
-#			"Dungeon Master",
-#			"Automatically rolls a dice",
-#			"res://assets/sprites/upgrades/Dungeon_Master_Icon.png",
-#			Upgrade.new()
-#		),
-#		null,
-#		UpgradeModel.new(
-#			"Re-roller",
-#			"Automatically re-rolls any dice equal to or below the level of the upgrade",
-#			"res://assets/sprites/upgrades/Auto_Roll.png",
-#			Upgrade.new()
-#		),
-#		null,
-#		UpgradeModel.new(
-#			"Contract",
-#			"Adds new enemy encounters",
-#			"res://assets/sprites/upgrades/Contract.png",
-#			ContractUpgrade.new()
-#		),
-#		UpgradeModel.new(
-#			"Dice Tower",
-#			"Decreases the maximum dice rolling time by each level",
-#			"res://assets/sprites/upgrades/Dice_Tower.png",
-#			Upgrade.new()
-#		),
-#		UpgradeModel.new(
-#			"Ascend",
-#			"Reset your progress and spend Angel Feathers for permanent upgrades",
-#			"res://assets/sprites/upgrades/Ascend_Icon.png",
-#			Upgrade.new()
-#		),
-#	]
+var upgrades
+func loadUpgrades():
+	return [
+		UpgradeModel.new(
+			"Add Dice",
+			"Adds another D4 dice",
+			"res://assets/sprites/upgrades/Add_Dice_Icon.png",
+			AddDiceUpgrade.new()
+		),
+		UpgradeModel.new(
+			"Upgrade Dice",
+			"Upgrade the lowest ranking dice to the next one (D4, D6, D8 ,D10, D12, D20)",
+			"res://assets/sprites/upgrades/Upgrade_Dice_Icon.png",
+			Upgrade.new()
+		),
+		UpgradeModel.new(
+			"Dungeon Master",
+			"Automatically rolls a dice",
+			"res://assets/sprites/upgrades/Dungeon_Master_Icon.png",
+			Upgrade.new()
+		),
+		null,
+		UpgradeModel.new(
+			"Re-roller",
+			"Automatically re-rolls any dice equal to or below the level of the upgrade",
+			"res://assets/sprites/upgrades/Auto_Roll.png",
+			Upgrade.new()
+		),
+		null,
+		UpgradeModel.new(
+			"Contract",
+			"Adds new enemy encounters",
+			"res://assets/sprites/upgrades/Contract.png",
+			ContractUpgrade.new()
+		),
+		UpgradeModel.new(
+			"Dice Tower",
+			"Decreases the maximum dice rolling time by each level",
+			"res://assets/sprites/upgrades/Dice_Tower.png",
+			Upgrade.new()
+		),
+		UpgradeModel.new(
+			"Ascend",
+			"Reset your progress and spend Angel Feathers for permanent upgrades",
+			"res://assets/sprites/upgrades/Ascend_Icon.png",
+			Upgrade.new()
+		),
+	]
+
+
+func _init():
+	upgrades = loadUpgrades()

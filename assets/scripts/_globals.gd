@@ -2,7 +2,7 @@ extends Node
 
 onready var game = "res://scenes/main.tscn";
 
-signal addDice;
+signal addDice;#TODO: add back functions to keep signals in check
 signal upgradeDice;
 signal upgradeDiceSuccess;
 signal rollRandomDice;
@@ -52,8 +52,18 @@ func ascendReset():
 	feathers = 0;
 	contractLevel = 0;
 	maxDiceRollTime = 5;
+	Save.resetSave()
 	Save.exportSave(Enums.SaveFlag.CURRENCY, currency)
-	Save.exportSave(Enums.SaveFlag.FEATHERS, feathers)
+	Save.exportSave(Enums.SaveFlag.DEMON_FEATHERS, dFeathers)
+	Save.exportSave(Enums.SaveFlag.BOLTS, bolts)
+	
+	#save ascention stuff
+	Save.exportSave(Enums.SaveFlag.A_MULTIPLIER_LEVEL, ascention_dps_multiplier_level)
+	Save.exportSave(Enums.SaveFlag.A_MULTIPLIER_VALUE, ascention_dps_multiplier_value)
+	Save.exportSave(Enums.SaveFlag.A_REROLL_LEVEL, ascention_reroller_level)
+	Save.exportSave(Enums.SaveFlag.A_REROLL_VALUE, ascention_reroller_value)
+	
+	Save.saveGame()
 	
 func tryUpgradeDice(price):
 	if(currency < price):

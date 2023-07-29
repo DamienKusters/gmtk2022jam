@@ -47,6 +47,7 @@ func respawnEnemy():
 		$LabelEnemy/LabelBounty.text = str(enemy.currency);
 	
 	enemyHealth = enemy.health;
+	$Control/VBoxContainer/TextureProgress/Tween.stop_all()
 	$Control/VBoxContainer/TextureProgress.max_value = enemy.health;
 	$Control/VBoxContainer/TextureProgress.value = enemy.health;
 	
@@ -99,7 +100,14 @@ func damage(value: int, dice: Node2D):
 		$EnemyContainer.add_child(particle.instance());
 		respawnEnemy();
 	else:
-		$Control/VBoxContainer/TextureProgress.value = enemyHealth;
+		$Control/VBoxContainer/TextureProgress/Tween.interpolate_property(
+			$Control/VBoxContainer/TextureProgress,
+			"value",
+			$Control/VBoxContainer/TextureProgress.value,
+			enemyHealth,
+			.05
+		)
+		$Control/VBoxContainer/TextureProgress/Tween.start()
 		$EnemyContainer/AnimationPlayerDamage.play("damage");
 		playRandomDamageSound();
 	pass

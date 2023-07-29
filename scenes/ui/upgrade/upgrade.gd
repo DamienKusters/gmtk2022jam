@@ -18,7 +18,7 @@ func setBackgroundColor(value):
 	$NinePatchRect.self_modulate = value
 
 func _ready():
-	model = Globals.upgrades[upgrade_type]
+	model = Database.upgrades[upgrade_type]
 	$"%LabelTitle".text = model.title
 	$NinePatchRect/HBoxContainer/Control/TextureRect.texture = model.texture;
 	
@@ -66,10 +66,8 @@ func setPayable(value):
 func upgradeUpdated():
 	setPayable(Globals.currency);
 	updateUi()
-	#TODO: save must first be exported: opt to change way upgrades are saved instead of relying on the 'upgrade_save'
-	# wrapper script
-#	Globals.upgradeSavesUpdated(str(upgrade.exportSave()) + "/0/0/0/0/0")# test
-	Globals.saveGame()
+	Save.exportSave(Enums.SaveFlag.U_ADD_DICE, upgrade.level)
+	Save.saveGame()
 
 func onPressed():
 	if locked:
