@@ -1,12 +1,14 @@
-[gd_scene load_steps=70 format=2]
+[gd_scene load_steps=72 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/sprites/ZhbjHEKA.png" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/almendra-all-400-normal.woff" type="DynamicFontData" id=4]
 [ext_resource path="res://scenes/upgrade.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/ui/upgrade/upgrade.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/sprites/upgrades/Add_Dice_Icon.png" type="Texture" id=7]
 [ext_resource path="res://assets/sprites/upgrades/Auto_Roll.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/upgrades/pentagram.png" type="Texture" id=9]
 [ext_resource path="res://assets/sprites/upgrades/Dungeon_Master_Icon.png" type="Texture" id=10]
 [ext_resource path="res://assets/sprites/upgrades/Upgrade_Dice_Icon.png" type="Texture" id=11]
 [ext_resource path="res://assets/sprites/upgrades/Dice_Tower.png" type="Texture" id=12]
@@ -798,10 +800,17 @@ basePrice = 50
 levelupPriceIncrease = 120
 levelupPricePercentIncrease = 37
 kind = 6
-levelCap = 9
+levelCap = 8
 spriteTexture = ExtResource( 19 )
 description = "Adds new enemy encounters"
 saveFlag = 9
+
+[node name="Upgrade" parent="uiRoot/VBoxContainer" instance=ExtResource( 6 )]
+margin_top = 665.0
+margin_bottom = 765.0
+title = "Upgrade Dice"
+background_color = Color( 0.415686, 0.309804, 0.462745, 1 )
+texture = ExtResource( 9 )
 
 [node name="enemyUi" type="Control" parent="uiRoot"]
 anchor_right = 0.7

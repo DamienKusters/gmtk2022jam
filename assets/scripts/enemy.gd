@@ -31,8 +31,8 @@ func respawnEnemy():
 	
 	enemy_loot = enemy.loot_type
 	if enemy_loot == Enums.LootType.CURRENCY:
-		if (enemyTier.enemyHasFeather() == true):
-			enemy_loot = Enums.LootType.FEATHERS
+		if (enemyTier.enemyHasSpecialLoot() == true):
+			enemy_loot = enemyTier.special_loot
 	
 	$LabelEnemy.text = enemy.name;
 	$EnemyContainer/TextureEnemy.texture = enemy.sprite;
@@ -86,13 +86,14 @@ func damage(value: int, dice: Node2D):
 				Globals.addFeathers(1)
 				$EnemyContainer.add_child(particleFeather.instance())
 				showAdvancedUi()
+				#TODO: save game?
 			Enums.LootType.BOLTS:
 				Globals.bolts += 1
 				$EnemyContainer.add_child(particleDFeather.instance())
 				showAdvancedUi()
 				pass
 			Enums.LootType.DEMON_FEATHERS:
-				Globals.dFeathers += enemy.currency
+				Globals.dFeathers += 1
 				$EnemyContainer.add_child(particleDFeather.instance())
 				showAdvancedUi()
 			

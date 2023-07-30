@@ -7,7 +7,7 @@ signal complete_contract
 var target_enemy: EnemyModel;
 
 func _ready():
-	Globals.connect("enemyKilled", self, "enemyKilled")
+	var _a = Globals.connect("enemyKilled", self, "enemyKilled")
 	base_price = 50
 	price = base_price
 	levelup_price_increase = 120

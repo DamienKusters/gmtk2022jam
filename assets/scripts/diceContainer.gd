@@ -20,7 +20,7 @@ func upgradeDice():
 	var dice = get_children();
 	
 	var idx = 0;
-	var diceKind = 0; # starts at d3;
+	var diceKind = 0; # starts at d4;
 	while(diceKind <= 4):
 		for d in dice:
 			if(d.kind == diceKind):

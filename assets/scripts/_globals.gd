@@ -4,16 +4,16 @@ onready var game = "res://scenes/main.tscn";
 
 signal addDice;#TODO: add back functions to keep signals in check
 signal upgradeDice;
-signal upgradeDiceSuccess;
-signal rollRandomDice;
-signal damageEnemy;
+signal upgradeDiceSuccess;#todo
+signal rollRandomDice;#todo
+signal damageEnemy;#todo
 signal currencyUpdated;
 signal feathersUpdated;
 signal boltsUpdated;
 signal dFeathersUpdated;
 signal currencyAddedSingular;
 signal openHelp;
-signal enemyKilled;
+signal enemyKilled;#todo
 
 var contractLevel;
 var maxDiceRollTime = 5;
@@ -33,7 +33,7 @@ var options_music = 0#1;
 var options_sound = 0#2;
 
 #TODO: global rng object & seeded object
-var rng = RandomNumberGenerator.new();
+var rng = RandomNumberGenerator.new()
 
 func setBolts(value):
 	bolts = value
@@ -45,6 +45,7 @@ func setDFeathers(value):
 	emit_signal("dFeathersUpdated", value)
 	Save.exportSave(Enums.SaveFlag.DEMON_FEATHERS, value)
 
+#TODO: move to new ascention screen
 func ascendReset():
 	upgrade_save_overrides = null;
 	upgrade_dice_overrides = null;

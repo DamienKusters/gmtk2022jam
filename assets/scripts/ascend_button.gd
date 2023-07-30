@@ -1,7 +1,7 @@
 extends NinePatchRect
 
 func _ready():
-	Globals.connect("feathersUpdated", self, "change_visible")
+	var _a = Globals.connect("feathersUpdated", self, "change_visible")
 	change_visible(Globals.feathers)
 
 func change_visible(f):

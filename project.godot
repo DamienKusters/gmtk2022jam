@@ -66,8 +66,8 @@ config/icon="res://icon.png"
 [autoload]
 
 Enums="*res://assets/scripts/_enums.gd"
-Database="*res://assets/scripts/_database.gd"
 Save="*res://assets/scripts/_save.gd"
+Database="*res://assets/scripts/_database.gd"
 Globals="*res://assets/scripts/_globals.gd"
 
 [display]

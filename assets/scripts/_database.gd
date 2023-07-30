@@ -38,6 +38,7 @@ const dice_data = {
 	}
 }
 
+onready var _enemy_pool_level = Save.importSave(Enums.SaveFlag.AD_CONTRACT, 0)
 var enemy_pool = [
 	EnemyTier.new([
 		EnemyModel.new("Slug", 4, 5),
@@ -69,77 +70,78 @@ var enemy_pool = [
 		EnemyModel.new("Bandit", 900, 600),
 		EnemyModel.new("Minotaur", 1300, 700, "Minotaur",Enums.DiceEnum.D8),
 	], .05),
-	EnemyTier.new([
+	EnemyTier.new([# killed nymph maxed on DPS lvl 4
 		EnemyModel.new("Pixie", 2100, 900, "Fairy"),
 		EnemyModel.new("Witch", 3000, 1000),
 		EnemyModel.new("Fairy", 5000, 1200, "Pixie_Man"),
 		EnemyModel.new("Nymph", 7000, 1550, "Earth_Lady",Enums.DiceEnum.D10),
 	], .06),
-	EnemyTier.new([
+	EnemyTier.new([#killed necro maxed on DPS 9
 		EnemyModel.new("Skeleton", 8000, 1800),
 		EnemyModel.new("Wizard", 10500, 2023),
 		EnemyModel.new("Wrath", 11500, 2200),
 		EnemyModel.new("Necromancer", 13000, 2500, "Necromancer",Enums.DiceEnum.D12),
 	], .06),
-	EnemyTier.new([#TODO: Test balancing from this part
+	EnemyTier.new([#killed power maxed on DPS 14
 		EnemyModel.new("Earth Elemental", 19000, 2700, "Earth_Elemental",Enums.DiceEnum.D10),
 		EnemyModel.new("Water Elemental", 20000, 2900, "Water_Elemental",Enums.DiceEnum.D10),
 		EnemyModel.new("Fire Elemental", 22000, 3000, "Fire_Elemental",Enums.DiceEnum.D12),
 		EnemyModel.new("Power Elemental", 23000, 3300, "Volt_Elemental",Enums.DiceEnum.D12),
 	], .08),
-	EnemyTier.new([
-		EnemyModel.new("Light", 36000, 4000),
-		EnemyModel.new("Light", 36000, 4000),
+	EnemyTier.new([# ANGEL KILLED MAXED AT DPS 17 (15 & 16 UNKNOWN) lower angel to 15 minimum
 		EnemyModel.new("Angel", 32000, 0, "Angel", null, Enums.LootType.FEATHERS),
-		EnemyModel.new("Light", 36000, 4000),
-#		EnemyModel.new("Darkness", 36000, 4200),
-	], 0),
-	EnemyTier.new([
-		EnemyModel.new("Demon Lord", 41000, 1, "Demon", null, Enums.LootType.DEMON_FEATHERS),
-	], 0),
-	#Move drone to the proposed 'secondary dark enemy pool'
-#	EnemyTier.new([
-#		#TODO: new upgrades to make it possible to destroy this one
-#		EnemyModel.new("Destroyer Drone", 400000, 0, "DestroyerV1", null, Enums.LootType.BOLTS),
-#	], 0),
+		EnemyModel.new("Light", 41000, 4000),# light killed at x17 18/19 minimum
+	], .25, Enums.LootType.DEMON_FEATHERS)
 ]
 
-var dark_enemy_pool = [
+var dark_enemy_pool = [#because demon lord always gives feathers they may need to become common (40% + test this)
 	EnemyTier.new([
-		EnemyModel.new("Dark Slug", 4, 5, "SlugB"),
-		EnemyModel.new("Dark Bat", 9, 10, "BatB"),
-		EnemyModel.new("Dark Hornet", 26, 50, "GiantHornetB"),
-	], 0),
+		EnemyModel.new("Poison Slug", 50000, 5000, "SlugB"),
+		EnemyModel.new("Vampire", 50000, 5000, "BatB"),
+		EnemyModel.new("Void Slime", 50000, 5000, "SlimeB"),
+		EnemyModel.new("Hellhound", 50000, 5000, "Salamander"),
+	], .05, Enums.LootType.DEMON_FEATHERS),
 	EnemyTier.new([
-		EnemyModel.new("Dark Rat", 30, 60, "GiantRatB"),
-		EnemyModel.new("Cobald Wolf", 35, 70, "Cobald_Wolf"),
-		EnemyModel.new("Dark Boar", 55, 70, "WildBoarB"),
-	], 0),
+		EnemyModel.new("Dark Hornet", 50000, 5000, "GiantHornetB"),
+		EnemyModel.new("Dark Rat", 50000, 5000, "GiantRatB"),
+		EnemyModel.new("Cobald Wolf", 50000, 5000, "Cobald_Wolf"),
+		EnemyModel.new("Dark Boar", 50000, 5000, "WildBoarB"),
+	], .07, Enums.LootType.DEMON_FEATHERS),
 	EnemyTier.new([
-		EnemyModel.new("Dark Goblin", 65, 100, "GoblinB"),
-		EnemyModel.new("Dark Hobgoblin", 95, 111, "Elite_Goblin"),
-		EnemyModel.new("Dark Ogre", 120, 150, "OgreB"),
-	], 0),
+		EnemyModel.new("Dark Goblin", 50000, 5000, "GoblinB"),
+		EnemyModel.new("Dark Hobgoblin", 50000, 5000, "Elite_Goblin"),
+		EnemyModel.new("Dark Ogre", 50000, 5000, "OgreB"),
+		EnemyModel.new("Dark Orc", 50000, 5000, "OrcB"),
+	], .1, Enums.LootType.DEMON_FEATHERS),
 	EnemyTier.new([
-		EnemyModel.new("Dark Orc", 190, 200, "OrcB", Enums.DiceEnum.D4),
-		EnemyModel.new("Dark Living Roots", 250, 200, "AnimatedPlantB"),
-		EnemyModel.new("Dark Treant", 290, 250, "TreantB"),
-	], 0),
+		EnemyModel.new("Dark Living Roots", 50000, 5000, "AnimatedPlantB"),
+		EnemyModel.new("Destroyer Drone", 400000, 5000, "DestroyerV1", null, Enums.LootType.BOLTS),
+		EnemyModel.new("Dark Treant", 50000, 5000, "TreantB"),
+	], .14, Enums.LootType.DEMON_FEATHERS),
 	EnemyTier.new([
-		EnemyModel.new("Dark Pixie", 2100, 900, "FairyB"),
-		EnemyModel.new("Dark Fairy", 5000, 1200, "Pixie_Man_Vampire"),
-		EnemyModel.new("Dark Nymph", 7000, 1550, "Earth_Lady_Vampire",Enums.DiceEnum.D10),
-	], 0),
+		EnemyModel.new("Lich", 50000, 5000),
+	], .2, Enums.LootType.DEMON_FEATHERS),
 	EnemyTier.new([
-		EnemyModel.new("Dark Skeleton", 8000, 1800, "SkeletonB"),
-		EnemyModel.new("Dark Wizard", 10500, 2023, "WizardB"),
-		EnemyModel.new("Darkness", 36000, 4200),
-	], 0),
-	#todo: salamander & lich
-	# 4x 6 = 24 enemies?
-	# add drone at mid-way point
+		EnemyModel.new("Dark Pixie", 50000, 5000, "FairyB"),
+		EnemyModel.new("Dark Fairy", 50000, 5000, "Pixie_Man_Vampire"),
+		EnemyModel.new("Dark Nymph", 50000, 5000, "Earth_Lady_Vampire"),
+	], .2, Enums.LootType.DEMON_FEATHERS),
+	EnemyTier.new([
+		EnemyModel.new("Blood Skeleton", 50000, 5000, "SkeletonB"),
+		EnemyModel.new("Dark Mage", 50000, 5000, "WizardB"),
+		EnemyModel.new("Demon Lord", 50000, 0, "Demon", null, Enums.LootType.DEMON_FEATHERS),
+		EnemyModel.new("Darkness", 50000, 5000),
+	], .2, Enums.LootType.DEMON_FEATHERS),
 ]
 
+func _ready():
+	for i in _enemy_pool_level:
+		upgradeEnemyTier(i)
+
+func upgradeEnemyTier(index: int):
+	enemy_pool[index] = dark_enemy_pool[index]
+
+#Redo new upgrade system, make use of resource but simplify it
 var upgrades
 func loadUpgrades():
 	return [

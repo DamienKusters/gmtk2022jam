@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-mountains.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-trees.png" type="Texture" id=2]
@@ -7,12 +7,19 @@
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-foreground-trees.png" type="Texture" id=5]
 [ext_resource path="res://assets/sprites/enemies/DestroyerV2_eyes.png" type="Texture" id=6]
 [ext_resource path="res://assets/sprites/enemies/DestroyerV2_noshadow.png" type="Texture" id=7]
-[ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=8]
+[ext_resource path="res://assets/scripts/ascendController.gd" type="Script" id=8]
 [ext_resource path="res://assets/sprites/upgrades/Ascend_Icon.png" type="Texture" id=9]
 [ext_resource path="res://assets/sprites/upgrades/Descend_Icon.png" type="Texture" id=10]
 [ext_resource path="res://assets/sprites/bg2/sun.png" type="Texture" id=11]
 [ext_resource path="res://assets/sprites/bg2/clounds_forsun.png" type="Texture" id=12]
 [ext_resource path="res://scenes/ThemeButton.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/ascend/AscendCategoryButton.tscn" type="PackedScene" id=14]
+[ext_resource path="res://assets/sprites/icons/angel_feather.png" type="Texture" id=15]
+[ext_resource path="res://assets/sprites/dice/d4.png" type="Texture" id=16]
+[ext_resource path="res://assets/sprites/upgrades/Auto_Roll.png" type="Texture" id=17]
+[ext_resource path="res://assets/sprites/ui/upgrade/upgrade_box.png" type="Texture" id=18]
+[ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=19]
+[ext_resource path="res://assets/sprites/upgrades/Upgrade_Dice_Icon.png" type="Texture" id=20]
 
 [sub_resource type="Animation" id=20]
 length = 0.001
@@ -28,10 +35,34 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 0, 0 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("../ui:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../ui:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=21]
 resource_name = "spawn_screen"
-length = 2.0
+length = 3.0
 step = 1.0
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:offset")
@@ -44,6 +75,30 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 0.6, 0.1 ),
 "update": 0,
 "values": [ Vector2( 0, -900 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../ui:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 2, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../ui:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
 }
 
 [sub_resource type="Shader" id=22]
@@ -207,27 +262,167 @@ void fragment () {
 shader = SubResource( 24 )
 shader_param/speed = 0.06
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="Animation" id=26]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("fader:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("menu:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("fader:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "hide_menu"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("menu:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("fader:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("fader:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "show_menu"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("fader:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("fader:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("menu:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="DynamicFont" id=28]
 size = 35
 outline_size = 2
 outline_color = Color( 0.196078, 0.196078, 0.196078, 1 )
-font_data = ExtResource( 8 )
+font_data = ExtResource( 19 )
 
-[node name="Ascend2" type="Control"]
+[sub_resource type="DynamicFont" id=30]
+size = 35
+outline_size = 2
+outline_color = Color( 0.196078, 0.196078, 0.196078, 1 )
+font_data = ExtResource( 19 )
+
+[sub_resource type="DynamicFont" id=31]
+size = 33
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 19 )
+
+[sub_resource type="StreamTexture" id=29]
+load_path = "res://.import/upgrade_box_flipped.png-6b178ad2644ac15628d76c98b8d16c8e.stex"
+
+[node name="Ascend" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 8 )
 
-[node name="bg" type="ColorRect" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../canvas")
+autoplay = "spawn_screen"
+anims/RESET = SubResource( 20 )
+anims/spawn_screen = SubResource( 21 )
+
+[node name="bg" type="CanvasLayer" parent="."]
+layer = -2
+
+[node name="bg" type="ColorRect" parent="bg"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.0862745, 0.0313726, 0.0196078, 1 )
 
 [node name="canvas" type="CanvasLayer" parent="."]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="canvas"]
-autoplay = "spawn_screen"
-anims/RESET = SubResource( 20 )
-anims/spawn_screen = SubResource( 21 )
+layer = -1
 
 [node name="bg" type="TextureRect" parent="canvas"]
 anchor_right = 1.0
@@ -260,10 +455,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -117.0
-margin_top = -312.0
-margin_right = 112.0
-margin_bottom = -165.019
+margin_left = 683.0
+margin_top = 138.0
+margin_right = 912.0
+margin_bottom = 284.98
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6
@@ -275,7 +470,7 @@ texture = ExtResource( 6 )
 stretch_mode = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="canvas/bg/destroyer"]
-autoplay = "spawn"
+autoplay = "HIDE"
 anims/HIDE = SubResource( 19 )
 anims/RESET = SubResource( 11 )
 anims/hover = SubResource( 12 )
@@ -284,7 +479,6 @@ anims/spawn = SubResource( 13 )
 [node name="AnimationTree" type="AnimationTree" parent="canvas/bg/destroyer"]
 tree_root = SubResource( 17 )
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/playback = SubResource( 18 )
 
 [node name="centermountain" type="TextureRect" parent="canvas/bg"]
@@ -317,111 +511,267 @@ texture = ExtResource( 12 )
 expand = true
 stretch_mode = 5
 
-[node name="ui" type="Control" parent="canvas"]
+[node name="ui" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="labels" type="HBoxContainer" parent="canvas/ui"]
-anchor_top = 0.387
+[node name="MenuNavigator" type="AnimationPlayer" parent="ui"]
+anims/RESET = SubResource( 26 )
+anims/hide_menu = SubResource( 25 )
+anims/show_menu = SubResource( 27 )
+
+[node name="menu" type="Control" parent="ui"]
 anchor_right = 1.0
-anchor_bottom = 0.439
+anchor_bottom = 1.0
 
-[node name="ang" type="Label" parent="canvas/ui/labels"]
-margin_right = 530.0
-margin_bottom = 47.0
-mouse_filter = 1
-size_flags_horizontal = 3
-custom_fonts/font = SubResource( 10 )
-text = "Angelic Upgrades"
-align = 1
+[node name="Aupgrades" parent="ui/menu" instance=ExtResource( 14 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 122.0
+margin_top = 73.0
+margin_right = 522.0
+margin_bottom = 343.0
+label_text = "Angelic Upgrades"
+texture = ExtResource( 9 )
 
-[node name="des" type="Label" parent="canvas/ui/labels"]
-margin_left = 534.0
-margin_right = 1065.0
-margin_bottom = 47.0
-mouse_filter = 1
-size_flags_horizontal = 3
-custom_fonts/font = SubResource( 10 )
-text = "The Destroyer"
-align = 1
+[node name="Dupgrades" parent="ui/menu" instance=ExtResource( 14 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1090.0
+margin_top = 74.0
+margin_right = 1490.0
+margin_bottom = 344.0
+label_text = "Demonic Upgrades"
+texture = ExtResource( 10 )
 
-[node name="dem" type="Label" parent="canvas/ui/labels"]
-margin_left = 1069.0
-margin_right = 1600.0
-margin_bottom = 47.0
-mouse_filter = 1
-size_flags_horizontal = 3
-custom_fonts/font = SubResource( 10 )
-text = "Demonic Upgrades"
-align = 1
+[node name="Gupgrades" parent="ui/menu" instance=ExtResource( 14 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 597.0
+margin_top = 79.0
+margin_right = 997.0
+margin_bottom = 525.0
+label_text = "The Destroyer"
 
-[node name="ThemeButton" parent="canvas/ui" instance=ExtResource( 13 )]
+[node name="AscendButton" parent="ui/menu" instance=ExtResource( 13 )]
 self_modulate = Color( 0.184314, 0.129412, 0.219608, 1 )
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -170.0
-margin_top = -130.0
-margin_right = 170.0
-margin_bottom = -53.0
+margin_left = 630.0
+margin_top = 770.0
+margin_right = 970.0
+margin_bottom = 847.0
 button_text = "Ascend"
 modulate_default = Color( 0.184314, 0.129412, 0.219608, 1 )
 modulate_hover = Color( 0.313726, 0.180392, 0.286275, 1 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="canvas/ui"]
-anchor_top = 0.08
-anchor_right = 1.0
-anchor_bottom = 0.4
-custom_constants/separation = 70
-alignment = 1
-
-[node name="Button" type="Button" parent="canvas/ui/HBoxContainer"]
-margin_right = 486.0
-margin_bottom = 288.0
-size_flags_horizontal = 3
-flat = true
-
-[node name="Control" type="Control" parent="canvas/ui/HBoxContainer/Button"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_min_size = Vector2( 300, 220 )
-mouse_filter = 1
-
-[node name="TextureRect" type="TextureRect" parent="canvas/ui/HBoxContainer/Button/Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 9 )
-stretch_mode = 4
-
-[node name="Button2" type="Button" parent="canvas/ui/HBoxContainer"]
-margin_left = 556.0
-margin_right = 1043.0
-margin_bottom = 288.0
-size_flags_horizontal = 3
-flat = true
-
-[node name="Button3" type="Button" parent="canvas/ui/HBoxContainer"]
-margin_left = 1113.0
-margin_right = 1600.0
-margin_bottom = 288.0
-size_flags_horizontal = 3
-flat = true
-
-[node name="Control3" type="Control" parent="canvas/ui/HBoxContainer/Button3"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_min_size = Vector2( 300, 220 )
-mouse_filter = 1
-
-[node name="TextureRect" type="TextureRect" parent="canvas/ui/HBoxContainer/Button3/Control3"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 10 )
-stretch_mode = 4
-
-[node name="fader" type="ColorRect" parent="canvas"]
+[node name="fader" type="ColorRect" parent="ui"]
 visible = false
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 1, 1, 1, 0.270588 )
+
+[node name="BackButton" parent="ui/fader" instance=ExtResource( 13 )]
+self_modulate = Color( 0.184314, 0.129412, 0.219608, 1 )
+margin_left = 630.0
+margin_top = 770.0
+margin_right = 970.0
+margin_bottom = 847.0
+button_text = "Back"
+modulate_default = Color( 0.184314, 0.129412, 0.219608, 1 )
+modulate_hover = Color( 0.313726, 0.180392, 0.286275, 1 )
+
+[node name="angelic" type="Control" parent="ui"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="AscentionUpgrade" type="Control" parent="ui/angelic"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/angelic/AscentionUpgrade"]
+margin_right = 40.0
+margin_bottom = 40.0
+custom_constants/separation = 0
+
+[node name="Label" type="Label" parent="ui/angelic/AscentionUpgrade/VBoxContainer"]
+margin_right = 128.0
+margin_bottom = 84.0
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_constants/line_spacing = -10
+custom_fonts/font = SubResource( 28 )
+text = "Upgrade
+Name"
+align = 1
+
+[node name="TextureRect" type="TextureRect" parent="ui/angelic/AscentionUpgrade/VBoxContainer"]
+margin_top = 84.0
+margin_right = 128.0
+margin_bottom = 212.0
+texture = ExtResource( 16 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui/angelic/AscentionUpgrade"]
+margin_top = 220.0
+margin_right = 500.0
+margin_bottom = 320.0
+custom_constants/separation = 0
+
+[node name="Control" type="Control" parent="ui/angelic/AscentionUpgrade/HBoxContainer"]
+margin_right = 250.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 250, 100 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ui/angelic/AscentionUpgrade/HBoxContainer/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 18 )
+patch_margin_left = 20
+patch_margin_top = 21
+patch_margin_right = 5
+patch_margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui/angelic/AscentionUpgrade/HBoxContainer/Control/NinePatchRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="ui/angelic/AscentionUpgrade/HBoxContainer/Control/NinePatchRect/HBoxContainer"]
+self_modulate = Color( 0, 0, 0, 1 )
+margin_right = 90.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 90, 0 )
+texture = ExtResource( 17 )
+expand = true
+stretch_mode = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/angelic/AscentionUpgrade/HBoxContainer/Control/NinePatchRect/HBoxContainer"]
+margin_left = 94.0
+margin_right = 250.0
+margin_bottom = 100.0
+size_flags_horizontal = 3
+custom_constants/separation = -6
+alignment = 1
+
+[node name="Label" type="Label" parent="ui/angelic/AscentionUpgrade/HBoxContainer/Control/NinePatchRect/HBoxContainer/VBoxContainer"]
+margin_top = 7.0
+margin_right = 156.0
+margin_bottom = 54.0
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_constants/line_spacing = -10
+custom_fonts/font = SubResource( 30 )
+text = "Re-roll"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui/angelic/AscentionUpgrade/HBoxContainer/Control/NinePatchRect/HBoxContainer/VBoxContainer"]
+margin_top = 48.0
+margin_right = 156.0
+margin_bottom = 92.0
+alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="ui/angelic/AscentionUpgrade/HBoxContainer/Control/NinePatchRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 35.0
+margin_right = 70.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 35, 35 )
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="ui/angelic/AscentionUpgrade/HBoxContainer/Control/NinePatchRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+self_modulate = Color( 0.92549, 0.901961, 0.690196, 1 )
+margin_left = 74.0
+margin_right = 121.0
+margin_bottom = 44.0
+mouse_filter = 1
+custom_constants/line_spacing = -10
+custom_fonts/font = SubResource( 31 )
+text = "200"
+align = 1
+
+[node name="Control2" type="Control" parent="ui/angelic/AscentionUpgrade/HBoxContainer"]
+margin_left = 250.0
+margin_right = 500.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 250, 100 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ui/angelic/AscentionUpgrade/HBoxContainer/Control2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = SubResource( 29 )
+patch_margin_left = 5
+patch_margin_top = 21
+patch_margin_right = 20
+patch_margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui/angelic/AscentionUpgrade/HBoxContainer/Control2/NinePatchRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/angelic/AscentionUpgrade/HBoxContainer/Control2/NinePatchRect/HBoxContainer"]
+margin_right = 166.0
+margin_bottom = 100.0
+size_flags_horizontal = 3
+custom_constants/separation = -6
+alignment = 1
+
+[node name="Label" type="Label" parent="ui/angelic/AscentionUpgrade/HBoxContainer/Control2/NinePatchRect/HBoxContainer/VBoxContainer"]
+margin_top = 7.0
+margin_right = 166.0
+margin_bottom = 54.0
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_constants/line_spacing = -10
+custom_fonts/font = SubResource( 30 )
+text = "Upgrade"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui/angelic/AscentionUpgrade/HBoxContainer/Control2/NinePatchRect/HBoxContainer/VBoxContainer"]
+margin_top = 48.0
+margin_right = 166.0
+margin_bottom = 92.0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="ui/angelic/AscentionUpgrade/HBoxContainer/Control2/NinePatchRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 40.0
+margin_right = 75.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 35, 35 )
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="ui/angelic/AscentionUpgrade/HBoxContainer/Control2/NinePatchRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+self_modulate = Color( 0.92549, 0.901961, 0.690196, 1 )
+margin_left = 79.0
+margin_right = 126.0
+margin_bottom = 44.0
+mouse_filter = 1
+custom_constants/line_spacing = -10
+custom_fonts/font = SubResource( 31 )
+text = "200"
+align = 1
+
+[node name="TextureRect" type="TextureRect" parent="ui/angelic/AscentionUpgrade/HBoxContainer/Control2/NinePatchRect/HBoxContainer"]
+self_modulate = Color( 0, 0, 0, 1 )
+margin_left = 170.0
+margin_right = 250.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 80, 0 )
+texture = ExtResource( 20 )
+expand = true
+stretch_mode = 6
+
+[node name="demonic" type="Control" parent="ui"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[connection signal="pressed" from="ui/menu/Aupgrades" to="." method="_on_upgrades_pressed" binds= [ 0 ]]
+[connection signal="pressed" from="ui/menu/Dupgrades" to="." method="_on_upgrades_pressed" binds= [ 1 ]]
+[connection signal="pressed" from="ui/menu/Gupgrades" to="." method="_on_upgrades_pressed" binds= [ 2 ]]
+[connection signal="button_clicked" from="ui/fader/BackButton" to="." method="showMenu"]
