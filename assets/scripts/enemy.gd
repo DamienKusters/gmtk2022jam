@@ -40,7 +40,7 @@ func respawnEnemy():
 	$LabelEnemy/Bounty.visible = enemy_loot != Enums.LootType.CURRENCY
 	$LabelEnemy/Bounty/Feather.visible = enemy_loot == Enums.LootType.FEATHERS
 	$LabelEnemy/Bounty/Bolt.visible = enemy_loot == Enums.LootType.BOLTS
-	$LabelEnemy/Bounty/Demon.visible = enemy_loot == Enums.LootType.DEMON_FEATHERS
+	$LabelEnemy/Bounty/Demon.visible = enemy_loot == Enums.LootType.DARK_FEATHERS
 	if enemy_loot != Enums.LootType.CURRENCY:
 		$LabelEnemy/LabelBounty.text = "";
 	else:
@@ -92,7 +92,7 @@ func damage(value: int, dice: Node2D):
 				$EnemyContainer.add_child(particleDFeather.instance())
 				showAdvancedUi()
 				pass
-			Enums.LootType.DEMON_FEATHERS:
+			Enums.LootType.DARK_FEATHERS:
 				Globals.dFeathers += 1
 				$EnemyContainer.add_child(particleDFeather.instance())
 				showAdvancedUi()

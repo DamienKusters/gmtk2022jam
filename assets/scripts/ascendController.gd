@@ -5,7 +5,7 @@ var _dfeathers
 
 func _ready():
 	_bolts = Save.importSave(Enums.SaveFlag.BOLTS, 0)
-	_dfeathers = Save.importSave(Enums.SaveFlag.DEMON_FEATHERS, 0)
+	_dfeathers = Save.importSave(Enums.SaveFlag.DARK_FEATHERS, 0)
 	Save.resetSave()
 	# Or clever reset save (only flags you pass in)
 	#TODO: add all payment things back

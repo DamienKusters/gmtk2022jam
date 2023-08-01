@@ -43,10 +43,11 @@ func setBolts(value):
 func setDFeathers(value):
 	dFeathers = value
 	emit_signal("dFeathersUpdated", value)
-	Save.exportSave(Enums.SaveFlag.DEMON_FEATHERS, value)
+	Save.exportSave(Enums.SaveFlag.DARK_FEATHERS, value)
 
 #TODO: move to new ascention screen
 func ascendReset():
+	Database.initEnemyPool()
 	upgrade_save_overrides = null;
 	upgrade_dice_overrides = null;
 	currency = 10 * feathers;
@@ -55,7 +56,7 @@ func ascendReset():
 	maxDiceRollTime = 5;
 	Save.resetSave()
 	Save.exportSave(Enums.SaveFlag.CURRENCY, currency)
-	Save.exportSave(Enums.SaveFlag.DEMON_FEATHERS, dFeathers)
+	Save.exportSave(Enums.SaveFlag.DARK_FEATHERS, dFeathers)
 	Save.exportSave(Enums.SaveFlag.BOLTS, bolts)
 	
 	#save ascention stuff
@@ -66,10 +67,10 @@ func ascendReset():
 	
 	Save.saveGame()
 	
-func tryUpgradeDice(price):
+func tryUpgradeDice(price, enhanced = false):
 	if(currency < price):
 		return
-	emit_signal("upgradeDice")
+	emit_signal("upgradeDice", enhanced)
 	
 func upgradeEnemyPool():
 	contractLevel += 1
@@ -124,7 +125,7 @@ func _init():
 	currency = Save.importSave(Enums.SaveFlag.CURRENCY, 0);
 	feathers = Save.importSave(Enums.SaveFlag.FEATHERS, 0);
 	bolts = Save.importSave(Enums.SaveFlag.BOLTS, 0);
-	dFeathers = Save.importSave(Enums.SaveFlag.DEMON_FEATHERS, 0);
+	dFeathers = Save.importSave(Enums.SaveFlag.DARK_FEATHERS, 0);
 	
 	ascention_dps_multiplier_value = Save.importSave(Enums.SaveFlag.A_MULTIPLIER_VALUE, 1);
 	ascention_dps_multiplier_level = Save.importSave(Enums.SaveFlag.A_MULTIPLIER_LEVEL, 0);

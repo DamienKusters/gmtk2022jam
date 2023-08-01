@@ -16,12 +16,16 @@ func rollRandomNonRollingDice():
 			d.roll();
 			return;
 	
-func upgradeDice():
+func upgradeDice(enhanced):
 	var dice = get_children();
 	
 	var idx = 0;
 	var diceKind = 0; # starts at d4;
-	while(diceKind <= 4):
+	var maxUpgr = 4
+	if enhanced:
+		maxUpgr = 5
+		diceKind = 5
+	while(diceKind <= maxUpgr):
 		for d in dice:
 			if(d.kind == diceKind):
 				remove_child(d);
@@ -30,7 +34,7 @@ func upgradeDice():
 				replaceDice.position = d.position;
 				add_child(replaceDice);
 				move_child(replaceDice,idx);# TODO: Fix
-				Globals.emit_signal("upgradeDiceSuccess")
+				Globals.emit_signal("upgradeDiceSuccess", enhanced)
 				exportAllSaves();
 				return;
 			idx += 1;

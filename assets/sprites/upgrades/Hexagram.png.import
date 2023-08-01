@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pentagram.png-20a49520a3b9cd75be7fe4a3759b1030.stex"
+path="res://.import/Hexagram.png-c799124778b855f7fa3cc4f81c110d94.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/upgrades/pentagram.png"
-dest_files=[ "res://.import/pentagram.png-20a49520a3b9cd75be7fe4a3759b1030.stex" ]
+source_file="res://assets/sprites/upgrades/Hexagram.png"
+dest_files=[ "res://.import/Hexagram.png-c799124778b855f7fa3cc4f81c110d94.stex" ]
 
 [params]
 

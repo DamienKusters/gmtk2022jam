@@ -1,14 +1,14 @@
-[gd_scene load_steps=72 format=2]
+[gd_scene load_steps=73 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/sprites/ZhbjHEKA.png" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/almendra-all-400-normal.woff" type="DynamicFontData" id=4]
 [ext_resource path="res://scenes/upgrade.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/ui/upgrade/upgrade.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/sprites/upgrades/Upgrade_Dice_100_Icon.png" type="Texture" id=6]
 [ext_resource path="res://assets/sprites/upgrades/Add_Dice_Icon.png" type="Texture" id=7]
 [ext_resource path="res://assets/sprites/upgrades/Auto_Roll.png" type="Texture" id=8]
-[ext_resource path="res://assets/sprites/upgrades/pentagram.png" type="Texture" id=9]
+[ext_resource path="res://assets/scripts/super_upgrade_toggler.gd" type="Script" id=9]
 [ext_resource path="res://assets/sprites/upgrades/Dungeon_Master_Icon.png" type="Texture" id=10]
 [ext_resource path="res://assets/sprites/upgrades/Upgrade_Dice_Icon.png" type="Texture" id=11]
 [ext_resource path="res://assets/sprites/upgrades/Dice_Tower.png" type="Texture" id=12]
@@ -40,8 +40,9 @@
 [ext_resource path="res://assets/scripts/ascend_button.gd" type="Script" id=38]
 [ext_resource path="res://assets/sprites/logo_extended.png" type="Texture" id=39]
 [ext_resource path="res://resources/status_label.tscn" type="PackedScene" id=40]
-[ext_resource path="res://assets/sprites/enemies/DestroyerV2_noshadow.png" type="Texture" id=41]
 [ext_resource path="res://assets/sprites/icons/demon_feather.png" type="Texture" id=42]
+[ext_resource path="res://assets/sprites/upgrades/Hexagram.png" type="Texture" id=43]
+[ext_resource path="res://assets/sprites/icons/bolt.png" type="Texture" id=44]
 
 [sub_resource type="DynamicFont" id=25]
 size = 60
@@ -681,7 +682,7 @@ alignment = 2
 margin_right = 35.0
 margin_bottom = 47.0
 rect_min_size = Vector2( 35, 35 )
-texture = ExtResource( 41 )
+texture = ExtResource( 44 )
 expand = true
 stretch_mode = 6
 
@@ -740,9 +741,15 @@ spriteTexture = ExtResource( 7 )
 description = "Adds another D4 dice"
 saveFlag = 4
 
-[node name="u_upgrade" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
+[node name="upgrade" type="Control" parent="uiRoot/VBoxContainer"]
 margin_top = 190.0
+margin_right = 480.0
 margin_bottom = 290.0
+rect_min_size = Vector2( 480, 100 )
+script = ExtResource( 9 )
+save_flag_check = 19
+
+[node name="u_upgrade" parent="uiRoot/VBoxContainer/upgrade" instance=ExtResource( 5 )]
 title = "Upgrade Dice"
 basePrice = 5
 levelupPriceIncrease = 5
@@ -752,6 +759,19 @@ levelCap = 105
 spriteTexture = ExtResource( 11 )
 description = "Upgrade the lowest ranking dice to the next one (D4, D6, D8 ,D10, D12, D20)"
 saveFlag = 5
+
+[node name="us_upgrade" parent="uiRoot/VBoxContainer/upgrade" instance=ExtResource( 5 )]
+visible = false
+title = "Enhance Dice"
+basePrice = 1000
+levelupPriceIncrease = 2000
+levelupPricePercentIncrease = 33
+kind = 8
+levelCap = 21
+spriteTexture = ExtResource( 6 )
+description = "Enhances D20 dice to a D100 variant"
+saveFlag = 10
+super_upgrade = true
 
 [node name="u_dm" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 285.0
@@ -792,9 +812,15 @@ spriteTexture = ExtResource( 8 )
 description = "Automatically re-rolls any dice equal to or below the level of the upgrade"
 saveFlag = 8
 
-[node name="u_contract" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
+[node name="contract" type="Control" parent="uiRoot/VBoxContainer"]
 margin_top = 570.0
+margin_right = 480.0
 margin_bottom = 670.0
+rect_min_size = Vector2( 480, 100 )
+script = ExtResource( 9 )
+save_flag_check = 19
+
+[node name="u_contract" parent="uiRoot/VBoxContainer/contract" instance=ExtResource( 5 )]
 title = "Contract"
 basePrice = 50
 levelupPriceIncrease = 120
@@ -805,12 +831,18 @@ spriteTexture = ExtResource( 19 )
 description = "Adds new enemy encounters"
 saveFlag = 9
 
-[node name="Upgrade" parent="uiRoot/VBoxContainer" instance=ExtResource( 6 )]
-margin_top = 665.0
-margin_bottom = 765.0
-title = "Upgrade Dice"
-background_color = Color( 0.415686, 0.309804, 0.462745, 1 )
-texture = ExtResource( 9 )
+[node name="us_contract" parent="uiRoot/VBoxContainer/contract" instance=ExtResource( 5 )]
+visible = false
+title = "Hexagram"
+basePrice = 20000
+levelupPriceIncrease = 200
+levelupPricePercentIncrease = 40
+kind = 9
+levelCap = 7
+spriteTexture = ExtResource( 43 )
+description = "Replaces lower-tier enemies with their shadow realm counterpart"
+saveFlag = 11
+super_upgrade = true
 
 [node name="enemyUi" type="Control" parent="uiRoot"]
 anchor_right = 0.7
@@ -929,8 +961,8 @@ texture = ExtResource( 29 )
 itemTexture = ExtResource( 29 )
 
 [node name="Bolt" parent="uiRoot/enemyUi/LabelEnemy/Bounty" instance=ExtResource( 30 )]
-texture = ExtResource( 41 )
-itemTexture = ExtResource( 41 )
+texture = ExtResource( 44 )
+itemTexture = ExtResource( 44 )
 shadeColor = Color( 0.0352941, 0.415686, 0.556863, 1 )
 
 [node name="Demon" parent="uiRoot/enemyUi/LabelEnemy/Bounty" instance=ExtResource( 30 )]
@@ -999,11 +1031,12 @@ margin_top = 118.0
 margin_right = 226.0
 margin_bottom = 171.0
 
-[node name="DpsLabel" parent="uiRoot/enemyUi/VBoxContainer" instance=ExtResource( 40 )]
-visible = false
-text = "DPS: 999"
-
 [node name="Label" parent="uiRoot/enemyUi/VBoxContainer" instance=ExtResource( 40 )]
+
+[node name="DpsLabel" parent="uiRoot/enemyUi/VBoxContainer" instance=ExtResource( 40 )]
+margin_top = 57.0
+margin_bottom = 110.0
+text = "DPS: 999"
 
 [node name="Label2" parent="uiRoot/enemyUi/VBoxContainer" instance=ExtResource( 40 )]
 visible = false

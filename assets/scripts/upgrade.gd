@@ -14,6 +14,7 @@ export var levelCap = -1;
 export(Texture) var spriteTexture;
 export(String) var description;
 export(Enums.SaveFlag) var saveFlag
+export var super_upgrade = false
 var test_contract;
 var target_enemy: EnemyModel
 
@@ -24,19 +25,21 @@ func _ready():
 	$LabelTitle.text = title;
 	$Control/TextureRect.texture = spriteTexture;
 	
+	if super_upgrade:
+		$bg.self_modulate = Color("6A4F76")
+	
 	price = basePrice;
 	
-	if kind != Enums.Upgrade.ASCEND:
-		setImportedLevel(Save.importSave(saveFlag, 0))
+	setImportedLevel(Save.importSave(saveFlag, 0))
 	
 	updateUi();
-	if(kind == 1):
+	if(kind == Enums.Upgrade.UPGRADE_DICE || kind == Enums.Upgrade.ENHANCE_DICE):
 		var _a = Globals.connect("upgradeDiceSuccess", self, "applyNextLevelUiUpdate");
 	if(kind == 4):
 		updateUi();
 		var _a = Globals.connect("damageEnemy", self, "enemyDamaged");
 		emit_signal("levelChanged");	
-	if(kind == 6):
+	if(kind == 6 || kind == Enums.Upgrade.HEXAGRAM):
 		var _a = Globals.connect("enemyKilled", self, "enemyKilled");
 		if level >= levelCap:
 			locked = true
@@ -44,8 +47,6 @@ func _ready():
 	$enemyLocker.visible = false;
 	var _a = Globals.connect("currencyUpdated", self, "setPayable");
 	setPayable(Globals.currency);
-	if kind == Enums.Upgrade.ASCEND:
-		$bg.self_modulate = Color('8E6811');
 	
 func updateUi():
 	$LabelPrice.text = String(price);
@@ -85,10 +86,10 @@ func tween_completed():
 func _on_MouseOverlay_button_down():
 	if(locked == true):
 		return;
-	if(kind == 1):# Quick fix for upgrade dice
+	if(kind == 1 || kind == Enums.Upgrade.ENHANCE_DICE):# Quick fix for upgrade dice
 		action();
 	else:
-		if(applyNextLevelUiUpdate()):
+		if(applyNextLevelUiUpdate(kind == Enums.Upgrade.ENHANCE_DICE)):
 			action();
 	Save.exportSave(saveFlag, level)
 	Save.saveGame()
@@ -100,7 +101,10 @@ func enemyKilled(enemy):
 		completeContract();
 		Save.saveGame()
 
-func applyNextLevelUiUpdate():
+func applyNextLevelUiUpdate(enhanced):
+	if !(enhanced == (kind == Enums.Upgrade.ENHANCE_DICE)):
+		return
+	
 	if(Globals.currency < price):
 		return false;
 	if(levelCap != -1):
@@ -134,7 +138,9 @@ func action():
 	if(kind == Enums.Upgrade.ADD_DICE):
 		Globals.emit_signal("addDice", 0);
 	if(kind == Enums.Upgrade.UPGRADE_DICE):
-		Globals.tryUpgradeDice(price);
+		Globals.tryUpgradeDice(price, false);
+	if(kind == Enums.Upgrade.ENHANCE_DICE):
+		Globals.tryUpgradeDice(price, true);
 	if(kind == Enums.Upgrade.DUNGEON_MASTER):
 		$Timer.stop();
 		var tim = $Timer.wait_time;
@@ -159,11 +165,13 @@ func action():
 		Globals.upgradeEnemyPool();
 		target_enemy = Database.enemy_pool[level].enemy_pool.back()
 		setContract()
+	if kind == Enums.Upgrade.HEXAGRAM:
+		Database.upgradeEnemyTier(level - 1)
+		target_enemy = Database.enemy_pool[level - 1].enemy_pool.back()
+		setContract()
 	if(kind == Enums.Upgrade.ROLL_DECREASE):
 		Globals.maxDiceRollTime = Globals.maxDiceRollTime - .2;
 		$LabelTitle.text = title + " (" + str(Globals.maxDiceRollTime) + ")"; #TODO :show percentage instead of raw value
-	if(kind == Enums.Upgrade.ASCEND):
-		var _e = get_tree().change_scene("res://scenes/ascend.tscn");
 
 func _on_Timer_timeout():
 	if(kind == Enums.Upgrade.DUNGEON_MASTER):
@@ -193,7 +201,7 @@ func setImportedLevel(save_level):
 	for i in save_level:
 		price =+ calculatePriceIncrease(price,levelupPriceIncrease,levelupPricePercentIncrease);
 		
-	if kind == Enums.Upgrade.ADD_DICE || kind == Enums.Upgrade.UPGRADE_DICE:
+	if kind == Enums.Upgrade.ADD_DICE || kind == Enums.Upgrade.UPGRADE_DICE || kind == Enums.Upgrade.ENHANCE_DICE:
 		return
 		
 	if kind == Enums.Upgrade.CONTRACT:
@@ -203,6 +211,15 @@ func setImportedLevel(save_level):
 			setContract()
 		for s in save_level:
 			Globals.upgradeEnemyPool();
+		return
+	
+	if kind == Enums.Upgrade.HEXAGRAM:
+		target_enemy = Database.enemy_pool[level - 1].enemy_pool.back() 
+		var t = bool(Save.importSave(Enums.SaveFlag.TARGET_ENEMY_BEATEN, 0))
+		if t == false:
+			setContract()
+		for s in save_level:
+			Database.upgradeEnemyTier(s)
 		return
 		
 	for s in save_level:

@@ -60,7 +60,11 @@ func _on_Timer_timeout():
 	$Tween.start();
 	
 	rng.randomize();
-	value = rng.randi_range(1, maxVal);
+	if maxVal == 100:
+		value = rng.randi_range(1, 10) * 10;
+	else:
+		value = rng.randi_range(1, maxVal);
+		
 	$Label.text = String(value);
 	$Label2.text = String(value);
 	$Label2/AnimationPlayer.play("RESET");
