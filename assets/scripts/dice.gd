@@ -50,6 +50,10 @@ func _on_Area2D_input_event(_viewport, event, _shape_idx):
 		roll();
 		playRandomRollSound();
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW);
+		var d = Save.importSave(Enums.SaveFlag.U_QUICKROLL, 0)
+		if d > 0:
+			for i in d:
+				Globals.emit_signal("rollRandomDice")
 
 func _on_Timer_timeout():
 	rolling = false;

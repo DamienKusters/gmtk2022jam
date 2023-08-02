@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
@@ -40,6 +40,7 @@
 [ext_resource path="res://assets/scripts/ascend_button.gd" type="Script" id=38]
 [ext_resource path="res://assets/sprites/logo_extended.png" type="Texture" id=39]
 [ext_resource path="res://resources/status_label.tscn" type="PackedScene" id=40]
+[ext_resource path="res://assets/sprites/upgrades/Quickroll.png" type="Texture" id=41]
 [ext_resource path="res://assets/sprites/icons/demon_feather.png" type="Texture" id=42]
 [ext_resource path="res://assets/sprites/upgrades/Hexagram.png" type="Texture" id=43]
 [ext_resource path="res://assets/sprites/icons/bolt.png" type="Texture" id=44]
@@ -799,9 +800,15 @@ spriteTexture = ExtResource( 12 )
 description = "Decreases the maximum dice rolling time by each level"
 saveFlag = 7
 
-[node name="u_reroll" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
+[node name="reroll" type="Control" parent="uiRoot/VBoxContainer"]
 margin_top = 475.0
+margin_right = 480.0
 margin_bottom = 575.0
+rect_min_size = Vector2( 480, 100 )
+script = ExtResource( 9 )
+save_flag_check = 22
+
+[node name="u_reroll" parent="uiRoot/VBoxContainer/reroll" instance=ExtResource( 5 )]
 title = "Re-roller"
 basePrice = 35
 levelupPriceIncrease = 35
@@ -811,6 +818,19 @@ levelCap = 20
 spriteTexture = ExtResource( 8 )
 description = "Automatically re-rolls any dice equal to or below the level of the upgrade"
 saveFlag = 8
+
+[node name="us_reroll" parent="uiRoot/VBoxContainer/reroll" instance=ExtResource( 5 )]
+visible = false
+title = "Quickroll"
+basePrice = 5000
+levelupPriceIncrease = 1500
+levelupPricePercentIncrease = 54
+kind = 10
+levelCap = 14
+spriteTexture = ExtResource( 41 )
+description = "todo"
+saveFlag = 11
+super_upgrade = true
 
 [node name="contract" type="Control" parent="uiRoot/VBoxContainer"]
 margin_top = 570.0
@@ -841,7 +861,7 @@ kind = 9
 levelCap = 7
 spriteTexture = ExtResource( 43 )
 description = "Replaces lower-tier enemies with their shadow realm counterpart"
-saveFlag = 11
+saveFlag = 12
 super_upgrade = true
 
 [node name="enemyUi" type="Control" parent="uiRoot"]

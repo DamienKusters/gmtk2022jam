@@ -98,7 +98,6 @@ func initEnemyPool():
 
 var dark_enemy_pool = [#because dark lord always gives feathers they may need to become common (40% + test this)
 	EnemyTier.new([
-		EnemyModel.new("Poisonous Slug", 50000, 5000, "SlugB"),
 		EnemyModel.new("Vampire", 50000, 5000, "BatB"),
 		EnemyModel.new("Void Slime", 50000, 5000, "SlimeB"),
 		EnemyModel.new("Hellhound", 50000, 5000, "Salamander"),

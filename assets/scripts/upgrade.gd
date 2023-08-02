@@ -22,8 +22,8 @@ var level = 0;
 var price = 0;
 
 func _ready():
-	$LabelTitle.text = title;
-	$Control/TextureRect.texture = spriteTexture;
+	$"%LabelTitle".text = title;
+	$"%Icon".texture = spriteTexture;
 	
 	if super_upgrade:
 		$bg.self_modulate = Color("6A4F76")
@@ -43,45 +43,41 @@ func _ready():
 		var _a = Globals.connect("enemyKilled", self, "enemyKilled");
 		if level >= levelCap:
 			locked = true
-		$enemyLocker.visible = false;
-	$enemyLocker.visible = false;
 	var _a = Globals.connect("currencyUpdated", self, "setPayable");
 	setPayable(Globals.currency);
 	
 func updateUi():
-	$LabelPrice.text = String(price);
+	$"%LabelPrice".text = String(price);
+	$"%LabelLevel".visible = true
 	if(level == levelCap):
-		$LabelLevel.text = "max";
-		$LabelPrice.text = "";
+		$"%LabelLevel".text = "max";
+		$"%LabelPrice".visible = false
 	elif(level > 0):
-		$LabelLevel.text = String(level);
+		$"%LabelLevel".text = String(level);
 	else:
-		$LabelLevel.text = "";
+		$"%LabelLevel".text = "";
 
 func completeContract():
 	locked = false
-	$Tween.interpolate_property(self, "margin_left", self.margin_left, 0, 1.5, Tween.TRANS_ELASTIC);
+	$Tween.interpolate_property($bg, "rect_size", $bg.rect_size, Vector2(480,100), 1.5, Tween.TRANS_ELASTIC);
+	$Tween.interpolate_property($bg, "rect_position", $bg.rect_position, Vector2(0,0), 1.5, Tween.TRANS_ELASTIC);
+	$Tween.interpolate_property($enemyLocker/TextureRect, "rect_position", $enemyLocker/TextureRect.rect_position, Vector2(100,0), 1.5, Tween.TRANS_ELASTIC);
 	$Tween.start();
-	$enemyLocker.visible = false;
-	$LabelPrice.visible = true;
+	$"%LabelPrice".visible = true;
 	Save.exportSave(Enums.SaveFlag.TARGET_ENEMY_BEATEN, 1)
 
 func setContract():
 	if level != levelCap:
 		locked = true
-		$Tween.interpolate_property(self, "margin_left", self.margin_left, 100, 1.5, Tween.TRANS_ELASTIC);
+		$enemyLocker/TextureRect.texture = target_enemy.sprite
+		$Tween.interpolate_property($bg, "rect_size", $bg.rect_size, Vector2(380,100), 1.5, Tween.TRANS_ELASTIC);
+		$Tween.interpolate_property($bg, "rect_position", $bg.rect_position, Vector2(100,0), 1.5, Tween.TRANS_ELASTIC);
+		$Tween.interpolate_property($enemyLocker/TextureRect, "rect_position", $enemyLocker/TextureRect.rect_position, Vector2(0,0), 1.5, Tween.TRANS_ELASTIC);
 		$Tween.start();
-		$LabelPrice.visible = false;
+		$"%LabelPrice".visible = false;
 		Save.exportSave(Enums.SaveFlag.TARGET_ENEMY_BEATEN, 0)
 	else:
 		updateUi()
-
-func tween_completed():
-	if(locked):
-		$enemyLocker.visible = true;
-		$enemyLocker/TextureRect.texture = target_enemy.sprite
-	else:
-		$enemyLocker.visible = false;
 
 func _on_MouseOverlay_button_down():
 	if(locked == true):
@@ -113,12 +109,12 @@ func applyNextLevelUiUpdate(enhanced):
 	Globals.removeCurrency(price);
 	level = level + 1;
 	var p = particle.instance();
-	p.position = $particle_point.position;
+	p.position = $"%particle_point".position;
 	add_child(p);
 	$AudioStreamPlayer.play();
 	if(levelCap != -1):
 		if(level >= levelCap):
-			$LabelPrice.visible = false;
+			$"%LabelPrice".visible = false;
 	
 	price =+ calculatePriceIncrease(price,levelupPriceIncrease,levelupPricePercentIncrease);
 	updateUi();
@@ -171,7 +167,7 @@ func action():
 		setContract()
 	if(kind == Enums.Upgrade.ROLL_DECREASE):
 		Globals.maxDiceRollTime = Globals.maxDiceRollTime - .2;
-		$LabelTitle.text = title + " (" + str(Globals.maxDiceRollTime) + ")"; #TODO :show percentage instead of raw value
+		$"%LabelTitle".text = title + " (" + str(Globals.maxDiceRollTime) + ")"; #TODO :show percentage instead of raw value
 
 func _on_Timer_timeout():
 	if(kind == Enums.Upgrade.DUNGEON_MASTER):
@@ -187,9 +183,9 @@ func enemyDamaged(value: int, dice: Node2D):
 		
 func setPayable(value):
 	if(value >= price):
-		$LabelPrice.add_color_override("font_color", Color("d8d400"));
+		$"%LabelPrice".add_color_override("font_color", Color("d8d400"));
 	else:
-		$LabelPrice.add_color_override("font_color", Color("d83300"));
+		$"%LabelPrice".add_color_override("font_color", Color("d83300"));
 		
 func setImportedLevel(save_level):
 	if kind == Enums.Upgrade.REROLL:
@@ -216,7 +212,7 @@ func setImportedLevel(save_level):
 	if kind == Enums.Upgrade.HEXAGRAM:
 		target_enemy = Database.enemy_pool[level - 1].enemy_pool.back() 
 		var t = bool(Save.importSave(Enums.SaveFlag.TARGET_ENEMY_BEATEN, 0))
-		if t == false:
+		if t == false && level > 0:
 			setContract()
 		for s in save_level:
 			Database.upgradeEnemyTier(s)
