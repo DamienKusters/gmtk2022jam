@@ -21,8 +21,6 @@ var currency = 0
 var feathers = 0;
 var bolts = 0 setget setBolts;
 var dFeathers = 0 setget setDFeathers;
-var upgrade_save_overrides;
-var upgrade_dice_overrides;
 
 var ascention_dps_multiplier_value = 1;
 var ascention_dps_multiplier_level = 0;
@@ -48,8 +46,6 @@ func setDFeathers(value):
 #TODO: move to new ascention screen
 func ascendReset():
 	Database.initEnemyPool()
-	upgrade_save_overrides = null;
-	upgrade_dice_overrides = null;
 	currency = 10 * feathers;
 	feathers = 0;
 	contractLevel = 0;
@@ -111,12 +107,6 @@ func removeFeathers(value: int):
 	
 func getDiceData(enumValue):
 	return Database.dice_data[int(enumValue)];
-	
-func upgradeSavesUpdated(save):
-	upgrade_save_overrides = save;
-	
-func upgradeDiceOverridesUpdated(save):
-	upgrade_dice_overrides = save;
 
 func _init():
 	contractLevel = 0;

@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/ascend/angelic_upgrade.tscn" type="PackedScene" id=1]
+
+[node name="angelic" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -156.0
+margin_bottom = 156.0
+custom_constants/separation = 180
+alignment = 1
+
+[node name="dmg" parent="HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 390.0
+margin_right = 710.0
+margin_bottom = 312.0
+title = "Damage
+Multiplier"
+default_value = 1
+
+[node name="roll" parent="HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 890.0
+margin_right = 1210.0
+margin_bottom = 312.0
+title = "Re-roller
+Starting Level"
+value_flag = 18
+level_flag = 19

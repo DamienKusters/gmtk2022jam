@@ -153,10 +153,10 @@ func action():
 		#should be lvl 1 = 4s   -> .1s currently is: 3.9 -> .1 at 19 and .1 at 20
 		$Timer.start();
 		if !(level > 15):
-			$TextureProgress/Tween.interpolate_property($TextureProgress, "value", 0, 100, $Timer.wait_time);
-			$TextureProgress/Tween.start();
+			$bg/TextureProgress/Tween.interpolate_property($bg/TextureProgress, "value", 0, 100, $Timer.wait_time);
+			$bg/TextureProgress/Tween.start();
 		else:
-			$TextureProgress.value = 0;
+			$bg/TextureProgress.value = 0;
 	if kind == Enums.Upgrade.CONTRACT:
 		Globals.upgradeEnemyPool();
 		target_enemy = Database.enemy_pool[level].enemy_pool.back()
@@ -172,10 +172,10 @@ func action():
 func _on_Timer_timeout():
 	if(kind == Enums.Upgrade.DUNGEON_MASTER):
 		Globals.emit_signal("rollRandomDice")
-		$TextureProgress.value = 0;
+		$bg/TextureProgress.value = 0;
 		if !(level > 15):
-			$TextureProgress/Tween.interpolate_property($TextureProgress, "value", 0, 100, $Timer.wait_time);
-			$TextureProgress/Tween.start();
+			$bg/TextureProgress/Tween.interpolate_property($bg/TextureProgress, "value", 0, 100, $Timer.wait_time);
+			$bg/TextureProgress/Tween.start();
 	
 func enemyDamaged(value: int, dice: Node2D):
 	if(value <= level):

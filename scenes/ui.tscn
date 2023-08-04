@@ -748,7 +748,7 @@ margin_right = 480.0
 margin_bottom = 290.0
 rect_min_size = Vector2( 480, 100 )
 script = ExtResource( 9 )
-save_flag_check = 19
+save_flag_check = 20
 
 [node name="u_upgrade" parent="uiRoot/VBoxContainer/upgrade" instance=ExtResource( 5 )]
 title = "Upgrade Dice"
@@ -828,7 +828,7 @@ levelupPricePercentIncrease = 54
 kind = 10
 levelCap = 14
 spriteTexture = ExtResource( 41 )
-description = "todo"
+description = "On clicking, you automatically roll the amount of dice same as its level."
 saveFlag = 11
 super_upgrade = true
 
@@ -838,7 +838,7 @@ margin_right = 480.0
 margin_bottom = 670.0
 rect_min_size = Vector2( 480, 100 )
 script = ExtResource( 9 )
-save_flag_check = 19
+save_flag_check = 21
 
 [node name="u_contract" parent="uiRoot/VBoxContainer/contract" instance=ExtResource( 5 )]
 title = "Contract"

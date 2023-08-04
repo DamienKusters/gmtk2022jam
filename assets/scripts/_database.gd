@@ -124,8 +124,8 @@ var dark_enemy_pool = [#because dark lord always gives feathers they may need to
 	], .2, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
 		EnemyModel.new("Dark Pixie", 50000, 5000, "FairyB"),
-		EnemyModel.new("Dark Fairy", 50000, 5000, "Pixie_Man_Vampire"),
 		EnemyModel.new("Dark Nymph", 50000, 5000, "Earth_Lady_Vampire"),
+		EnemyModel.new("Dark Fairy", 50000, 5000, "Pixie_Man_Vampire"),
 	], .2, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
 		EnemyModel.new("Blood Skeleton", 50000, 5000, "SkeletonB"),

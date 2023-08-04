@@ -19,9 +19,9 @@ enum SaveFlag {
 	
 	#Delete dice -> gives bolt upon deleting D100?
 	U_ENHANCE_DICE,
-	U_QUICKROLL,
+	# Game master?
 	#Dice tray?
-	#SUper reroller -> reroller for D100
+	U_QUICKROLL,
 	U_HEXAGRAM,
 	#TODO: exclusive upgrade tray? ?crits
 	

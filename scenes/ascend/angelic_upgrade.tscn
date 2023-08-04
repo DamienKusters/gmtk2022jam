@@ -1,0 +1,214 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://assets/fonts/almendra-all-400-normal.woff" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/sprites/icons/angel_feather.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/dice/d4.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/ui/upgrade/upgrade_box.png" type="Texture" id=5]
+[ext_resource path="res://scenes/ascend/angelic_upgrade.gd" type="Script" id=6]
+[ext_resource path="res://assets/sound/upgrade.mp3" type="AudioStream" id=7]
+
+[sub_resource type="DynamicFont" id=28]
+size = 35
+outline_size = 2
+outline_color = Color( 0.196078, 0.196078, 0.196078, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=32]
+size = 80
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=31]
+size = 33
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="StreamTexture" id=29]
+load_path = "res://.import/upgrade_box_flipped.png-6b178ad2644ac15628d76c98b8d16c8e.stex"
+
+[sub_resource type="DynamicFont" id=33]
+size = 33
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[node name="AscentionUpgrade" type="VBoxContainer"]
+margin_right = 320.0
+margin_bottom = 275.0
+custom_constants/separation = 0
+alignment = 1
+script = ExtResource( 6 )
+title = "Upgrade
+Name"
+value_flag = 16
+level_flag = 17
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+pitch_scale = 0.3
+bus = "Effect"
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Label" type="Label" parent="."]
+margin_right = 320.0
+margin_bottom = 84.0
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_constants/line_spacing = -10
+custom_fonts/font = SubResource( 28 )
+text = "Upgrade
+Name"
+align = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_top = 84.0
+margin_right = 320.0
+margin_bottom = 212.0
+texture = ExtResource( 4 )
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 32 )
+text = "4"
+align = 1
+valign = 1
+
+[node name="Buttons" type="HBoxContainer" parent="."]
+margin_top = 212.0
+margin_right = 320.0
+margin_bottom = 312.0
+custom_constants/separation = 0
+alignment = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Buttons"]
+margin_right = 160.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 160, 100 )
+texture = ExtResource( 5 )
+patch_margin_left = 20
+patch_margin_top = 21
+patch_margin_right = 5
+patch_margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons/NinePatchRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+custom_constants/separation = -7
+alignment = 1
+
+[node name="Label" type="Label" parent="Buttons/NinePatchRect/VBoxContainer"]
+margin_top = 9.0
+margin_right = 160.0
+margin_bottom = 53.0
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = -10
+custom_fonts/font = SubResource( 31 )
+text = "Roll"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Buttons/NinePatchRect/VBoxContainer"]
+margin_top = 46.0
+margin_right = 160.0
+margin_bottom = 90.0
+alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Buttons/NinePatchRect/VBoxContainer/HBoxContainer"]
+margin_left = 37.0
+margin_right = 72.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 35, 35 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Buttons/NinePatchRect/VBoxContainer/HBoxContainer"]
+self_modulate = Color( 0.92549, 0.901961, 0.690196, 1 )
+margin_left = 76.0
+margin_right = 123.0
+margin_bottom = 44.0
+mouse_filter = 1
+custom_constants/line_spacing = -10
+custom_fonts/font = SubResource( 31 )
+text = "200"
+align = 1
+
+[node name="Roll" type="Button" parent="Buttons/NinePatchRect"]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="Buttons"]
+margin_left = 160.0
+margin_right = 320.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 160, 100 )
+texture = SubResource( 29 )
+patch_margin_left = 5
+patch_margin_top = 21
+patch_margin_right = 20
+patch_margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons/NinePatchRect2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+custom_constants/separation = -7
+alignment = 1
+
+[node name="Label" type="Label" parent="Buttons/NinePatchRect2/VBoxContainer"]
+margin_top = 9.0
+margin_right = 160.0
+margin_bottom = 53.0
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = -4
+custom_fonts/font = SubResource( 33 )
+text = "Upgrade"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Buttons/NinePatchRect2/VBoxContainer"]
+margin_top = 46.0
+margin_right = 160.0
+margin_bottom = 90.0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Buttons/NinePatchRect2/VBoxContainer/HBoxContainer"]
+margin_left = 37.0
+margin_right = 72.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 35, 35 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Buttons/NinePatchRect2/VBoxContainer/HBoxContainer"]
+self_modulate = Color( 0.92549, 0.901961, 0.690196, 1 )
+margin_left = 76.0
+margin_right = 123.0
+margin_bottom = 44.0
+mouse_filter = 1
+custom_constants/line_spacing = -10
+custom_fonts/font = SubResource( 31 )
+text = "200"
+align = 1
+
+[node name="Upgrade" type="Button" parent="Buttons/NinePatchRect2"]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
+flat = true
+
+[connection signal="pressed" from="Buttons/NinePatchRect/Roll" to="." method="_on_Roll_pressed"]
+[connection signal="pressed" from="Buttons/NinePatchRect2/Upgrade" to="." method="_on_Upgrade_pressed"]

@@ -1,22 +1,24 @@
 extends Control
 
-var _bolts
-var _dfeathers
-
 func _ready():
-	_bolts = Save.importSave(Enums.SaveFlag.BOLTS, 0)
-	_dfeathers = Save.importSave(Enums.SaveFlag.DARK_FEATHERS, 0)
-	Save.resetSave()
-	# Or clever reset save (only flags you pass in)
-	#TODO: add all payment things back
-	#TOOD: add all ascention upgrades back
+	$ui/fader/angelic.visible = false
+	$ui/fader/shadow.visible = false
 
 func ascend():
-	Save.exportSave(Enums.SaveFlag.BOLTS, _bolts)
 	Save.saveGame()
+	Globals.ascendReset();
+	var _a = get_tree().change_scene("res://scenes/main.tscn");
 
 func showMenu():
 	$ui/MenuNavigator.play("show_menu")
+	$ui/fader/angelic.visible = false
+	$ui/fader/shadow.visible = false
 
 func _on_upgrades_pressed(id: int):
 	$ui/MenuNavigator.play("hide_menu")
+	
+	match(id):
+		0:
+			$ui/fader/angelic.visible = true
+		1:
+			$ui/fader/shadow.visible = true
