@@ -93,14 +93,14 @@ func initEnemyPool():
 		EnemyTier.new([# ANGEL KILLED MAXED AT DPS 17 (15 & 16 UNKNOWN) lower angel to 15 minimum
 			EnemyModel.new("Angel", 32000, 0, "Angel", null, Enums.LootType.FEATHERS),
 			EnemyModel.new("Light", 41000, 4000),# light killed at x17 18/19 minimum
-		], .20, Enums.LootType.DARK_FEATHERS)
+		], .15, Enums.LootType.DARK_FEATHERS)
 	]
 
-var dark_enemy_pool = [#because dark lord always gives feathers they may need to become common (40% + test this)
+var dark_enemy_pool = [
 	EnemyTier.new([
-		EnemyModel.new("Vampire", 50000, 5000, "BatB"),
-		EnemyModel.new("Void Slime", 50000, 5000, "SlimeB"),
-		EnemyModel.new("Hellhound", 50000, 5000, "Salamander"),
+		EnemyModel.new("Vampire", 30000, 5000, "BatB"),
+		EnemyModel.new("Void Slime", 35000, 5800, "SlimeB"),
+		EnemyModel.new("Hellhound", 45000, 7600, "Salamander"),
 	], .1, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
 		EnemyModel.new("Feral Rat", 50000, 5000, "GiantRatB"),
@@ -116,7 +116,7 @@ var dark_enemy_pool = [#because dark lord always gives feathers they may need to
 	], .1, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
 		EnemyModel.new("Corrupted Roots", 50000, 5000, "AnimatedPlantB"),
-		EnemyModel.new("Destroyer Drone", 50000, 5000, "DestroyerV1", null, Enums.LootType.BOLTS),
+#		EnemyModel.new("Destroyer Drone", 50000, 5000, "DestroyerV1", null, Enums.LootType.BOLTS),
 		EnemyModel.new("Undead Log", 50000, 5000, "TreantB"),
 	], .14, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([

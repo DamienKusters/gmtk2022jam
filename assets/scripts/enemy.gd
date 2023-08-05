@@ -126,7 +126,7 @@ func showAdvancedUi():
 	$"../VBoxContainer/inventory/inv_advanced".visible = true
 
 func set_multiplier_text():
-	$VBoxContainer/Label.text = "Damage x " + String(Globals.ascention_dps_multiplier_value)
+	$VBoxContainer/Label.text = "Damage x " + String(Save.importSave(Enums.SaveFlag.A_MULTIPLIER_VALUE, 1))
 	$VBoxContainer/Label.visible = true
 
 func _on_dpsTimer_timeout():

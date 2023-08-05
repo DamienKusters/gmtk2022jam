@@ -517,10 +517,11 @@ margin_left = 1090.0
 margin_top = 74.0
 margin_right = 1490.0
 margin_bottom = 344.0
-label_text = "Shadow Upgrades"
+label_text = "Dark Upgrades"
 texture = ExtResource( 10 )
 
 [node name="Gupgrades" parent="ui/menu" instance=ExtResource( 14 )]
+visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 597.0
@@ -558,7 +559,7 @@ modulate_hover = Color( 0.313726, 0.180392, 0.286275, 1 )
 
 [node name="angelic" parent="ui/fader" instance=ExtResource( 15 )]
 
-[node name="shadow" type="Control" parent="ui/fader"]
+[node name="dark" type="Control" parent="ui/fader"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2

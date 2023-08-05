@@ -42,26 +42,6 @@ func setDFeathers(value):
 	dFeathers = value
 	emit_signal("dFeathersUpdated", value)
 	Save.exportSave(Enums.SaveFlag.DARK_FEATHERS, value)
-
-#TODO: move to new ascention screen
-func ascendReset():
-	Database.initEnemyPool()
-	currency = 10 * feathers;
-	feathers = 0;
-	contractLevel = 0;
-	maxDiceRollTime = 5;
-	Save.resetSave()
-	Save.exportSave(Enums.SaveFlag.CURRENCY, currency)
-	Save.exportSave(Enums.SaveFlag.DARK_FEATHERS, dFeathers)
-	Save.exportSave(Enums.SaveFlag.BOLTS, bolts)
-	
-	#save ascention stuff
-	Save.exportSave(Enums.SaveFlag.A_MULTIPLIER_LEVEL, ascention_dps_multiplier_level)
-	Save.exportSave(Enums.SaveFlag.A_MULTIPLIER_VALUE, ascention_dps_multiplier_value)
-	Save.exportSave(Enums.SaveFlag.A_REROLL_LEVEL, ascention_reroller_level)
-	Save.exportSave(Enums.SaveFlag.A_REROLL_VALUE, ascention_reroller_value)
-	
-	Save.saveGame()
 	
 func tryUpgradeDice(price, enhanced = false):
 	if(currency < price):
@@ -109,6 +89,7 @@ func getDiceData(enumValue):
 	return Database.dice_data[int(enumValue)];
 
 func _init():
+#	Database.initEnemyPool()
 	contractLevel = 0;
 	maxDiceRollTime = 5;
 	

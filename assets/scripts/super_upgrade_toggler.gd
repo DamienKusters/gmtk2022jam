@@ -1,4 +1,3 @@
-tool
 extends Node
 
 export(bool) var super_upgrade = false
@@ -17,7 +16,7 @@ func _ready():
 	levelChanged()
 	
 func levelChanged():
-	if Save.importSave(save_flag_check, 0) > 0:
+	if Save.importSave(save_flag_check, 0) > 0:#TODO: Fix
 		if uNormal.level >= uNormal.levelCap:
 			super_upgrade = true
 			get_child(0).visible = !super_upgrade
