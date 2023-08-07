@@ -7,7 +7,6 @@ var rollSounds = [
 ];
 
 export(Enums.DiceEnum) var kind;
-export(float) var minRollingSpeed = .5;
 
 var maxVal = 4;
 var value = 0;
@@ -31,8 +30,10 @@ func roll():
 	rolling = true;
 	$Tween.stop_all();
 	rng.randomize();
-	$Timer.wait_time = rng.randf_range(minRollingSpeed,Globals.maxDiceRollTime);
+	$Timer.wait_time = rng.randf_range(Globals.minDiceRollTime,Globals.maxDiceRollTime);
 	$Timer.start();
+#	$Tween2.interpolate_property($Sprite, "rotation_degrees", $Sprite.rotation_degrees, 360.0, $Timer.wait_time, Tween.EASE_OUT);
+#	$Tween2.start()
 	$Sprite/AnimationPlayer.play("RESET");
 	$Sprite/AnimationPlayer.play("rotate");
 	$Label.text = "";
@@ -60,7 +61,7 @@ func _on_Timer_timeout():
 	$Sprite/AnimationPlayer.play("RESET");
 	$Sprite/AnimationPlayer.stop();
 	$Tween.interpolate_property($Sprite, "modulate",$Sprite.modulate, Color(1,1,1,1),.5,Tween.TRANS_BACK);
-	$Tween.interpolate_property($Sprite, "rotation_degrees",$Sprite.rotation_degrees, 360.0,1.5,Tween.TRANS_BACK,Tween.EASE_OUT);
+	$Tween.interpolate_property($Sprite, "rotation_degrees",0, 360.0,1.5,Tween.TRANS_BACK,Tween.EASE_OUT);
 	$Tween.start();
 	
 	rng.randomize();

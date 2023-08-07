@@ -8,4 +8,4 @@ func change_visible(f):
 	visible = f > 0
 
 func _on_Button_pressed():
-	var _e = get_tree().change_scene("res://scenes/ascend.tscn");
+	var _e = get_tree().change_scene("res://scenes/ascend/ascend.tscn");

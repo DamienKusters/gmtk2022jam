@@ -16,7 +16,8 @@ signal openHelp;
 signal enemyKilled;#todo
 
 var contractLevel;
-var maxDiceRollTime = 5;
+var minDiceRollTime = .5
+var maxDiceRollTime = 5
 var currency = 0
 var feathers = 0;
 var bolts = 0 setget setBolts;
@@ -89,8 +90,9 @@ func getDiceData(enumValue):
 	return Database.dice_data[int(enumValue)];
 
 func _init():
-#	Database.initEnemyPool()
+	Database.initEnemyPool()
 	contractLevel = 0;
+	minDiceRollTime = .5
 	maxDiceRollTime = 5;
 	
 	currency = Save.importSave(Enums.SaveFlag.CURRENCY, 0);

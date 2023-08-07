@@ -1,14 +1,14 @@
 extends Node
 
 enum DiceEnum { D4, D6, D8, D10, D12, D20, D100 };
-enum Upgrade { ADD_DICE, UPGRADE_DICE, DUNGEON_MASTER, DICE_TOWER, REROLL, DICE_TRAY, CONTRACT, ROLL_DECREASE, ENHANCE_DICE, HEXAGRAM, QUICKROLL };
+enum Upgrade { ADD_DICE, UPGRADE_DICE, DUNGEON_MASTER, DICE_TOWER, REROLL, DICE_TRAY, CONTRACT, ROLL_DECREASE, ENHANCE_DICE, HEXAGRAM, QUICKROLL, OVERDRIVE, SUPER_REROLL };
 enum LootType { CURRENCY, FEATHERS, DARK_FEATHERS, BOLTS };
 #Order is crucial in this enum do not move items around:
 enum SaveFlag {
 	CURRENCY,
 	FEATHERS,
-	BOLTS,
 	DARK_FEATHERS,
+	BOLTS,
 	
 	U_ADD_DICE,
 	U_UPGRADE_DICE,
@@ -19,9 +19,9 @@ enum SaveFlag {
 	
 	#Delete dice -> gives bolt upon deleting D100?
 	U_ENHANCE_DICE,
-	# Game master?
-	#Dice tray?
 	U_QUICKROLL,
+	U_OVERDRIVE,
+	U_SUPER_REROLL,
 	U_HEXAGRAM,
 	#TODO: exclusive upgrade tray? ?crits
 	
@@ -35,6 +35,8 @@ enum SaveFlag {
 	A_REROLL_LEVEL,
 	
 	AS_ENHANCE_DICE,
-	AS_HEXAGRAM,
 	AS_QUICKROLL,
+	AS_OVERDRIVE,
+	AS_SUPER_REROLL,
+	AS_HEXAGRAM,
 }

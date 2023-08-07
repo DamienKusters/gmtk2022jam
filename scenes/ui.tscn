@@ -30,7 +30,7 @@
 [ext_resource path="res://assets/scripts/currencyIncrease.gd" type="Script" id=28]
 [ext_resource path="res://assets/sprites/icons/angel_feather.png" type="Texture" id=29]
 [ext_resource path="res://scenes/EnemyBounty.tscn" type="PackedScene" id=30]
-[ext_resource path="res://assets/sprites/upgrades/Ascend_Icon.png" type="Texture" id=31]
+[ext_resource path="res://assets/sprites/upgrades/DiceTray.png" type="Texture" id=31]
 [ext_resource path="res://assets/scripts/variableLabel.gd" type="Script" id=32]
 [ext_resource path="res://scenes/ThemeButton.tscn" type="PackedScene" id=33]
 [ext_resource path="res://assets/sprites/icons/shield.png" type="Texture" id=34]
@@ -568,7 +568,7 @@ mouse_filter = 2
 self_modulate = Color( 0.415686, 0.309804, 0.462745, 1 )
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -593.0
+margin_left = -597.0
 margin_top = 15.0
 margin_right = -476.0
 margin_bottom = 85.0
@@ -582,34 +582,22 @@ patch_margin_right = 5
 patch_margin_bottom = 20
 script = ExtResource( 38 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="uiRoot/AscendButton"]
+[node name="Label" type="Label" parent="uiRoot/AscendButton"]
 anchor_left = 0.1
 anchor_top = 0.1
 anchor_right = 1.0
 anchor_bottom = 0.9
-
-[node name="TextureRect" type="TextureRect" parent="uiRoot/AscendButton/HBoxContainer"]
-visible = false
-self_modulate = Color( 0, 0, 0, 1 )
-margin_right = 55.0
-margin_bottom = 56.0
-rect_min_size = Vector2( 55, 0 )
-texture = ExtResource( 31 )
-expand = true
-stretch_mode = 6
-
-[node name="Label" type="Label" parent="uiRoot/AscendButton/HBoxContainer"]
-margin_top = 6.0
-margin_right = 95.0
-margin_bottom = 50.0
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 40 )
 text = "Ascend"
+valign = 1
 
 [node name="Button" type="Button" parent="uiRoot/AscendButton"]
+self_modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
 flat = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="uiRoot"]
@@ -706,7 +694,7 @@ size_flags_horizontal = 6
 alignment = 2
 script = ExtResource( 45 )
 targetEvent = "boltsUpdated"
-defaultSaveFlag = 2
+defaultSaveFlag = 3
 
 [node name="TextureRect" type="TextureRect" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2/bolts"]
 margin_right = 35.0
@@ -728,7 +716,7 @@ align = 1
 valign = 1
 script = ExtResource( 32 )
 targetEvent = "boltsUpdated"
-defaultSaveFlag = 2
+defaultSaveFlag = 3
 
 [node name="shadowfeathers" type="HBoxContainer" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2"]
 margin_left = 348.0
@@ -738,7 +726,7 @@ size_flags_horizontal = 6
 alignment = 2
 script = ExtResource( 45 )
 targetEvent = "dFeathersUpdated"
-defaultSaveFlag = 3
+defaultSaveFlag = 2
 
 [node name="TextureRect" type="TextureRect" parent="uiRoot/VBoxContainer/inventory/inv_advanced/HBoxContainer2/shadowfeathers"]
 margin_right = 35.0
@@ -760,7 +748,7 @@ align = 1
 valign = 1
 script = ExtResource( 32 )
 targetEvent = "dFeathersUpdated"
-defaultSaveFlag = 3
+defaultSaveFlag = 2
 
 [node name="u_add" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 95.0
@@ -780,7 +768,7 @@ margin_right = 480.0
 margin_bottom = 290.0
 rect_min_size = Vector2( 480, 100 )
 script = ExtResource( 9 )
-save_flag_check = 20
+save_flag_check = 22
 
 [node name="u_upgrade" parent="uiRoot/VBoxContainer/upgrade" instance=ExtResource( 5 )]
 title = "Upgrade Dice"
@@ -793,7 +781,7 @@ spriteTexture = ExtResource( 11 )
 description = "Upgrade the lowest ranking dice to the next one (D4, D6, D8 ,D10, D12, D20)"
 saveFlag = 5
 
-[node name="us_upgrade" parent="uiRoot/VBoxContainer/upgrade" instance=ExtResource( 5 )]
+[node name="u_enhance" parent="uiRoot/VBoxContainer/upgrade" instance=ExtResource( 5 )]
 visible = false
 title = "Enhance Dice"
 basePrice = 1000
@@ -806,9 +794,15 @@ description = "Enhances D20 dice to a D100 variant"
 saveFlag = 10
 super_upgrade = true
 
-[node name="u_dm" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
+[node name="dm" type="Control" parent="uiRoot/VBoxContainer"]
 margin_top = 285.0
+margin_right = 480.0
 margin_bottom = 385.0
+rect_min_size = Vector2( 480, 100 )
+script = ExtResource( 9 )
+save_flag_check = 23
+
+[node name="u_dm" parent="uiRoot/VBoxContainer/dm" instance=ExtResource( 5 )]
 title = "Dungeon Master"
 basePrice = 15
 levelupPriceIncrease = 6
@@ -819,18 +813,50 @@ spriteTexture = ExtResource( 10 )
 description = "Automatically rolls a dice"
 saveFlag = 6
 
-[node name="u_rolltime" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
+[node name="u_quickroll" parent="uiRoot/VBoxContainer/dm" instance=ExtResource( 5 )]
+visible = false
+title = "Quickroll"
+basePrice = 2000
+levelupPriceIncrease = 2000
+levelupPricePercentIncrease = 70
+kind = 10
+levelCap = 14
+spriteTexture = ExtResource( 41 )
+description = "On clicking, you automatically roll the amount of dice same as its level"
+saveFlag = 11
+super_upgrade = true
+
+[node name="rolltime" type="Control" parent="uiRoot/VBoxContainer"]
 margin_top = 380.0
+margin_right = 480.0
 margin_bottom = 480.0
-title = "Dice Tower"
+rect_min_size = Vector2( 480, 100 )
+script = ExtResource( 9 )
+save_flag_check = 24
+
+[node name="u_rolltime" parent="uiRoot/VBoxContainer/rolltime" instance=ExtResource( 5 )]
+title = "Dice Tray"
 basePrice = 15
 levelupPriceIncrease = 72
 levelupPricePercentIncrease = 16
 kind = 7
 levelCap = 20
-spriteTexture = ExtResource( 12 )
-description = "Decreases the maximum dice rolling time by each level"
+spriteTexture = ExtResource( 31 )
+description = "Each level decreases the maximum dice rolling time by 0.2 seconds"
 saveFlag = 7
+
+[node name="u_overdrive" parent="uiRoot/VBoxContainer/rolltime" instance=ExtResource( 5 )]
+visible = false
+title = "Dice Tower"
+basePrice = 5000
+levelupPriceIncrease = 1500
+levelupPricePercentIncrease = 54
+kind = 11
+levelCap = 10
+spriteTexture = ExtResource( 12 )
+description = "Each level decreases the minimum and maximum dice rolling time"
+saveFlag = 12
+super_upgrade = true
 
 [node name="reroll" type="Control" parent="uiRoot/VBoxContainer"]
 margin_top = 475.0
@@ -838,7 +864,7 @@ margin_right = 480.0
 margin_bottom = 575.0
 rect_min_size = Vector2( 480, 100 )
 script = ExtResource( 9 )
-save_flag_check = 22
+save_flag_check = 25
 
 [node name="u_reroll" parent="uiRoot/VBoxContainer/reroll" instance=ExtResource( 5 )]
 title = "Re-roller"
@@ -851,17 +877,17 @@ spriteTexture = ExtResource( 8 )
 description = "Automatically re-rolls any dice equal to or below the level of the upgrade"
 saveFlag = 8
 
-[node name="us_reroll" parent="uiRoot/VBoxContainer/reroll" instance=ExtResource( 5 )]
+[node name="u_sprReroll" parent="uiRoot/VBoxContainer/reroll" instance=ExtResource( 5 )]
 visible = false
-title = "Quickroll"
-basePrice = 5000
-levelupPriceIncrease = 1500
-levelupPricePercentIncrease = 54
-kind = 10
-levelCap = 14
-spriteTexture = ExtResource( 41 )
-description = "On clicking, you automatically roll the amount of dice same as its level."
-saveFlag = 11
+title = "Super Re-roller"
+basePrice = 10000
+levelupPriceIncrease = 1000
+levelupPricePercentIncrease = 60
+kind = 12
+levelCap = 8
+spriteTexture = ExtResource( 8 )
+description = "Automatically re-rolls D100 dice starting at face 30 all the way to face 100 "
+saveFlag = 13
 super_upgrade = true
 
 [node name="contract" type="Control" parent="uiRoot/VBoxContainer"]
@@ -870,7 +896,7 @@ margin_right = 480.0
 margin_bottom = 670.0
 rect_min_size = Vector2( 480, 100 )
 script = ExtResource( 9 )
-save_flag_check = 21
+save_flag_check = 26
 
 [node name="u_contract" parent="uiRoot/VBoxContainer/contract" instance=ExtResource( 5 )]
 title = "Contract"
@@ -883,7 +909,7 @@ spriteTexture = ExtResource( 19 )
 description = "Adds new enemy encounters"
 saveFlag = 9
 
-[node name="us_contract" parent="uiRoot/VBoxContainer/contract" instance=ExtResource( 5 )]
+[node name="u_hexagram" parent="uiRoot/VBoxContainer/contract" instance=ExtResource( 5 )]
 visible = false
 title = "Hexagram"
 basePrice = 20000
@@ -893,7 +919,7 @@ kind = 9
 levelCap = 7
 spriteTexture = ExtResource( 43 )
 description = "Replaces lower-tier enemies with their shadow realm counterpart"
-saveFlag = 12
+saveFlag = 14
 super_upgrade = true
 
 [node name="enemyUi" type="Control" parent="uiRoot"]

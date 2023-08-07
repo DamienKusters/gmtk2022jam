@@ -12,7 +12,7 @@ export var levelupPricePercentIncrease: int = 10;
 export(Enums.Upgrade) var kind;
 export var levelCap = -1;
 export(Texture) var spriteTexture;
-export(String) var description;
+export(String, MULTILINE) var description;
 export(Enums.SaveFlag) var saveFlag
 export var super_upgrade = false
 var test_contract;
@@ -35,7 +35,7 @@ func _ready():
 	updateUi();
 	if(kind == Enums.Upgrade.UPGRADE_DICE || kind == Enums.Upgrade.ENHANCE_DICE):
 		var _a = Globals.connect("upgradeDiceSuccess", self, "applyNextLevelUiUpdate");
-	if(kind == 4):
+	if(kind == 4 || kind == Enums.Upgrade.SUPER_REROLL):
 		updateUi();
 		var _a = Globals.connect("damageEnemy", self, "enemyDamaged");
 		emit_signal("levelChanged");	
@@ -91,7 +91,7 @@ func _on_MouseOverlay_button_down():
 	Save.saveGame()
 
 func enemyKilled(enemy):
-	if locked == false:
+	if locked == false || level == levelCap:
 		return
 	if(enemy.name == target_enemy.name):
 		completeContract();
@@ -167,7 +167,11 @@ func action():
 		setContract()
 	if(kind == Enums.Upgrade.ROLL_DECREASE):
 		Globals.maxDiceRollTime = Globals.maxDiceRollTime - .2;
-		$"%LabelTitle".text = title + " (" + str(Globals.maxDiceRollTime) + ")"; #TODO :show percentage instead of raw value
+		$"%LabelTitle".text = title + " (-" + str(level * .2) + "s)"; #TODO :show percentage instead of raw value
+	if kind == Enums.Upgrade.OVERDRIVE:
+		Globals.maxDiceRollTime = Globals.maxDiceRollTime - .05
+		Globals.minDiceRollTime = Globals.minDiceRollTime - .04
+		
 
 func _on_Timer_timeout():
 	if(kind == Enums.Upgrade.DUNGEON_MASTER):
@@ -178,8 +182,12 @@ func _on_Timer_timeout():
 			$bg/TextureProgress/Tween.start();
 	
 func enemyDamaged(value: int, dice: Node2D):
-	if(value <= level):
-		dice.roll();
+	if kind == Enums.Upgrade.SUPER_REROLL:
+		if(value <= int((level + 2)) * 10):
+			dice.roll();
+	else:
+		if(value <= level):
+			dice.roll();
 		
 func setPayable(value):
 	if(value >= price):

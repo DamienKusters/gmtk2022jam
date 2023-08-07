@@ -19,6 +19,8 @@ func ascend():
 	Save.exportSave(Enums.SaveFlag.DICE, 0)
 	Save.exportSave(Enums.SaveFlag.TARGET_ENEMY_BEATEN, 0)
 	
+	Globals._init()
+	
 	Save.saveGame()
 	var _a = get_tree().change_scene("res://scenes/main.tscn");
 

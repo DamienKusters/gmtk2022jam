@@ -12,6 +12,8 @@ func setSuperUpgrade(value):
 	get_child(1).visible = super_upgrade
 	
 func _ready():
+	get_child(0).visible = true
+	get_child(1).visible = false
 	uNormal.connect("levelChanged", self, "levelChanged")
 	levelChanged()
 	

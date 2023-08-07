@@ -26,7 +26,7 @@ margin_bottom = 79.0
 size_flags_horizontal = 3
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 1 )
-text = "Angelic Upgrades"
+text = "Upgrades"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="title"]
 margin_left = 1135.0
@@ -42,6 +42,7 @@ expand = true
 stretch_mode = 6
 
 [node name="Label" type="Label" parent="title/HBoxContainer"]
+self_modulate = Color( 0.92549, 0.901961, 0.690196, 1 )
 margin_left = 64.0
 margin_right = 145.0
 margin_bottom = 79.0
@@ -67,6 +68,8 @@ margin_right = 710.0
 margin_bottom = 312.0
 title = "Damage
 Multiplier"
+value_flag = 18
+level_flag = 19
 default_value = 1
 
 [node name="roll" parent="HBoxContainer" instance=ExtResource( 1 )]
@@ -75,5 +78,5 @@ margin_right = 1210.0
 margin_bottom = 312.0
 title = "Re-roller
 Starting Level"
-value_flag = 18
-level_flag = 19
+value_flag = 20
+level_flag = 21

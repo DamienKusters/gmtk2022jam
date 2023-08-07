@@ -1,0 +1,91 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/sprites/upgrades/Hexagram.png" type="Texture" id=1]
+[ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
+[ext_resource path="res://scenes/ThemeButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/sprites/icons/demon_feather.png" type="Texture" id=4]
+[ext_resource path="res://scenes/ascend/dark_upgrade.gd" type="Script" id=5]
+[ext_resource path="res://assets/sound/upgrade.mp3" type="AudioStream" id=7]
+
+[sub_resource type="DynamicFont" id=28]
+size = 35
+outline_size = 2
+outline_color = Color( 0.196078, 0.196078, 0.196078, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=29]
+size = 33
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[node name="AscentionUpgrade" type="VBoxContainer"]
+margin_right = 300.0
+margin_bottom = 275.0
+custom_constants/separation = 0
+alignment = 1
+script = ExtResource( 5 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+pitch_scale = 0.3
+bus = "Effect"
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Label" type="Label" parent="."]
+margin_right = 300.0
+margin_bottom = 84.0
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_constants/line_spacing = -10
+custom_fonts/font = SubResource( 28 )
+text = "Upgrade
+Name"
+align = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+self_modulate = Color( 0, 0, 0, 1 )
+margin_top = 84.0
+margin_right = 300.0
+margin_bottom = 212.0
+texture = ExtResource( 1 )
+stretch_mode = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_top = 212.0
+margin_right = 300.0
+margin_bottom = 256.0
+alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer"]
+margin_left = 107.0
+margin_right = 142.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 35, 35 )
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+self_modulate = Color( 0.447059, 0.396078, 0.580392, 1 )
+margin_left = 146.0
+margin_right = 193.0
+margin_bottom = 44.0
+mouse_filter = 1
+custom_constants/line_spacing = -10
+custom_fonts/font = SubResource( 29 )
+text = "200"
+align = 1
+
+[node name="ThemeButton" parent="." instance=ExtResource( 3 )]
+self_modulate = Color( 0.415686, 0.309804, 0.462745, 1 )
+margin_top = 256.0
+margin_right = 300.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 300, 0 )
+button_text = "Unlock"
+modulate_default = Color( 0.415686, 0.309804, 0.462745, 1 )
+modulate_hover = Color( 0.447059, 0.396078, 0.580392, 1 )
+
+[connection signal="button_clicked" from="ThemeButton" to="." method="_on_ThemeButton_button_clicked"]

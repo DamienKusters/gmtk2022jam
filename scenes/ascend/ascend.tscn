@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-mountains.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-trees.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://scenes/ThemeButton.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/ascend/AscendCategoryButton.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/ascend/angelic.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/ascend/dark.tscn" type="PackedScene" id=16]
 [ext_resource path="res://assets/scripts/destroyer_animation.gd" type="Script" id=21]
 
 [sub_resource type="Animation" id=20]
@@ -430,10 +431,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -117.0
-margin_top = -312.0
-margin_right = 112.0
-margin_bottom = -165.02
+margin_left = 683.0
+margin_top = 138.0
+margin_right = 912.0
+margin_bottom = 284.98
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6
@@ -507,7 +508,6 @@ margin_left = 122.0
 margin_top = 73.0
 margin_right = 522.0
 margin_bottom = 343.0
-label_text = "Angelic Upgrades"
 texture = ExtResource( 9 )
 
 [node name="Dupgrades" parent="ui/menu" instance=ExtResource( 14 )]
@@ -559,10 +559,7 @@ modulate_hover = Color( 0.313726, 0.180392, 0.286275, 1 )
 
 [node name="angelic" parent="ui/fader" instance=ExtResource( 15 )]
 
-[node name="dark" type="Control" parent="ui/fader"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
+[node name="dark" parent="ui/fader" instance=ExtResource( 16 )]
 
 [connection signal="pressed" from="ui/menu/Aupgrades" to="." method="_on_upgrades_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="ui/menu/Dupgrades" to="." method="_on_upgrades_pressed" binds= [ 1 ]]

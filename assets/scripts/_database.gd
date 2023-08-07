@@ -93,7 +93,7 @@ func initEnemyPool():
 		EnemyTier.new([# ANGEL KILLED MAXED AT DPS 17 (15 & 16 UNKNOWN) lower angel to 15 minimum
 			EnemyModel.new("Angel", 32000, 0, "Angel", null, Enums.LootType.FEATHERS),
 			EnemyModel.new("Light", 41000, 4000),# light killed at x17 18/19 minimum
-		], .15, Enums.LootType.DARK_FEATHERS)
+		], .2, Enums.LootType.DARK_FEATHERS)
 	]
 
 var dark_enemy_pool = [
@@ -107,32 +107,32 @@ var dark_enemy_pool = [
 		EnemyModel.new("Cobald Wolf", 50000, 5000, "Cobald_Wolf"),
 		EnemyModel.new("Wild Boar", 50000, 5000, "WildBoarB"),
 		EnemyModel.new("Poisonous Hornet", 50000, 5000, "GiantHornetB"),
-	], .1, Enums.LootType.DARK_FEATHERS),
+	], .15, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
 		EnemyModel.new("Dark Goblin", 50000, 5000, "GoblinB"),
 		EnemyModel.new("Elite Hobgoblin", 50000, 5000, "Elite_Goblin"),
 		EnemyModel.new("Impish Orc", 50000, 5000, "OrcB"),
 		EnemyModel.new("Troll", 50000, 5000, "OgreB"),
-	], .1, Enums.LootType.DARK_FEATHERS),
+	], .15, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
 		EnemyModel.new("Corrupted Roots", 50000, 5000, "AnimatedPlantB"),
 #		EnemyModel.new("Destroyer Drone", 50000, 5000, "DestroyerV1", null, Enums.LootType.BOLTS),
 		EnemyModel.new("Undead Log", 50000, 5000, "TreantB"),
-	], .14, Enums.LootType.DARK_FEATHERS),
+	], .2, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
 		EnemyModel.new("Lich", 50000, 5000),
-	], .2, Enums.LootType.DARK_FEATHERS),
+	], .25, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
 		EnemyModel.new("Dark Pixie", 50000, 5000, "FairyB"),
 		EnemyModel.new("Dark Nymph", 50000, 5000, "Earth_Lady_Vampire"),
 		EnemyModel.new("Dark Fairy", 50000, 5000, "Pixie_Man_Vampire"),
-	], .2, Enums.LootType.DARK_FEATHERS),
+	], .25, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
 		EnemyModel.new("Blood Skeleton", 50000, 5000, "SkeletonB"),
-		EnemyModel.new("Dark Mage", 50000, 5000, "WizardB"),
+		EnemyModel.new("Archmage", 50000, 5000, "WizardB"),
 		EnemyModel.new("Dark Lord", 50000, 0, "Demon", null, Enums.LootType.DARK_FEATHERS),
 		EnemyModel.new("Darkness", 50000, 5000),
-	], .2, Enums.LootType.DARK_FEATHERS),
+	], .25, Enums.LootType.DARK_FEATHERS),
 ]
 
 func _ready():
