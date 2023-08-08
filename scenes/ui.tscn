@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=2]
+[gd_scene load_steps=77 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
@@ -45,6 +45,7 @@
 [ext_resource path="res://assets/sprites/upgrades/Hexagram.png" type="Texture" id=43]
 [ext_resource path="res://assets/sprites/icons/bolt.png" type="Texture" id=44]
 [ext_resource path="res://assets/scripts/variableHider.gd" type="Script" id=45]
+[ext_resource path="res://assets/sprites/upgrades/Delete_Dice_Icon.png" type="Texture" id=46]
 
 [sub_resource type="DynamicFont" id=40]
 size = 33
@@ -750,9 +751,15 @@ script = ExtResource( 32 )
 targetEvent = "dFeathersUpdated"
 defaultSaveFlag = 2
 
-[node name="u_add" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
+[node name="add" type="Control" parent="uiRoot/VBoxContainer"]
 margin_top = 95.0
+margin_right = 480.0
 margin_bottom = 195.0
+rect_min_size = Vector2( 480, 100 )
+script = ExtResource( 9 )
+save_flag_check = 26
+
+[node name="u_add" parent="uiRoot/VBoxContainer/add" instance=ExtResource( 5 )]
 title = "Add Dice"
 basePrice = 5
 levelupPriceIncrease = 5
@@ -762,13 +769,30 @@ spriteTexture = ExtResource( 7 )
 description = "Adds another D4 dice"
 saveFlag = 4
 
+[node name="u_delete" parent="uiRoot/VBoxContainer/add" instance=ExtResource( 5 )]
+visible = false
+title = "Delete Dice"
+basePrice = 100000
+levelupPriceIncrease = 25000
+levelupPricePercentIncrease = 0
+kind = 13
+levelCap = 21
+spriteTexture = ExtResource( 46 )
+description = "Permanently removes a dice in exchange for a reward.
+A D100 dice will transform into a Bolt.
+TODO:
+A D20 dice will transform into a Shadow Feather.
+All other kinds of dice will transform into Prime Feathers."
+saveFlag = 10
+super_upgrade = true
+
 [node name="upgrade" type="Control" parent="uiRoot/VBoxContainer"]
 margin_top = 190.0
 margin_right = 480.0
 margin_bottom = 290.0
 rect_min_size = Vector2( 480, 100 )
 script = ExtResource( 9 )
-save_flag_check = 22
+save_flag_check = 27
 
 [node name="u_upgrade" parent="uiRoot/VBoxContainer/upgrade" instance=ExtResource( 5 )]
 title = "Upgrade Dice"
@@ -791,7 +815,7 @@ kind = 8
 levelCap = 21
 spriteTexture = ExtResource( 6 )
 description = "Enhances D20 dice to a D100 variant"
-saveFlag = 10
+saveFlag = 11
 super_upgrade = true
 
 [node name="dm" type="Control" parent="uiRoot/VBoxContainer"]
@@ -800,7 +824,7 @@ margin_right = 480.0
 margin_bottom = 385.0
 rect_min_size = Vector2( 480, 100 )
 script = ExtResource( 9 )
-save_flag_check = 23
+save_flag_check = 28
 
 [node name="u_dm" parent="uiRoot/VBoxContainer/dm" instance=ExtResource( 5 )]
 title = "Dungeon Master"
@@ -817,13 +841,13 @@ saveFlag = 6
 visible = false
 title = "Quickroll"
 basePrice = 2000
-levelupPriceIncrease = 2000
-levelupPricePercentIncrease = 70
+levelupPriceIncrease = 25000
+levelupPricePercentIncrease = 90
 kind = 10
-levelCap = 14
+levelCap = 10
 spriteTexture = ExtResource( 41 )
 description = "On clicking, you automatically roll the amount of dice same as its level"
-saveFlag = 11
+saveFlag = 12
 super_upgrade = true
 
 [node name="rolltime" type="Control" parent="uiRoot/VBoxContainer"]
@@ -832,7 +856,7 @@ margin_right = 480.0
 margin_bottom = 480.0
 rect_min_size = Vector2( 480, 100 )
 script = ExtResource( 9 )
-save_flag_check = 24
+save_flag_check = 29
 
 [node name="u_rolltime" parent="uiRoot/VBoxContainer/rolltime" instance=ExtResource( 5 )]
 title = "Dice Tray"
@@ -848,14 +872,14 @@ saveFlag = 7
 [node name="u_overdrive" parent="uiRoot/VBoxContainer/rolltime" instance=ExtResource( 5 )]
 visible = false
 title = "Dice Tower"
-basePrice = 5000
-levelupPriceIncrease = 1500
-levelupPricePercentIncrease = 54
+basePrice = 10000
+levelupPriceIncrease = 9000
+levelupPricePercentIncrease = 78
 kind = 11
 levelCap = 10
 spriteTexture = ExtResource( 12 )
 description = "Each level decreases the minimum and maximum dice rolling time"
-saveFlag = 12
+saveFlag = 13
 super_upgrade = true
 
 [node name="reroll" type="Control" parent="uiRoot/VBoxContainer"]
@@ -864,7 +888,7 @@ margin_right = 480.0
 margin_bottom = 575.0
 rect_min_size = Vector2( 480, 100 )
 script = ExtResource( 9 )
-save_flag_check = 25
+save_flag_check = 30
 
 [node name="u_reroll" parent="uiRoot/VBoxContainer/reroll" instance=ExtResource( 5 )]
 title = "Re-roller"
@@ -879,15 +903,15 @@ saveFlag = 8
 
 [node name="u_sprReroll" parent="uiRoot/VBoxContainer/reroll" instance=ExtResource( 5 )]
 visible = false
-title = "Super Re-roller"
-basePrice = 10000
-levelupPriceIncrease = 1000
-levelupPricePercentIncrease = 60
+title = "Adv.-roller"
+basePrice = 100000
+levelupPriceIncrease = 80000
+levelupPricePercentIncrease = 79
 kind = 12
 levelCap = 8
 spriteTexture = ExtResource( 8 )
 description = "Automatically re-rolls D100 dice starting at face 30 all the way to face 100 "
-saveFlag = 13
+saveFlag = 14
 super_upgrade = true
 
 [node name="contract" type="Control" parent="uiRoot/VBoxContainer"]
@@ -896,7 +920,7 @@ margin_right = 480.0
 margin_bottom = 670.0
 rect_min_size = Vector2( 480, 100 )
 script = ExtResource( 9 )
-save_flag_check = 26
+save_flag_check = 31
 
 [node name="u_contract" parent="uiRoot/VBoxContainer/contract" instance=ExtResource( 5 )]
 title = "Contract"
@@ -913,13 +937,13 @@ saveFlag = 9
 visible = false
 title = "Hexagram"
 basePrice = 20000
-levelupPriceIncrease = 200
-levelupPricePercentIncrease = 40
+levelupPriceIncrease = 10000
+levelupPricePercentIncrease = 30
 kind = 9
 levelCap = 7
 spriteTexture = ExtResource( 43 )
 description = "Replaces lower-tier enemies with their shadow realm counterpart"
-saveFlag = 14
+saveFlag = 15
 super_upgrade = true
 
 [node name="enemyUi" type="Control" parent="uiRoot"]

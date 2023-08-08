@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-mountains.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-trees.png" type="Texture" id=2]
@@ -16,6 +16,8 @@
 [ext_resource path="res://scenes/ascend/AscendCategoryButton.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/ascend/angelic.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/ascend/dark.tscn" type="PackedScene" id=16]
+[ext_resource path="res://assets/scripts/variableHider.gd" type="Script" id=17]
+[ext_resource path="res://assets/sound/Hiding_Your_Reality.mp3" type="AudioStream" id=18]
 [ext_resource path="res://assets/scripts/destroyer_animation.gd" type="Script" id=21]
 
 [sub_resource type="Animation" id=20]
@@ -383,6 +385,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 8 )
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
+volume_db = -5.0
+pitch_scale = 0.95
+autoplay = true
+bus = "Music"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../canvas")
 autoplay = "spawn_screen"
@@ -508,6 +517,7 @@ margin_left = 122.0
 margin_top = 73.0
 margin_right = 522.0
 margin_bottom = 343.0
+label_text = "Prime Dice"
 texture = ExtResource( 9 )
 
 [node name="Dupgrades" parent="ui/menu" instance=ExtResource( 14 )]
@@ -517,7 +527,7 @@ margin_left = 1090.0
 margin_top = 74.0
 margin_right = 1490.0
 margin_bottom = 344.0
-label_text = "Dark Upgrades"
+label_text = "Shadow Upgrades"
 texture = ExtResource( 10 )
 
 [node name="Gupgrades" parent="ui/menu" instance=ExtResource( 14 )]
@@ -560,6 +570,8 @@ modulate_hover = Color( 0.313726, 0.180392, 0.286275, 1 )
 [node name="angelic" parent="ui/fader" instance=ExtResource( 15 )]
 
 [node name="dark" parent="ui/fader" instance=ExtResource( 16 )]
+script = ExtResource( 17 )
+defaultSaveFlag = 17
 
 [connection signal="pressed" from="ui/menu/Aupgrades" to="." method="_on_upgrades_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="ui/menu/Dupgrades" to="." method="_on_upgrades_pressed" binds= [ 1 ]]

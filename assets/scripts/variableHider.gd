@@ -1,10 +1,11 @@
-extends Control
+extends CanvasItem
 
-export var targetEvent = "currencyUpdated"
+export var targetEvent = ""
 export(Enums.SaveFlag) var defaultSaveFlag = Enums.SaveFlag.CURRENCY
 
 func _ready():
-	var _a = Globals.connect(targetEvent, self, "updateVisibility");
+	if targetEvent != "":
+		var _a = Globals.connect(targetEvent, self, "updateVisibility");
 	updateVisibility(Save.importSave(defaultSaveFlag, 0))
 
 func updateVisibility(value: int):

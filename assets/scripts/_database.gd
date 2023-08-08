@@ -59,7 +59,7 @@ func initEnemyPool():
 			EnemyModel.new("Hobgoblin", 95, 111, "Regular_Goblin"),
 			EnemyModel.new("Ogre", 120, 150),
 			EnemyModel.new("Orc", 190, 200, "Orc", Enums.DiceEnum.D4),
-		], .03),
+		], .03),#slightly lower to .2??? got 7 from them in a fine timespan
 		EnemyTier.new([
 			EnemyModel.new("Living Roots", 250, 200, "AnimatedPlant"),
 			EnemyModel.new("Living Log", 290, 250, "Treant"),
@@ -97,42 +97,41 @@ func initEnemyPool():
 	]
 
 var dark_enemy_pool = [
-	EnemyTier.new([
+	EnemyTier.new([#can be defeated without special upgrades (for farming dfeathers)
 		EnemyModel.new("Vampire", 30000, 5000, "BatB"),
 		EnemyModel.new("Void Slime", 35000, 5800, "SlimeB"),
 		EnemyModel.new("Hellhound", 45000, 7600, "Salamander"),
 	], .1, Enums.LootType.DARK_FEATHERS),
-	EnemyTier.new([
-		EnemyModel.new("Feral Rat", 50000, 5000, "GiantRatB"),
-		EnemyModel.new("Cobald Wolf", 50000, 5000, "Cobald_Wolf"),
-		EnemyModel.new("Wild Boar", 50000, 5000, "WildBoarB"),
-		EnemyModel.new("Poisonous Hornet", 50000, 5000, "GiantHornetB"),
+	EnemyTier.new([#needs first row of enhanced dice 
+		EnemyModel.new("Cobald Wolf", 50000, 8000, "Cobald_Wolf"),
+		EnemyModel.new("Wild Boar", 64000, 10000, "WildBoarB"),
+		EnemyModel.new("Poisonous Hornet", 70000, 15000, "GiantHornetB"),
 	], .15, Enums.LootType.DARK_FEATHERS),
-	EnemyTier.new([
-		EnemyModel.new("Dark Goblin", 50000, 5000, "GoblinB"),
-		EnemyModel.new("Elite Hobgoblin", 50000, 5000, "Elite_Goblin"),
-		EnemyModel.new("Impish Orc", 50000, 5000, "OrcB"),
-		EnemyModel.new("Troll", 50000, 5000, "OgreB"),
-	], .15, Enums.LootType.DARK_FEATHERS),
-	EnemyTier.new([
-		EnemyModel.new("Corrupted Roots", 50000, 5000, "AnimatedPlantB"),
-#		EnemyModel.new("Destroyer Drone", 50000, 5000, "DestroyerV1", null, Enums.LootType.BOLTS),
-		EnemyModel.new("Undead Log", 50000, 5000, "TreantB"),
+	EnemyTier.new([# CHECK more loot from here (expo growth)
+		EnemyModel.new("Elite Hobgoblin", 74000, 25000, "Elite_Goblin"),
+		EnemyModel.new("Impish Orc", 100000, 48000, "OrcB"),
+		EnemyModel.new("Troll", 115000, 50000, "OgreB"),
+	], .17, Enums.LootType.DARK_FEATHERS),
+	EnemyTier.new([#second row and more of enhanced, little lower because of drone <3
+		EnemyModel.new("Corrupted Roots", 125000, 88000, "AnimatedPlantB"),
+		#drone must be lower to paralelize gameplay -> move lower tier? ()
+		EnemyModel.new("Drone", 400000, 0, "DestroyerV1", Enums.DiceEnum.D20, Enums.LootType.BOLTS),
+		EnemyModel.new("Undead Log", 140000, 92000, "TreantB"),
 	], .2, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
-		EnemyModel.new("Lich", 50000, 5000),
-	], .25, Enums.LootType.DARK_FEATHERS),
+		EnemyModel.new("Lich", 200000, 111111),
+	], .33, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
-		EnemyModel.new("Dark Pixie", 50000, 5000, "FairyB"),
-		EnemyModel.new("Dark Nymph", 50000, 5000, "Earth_Lady_Vampire"),
-		EnemyModel.new("Dark Fairy", 50000, 5000, "Pixie_Man_Vampire"),
-	], .25, Enums.LootType.DARK_FEATHERS),
+		EnemyModel.new("Sprite", 200000, 125000, "FairyB"),
+		EnemyModel.new("Naiad", 220000, 150000, "Earth_Lady_Vampire"),
+		EnemyModel.new("Dark Fairy", 255000, 200000, "Pixie_Man_Vampire"),
+	], .2, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
-		EnemyModel.new("Blood Skeleton", 50000, 5000, "SkeletonB"),
-		EnemyModel.new("Archmage", 50000, 5000, "WizardB"),
-		EnemyModel.new("Dark Lord", 50000, 0, "Demon", null, Enums.LootType.DARK_FEATHERS),
-		EnemyModel.new("Darkness", 50000, 5000),
-	], .25, Enums.LootType.DARK_FEATHERS),
+		EnemyModel.new("Blood Skeleton", 270000, 400000, "SkeletonB"),
+		EnemyModel.new("Archmage", 300000, 550000, "WizardB"),
+		EnemyModel.new("Dark Lord", 330000, 666666, "Demon"),
+		EnemyModel.new("Darkness", 350000, 1000000),
+	], .1, Enums.LootType.DARK_FEATHERS),
 ]
 
 func _ready():

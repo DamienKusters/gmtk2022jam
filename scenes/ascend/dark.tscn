@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/sprites/icons/demon_feather.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/sprites/upgrades/Quickroll.png" type="Texture" id=7]
 [ext_resource path="res://assets/sprites/upgrades/Auto_Roll.png" type="Texture" id=8]
 [ext_resource path="res://assets/sprites/upgrades/Upgrade_Dice_100_Icon.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/upgrades/Delete_Dice_Icon.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -31,7 +32,7 @@ margin_bottom = 79.0
 size_flags_horizontal = 3
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 1 )
-text = "Dark Upgrades"
+text = "Shadow Upgrades"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="title"]
 margin_left = 1135.0
@@ -72,29 +73,40 @@ margin_bottom = 300.0
 custom_constants/separation = 180
 alignment = 1
 
+[node name="hexagram" parent="VBoxContainer/HBoxContainer" instance=ExtResource( 4 )]
+margin_left = 170.0
+margin_right = 470.0
+margin_bottom = 300.0
+title = "Hexagram"
+description = "Upgrade to the 'Contract' when it reaches its max level
+Hexagram:
+Replaces lower-tier enemies with their shadow realm counterpart"
+icon = ExtResource( 5 )
+unlock_flag = 31
+upgrade_price = 1
+
+[node name="enhance" parent="VBoxContainer/HBoxContainer" instance=ExtResource( 4 )]
+margin_left = 650.0
+margin_right = 950.0
+margin_bottom = 300.0
+title = "Enhance Dice"
+description = "Upgrade to the 'Upgrade Dice' when it reaches its max level
+Enhance Dice:
+"
+icon = ExtResource( 9 )
+unlock_flag = 27
+upgrade_price = 4
+
 [node name="dicetower" parent="VBoxContainer/HBoxContainer" instance=ExtResource( 4 )]
-margin_left = 410.0
-margin_right = 710.0
+margin_left = 1130.0
+margin_right = 1430.0
 margin_bottom = 300.0
 title = "Dice Tower"
 description = "Upgrade to the 'Dice Tray' when it reaches its max level
 Dice Tower:
-"
+Each level decreases the minimum and maximum dice rolling time"
 icon = ExtResource( 6 )
-unlock_flag = 24
-upgrade_price = 40
-
-[node name="quickroll" parent="VBoxContainer/HBoxContainer" instance=ExtResource( 4 )]
-margin_left = 890.0
-margin_right = 1190.0
-margin_bottom = 300.0
-title = "Quickroll"
-description = "Upgrade to the 'Dungeon Master' when it reaches its max level
-Quickroll:
-
-"
-icon = ExtResource( 7 )
-unlock_flag = 23
+unlock_flag = 29
 upgrade_price = 15
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
@@ -104,38 +116,43 @@ margin_bottom = 650.0
 custom_constants/separation = 180
 alignment = 1
 
-[node name="enhance" parent="VBoxContainer/HBoxContainer2" instance=ExtResource( 4 )]
+[node name="quickroll" parent="VBoxContainer/HBoxContainer2" instance=ExtResource( 4 )]
 margin_left = 170.0
 margin_right = 470.0
 margin_bottom = 300.0
-title = "Enhance Dice"
-description = "Upgrade to the 'Upgrade Dice' when it reaches its max level
-Enhance Dice:
+title = "Quickroll"
+description = "Upgrade to the 'Dungeon Master' when it reaches its max level
+Quickroll:
+On clicking, you automatically roll the amount of dice same as its level
 "
-icon = ExtResource( 9 )
-unlock_flag = 22
-upgrade_price = 5
+icon = ExtResource( 7 )
+unlock_flag = 28
+upgrade_price = 20
 
-[node name="hexagram" parent="VBoxContainer/HBoxContainer2" instance=ExtResource( 4 )]
+[node name="superreroll" parent="VBoxContainer/HBoxContainer2" instance=ExtResource( 4 )]
 margin_left = 650.0
 margin_right = 950.0
 margin_bottom = 300.0
-title = "Hexagram"
-description = "Upgrade to the 'Contract' when it reaches its max level
-Hexagram:
-Replaces lower-tier enemies with their shadow realm counterpart"
-icon = ExtResource( 5 )
-unlock_flag = 26
-upgrade_price = 1
+title = "Advantage-roller"
+description = "Upgrade to the 'Re-roller' when it reaches its max level
+Advantage-roller:
+Automatically re-rolls D100 dice starting at face 30 all the way to face 100 "
+icon = ExtResource( 8 )
+unlock_flag = 30
+upgrade_price = 35
 
-[node name="superreroll" parent="VBoxContainer/HBoxContainer2" instance=ExtResource( 4 )]
+[node name="deletedice" parent="VBoxContainer/HBoxContainer2" instance=ExtResource( 4 )]
 margin_left = 1130.0
 margin_right = 1430.0
 margin_bottom = 300.0
-title = "Super Re-roller"
-description = "Upgrade to the 'Re-roller' when it reaches its max level
-Super Re-roller:
-Automatically re-rolls D100 dice starting at face 30 all the way to face 100 "
-icon = ExtResource( 8 )
-unlock_flag = 25
+title = "Delete Dice"
+description = "Upgrade to the 'Add Dice' when it reaches its max level
+Delete Dice:
+Permanently removes a dice in exchange for a reward.
+A D100 dice will transform into a Bolt.
+TODO:
+A D20 dice will transform into a Shadow Feather.
+All other kinds of dice will transform into Prime Feathers."
+icon = ExtResource( 10 )
+unlock_flag = 26
 upgrade_price = 75

@@ -95,7 +95,6 @@ func enemyKilled(enemy):
 		return
 	if(enemy.name == target_enemy.name):
 		completeContract();
-		Save.saveGame()
 
 func applyNextLevelUiUpdate(enhanced):
 	if !(enhanced == (kind == Enums.Upgrade.ENHANCE_DICE)):
@@ -167,11 +166,12 @@ func action():
 		setContract()
 	if(kind == Enums.Upgrade.ROLL_DECREASE):
 		Globals.maxDiceRollTime = Globals.maxDiceRollTime - .2;
-		$"%LabelTitle".text = title + " (-" + str(level * .2) + "s)"; #TODO :show percentage instead of raw value
+		$"%LabelTitle".text = title + " (-" + str(level * .2) + "s)"
 	if kind == Enums.Upgrade.OVERDRIVE:
 		Globals.maxDiceRollTime = Globals.maxDiceRollTime - .05
 		Globals.minDiceRollTime = Globals.minDiceRollTime - .04
-		
+	if kind == Enums.Upgrade.SUPER_REROLL:
+		$"%LabelTitle".text = title + " (<" + str((level + 2) * 10) + ")"
 
 func _on_Timer_timeout():
 	if(kind == Enums.Upgrade.DUNGEON_MASTER):
@@ -182,6 +182,9 @@ func _on_Timer_timeout():
 			$bg/TextureProgress/Tween.start();
 	
 func enemyDamaged(value: int, dice: Node2D):
+	#TODO: kinda broken
+	if level <= 0:
+		return
 	if kind == Enums.Upgrade.SUPER_REROLL:
 		if(value <= int((level + 2)) * 10):
 			dice.roll();

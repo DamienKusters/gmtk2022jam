@@ -5,7 +5,7 @@ func _ready():
 	$ui/fader/dark.visible = false
 
 func ascend():
-	Save.exportSave(Enums.SaveFlag.CURRENCY, 10 * Globals.feathers)
+	Save.exportSave(Enums.SaveFlag.CURRENCY, Globals.featherValue * (10 * Globals.feathers))
 	Save.exportSave(Enums.SaveFlag.FEATHERS, 0)
 	Save.exportSave(Enums.SaveFlag.U_ADD_DICE, 0)
 	Save.exportSave(Enums.SaveFlag.U_UPGRADE_DICE, 0)
@@ -16,6 +16,8 @@ func ascend():
 	Save.exportSave(Enums.SaveFlag.U_ENHANCE_DICE, 0)
 	Save.exportSave(Enums.SaveFlag.U_QUICKROLL, 0)
 	Save.exportSave(Enums.SaveFlag.U_HEXAGRAM, 0)
+	Save.exportSave(Enums.SaveFlag.U_OVERDRIVE, 0)
+	Save.exportSave(Enums.SaveFlag.U_SUPER_REROLL, 0)
 	Save.exportSave(Enums.SaveFlag.DICE, 0)
 	Save.exportSave(Enums.SaveFlag.TARGET_ENEMY_BEATEN, 0)
 	

@@ -22,6 +22,7 @@ var currency = 0
 var feathers = 0;
 var bolts = 0 setget setBolts;
 var dFeathers = 0 setget setDFeathers;
+var featherValue = 1;
 
 var ascention_dps_multiplier_value = 1;
 var ascention_dps_multiplier_level = 0;
@@ -42,6 +43,7 @@ func setBolts(value):
 func setDFeathers(value):
 	dFeathers = value
 	emit_signal("dFeathersUpdated", value)
+	Save.exportSave(Enums.SaveFlag.DARK_FEATHERS_COLLECTED, 1)
 	Save.exportSave(Enums.SaveFlag.DARK_FEATHERS, value)
 	
 func tryUpgradeDice(price, enhanced = false):
@@ -104,3 +106,4 @@ func _init():
 	ascention_dps_multiplier_level = Save.importSave(Enums.SaveFlag.A_MULTIPLIER_LEVEL, 0);
 	ascention_reroller_value = Save.importSave(Enums.SaveFlag.A_REROLL_VALUE, 0);
 	ascention_reroller_level = Save.importSave(Enums.SaveFlag.A_REROLL_LEVEL, 0);
+	featherValue = Save.importSave(Enums.SaveFlag.A_FEATHER_VALUE, 1);

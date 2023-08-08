@@ -26,7 +26,7 @@ margin_bottom = 79.0
 size_flags_horizontal = 3
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 1 )
-text = "Upgrades"
+text = "Prime Dice"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="title"]
 margin_left = 1135.0
@@ -62,21 +62,30 @@ margin_bottom = 156.0
 custom_constants/separation = 180
 alignment = 1
 
+[node name="feather_value" parent="HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 140.0
+margin_right = 460.0
+margin_bottom = 312.0
+title = "Feather Value
+Multiplier"
+value_flag = 24
+level_flag = 25
+
 [node name="dmg" parent="HBoxContainer" instance=ExtResource( 1 )]
-margin_left = 390.0
-margin_right = 710.0
+margin_left = 640.0
+margin_right = 960.0
 margin_bottom = 312.0
 title = "Damage
 Multiplier"
-value_flag = 18
-level_flag = 19
+value_flag = 20
+level_flag = 21
 default_value = 1
 
 [node name="roll" parent="HBoxContainer" instance=ExtResource( 1 )]
-margin_left = 890.0
-margin_right = 1210.0
+margin_left = 1140.0
+margin_right = 1460.0
 margin_bottom = 312.0
 title = "Re-roller
 Starting Level"
-value_flag = 20
-level_flag = 21
+value_flag = 22
+level_flag = 23
