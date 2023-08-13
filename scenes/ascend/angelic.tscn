@@ -70,6 +70,7 @@ title = "Feather Value
 Multiplier"
 value_flag = 24
 level_flag = 25
+default_value = 1
 
 [node name="dmg" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 640.0

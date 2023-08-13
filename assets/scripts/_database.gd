@@ -99,7 +99,7 @@ func initEnemyPool():
 var dark_enemy_pool = [
 	EnemyTier.new([#can be defeated without special upgrades (for farming dfeathers)
 		EnemyModel.new("Vampire", 30000, 5000, "BatB"),
-		EnemyModel.new("Void Slime", 35000, 5800, "SlimeB"),
+		EnemyModel.new("Corrosive Jelly", 35000, 5800, "GelatinousCube"),
 		EnemyModel.new("Hellhound", 45000, 7600, "Salamander"),
 	], .1, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([#needs first row of enhanced dice 
@@ -115,20 +115,20 @@ var dark_enemy_pool = [
 	EnemyTier.new([#second row and more of enhanced, little lower because of drone <3
 		EnemyModel.new("Corrupted Roots", 125000, 88000, "AnimatedPlantB"),
 		#drone must be lower to paralelize gameplay -> move lower tier? ()
-		EnemyModel.new("Drone", 400000, 0, "DestroyerV1", Enums.DiceEnum.D20, Enums.LootType.BOLTS),
+#		EnemyModel.new("Drone", 300000, 0, "DestroyerV1", Enums.DiceEnum.D20, Enums.LootType.BOLTS),
 		EnemyModel.new("Undead Log", 140000, 92000, "TreantB"),
-	], .2, Enums.LootType.DARK_FEATHERS),
-	EnemyTier.new([
-		EnemyModel.new("Lich", 200000, 111111),
-	], .33, Enums.LootType.DARK_FEATHERS),
+	], .25, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
 		EnemyModel.new("Sprite", 200000, 125000, "FairyB"),
 		EnemyModel.new("Naiad", 220000, 150000, "Earth_Lady_Vampire"),
 		EnemyModel.new("Dark Fairy", 255000, 200000, "Pixie_Man_Vampire"),
 	], .2, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
-		EnemyModel.new("Blood Skeleton", 270000, 400000, "SkeletonB"),
-		EnemyModel.new("Archmage", 300000, 550000, "WizardB"),
+		EnemyModel.new("Blood Skeleton", 270000, 370000, "SkeletonB"),
+		EnemyModel.new("Archmage", 300000, 450000, "WizardB"),
+		EnemyModel.new("Lich", 200000, 111111),
+	], .2, Enums.LootType.DARK_FEATHERS),
+	EnemyTier.new([
 		EnemyModel.new("Dark Lord", 330000, 666666, "Demon"),
 		EnemyModel.new("Darkness", 350000, 1000000),
 	], .1, Enums.LootType.DARK_FEATHERS),

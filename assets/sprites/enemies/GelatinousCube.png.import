@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SlimeB.png-add443e998ec67dd0c56200bae7a03c4.stex"
+path="res://.import/GelatinousCube.png-b502d146a8536ee88aed5a661d9c6a97.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemies/SlimeB.png"
-dest_files=[ "res://.import/SlimeB.png-add443e998ec67dd0c56200bae7a03c4.stex" ]
+source_file="res://assets/sprites/enemies/GelatinousCube.png"
+dest_files=[ "res://.import/GelatinousCube.png-b502d146a8536ee88aed5a661d9c6a97.stex" ]
 
 [params]
 
