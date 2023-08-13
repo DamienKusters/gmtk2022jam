@@ -59,7 +59,7 @@ func initEnemyPool():
 			EnemyModel.new("Hobgoblin", 95, 111, "Regular_Goblin"),
 			EnemyModel.new("Ogre", 120, 150),
 			EnemyModel.new("Orc", 190, 200, "Orc", Enums.DiceEnum.D4),
-		], .03),#slightly lower to .2??? got 7 from them in a fine timespan
+		], .025),
 		EnemyTier.new([
 			EnemyModel.new("Living Roots", 250, 200, "AnimatedPlant"),
 			EnemyModel.new("Living Log", 290, 250, "Treant"),
@@ -90,19 +90,19 @@ func initEnemyPool():
 			EnemyModel.new("Fire Elemental", 22000, 3000, "Fire_Elemental",Enums.DiceEnum.D12),
 			EnemyModel.new("Power Elemental", 23000, 3300, "Volt_Elemental",Enums.DiceEnum.D12),
 		], .08),
-		EnemyTier.new([# ANGEL KILLED MAXED AT DPS 17 (15 & 16 UNKNOWN) lower angel to 15 minimum
+		EnemyTier.new([
 			EnemyModel.new("Angel", 32000, 0, "Angel", null, Enums.LootType.FEATHERS),
-			EnemyModel.new("Light", 41000, 4000),# light killed at x17 18/19 minimum
+			EnemyModel.new("Light", 41000, 4000),
 		], .2, Enums.LootType.DARK_FEATHERS)
 	]
 
 var dark_enemy_pool = [
-	EnemyTier.new([#can be defeated without special upgrades (for farming dfeathers)
+	EnemyTier.new([
 		EnemyModel.new("Vampire", 30000, 5000, "BatB"),
 		EnemyModel.new("Corrosive Jelly", 35000, 5800, "GelatinousCube"),
 		EnemyModel.new("Hellhound", 45000, 7600, "Salamander"),
 	], .1, Enums.LootType.DARK_FEATHERS),
-	EnemyTier.new([#needs first row of enhanced dice 
+	EnemyTier.new([
 		EnemyModel.new("Cobald Wolf", 50000, 8000, "Cobald_Wolf"),
 		EnemyModel.new("Wild Boar", 64000, 10000, "WildBoarB"),
 		EnemyModel.new("Poisonous Hornet", 70000, 15000, "GiantHornetB"),
@@ -112,10 +112,9 @@ var dark_enemy_pool = [
 		EnemyModel.new("Impish Orc", 100000, 48000, "OrcB"),
 		EnemyModel.new("Troll", 115000, 50000, "OgreB"),
 	], .17, Enums.LootType.DARK_FEATHERS),
-	EnemyTier.new([#second row and more of enhanced, little lower because of drone <3
+	EnemyTier.new([
 		EnemyModel.new("Corrupted Roots", 125000, 88000, "AnimatedPlantB"),
-		#drone must be lower to paralelize gameplay -> move lower tier? ()
-#		EnemyModel.new("Drone", 300000, 0, "DestroyerV1", Enums.DiceEnum.D20, Enums.LootType.BOLTS),
+#		EnemyModel.new("Drone", 315000, 0, "DestroyerV1", Enums.DiceEnum.D20, Enums.LootType.BOLTS),
 		EnemyModel.new("Undead Log", 140000, 92000, "TreantB"),
 	], .25, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
@@ -126,11 +125,11 @@ var dark_enemy_pool = [
 	EnemyTier.new([
 		EnemyModel.new("Blood Skeleton", 270000, 370000, "SkeletonB"),
 		EnemyModel.new("Archmage", 300000, 450000, "WizardB"),
-		EnemyModel.new("Lich", 200000, 111111),
+		EnemyModel.new("Lich", 330000, 500000),
 	], .2, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
-		EnemyModel.new("Dark Lord", 330000, 666666, "Demon"),
-		EnemyModel.new("Darkness", 350000, 1000000),
+		EnemyModel.new("Dark Lord", 350000, 666666, "Demon"),
+		EnemyModel.new("Darkness", 370000, 1000000),
 	], .1, Enums.LootType.DARK_FEATHERS),
 ]
 
@@ -141,57 +140,7 @@ func _ready():
 func upgradeEnemyTier(index: int):
 	enemy_pool[index] = dark_enemy_pool[index]
 
-#Redo new upgrade system, make use of resource but simplify it
-var upgrades
-func loadUpgrades():
-	return [
-		UpgradeModel.new(
-			"Add Dice",
-			"Adds another D4 dice",
-			"res://assets/sprites/upgrades/Add_Dice_Icon.png",
-			AddDiceUpgrade.new()
-		),
-		UpgradeModel.new(
-			"Upgrade Dice",
-			"Upgrade the lowest ranking dice to the next one (D4, D6, D8 ,D10, D12, D20)",
-			"res://assets/sprites/upgrades/Upgrade_Dice_Icon.png",
-			Upgrade.new()
-		),
-		UpgradeModel.new(
-			"Dungeon Master",
-			"Automatically rolls a dice",
-			"res://assets/sprites/upgrades/Dungeon_Master_Icon.png",
-			Upgrade.new()
-		),
-		null,
-		UpgradeModel.new(
-			"Re-roller",
-			"Automatically re-rolls any dice equal to or below the level of the upgrade",
-			"res://assets/sprites/upgrades/Auto_Roll.png",
-			Upgrade.new()
-		),
-		null,
-		UpgradeModel.new(
-			"Contract",
-			"Adds new enemy encounters",
-			"res://assets/sprites/upgrades/Contract.png",
-			ContractUpgrade.new()
-		),
-		UpgradeModel.new(
-			"Dice Tower",
-			"Decreases the maximum dice rolling time by each level",
-			"res://assets/sprites/upgrades/Dice_Tower.png",
-			Upgrade.new()
-		),
-		UpgradeModel.new(
-			"Ascend",
-			"Reset your progress and spend Angel Feathers for permanent upgrades",
-			"res://assets/sprites/upgrades/Ascend_Icon.png",
-			Upgrade.new()
-		),
-	]
-
+#Redo new upgrade system
 
 func _init():
 	initEnemyPool()
-	upgrades = loadUpgrades()

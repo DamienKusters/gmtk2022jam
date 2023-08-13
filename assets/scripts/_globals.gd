@@ -29,8 +29,8 @@ var ascention_dps_multiplier_level = 0;
 var ascention_reroller_value = 0;
 var ascention_reroller_level = 0;
 
-var options_music = 0#1;
-var options_sound = 0#2;
+var options_music = 1;
+var options_sound = 2;
 
 #TODO: global rng object & seeded object
 var rng = RandomNumberGenerator.new()
@@ -62,7 +62,7 @@ func openHelp(txt: Texture, title: String, description: String):
 	};
 	emit_signal("openHelp", obj);
 
-func getRandomEnemyTier():#change to get random enemy instead????
+func getRandomEnemyTier():
 	rng.randomize();
 	var idx = rng.randi_range(0, contractLevel)
 	return Database.enemy_pool[idx]

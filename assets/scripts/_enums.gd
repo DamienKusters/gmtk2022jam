@@ -27,6 +27,7 @@ enum SaveFlag {
 	U_QUICKROLL,
 	U_OVERDRIVE,
 	U_SUPER_REROLL,
+	#TODO: ?crits upgrade
 	U_HEXAGRAM,
 	
 	DICE,

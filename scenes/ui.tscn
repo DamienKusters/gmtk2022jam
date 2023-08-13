@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=2]
+[gd_scene load_steps=79 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
@@ -46,6 +46,8 @@
 [ext_resource path="res://assets/sprites/icons/bolt.png" type="Texture" id=44]
 [ext_resource path="res://assets/scripts/variableHider.gd" type="Script" id=45]
 [ext_resource path="res://assets/sprites/upgrades/Delete_Dice_Icon.png" type="Texture" id=46]
+[ext_resource path="res://assets/scripts/randomPitchPlayer.gd" type="Script" id=47]
+[ext_resource path="res://assets/sound/shadowUpgrade.mp3" type="AudioStream" id=48]
 
 [sub_resource type="DynamicFont" id=40]
 size = 33
@@ -560,6 +562,13 @@ tracks/0/keys = {
 
 [node name="ui" type="CanvasLayer"]
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 48 )
+volume_db = -19.0
+bus = "Effect"
+script = ExtResource( 47 )
+maxPitch = 1.2
+
 [node name="uiRoot" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -758,6 +767,7 @@ margin_bottom = 195.0
 rect_min_size = Vector2( 480, 100 )
 script = ExtResource( 9 )
 save_flag_check = 26
+player = NodePath("../../../AudioStreamPlayer")
 
 [node name="u_add" parent="uiRoot/VBoxContainer/add" instance=ExtResource( 5 )]
 title = "Add Dice"
@@ -793,6 +803,7 @@ margin_bottom = 290.0
 rect_min_size = Vector2( 480, 100 )
 script = ExtResource( 9 )
 save_flag_check = 27
+player = NodePath("../../../AudioStreamPlayer")
 
 [node name="u_upgrade" parent="uiRoot/VBoxContainer/upgrade" instance=ExtResource( 5 )]
 title = "Upgrade Dice"
@@ -825,6 +836,7 @@ margin_bottom = 385.0
 rect_min_size = Vector2( 480, 100 )
 script = ExtResource( 9 )
 save_flag_check = 28
+player = NodePath("../../../AudioStreamPlayer")
 
 [node name="u_dm" parent="uiRoot/VBoxContainer/dm" instance=ExtResource( 5 )]
 title = "Dungeon Master"
@@ -857,6 +869,7 @@ margin_bottom = 480.0
 rect_min_size = Vector2( 480, 100 )
 script = ExtResource( 9 )
 save_flag_check = 29
+player = NodePath("../../../AudioStreamPlayer")
 
 [node name="u_rolltime" parent="uiRoot/VBoxContainer/rolltime" instance=ExtResource( 5 )]
 title = "Dice Tray"
@@ -889,6 +902,7 @@ margin_bottom = 575.0
 rect_min_size = Vector2( 480, 100 )
 script = ExtResource( 9 )
 save_flag_check = 30
+player = NodePath("../../../AudioStreamPlayer")
 
 [node name="u_reroll" parent="uiRoot/VBoxContainer/reroll" instance=ExtResource( 5 )]
 title = "Re-roller"
@@ -921,6 +935,7 @@ margin_bottom = 670.0
 rect_min_size = Vector2( 480, 100 )
 script = ExtResource( 9 )
 save_flag_check = 31
+player = NodePath("../../../AudioStreamPlayer")
 
 [node name="u_contract" parent="uiRoot/VBoxContainer/contract" instance=ExtResource( 5 )]
 title = "Contract"

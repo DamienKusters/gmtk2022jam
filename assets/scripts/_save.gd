@@ -26,7 +26,7 @@ func resetSave():
 
 func saveGame():
 	var _save = ""
-	for f in Enums.SaveFlag.values():#todo local custom order?
+	for f in Enums.SaveFlag.values():
 		if save.has(f):
 			_save += str(save[f]) + "|"
 		else:

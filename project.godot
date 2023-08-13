@@ -9,16 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Upgrade",
-"class": "AddDiceUpgrade",
-"language": "GDScript",
-"path": "res://resources/upgrade/add_dice_upgrade.gd"
-}, {
-"base": "Upgrade",
-"class": "ContractUpgrade",
-"language": "GDScript",
-"path": "res://resources/upgrade/contract_upgrade.gd"
-}, {
 "base": "Reference",
 "class": "EnemyModel",
 "language": "GDScript",
@@ -33,25 +23,11 @@ _global_script_classes=[ {
 "class": "EnemyTier",
 "language": "GDScript",
 "path": "res://models/enemy_tier.gd"
-}, {
-"base": "Resource",
-"class": "Upgrade",
-"language": "GDScript",
-"path": "res://resources/upgrade/upgrade_resource.gd"
-}, {
-"base": "Reference",
-"class": "UpgradeModel",
-"language": "GDScript",
-"path": "res://models/upgrade_model.gd"
 } ]
 _global_script_class_icons={
-"AddDiceUpgrade": "",
-"ContractUpgrade": "",
 "EnemyModel": "",
 "EnemyPool": "",
-"EnemyTier": "",
-"Upgrade": "",
-"UpgradeModel": ""
+"EnemyTier": ""
 }
 
 [application]

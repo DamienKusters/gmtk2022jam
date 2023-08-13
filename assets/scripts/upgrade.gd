@@ -231,3 +231,7 @@ func setImportedLevel(save_level):
 		
 	for s in save_level:
 		action(); 
+
+func shadowUpgradeSpawn():
+	if super_upgrade:
+		$CPUParticles2D.emitting = true

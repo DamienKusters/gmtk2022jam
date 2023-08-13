@@ -2,24 +2,28 @@ extends Node
 
 export(bool) var super_upgrade = false
 export(Enums.SaveFlag) var save_flag_check
+export var player: NodePath = ''
 
 onready var uNormal = get_child(0)
 onready var uSuper = get_child(1)
 
 func setSuperUpgrade(value):
 	super_upgrade = value
-	get_child(0).visible = !super_upgrade
-	get_child(1).visible = super_upgrade
+	uNormal.visible = !super_upgrade
+	uSuper.visible = super_upgrade
 	
 func _ready():
-	get_child(0).visible = true
-	get_child(1).visible = false
-	uNormal.connect("levelChanged", self, "levelChanged")
-	levelChanged()
+	uNormal.visible = true
+	uSuper.visible = false
+	uNormal.connect("levelChanged", self, "levelChanged", [true])
+	levelChanged(false)
 	
-func levelChanged():
+func levelChanged(shadowUpgradeSpawn):
 	if Save.importSave(save_flag_check, 0) > 0:#TODO: Fix
 		if uNormal.level >= uNormal.levelCap:
 			super_upgrade = true
-			get_child(0).visible = !super_upgrade
-			get_child(1).visible = super_upgrade
+			uNormal.visible = !super_upgrade
+			uSuper.visible = super_upgrade
+			if player != '' && shadowUpgradeSpawn:
+				get_node(player).playRandomPitch()
+				uSuper.shadowUpgradeSpawn()

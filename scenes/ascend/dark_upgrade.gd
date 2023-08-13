@@ -10,13 +10,13 @@ export var upgrade_price = 10;
 var unlocked
 
 func _ready():
-	Globals.connect("dFeathersUpdated", self, "render")
+	var _a = Globals.connect("dFeathersUpdated", self, "render")
 	$Label.text = title;
 	$TextureRect.texture = icon
 	unlocked = bool(Save.importSave(unlock_flag, 0) > 0)
 	render(0)
 	
-func render(x):
+func render(_x):
 	$HBoxContainer/Label.text = str(upgrade_price)
 	if Globals.dFeathers < upgrade_price:
 		$ThemeButton.modulate = Color(1,1,1,.5)

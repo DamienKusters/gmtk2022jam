@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/shadowUpgrade.mp3-e629fe53037e2beeea9759335dbce9b7.mp3str"
+
+[deps]
+
+source_file="res://assets/sound/shadowUpgrade.mp3"
+dest_files=[ "res://.import/shadowUpgrade.mp3-e629fe53037e2beeea9759335dbce9b7.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
