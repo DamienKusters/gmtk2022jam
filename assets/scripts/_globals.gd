@@ -107,3 +107,5 @@ func _init():
 	ascention_reroller_value = Save.importSave(Enums.SaveFlag.A_REROLL_VALUE, 0);
 	ascention_reroller_level = Save.importSave(Enums.SaveFlag.A_REROLL_LEVEL, 0);
 	featherValue = Save.importSave(Enums.SaveFlag.A_FEATHER_VALUE, 1);
+	
+	Save.exportSave(Enums.SaveFlag.U_REROLL, ascention_reroller_value);

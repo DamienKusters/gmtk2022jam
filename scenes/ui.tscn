@@ -20,7 +20,7 @@
 [ext_resource path="res://assets/sound/damage1.mp3" type="AudioStream" id=18]
 [ext_resource path="res://assets/sprites/upgrades/Contract.png" type="Texture" id=19]
 [ext_resource path="res://assets/scripts/openCredits.gd" type="Script" id=20]
-[ext_resource path="res://assets/sprites/Text_Popup.png" type="Texture" id=21]
+[ext_resource path="res://assets/sprites/ui/help/Text_Popup.png" type="Texture" id=21]
 [ext_resource path="res://assets/scripts/help.gd" type="Script" id=22]
 [ext_resource path="res://assets/scripts/removeSelfAndRoll.gd" type="Script" id=23]
 [ext_resource path="res://assets/sprites/ui/bar_progress_green.png" type="Texture" id=24]
@@ -575,7 +575,7 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="AscendButton" type="NinePatchRect" parent="uiRoot"]
-self_modulate = Color( 0.415686, 0.309804, 0.462745, 1 )
+self_modulate = Color( 0.556863, 0.407843, 0.0666667, 1 )
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -597.0
@@ -1192,7 +1192,7 @@ anims/RESET = SubResource( 21 )
 anims/fade_up = SubResource( 22 )
 
 [node name="Timer" type="Timer" parent="uiRoot/enemyUi/Control2"]
-wait_time = 1.5
+wait_time = 2.0
 one_shot = true
 
 [node name="MenuButtons" type="Control" parent="uiRoot"]

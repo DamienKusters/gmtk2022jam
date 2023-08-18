@@ -72,28 +72,29 @@ func initEnemyPool():
 			EnemyModel.new("Bandit", 900, 600),
 			EnemyModel.new("Minotaur", 1300, 700, "Minotaur",Enums.DiceEnum.D8),
 		], .05),
+		#TODO: Balance from here
 		EnemyTier.new([# killed nymph maxed on DPS lvl 4
 			EnemyModel.new("Pixie", 2100, 900, "Fairy"),
 			EnemyModel.new("Witch", 3000, 1000),
 			EnemyModel.new("Fairy", 5000, 1200, "Pixie_Man"),
 			EnemyModel.new("Nymph", 7000, 1550, "Earth_Lady",Enums.DiceEnum.D10),
 		], .06),
-		EnemyTier.new([#killed necro maxed on DPS 9
+		EnemyTier.new([#killed necro maxed on DPS 7 !!!!!!!!!!!!!!!!!!!!!!!!
 			EnemyModel.new("Skeleton", 8000, 1800),
 			EnemyModel.new("Wizard", 10500, 2023),
 			EnemyModel.new("Wrath", 11500, 2200),
 			EnemyModel.new("Necromancer", 13000, 2500, "Necromancer",Enums.DiceEnum.D12),
-		], .06),
-		EnemyTier.new([#killed power maxed on DPS 14
+		], .07),
+		EnemyTier.new([#killed power maxed on DPS 12
 			EnemyModel.new("Earth Elemental", 19000, 2700, "Earth_Elemental",Enums.DiceEnum.D10),
 			EnemyModel.new("Water Elemental", 20000, 2900, "Water_Elemental",Enums.DiceEnum.D10),
 			EnemyModel.new("Fire Elemental", 22000, 3000, "Fire_Elemental",Enums.DiceEnum.D12),
 			EnemyModel.new("Power Elemental", 23000, 3300, "Volt_Elemental",Enums.DiceEnum.D12),
-		], .08),
+		], .09),
 		EnemyTier.new([
 			EnemyModel.new("Angel", 32000, 0, "Angel", null, Enums.LootType.FEATHERS),
-			EnemyModel.new("Light", 41000, 4000),
-		], .2, Enums.LootType.DARK_FEATHERS)
+			EnemyModel.new("Light", 38000, 4000),
+		], .25, Enums.LootType.DARK_FEATHERS)
 	]
 
 var dark_enemy_pool = [
@@ -139,8 +140,6 @@ func _ready():
 
 func upgradeEnemyTier(index: int):
 	enemy_pool[index] = dark_enemy_pool[index]
-
-#Redo new upgrade system
 
 func _init():
 	initEnemyPool()

@@ -440,10 +440,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -117.0
-margin_top = -312.0
-margin_right = 112.0
-margin_bottom = -165.02
+margin_left = 683.0
+margin_top = 138.0
+margin_right = 912.0
+margin_bottom = 284.98
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6
@@ -520,7 +520,11 @@ margin_bottom = 343.0
 label_text = "Prime Dice"
 texture = ExtResource( 9 )
 
-[node name="Dupgrades" parent="ui/menu" instance=ExtResource( 14 )]
+[node name="Node" type="Control" parent="ui/menu"]
+script = ExtResource( 17 )
+defaultSaveFlag = 18
+
+[node name="Dupgrades" parent="ui/menu/Node" instance=ExtResource( 14 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 1090.0
@@ -574,7 +578,7 @@ script = ExtResource( 17 )
 defaultSaveFlag = 17
 
 [connection signal="pressed" from="ui/menu/Aupgrades" to="." method="_on_upgrades_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="ui/menu/Dupgrades" to="." method="_on_upgrades_pressed" binds= [ 1 ]]
+[connection signal="pressed" from="ui/menu/Node/Dupgrades" to="." method="_on_upgrades_pressed" binds= [ 1 ]]
 [connection signal="pressed" from="ui/menu/Gupgrades" to="." method="_on_upgrades_pressed" binds= [ 2 ]]
 [connection signal="button_clicked" from="ui/menu/AscendButton" to="." method="ascend"]
 [connection signal="button_clicked" from="ui/fader/BackButton" to="." method="showMenu"]

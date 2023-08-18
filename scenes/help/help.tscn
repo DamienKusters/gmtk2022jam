@@ -1,0 +1,174 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/ui/help/Text_Popup.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/ui/help/Text_Popover.png" type="Texture" id=5]
+
+[node name="Help" type="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.376471 )
+
+[node name="popup" type="TextureRect" parent="."]
+anchor_left = 0.1
+anchor_right = 0.9
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="ScrollContainer" type="ScrollContainer" parent="popup"]
+anchor_left = 0.034
+anchor_top = 0.168
+anchor_right = 0.26
+anchor_bottom = 0.832
+margin_left = 20.0
+margin_right = -20.0
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="popup/ScrollContainer"]
+margin_right = 237.28
+margin_bottom = 1050.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="popup/ScrollContainer/VBoxContainer"]
+margin_right = 237.0
+margin_bottom = 14.0
+text = "HELP"
+align = 1
+
+[node name="Button" type="Button" parent="popup/ScrollContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 237.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+text = "Hello this is my text"
+icon = ExtResource( 2 )
+flat = true
+
+[node name="Button2" type="Button" parent="popup/ScrollContainer/VBoxContainer"]
+margin_top = 92.0
+margin_right = 237.0
+margin_bottom = 162.0
+size_flags_horizontal = 3
+text = "Hello this is my text"
+icon = ExtResource( 2 )
+flat = true
+
+[node name="Button3" type="Button" parent="popup/ScrollContainer/VBoxContainer"]
+margin_top = 166.0
+margin_right = 237.0
+margin_bottom = 236.0
+size_flags_horizontal = 3
+text = "Hello this is my text"
+icon = ExtResource( 2 )
+flat = true
+
+[node name="Button4" type="Button" parent="popup/ScrollContainer/VBoxContainer"]
+margin_top = 240.0
+margin_right = 237.0
+margin_bottom = 310.0
+size_flags_horizontal = 3
+text = "Hello this is my text"
+icon = ExtResource( 2 )
+flat = true
+
+[node name="Button5" type="Button" parent="popup/ScrollContainer/VBoxContainer"]
+margin_top = 314.0
+margin_right = 237.0
+margin_bottom = 384.0
+size_flags_horizontal = 3
+text = "Hello this is my text"
+icon = ExtResource( 2 )
+flat = true
+
+[node name="Button6" type="Button" parent="popup/ScrollContainer/VBoxContainer"]
+margin_top = 388.0
+margin_right = 237.0
+margin_bottom = 458.0
+size_flags_horizontal = 3
+text = "Hello this is my text"
+icon = ExtResource( 2 )
+flat = true
+
+[node name="Button7" type="Button" parent="popup/ScrollContainer/VBoxContainer"]
+margin_top = 462.0
+margin_right = 237.0
+margin_bottom = 532.0
+size_flags_horizontal = 3
+text = "Hello this is my text"
+icon = ExtResource( 2 )
+flat = true
+
+[node name="Button8" type="Button" parent="popup/ScrollContainer/VBoxContainer"]
+margin_top = 536.0
+margin_right = 237.0
+margin_bottom = 606.0
+size_flags_horizontal = 3
+text = "Hello this is my text"
+icon = ExtResource( 2 )
+flat = true
+
+[node name="Button9" type="Button" parent="popup/ScrollContainer/VBoxContainer"]
+margin_top = 610.0
+margin_right = 237.0
+margin_bottom = 680.0
+size_flags_horizontal = 3
+text = "Hello this is my text"
+icon = ExtResource( 2 )
+flat = true
+
+[node name="Button10" type="Button" parent="popup/ScrollContainer/VBoxContainer"]
+margin_top = 684.0
+margin_right = 237.0
+margin_bottom = 754.0
+size_flags_horizontal = 3
+text = "Hello this is my text"
+icon = ExtResource( 2 )
+flat = true
+
+[node name="Button12" type="Button" parent="popup/ScrollContainer/VBoxContainer"]
+margin_top = 758.0
+margin_right = 237.0
+margin_bottom = 828.0
+size_flags_horizontal = 3
+text = "Hello this is my text"
+icon = ExtResource( 2 )
+flat = true
+
+[node name="Button13" type="Button" parent="popup/ScrollContainer/VBoxContainer"]
+margin_top = 832.0
+margin_right = 237.0
+margin_bottom = 902.0
+size_flags_horizontal = 3
+text = "Hello this is my text"
+icon = ExtResource( 2 )
+flat = true
+
+[node name="Button14" type="Button" parent="popup/ScrollContainer/VBoxContainer"]
+margin_top = 906.0
+margin_right = 237.0
+margin_bottom = 976.0
+size_flags_horizontal = 3
+text = "Hello this is my text"
+icon = ExtResource( 2 )
+flat = true
+
+[node name="Button11" type="Button" parent="popup/ScrollContainer/VBoxContainer"]
+margin_top = 980.0
+margin_right = 237.0
+margin_bottom = 1050.0
+size_flags_horizontal = 3
+text = "Hello this is my text"
+icon = ExtResource( 2 )
+flat = true
+
+[node name="popover" type="TextureRect" parent="."]
+anchor_left = 0.1
+anchor_right = 0.9
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6

@@ -34,8 +34,8 @@ func roll():
 	$Timer.start();
 #	$Tween2.interpolate_property($Sprite, "rotation_degrees", $Sprite.rotation_degrees, 360.0, $Timer.wait_time, Tween.EASE_OUT);
 #	$Tween2.start()
-	$Sprite/AnimationPlayer.play("RESET");
-	$Sprite/AnimationPlayer.play("rotate");
+	if $Sprite/AnimationPlayer.is_playing() == false:
+		$Sprite/AnimationPlayer.play("rotate");
 	$Label.text = "";
 
 func playRandomRollSound():
@@ -58,8 +58,6 @@ func _on_Area2D_input_event(_viewport, event, _shape_idx):
 
 func _on_Timer_timeout():
 	rolling = false;
-	$Sprite/AnimationPlayer.play("RESET");
-	$Sprite/AnimationPlayer.stop();
 	$Tween.interpolate_property($Sprite, "modulate",$Sprite.modulate, Color(1,1,1,1),.5,Tween.TRANS_BACK);
 	$Tween.interpolate_property($Sprite, "rotation_degrees",0, 360.0,1.5,Tween.TRANS_BACK,Tween.EASE_OUT);
 	$Tween.start();
@@ -76,6 +74,19 @@ func _on_Timer_timeout():
 	$Label2/AnimationPlayer.play("hit");
 	
 	Globals.emit_signal("damageEnemy", value, self);
+	
+	var s_reroll = Save.importSave(Enums.SaveFlag.U_SUPER_REROLL, 0)
+	var reroll = Save.importSave(Enums.SaveFlag.U_REROLL, 0)
+	if s_reroll > 0:
+		if(value <= int((s_reroll + 2)) * 10):
+			roll()
+			return
+	elif reroll > 0:
+		if(value <= reroll):
+			roll();
+			return
+	$Sprite/AnimationPlayer.play("RESET");
+	$Sprite/AnimationPlayer.stop();
 
 func _on_Area2D_mouse_entered():
 	if rolling == false:

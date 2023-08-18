@@ -37,7 +37,6 @@ func _ready():
 		var _a = Globals.connect("upgradeDiceSuccess", self, "applyNextLevelUiUpdate");
 	if(kind == 4 || kind == Enums.Upgrade.SUPER_REROLL):
 		updateUi();
-		var _a = Globals.connect("damageEnemy", self, "enemyDamaged");
 		emit_signal("levelChanged");	
 	if(kind == 6 || kind == Enums.Upgrade.HEXAGRAM):
 		var _a = Globals.connect("enemyKilled", self, "enemyKilled");
@@ -137,6 +136,7 @@ func action():
 	if(kind == Enums.Upgrade.ENHANCE_DICE):
 		Globals.tryUpgradeDice(price, true);
 	if(kind == Enums.Upgrade.DUNGEON_MASTER):
+		# exponential from 4 to .1 in 20 steps
 		$Timer.stop();
 		var tim = $Timer.wait_time;
 		if($Timer.wait_time <= 1):
@@ -181,17 +181,6 @@ func _on_Timer_timeout():
 			$bg/TextureProgress/Tween.interpolate_property($bg/TextureProgress, "value", 0, 100, $Timer.wait_time);
 			$bg/TextureProgress/Tween.start();
 	
-func enemyDamaged(value: int, dice: Node2D):
-	#TODO: kinda broken
-	if level <= 0:
-		return
-	if kind == Enums.Upgrade.SUPER_REROLL:
-		if(value <= int((level + 2)) * 10):
-			dice.roll();
-	else:
-		if(value <= level):
-			dice.roll();
-		
 func setPayable(value):
 	if(value >= price):
 		$"%LabelPrice".add_color_override("font_color", Color("d8d400"));

@@ -1,12 +1,10 @@
 extends Control
 
-onready var g = $"/root/Globals";
-
 var cachedValue = 0;
 
 func _ready():
 	$AnimationPlayer.play("RESET");
-	g.connect("currencyAddedSingular", self, "currencyAddedSingular");
+	Globals.connect("currencyAddedSingular", self, "currencyAddedSingular");
 	
 func currencyAddedSingular(value: int):
 	if value > 0:
