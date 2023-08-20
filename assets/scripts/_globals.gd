@@ -106,4 +106,7 @@ func reload():
 	ascention_reroller_level = Save.importSave(Enums.SaveFlag.A_REROLL_LEVEL, 0);
 	featherValue = Save.importSave(Enums.SaveFlag.A_FEATHER_VALUE, 1);
 	
+	var reroller = Save.importSave(Enums.SaveFlag.U_REROLL, 0);
+	if reroller > ascention_reroller_value:
+		ascention_reroller_value = reroller
 	Save.exportSave(Enums.SaveFlag.U_REROLL, ascention_reroller_value);
