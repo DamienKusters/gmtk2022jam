@@ -72,14 +72,13 @@ func initEnemyPool():
 			EnemyModel.new("Bandit", 900, 600),
 			EnemyModel.new("Minotaur", 1300, 700, "Minotaur",Enums.DiceEnum.D8),
 		], .05),
-		#TODO: Balance from here
 		EnemyTier.new([# killed nymph maxed on DPS lvl 4
 			EnemyModel.new("Pixie", 2100, 900, "Fairy"),
 			EnemyModel.new("Witch", 3000, 1000),
 			EnemyModel.new("Fairy", 5000, 1200, "Pixie_Man"),
 			EnemyModel.new("Nymph", 7000, 1550, "Earth_Lady",Enums.DiceEnum.D10),
 		], .06),
-		EnemyTier.new([#killed necro maxed on DPS 7 !!!!!!!!!!!!!!!!!!!!!!!!
+		EnemyTier.new([#killed necro maxed on DPS 7
 			EnemyModel.new("Skeleton", 8000, 1800),
 			EnemyModel.new("Wizard", 10500, 2023),
 			EnemyModel.new("Wrath", 11500, 2200),
@@ -97,30 +96,35 @@ func initEnemyPool():
 		], .2, Enums.LootType.DARK_FEATHERS)
 	]
 
-var dark_enemy_pool = [#TODO: balance feathers: more feathers to grind for the upgreades and not use light
-	EnemyTier.new([# TODO: fix 
-		EnemyModel.new("Vampire", 30000, 5000, "BatB"),
-		EnemyModel.new("Corrosive Jelly", 35000, 5800, "GelatinousCube"),
-		EnemyModel.new("Hellhound", 45000, 7600, "Salamander"),
+var dark_enemy_pool = [
+	EnemyTier.new([
+		EnemyModel.new("Poisonous Slug", 30000, 5000, "SlugB"),
+		EnemyModel.new("Vampire", 35000, 5800, "BatB"),
+		EnemyModel.new("Corrosive Jelly", 45000, 7600, "GelatinousCube"),
 	], .33, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
 		EnemyModel.new("Cobald Wolf", 50000, 8000, "Cobald_Wolf"),
 		EnemyModel.new("Wild Boar", 64000, 10000, "WildBoarB"),
-		EnemyModel.new("Poisonous Hornet", 70000, 15000, "GiantHornetB"),
-	], .25, Enums.LootType.DARK_FEATHERS),
-	EnemyTier.new([# CHECK more loot from here (expo growth)
-		EnemyModel.new("Elite Hobgoblin", 74000, 25000, "Elite_Goblin"),
-		EnemyModel.new("Impish Orc", 100000, 48000, "OrcB"),
-		EnemyModel.new("Troll", 115000, 50000, "OgreB"),
+		EnemyModel.new("Venomous Wasp", 70000, 15000, "GiantHornetB"),
 	], .25, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
-		EnemyModel.new("Corrupted Roots", 125000, 88000, "AnimatedPlantB"),
+		EnemyModel.new("Gremlin", 74000, 25000, "GoblinB"),
+		EnemyModel.new("Feral Rat", 100000, 48000, "GiantRatB"),
+		EnemyModel.new("Elite Hobgoblin", 115000, 50000, "Elite_Goblin"),
+	], .25, Enums.LootType.DARK_FEATHERS),
+	EnemyTier.new([
+		EnemyModel.new("Berserker", 125000, 88000, "BigfootB"),
+		EnemyModel.new("Impish Orc", 130000, 92000, "OrcB"),
+		EnemyModel.new("Troll", 140000, 100000, "OgreB"),
+	], .2, Enums.LootType.DARK_FEATHERS),
+	EnemyTier.new([
+		EnemyModel.new("Corrupted Roots", 155000, 110000, "AnimatedPlantB"),
 #		EnemyModel.new("Drone", 315000, 0, "DestroyerV1", Enums.DiceEnum.D20, Enums.LootType.BOLTS),
-		EnemyModel.new("Undead Log", 140000, 92000, "TreantB"),
-	], .25, Enums.LootType.DARK_FEATHERS),
+		EnemyModel.new("Undead Log", 170000, 115000, "TreantB"),
+	], .2, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
-		EnemyModel.new("Sprite", 200000, 125000, "FairyB"),
-		EnemyModel.new("Naiad", 220000, 150000, "Earth_Lady_Vampire"),
+		EnemyModel.new("Sprite", 180000, 125000, "FairyB"),
+		EnemyModel.new("Naiad", 200000, 150000, "Earth_Lady_Vampire"),
 		EnemyModel.new("Dark Fairy", 255000, 200000, "Pixie_Man_Vampire"),
 	], .2, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
@@ -129,9 +133,9 @@ var dark_enemy_pool = [#TODO: balance feathers: more feathers to grind for the u
 		EnemyModel.new("Lich", 330000, 500000),
 	], .2, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
-		EnemyModel.new("Dark Lord", 350000, 666666, "Demon"),
+		EnemyModel.new("Dark Lord", 350000, 0, "Demon", null, Enums.LootType.DARK_FEATHERS),
 		EnemyModel.new("Darkness", 370000, 1000000),
-	], .1, Enums.LootType.DARK_FEATHERS),
+	], 0, Enums.LootType.DARK_FEATHERS),
 ]
 
 func _ready():
@@ -147,16 +151,20 @@ func _init():
 var help = {
 	"game": [
 		{
+			"name": "Upgrades",
+			"description": "The upgrades, at the right of the screen, can be levelled with bounty received from defeating enemies. \n\nMore information about what each upgrade does can be read by clicking the orange exclamation mark '?'",
+		},
+		{
 			"name": "Bounty & Feathers",
 			"description": "Defeating enemies will grant you bounty to spent on upgrades.\n\nFeathers are a rare drop from enemies, you may use feathers to unlock permanent buffs upon ascending. Feathers are not persisted in between ascensions.\n\nShadow feathers are used to unlock Shadow Upgrades upon ascending. Shadow feathers are persisted in between ascensions.",
 		},
 		{
 			"name": "Enemies",
-			"description": "At all times an enemy is on-screen, they will remain there for 8 seconds before being swapped out.\nIf you defeat the enemy within the time limit, you will receive the indicated bounty underneath the enemy's name.",
+			"description": "At all times an enemy is on-screen, they will remain there for 8 seconds before being swapped out.\n\nIf you defeat the enemy within the time limit, you will receive the indicated bounty underneath the enemy's name.",
 		},
 		{
 			"name": "Shields",
-			"description": "Certain enemies are immune to a specific kind of dice, this is indicated with a shield next to the enemy.\nEnemies can only be damaged by using dice not indicated on the shield. The shield cannot be destroyed.",
+			"description": "Certain enemies are immune to a specific kind of dice, this is indicated with a shield next to the enemy.\n\nEnemies can only be damaged by using dice not indicated on the shield.\nThe shield cannot be destroyed.",
 		},
 		{
 			"name": "Contract progression",
@@ -168,7 +176,7 @@ var help = {
 		},
 		{
 			"name": "Saving & Loading",
-			"description": "You can manually save the game through the 'Options' menu.\nThe game will be saved in the browser's local storage.\nWhen a save file is found when the game starts, it will load that save automatically.\nBuying new upgrades will also automatically save the game.",
+			"description": "You can manually save the game through the 'Options' menu.\n\nThe game will be saved in the browser's local storage.\n\nWhen a save file is found when the game starts, it will load that save automatically.\n\nBuying new upgrades will also automatically save the game.",
 		},
 	],
 	"upgrades": [
@@ -179,62 +187,58 @@ var help = {
 		},
 		{
 			"name": "Upgrade Dice",
-			"description": "Upgrade the lowest ranking dice to the next one.",
+			"description": "Upgrade the lowest ranking dice to the next one.\n\nCosts 3 shadow feathers to upgrade to 'Enhance Dice'",
 			"icon": "res://assets/sprites/upgrades/Upgrade_Dice_Icon.png",
 			"contextImage": "res://assets/sprites/help/dice.png",
 		},
 		{
 			"name": "Dungeon Master",
-			"description": "Automatically rolls a die at a set interval.\nUpgrading will speed up the interval.",
+			"description": "Automatically rolls a die at a set interval.\nUpgrading will speed up the interval.\n\nCosts 20 shadow feathers to upgrade to 'Quickroll'",
 			"icon": "res://assets/sprites/upgrades/Dungeon_Master_Icon.png",
 		},
 		{
 			"name": "Dice Tray",
-			"description": "Each level decreases the maximum dice rolling time by 0.2 seconds.\nDice will gradually roll faster, resulting in a better damage output.",
+			"description": "Each level decreases the maximum dice rolling time by 0.2 seconds.\nDice will gradually roll faster, resulting in a better damage output.\n\nCosts 12 shadow feathers to upgrade to 'Dice Tower'",
 			"icon": "res://assets/sprites/upgrades/DiceTray.png",
 		},
 		{
 			"name": "Re-roller",
-			"description": "Automatically re-rolls any dice equal to or below the level of the upgrade.",
+			"description": "Automatically re-rolls any dice equal to or below the level of the upgrade.\n\nCosts 35 shadow feathers to upgrade to 'Adv.-roller'",
 			"icon": "res://assets/sprites/upgrades/Auto_Roll.png",
 		},
 		{
 			"name": "Contract",
-			"description": "Adds new enemy encounters.\nNew enemies will be more difficult to defeat but grant more rewards.",
+			"description": "Adds new enemy encounters.\nNew enemies will be more difficult to defeat but grant more rewards.\n\nCosts 1 shadow feather to upgrade to 'Hexagram'",
 			"icon": "res://assets/sprites/upgrades/Contract.png",
 		},
 		#todo delete dice
 		{
 			"name": "Enhance Dice",
-			"description": "Shadow upgrade of 'Upgrade Dice'\nEnhances D20 dice to a D100 variant.",
+			"description": "Shadow upgrade of 'Upgrade Dice'\nEnhances D20 dice to a D100 variant.\n\nCost: 3 shadow feathers.",
 			"icon": "res://assets/sprites/upgrades/Upgrade_Dice_100_Icon.png",
 		},
 		{
 			"name": "Quickroll",
-			"description": "Shadow upgrade of 'Dungeon Master'\nOn clicking, you automatically roll the amount of dice same as its level.",
+			"description": "Shadow upgrade of 'Dungeon Master'\nOn clicking, you automatically roll the amount of dice same as its level.\n\nCost: 20 shadow feathers.",
 			"icon": "res://assets/sprites/upgrades/Quickroll.png",
 		},
 		{
 			"name": "Dice Tower",
-			"description": "Shadow upgrade of 'Dice Tray'\nEach level decreases the minimum and maximum dice rolling time.\nDice will roll incredibly fast.",
+			"description": "Shadow upgrade of 'Dice Tray'\nEach level decreases the minimum and maximum dice rolling time.\nDice will roll incredibly fast.\n\nCost: 12 shadow feathers.",
 			"icon": "res://assets/sprites/upgrades/Dice_Tower.png",
 		},
 		{
 			"name": "Adv.-roller",
-			"description": "Shadow upgrade of 'Re-roller'\nAutomatically re-rolls D100 dice starting at face 30 all the way to face 100 in increments of 10.\n(Shorthand for Advantage-roller)",
+			"description": "Shadow upgrade of 'Re-roller'\nAutomatically re-rolls D100 dice starting at face 30 all the way to face 100 in increments of 10.\n(Shorthand for Advantage-roller)\n\nCost: 35 shadow feathers.",
 			"icon": "res://assets/sprites/upgrades/Super_Auto_Roll.png",
 		},
 		{
 			"name": "Hexagram",
-			"description": "Shadow upgrade of 'Contract'\nReplaces lower-tier enemies with their shadow realm counterpart.\nShadow enemies are much more difficult to defeat, but will grant much higher bounties and shadow feathers.",
+			"description": "Shadow upgrade of 'Contract'\nReplaces lower-tier enemies with their shadow realm counterpart.\nShadow enemies are much more difficult to defeat, but will grant much higher bounties and shadow feathers.\n\nCost: 1 shadow feather.",
 			"icon": "res://assets/sprites/upgrades/Hexagram.png",
 		}
 	],
 	"ascend": [
-		{
-			"name": "Feather Value",
-			"description": "Unspent feathers during an ascension will be converted into 10 bounty each. This will become the starting bounty for the next game.\nThe value of each feather can be multiplied by the 'Feather Value Multiplier' Prime Dice.\nShadow Feathers won't be converted and will be persisted in between ascensions.",
-		},
 		{
 			"name": "Prime Dice",
 			"description": "Prime dice are permanent buffs you can unlock by spending feathers.\nYou can either roll the dice for a chance of getting a higher value, or you can upgrade the dice to allow higher rolls.\nThe max value of a prime dice is 20.",
@@ -244,6 +248,10 @@ var help = {
 			"name": "Shadow Upgrades",
 			"description": "Shadow upgrades are extensions of the regular upgrades, they can be unlocked by spending shadow feathers.\nShadow upgrades unlock when the associated upgrade reaches its max level.",
 			"icon": "res://assets/sprites/upgrades/Descend_Icon.png",
+		},
+		{
+			"name": "Starting Bounty",
+			"description": "Unspent feathers during an ascension will be converted into 10 bounty each. This will become the starting bounty for the next game.\nThe value of each feather can be multiplied by the 'Feather Value Multiplier' Prime Dice.\nShadow Feathers won't be converted and will be persisted in between ascensions.",
 		},
 		{
 			"name": "Feather Value Multiplier",
@@ -260,9 +268,29 @@ var help = {
 	],
 	"credits": [
 		{
-			"name": "Dice & Dragons - Extended",
-			"description": "This is an idle/clicker game. Original concept made during the GMTK 2022 Game Jam.",
+			"name": "About",
+			"description": "Dice & Dragons - Extended is an updated version of the GMTK Game Jam 2022: Dice & Dragons.\n(damienkusters.itch.io/dice-dragons)",
 			"contextImage": "res://assets/sprites/logo_extended.png",
+		},
+		{
+			"name": "Development",
+			"description": "Developed by Damien Kusters (damienkusters.itch.io)\n\nCreative assistance by Marco van Stiphout (itch.io/profile/marcovanstiphout)",
+		},
+		{
+			"name": "Art",
+			"description": "'JS Monsters' by JosephSeraph\n(opengameart.org/users/josephseraph)\n\n'RPG Monster pack' by itchabop (itchabop.itch.io)\n\n'Board Game Icons' by kenney.nl",
+		},
+		{
+			"name": "Background Art",
+			"description": "'Parallax Forest' and 'Mountain Dusk Parallax' by Ansimuz (ansimuz.itch.io)"
+		},
+		{
+			"name": "Music & Sound",
+			"description": "'The Adventurer's Collection Tabletop Soundtrack' by Slaleky (slaleky.itch.io)\n\n'Hiding Your Reality' by Kevin MacLeod\n\n'Collect_Point_00' by LittleRobotSoundFactory (freesound.org/people/LittleRobotSoundFactory)\n\n'Coins - 01' by DWOBoyle (freesound.org/people/DWOBoyle)",
+		},
+		{
+			"name": "Font",
+			"description": "'Almendra' by Fontsource (fontsource.org/fonts/almendra)",
 		},
 	]
 }

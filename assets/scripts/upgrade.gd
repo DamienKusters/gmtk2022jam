@@ -175,7 +175,7 @@ func action():
 		Globals.maxDiceRollTime = Globals.maxDiceRollTime - .05
 		Globals.minDiceRollTime = Globals.minDiceRollTime - .04
 	if kind == Enums.Upgrade.SUPER_REROLL:
-		$"%LabelTitle".text = title + " (<" + str((level + 2) * 10) + ")"
+		$"%LabelTitle".text = title + " (≤" + str((level + 2) * 10) + ")"
 
 func _on_Timer_timeout():
 	if(kind == Enums.Upgrade.DUNGEON_MASTER):

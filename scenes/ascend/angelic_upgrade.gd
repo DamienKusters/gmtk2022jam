@@ -31,6 +31,7 @@ func _on_Roll_pressed():
 			return;
 		rng.randomize();
 		value = rng.randi_range(1,d['value']);
+		Save.exportSave(value_flag, value)
 		Globals.removeFeathers(roll_price);
 		particles(roll_price)
 		playRandomSound();
@@ -43,7 +44,6 @@ func _on_Roll_pressed():
 		);
 		$Tween.start();
 		render()
-		Save.exportSave(value_flag, value)
 
 func render():
 	var d = Globals.getDiceData(level);
@@ -79,11 +79,11 @@ func _on_Upgrade_pressed():
 		if value == 20 || level == 5:
 			return;
 		level += 1
+		Save.exportSave(level_flag, level)
 		Globals.removeFeathers(upgrade_price)
 		particles(upgrade_price)
 		playRandomSound()
 		render()
-		Save.exportSave(level_flag, level)
 
 func particles(amount):
 	var p = particle.instance();

@@ -91,7 +91,7 @@ title = "Enhance Dice"
 icon = ExtResource( 9 )
 help_index = 6
 unlock_flag = 27
-upgrade_price = 4
+upgrade_price = 3
 
 [node name="dicetower" parent="VBoxContainer/HBoxContainer" instance=ExtResource( 4 )]
 margin_left = 1130.0
@@ -101,7 +101,7 @@ title = "Dice Tower"
 icon = ExtResource( 6 )
 help_index = 8
 unlock_flag = 29
-upgrade_price = 15
+upgrade_price = 12
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 350.0

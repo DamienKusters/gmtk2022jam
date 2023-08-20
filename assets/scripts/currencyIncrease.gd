@@ -4,7 +4,7 @@ var cachedValue = 0;
 
 func _ready():
 	$AnimationPlayer.play("RESET");
-	Globals.connect("currencyAddedSingular", self, "currencyAddedSingular");
+	var _a = Globals.connect("currencyAddedSingular", self, "currencyAddedSingular");
 	
 func currencyAddedSingular(value: int):
 	if value > 0:

@@ -87,6 +87,9 @@ func getDiceData(enumValue):
 	return Database.dice_data[int(enumValue)];
 
 func _init():
+	reload()
+
+func reload():
 	Database.initEnemyPool()
 	contractLevel = 0;
 	minDiceRollTime = .5

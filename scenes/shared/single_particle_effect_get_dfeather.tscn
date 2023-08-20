@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/sprites/icons/demon_feather.png" type="Texture" id=1]
 [ext_resource path="res://assets/scripts/single_particle_effect.gd" type="Script" id=2]
+
+[sub_resource type="Curve" id=34]
+max_value = 15.0
+_data = [ Vector2( 0, 7.74565 ), 0.0, 0.0, 0, 0, Vector2( 0.5, 8.97293 ), 10.2114, 10.2114, 0, 0, Vector2( 0.778261, 11.5909 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="Gradient" id=35]
 offsets = PoolRealArray( 0, 0.864734, 1 )
@@ -14,14 +18,14 @@ amount = 1
 lifetime = 2.0
 one_shot = true
 texture = ExtResource( 1 )
-direction = Vector2( 1, -0.3 )
+direction = Vector2( 1, -0.2 )
 spread = 10.0
 gravity = Vector2( 100, 0 )
 initial_velocity = 450.0
 angular_velocity = 10.0
 orbit_velocity = 0.01
 linear_accel = -400.0
-scale_amount = 5.0
+scale_amount_curve = SubResource( 34 )
 color_ramp = SubResource( 35 )
 script = ExtResource( 2 )
 

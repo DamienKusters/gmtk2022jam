@@ -7,7 +7,7 @@ onready var help_data = Database.help[help_page]
 
 func _ready():
 	render()
-	Globals.connect("openHelp", self, "loadPage")
+	var _a = Globals.connect("openHelp", self, "loadPage")
 
 func render():
 	for c in $popup/Control/ScrollContainer/VBoxContainer.get_children():

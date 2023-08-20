@@ -109,7 +109,11 @@ func damage(value: int, dice: Node2D):
 			.05
 		)
 		$Control/VBoxContainer/TextureProgress/Tween.start()
-		$EnemyContainer/AnimationPlayerDamage.play("damage");
+#		$EnemyContainer/AnimationPlayerDamage.play("damage");
+		$EnemyContainer/TextureEnemy.addFade()
+		$EnemyContainer/TextureEnemy.addRandomDirection()
+		$EnemyContainer/TextureEnemy.addRandomRotation()
+		$EnemyContainer/TextureEnemy.startAnimation()
 		playRandomDamageSound();
 	pass
 
