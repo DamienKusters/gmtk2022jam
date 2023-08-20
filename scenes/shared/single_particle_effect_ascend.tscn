@@ -8,7 +8,7 @@ offsets = PoolRealArray( 0, 0.0434783, 0.690821, 1 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [node name="single_particle_effect_ascend" type="CPUParticles2D"]
-position = Vector2( 95, 63 )
+position = Vector2( 160, 156 )
 emitting = false
 amount = 1
 lifetime = 3.0

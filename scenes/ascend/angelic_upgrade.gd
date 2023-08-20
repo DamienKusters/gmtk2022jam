@@ -1,10 +1,14 @@
 extends Control
 
+onready var particle = preload("res://scenes/shared/single_particle_effect_ascend.tscn");
+
 export(String, MULTILINE) var title
 
 export(Enums.SaveFlag) var value_flag
 export(Enums.SaveFlag) var level_flag
 export(int) var default_value = 0
+export var help_index = -1
+export var help_page = "ascend"
 var value: int
 var level: int
 
@@ -17,6 +21,8 @@ func _ready():
 	value = Save.importSave(value_flag, default_value)
 	level = Save.importSave(level_flag, 0)
 	render()
+	$TextureRect/Help.help_index = help_index
+	$TextureRect/Help.help_page = help_page
 
 func _on_Roll_pressed():
 	var d = Globals.getDiceData(level);
@@ -26,7 +32,7 @@ func _on_Roll_pressed():
 		rng.randomize();
 		value = rng.randi_range(1,d['value']);
 		Globals.removeFeathers(roll_price);
-#		particles(price);
+		particles(roll_price)
 		playRandomSound();
 		$Tween.interpolate_property($TextureRect/Label,
 			"self_modulate",
@@ -38,7 +44,6 @@ func _on_Roll_pressed():
 		$Tween.start();
 		render()
 		Save.exportSave(value_flag, value)
-	
 
 func render():
 	var d = Globals.getDiceData(level);
@@ -75,9 +80,15 @@ func _on_Upgrade_pressed():
 			return;
 		level += 1
 		Globals.removeFeathers(upgrade_price)
+		particles(upgrade_price)
 		playRandomSound()
 		render()
 		Save.exportSave(level_flag, level)
+
+func particles(amount):
+	var p = particle.instance();
+	p.amount = amount;
+	add_child(p);
 
 func playRandomSound():
 	rng.randomize();

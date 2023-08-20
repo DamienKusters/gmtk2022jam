@@ -1,5 +1,7 @@
 extends Button
 
-func _on_Help_button_down():
-	var p = get_parent();
-	Globals.openHelp(p.spriteTexture, p.title, p.description);
+export var help_index = -1
+export var help_page = "upgrades"
+
+func _on_Help_pressed():
+	Globals.openHelp(help_index, help_page)

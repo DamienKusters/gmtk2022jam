@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=2]
+[gd_scene load_steps=77 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
@@ -20,8 +20,7 @@
 [ext_resource path="res://assets/sound/damage1.mp3" type="AudioStream" id=18]
 [ext_resource path="res://assets/sprites/upgrades/Contract.png" type="Texture" id=19]
 [ext_resource path="res://assets/scripts/openCredits.gd" type="Script" id=20]
-[ext_resource path="res://assets/sprites/ui/help/Text_Popup.png" type="Texture" id=21]
-[ext_resource path="res://assets/scripts/help.gd" type="Script" id=22]
+[ext_resource path="res://assets/sprites/upgrades/Super_Auto_Roll.png" type="Texture" id=21]
 [ext_resource path="res://assets/scripts/removeSelfAndRoll.gd" type="Script" id=23]
 [ext_resource path="res://assets/sprites/ui/bar_progress_green.png" type="Texture" id=24]
 [ext_resource path="res://assets/sprites/ui/bar_front.png" type="Texture" id=25]
@@ -48,6 +47,7 @@
 [ext_resource path="res://assets/sprites/upgrades/Delete_Dice_Icon.png" type="Texture" id=46]
 [ext_resource path="res://assets/scripts/randomPitchPlayer.gd" type="Script" id=47]
 [ext_resource path="res://assets/sound/shadowUpgrade.mp3" type="AudioStream" id=48]
+[ext_resource path="res://scenes/help/help.tscn" type="PackedScene" id=49]
 
 [sub_resource type="DynamicFont" id=40]
 size = 33
@@ -501,14 +501,6 @@ size = 40
 use_filter = true
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=14]
-size = 90
-font_data = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=15]
-size = 50
-font_data = ExtResource( 2 )
-
 [sub_resource type="DynamicFont" id=31]
 size = 50
 use_filter = true
@@ -776,8 +768,8 @@ levelupPriceIncrease = 5
 levelupPricePercentIncrease = 11
 levelCap = 20
 spriteTexture = ExtResource( 7 )
-description = "Adds another D4 dice"
 saveFlag = 4
+help_index = 0
 
 [node name="u_delete" parent="uiRoot/VBoxContainer/add" instance=ExtResource( 5 )]
 visible = false
@@ -788,11 +780,6 @@ levelupPricePercentIncrease = 0
 kind = 13
 levelCap = 21
 spriteTexture = ExtResource( 46 )
-description = "Permanently removes a dice in exchange for a reward.
-A D100 dice will transform into a Bolt.
-TODO:
-A D20 dice will transform into a Shadow Feather.
-All other kinds of dice will transform into Prime Feathers."
 saveFlag = 10
 super_upgrade = true
 
@@ -813,8 +800,8 @@ levelupPricePercentIncrease = 0
 kind = 1
 levelCap = 105
 spriteTexture = ExtResource( 11 )
-description = "Upgrade the lowest ranking dice to the next one (D4, D6, D8 ,D10, D12, D20)"
 saveFlag = 5
+help_index = 1
 
 [node name="u_enhance" parent="uiRoot/VBoxContainer/upgrade" instance=ExtResource( 5 )]
 visible = false
@@ -825,9 +812,9 @@ levelupPricePercentIncrease = 33
 kind = 8
 levelCap = 21
 spriteTexture = ExtResource( 6 )
-description = "Enhances D20 dice to a D100 variant"
 saveFlag = 11
 super_upgrade = true
+help_index = 6
 
 [node name="dm" type="Control" parent="uiRoot/VBoxContainer"]
 margin_top = 285.0
@@ -846,8 +833,8 @@ levelupPricePercentIncrease = 23
 kind = 2
 levelCap = 20
 spriteTexture = ExtResource( 10 )
-description = "Automatically rolls a dice"
 saveFlag = 6
+help_index = 2
 
 [node name="u_quickroll" parent="uiRoot/VBoxContainer/dm" instance=ExtResource( 5 )]
 visible = false
@@ -858,9 +845,9 @@ levelupPricePercentIncrease = 90
 kind = 10
 levelCap = 10
 spriteTexture = ExtResource( 41 )
-description = "On clicking, you automatically roll the amount of dice same as its level"
 saveFlag = 12
 super_upgrade = true
+help_index = 7
 
 [node name="rolltime" type="Control" parent="uiRoot/VBoxContainer"]
 margin_top = 380.0
@@ -879,8 +866,8 @@ levelupPricePercentIncrease = 16
 kind = 7
 levelCap = 20
 spriteTexture = ExtResource( 31 )
-description = "Each level decreases the maximum dice rolling time by 0.2 seconds"
 saveFlag = 7
+help_index = 3
 
 [node name="u_overdrive" parent="uiRoot/VBoxContainer/rolltime" instance=ExtResource( 5 )]
 visible = false
@@ -891,9 +878,9 @@ levelupPricePercentIncrease = 78
 kind = 11
 levelCap = 10
 spriteTexture = ExtResource( 12 )
-description = "Each level decreases the minimum and maximum dice rolling time"
 saveFlag = 13
 super_upgrade = true
+help_index = 8
 
 [node name="reroll" type="Control" parent="uiRoot/VBoxContainer"]
 margin_top = 475.0
@@ -912,8 +899,8 @@ levelupPricePercentIncrease = 60
 kind = 4
 levelCap = 20
 spriteTexture = ExtResource( 8 )
-description = "Automatically re-rolls any dice equal to or below the level of the upgrade"
 saveFlag = 8
+help_index = 4
 
 [node name="u_sprReroll" parent="uiRoot/VBoxContainer/reroll" instance=ExtResource( 5 )]
 visible = false
@@ -923,10 +910,10 @@ levelupPriceIncrease = 80000
 levelupPricePercentIncrease = 79
 kind = 12
 levelCap = 8
-spriteTexture = ExtResource( 8 )
-description = "Automatically re-rolls D100 dice starting at face 30 all the way to face 100 "
+spriteTexture = ExtResource( 21 )
 saveFlag = 14
 super_upgrade = true
+help_index = 9
 
 [node name="contract" type="Control" parent="uiRoot/VBoxContainer"]
 margin_top = 570.0
@@ -945,8 +932,8 @@ levelupPricePercentIncrease = 37
 kind = 6
 levelCap = 8
 spriteTexture = ExtResource( 19 )
-description = "Adds new enemy encounters"
 saveFlag = 9
+help_index = 5
 
 [node name="u_hexagram" parent="uiRoot/VBoxContainer/contract" instance=ExtResource( 5 )]
 visible = false
@@ -957,9 +944,9 @@ levelupPricePercentIncrease = 30
 kind = 9
 levelCap = 7
 spriteTexture = ExtResource( 43 )
-description = "Replaces lower-tier enemies with their shadow realm counterpart"
 saveFlag = 15
 super_upgrade = true
+help_index = 10
 
 [node name="enemyUi" type="Control" parent="uiRoot"]
 anchor_right = 0.7
@@ -1499,54 +1486,6 @@ self_modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Help" type="ColorRect" parent="uiRoot"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.376471 )
-script = ExtResource( 22 )
-
-[node name="TextureRect" type="TextureRect" parent="uiRoot/Help"]
-anchor_left = 0.1
-anchor_right = 0.9
-anchor_bottom = 1.0
-texture = ExtResource( 21 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureRect" type="TextureRect" parent="uiRoot/Help/TextureRect"]
-self_modulate = Color( 0, 0, 0, 1 )
-anchor_left = 0.067
-anchor_top = 0.208
-anchor_right = 0.231
-anchor_bottom = 0.422
-texture = ExtResource( 8 )
-expand = true
-stretch_mode = 6
-
-[node name="Title" type="Label" parent="uiRoot/Help/TextureRect/TextureRect"]
-anchor_left = 1.0
-anchor_right = 5.268
-anchor_bottom = 1.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 14 )
-text = "Re-Roller"
-valign = 1
-
-[node name="Title2" type="Label" parent="uiRoot/Help/TextureRect/TextureRect"]
-anchor_top = 1.0
-anchor_right = 5.268
-anchor_bottom = 2.663
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 15 )
-text = "Description"
-autowrap = true
-
-[node name="Button" type="Button" parent="uiRoot/Help"]
-self_modulate = Color( 1, 1, 1, 0 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-
 [node name="Options" type="ColorRect" parent="uiRoot"]
 visible = false
 anchor_right = 1.0
@@ -1699,6 +1638,9 @@ autoplay = "spawn"
 anims/RESET = SubResource( 34 )
 anims/spawn = SubResource( 35 )
 
+[node name="Help" parent="uiRoot" instance=ExtResource( 49 )]
+visible = false
+
 [connection signal="pressed" from="uiRoot/AscendButton/Button" to="uiRoot/AscendButton" method="_on_Button_pressed"]
 [connection signal="timeout" from="uiRoot/enemyUi/Timer" to="uiRoot/enemyUi" method="_on_Timer_timeout"]
 [connection signal="timeout" from="uiRoot/enemyUi/dpsTimer" to="uiRoot/enemyUi" method="_on_dpsTimer_timeout"]
@@ -1707,7 +1649,6 @@ anims/spawn = SubResource( 35 )
 [connection signal="button_clicked" from="uiRoot/MenuButtons/ThemeButton" to="uiRoot/MenuButtons" method="_on_ThemeButton_button_clicked"]
 [connection signal="button_down" from="uiRoot/TextureRect/Button" to="uiRoot/TextureRect" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/About/Button2" to="uiRoot/About" method="_on_Button_button_down"]
-[connection signal="button_down" from="uiRoot/Help/Button" to="uiRoot/Help" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/Options/Button" to="uiRoot/Options" method="_on_Button_button_down"]
 [connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="resetSaveButtonText"]
 [connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="_on_ColorRect_visibility_changed"]

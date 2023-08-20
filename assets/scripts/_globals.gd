@@ -54,13 +54,8 @@ func tryUpgradeDice(price, enhanced = false):
 func upgradeEnemyPool():
 	contractLevel += 1
 	
-func openHelp(txt: Texture, title: String, description: String):
-	var obj = {
-		"texture": txt,
-		"title": title,
-		"description": description
-	};
-	emit_signal("openHelp", obj);
+func openHelp(index, page):
+	emit_signal("openHelp", index, page)
 
 func getRandomEnemyTier():
 	rng.randomize();

@@ -94,25 +94,25 @@ func initEnemyPool():
 		EnemyTier.new([
 			EnemyModel.new("Angel", 32000, 0, "Angel", null, Enums.LootType.FEATHERS),
 			EnemyModel.new("Light", 38000, 4000),
-		], .25, Enums.LootType.DARK_FEATHERS)
+		], .2, Enums.LootType.DARK_FEATHERS)
 	]
 
-var dark_enemy_pool = [
-	EnemyTier.new([
+var dark_enemy_pool = [#TODO: balance feathers: more feathers to grind for the upgreades and not use light
+	EnemyTier.new([# TODO: fix 
 		EnemyModel.new("Vampire", 30000, 5000, "BatB"),
 		EnemyModel.new("Corrosive Jelly", 35000, 5800, "GelatinousCube"),
 		EnemyModel.new("Hellhound", 45000, 7600, "Salamander"),
-	], .1, Enums.LootType.DARK_FEATHERS),
+	], .33, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
 		EnemyModel.new("Cobald Wolf", 50000, 8000, "Cobald_Wolf"),
 		EnemyModel.new("Wild Boar", 64000, 10000, "WildBoarB"),
 		EnemyModel.new("Poisonous Hornet", 70000, 15000, "GiantHornetB"),
-	], .15, Enums.LootType.DARK_FEATHERS),
+	], .25, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([# CHECK more loot from here (expo growth)
 		EnemyModel.new("Elite Hobgoblin", 74000, 25000, "Elite_Goblin"),
 		EnemyModel.new("Impish Orc", 100000, 48000, "OrcB"),
 		EnemyModel.new("Troll", 115000, 50000, "OgreB"),
-	], .17, Enums.LootType.DARK_FEATHERS),
+	], .25, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
 		EnemyModel.new("Corrupted Roots", 125000, 88000, "AnimatedPlantB"),
 #		EnemyModel.new("Drone", 315000, 0, "DestroyerV1", Enums.DiceEnum.D20, Enums.LootType.BOLTS),
@@ -143,3 +143,113 @@ func upgradeEnemyTier(index: int):
 
 func _init():
 	initEnemyPool()
+
+var help = {
+	"game": [
+		{
+			"name": "Ascending",
+			"description": "Ascending will reset your progress and give you the opportunity to unlock permanent upgrades.",
+			"icon": "res://assets/sprites/upgrades/Ascend_Icon.png",
+		},
+		{
+			"name": "Feathers",
+			"description": "Feathers are used as currency for upgrading your Prime Dice upon Ascending.\nThese dice will allow you to gamble for permantent buffs in your play sessions.\nUnspent feathers will be converted into starting currency.",
+			"contextImage": "res://assets/sprites/icons/angel_feather.png",
+		},
+		{
+			"name": "Shadow Feathers",
+			"description": "Shadow feathers are used to unlock Shadow Upgrades upon Ascending.\nShadow upgrades will be available when certain upgrades reach their max level.\nShadow feathers will be persisted in between ascensions.",
+			"contextImage": "res://assets/sprites/icons/demon_feather.png",
+		},
+	],
+	"upgrades": [
+		{
+			"name": "Add Dice",
+			"description": "Adds another D4 dice.",
+			"icon": "res://assets/sprites/upgrades/Add_Dice_Icon.png",
+		},
+		{
+			"name": "Upgrade Dice",
+			"description": "Upgrade the lowest ranking dice to the next one (D4, D6, D8, D10, D12, D20)",
+			"icon": "res://assets/sprites/upgrades/Upgrade_Dice_Icon.png",
+			"contextImage": "res://assets/sprites/help/dice.png",
+		},
+		{
+			"name": "Dungeon Master",
+			"description": "Automatically rolls a dice.",
+			"icon": "res://assets/sprites/upgrades/Dungeon_Master_Icon.png",
+		},
+		{
+			"name": "Dice Tray",
+			"description": "Each level decreases the maximum dice rolling time by 0.2 seconds.",
+			"icon": "res://assets/sprites/upgrades/DiceTray.png",
+		},
+		{
+			"name": "Re-roller",
+			"description": "Automatically re-rolls any dice equal to or below the level of the upgrade.",
+			"icon": "res://assets/sprites/upgrades/Auto_Roll.png",
+		},
+		{
+			"name": "Contract",
+			"description": "Adds new enemy encounters.",
+			"icon": "res://assets/sprites/upgrades/Contract.png",
+		},
+		#todo delete dice
+		{
+			"name": "Enhance Dice",
+			"description": "Shadow upgrade of 'Upgrade Dice'\nEnhances D20 dice to a D100 variant.",
+			"icon": "res://assets/sprites/upgrades/Upgrade_Dice_100_Icon.png",
+		},
+		{
+			"name": "Quickroll",
+			"description": "Shadow upgrade of 'Dungeon Master'\nOn clicking, you automatically roll the amount of dice same as its level.",
+			"icon": "res://assets/sprites/upgrades/Quickroll.png",
+		},
+		{
+			"name": "Dice Tower",
+			"description": "Shadow upgrade of 'Dice Tray'\nEach level decreases the minimum and maximum dice rolling time.",
+			"icon": "res://assets/sprites/upgrades/Dice_Tower.png",
+		},
+		{
+			"name": "Adv.-roller",
+			"description": "Shadow upgrade of 'Re-roller'\nAutomatically re-rolls D100 dice starting at face 30 all the way to face 100.\n(Shorthand for Advantage-roller)",
+			"icon": "res://assets/sprites/upgrades/Super_Auto_Roll.png",
+		},
+		{
+			"name": "Hexagram",
+			"description": "Shadow upgrade of 'Contract'\nReplaces lower-tier enemies with their shadow realm counterpart.",
+			"icon": "res://assets/sprites/upgrades/Hexagram.png",
+		}
+	],
+	"ascend": [
+		{
+			"name": "Prime Dice",
+			"description": "Prime dice are permanent buffs you can unlock by spending feathers.\nYou can either roll the dice for a chance of getting a higher value, or you can upgrade the dice to allow higher rolls.\nThe max value of a prime dice is 20.",
+			"icon": "res://assets/sprites/upgrades/Ascend_Icon.png",
+		},
+		{
+			"name": "Shadow Upgrades",
+			"description": "Shadow upgrades are extensions of the regular upgrades, they can be unlocked by spending shadow feathers.\nShadow upgrades unlock when the associated upgrade reaches its max level.",
+			"icon": "res://assets/sprites/upgrades/Descend_Icon.png",
+		},
+		{
+			"name": "Feather Value Multiplier",
+			"description": "Prime Dice\nMultiplies the value of unspent feathers that will be converted into currency when ascending.",
+		},
+		{
+			"name": "Damage Multiplier",
+			"description": "Prime Dice\nMultiplies the dice damage output by its value.",
+		},
+		{
+			"name": "Re-roller Starting Level",
+			"description": "Prime Dice\nStarting level of the Re-roller upgrade.",
+		},
+	],
+	"credits": [
+		{
+			"name": "Dice & Dragons - Extended",
+			"description": "This is an idle/clicker game. Original concept made during the GMTK 2022 Game Jam.",
+			"contextImage": "res://assets/sprites/logo_extended.png",
+		},
+	]
+}

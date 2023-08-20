@@ -57,8 +57,8 @@ defaultSaveFlag = 1
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_top = -156.0
-margin_bottom = 156.0
+margin_top = -197.0
+margin_bottom = 115.0
 custom_constants/separation = 180
 alignment = 1
 
@@ -71,6 +71,7 @@ Multiplier"
 value_flag = 24
 level_flag = 25
 default_value = 1
+help_index = 2
 
 [node name="dmg" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 640.0
@@ -81,6 +82,7 @@ Multiplier"
 value_flag = 20
 level_flag = 21
 default_value = 1
+help_index = 3
 
 [node name="roll" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 1140.0
@@ -90,3 +92,4 @@ title = "Re-roller
 Starting Level"
 value_flag = 22
 level_flag = 23
+help_index = 4

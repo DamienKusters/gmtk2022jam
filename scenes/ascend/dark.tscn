@@ -7,7 +7,7 @@
 [ext_resource path="res://assets/sprites/upgrades/Hexagram.png" type="Texture" id=5]
 [ext_resource path="res://assets/sprites/upgrades/Dice_Tower.png" type="Texture" id=6]
 [ext_resource path="res://assets/sprites/upgrades/Quickroll.png" type="Texture" id=7]
-[ext_resource path="res://assets/sprites/upgrades/Auto_Roll.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/upgrades/Super_Auto_Roll.png" type="Texture" id=8]
 [ext_resource path="res://assets/sprites/upgrades/Upgrade_Dice_100_Icon.png" type="Texture" id=9]
 [ext_resource path="res://assets/sprites/upgrades/Delete_Dice_Icon.png" type="Texture" id=10]
 
@@ -78,10 +78,8 @@ margin_left = 170.0
 margin_right = 470.0
 margin_bottom = 300.0
 title = "Hexagram"
-description = "Upgrade to the 'Contract' when it reaches its max level
-Hexagram:
-Replaces lower-tier enemies with their shadow realm counterpart"
 icon = ExtResource( 5 )
+help_index = 10
 unlock_flag = 31
 upgrade_price = 1
 
@@ -90,10 +88,8 @@ margin_left = 650.0
 margin_right = 950.0
 margin_bottom = 300.0
 title = "Enhance Dice"
-description = "Upgrade to the 'Upgrade Dice' when it reaches its max level
-Enhance Dice:
-"
 icon = ExtResource( 9 )
+help_index = 6
 unlock_flag = 27
 upgrade_price = 4
 
@@ -102,10 +98,8 @@ margin_left = 1130.0
 margin_right = 1430.0
 margin_bottom = 300.0
 title = "Dice Tower"
-description = "Upgrade to the 'Dice Tray' when it reaches its max level
-Dice Tower:
-Each level decreases the minimum and maximum dice rolling time"
 icon = ExtResource( 6 )
+help_index = 8
 unlock_flag = 29
 upgrade_price = 15
 
@@ -121,11 +115,8 @@ margin_left = 410.0
 margin_right = 710.0
 margin_bottom = 300.0
 title = "Quickroll"
-description = "Upgrade to the 'Dungeon Master' when it reaches its max level
-Quickroll:
-On clicking, you automatically roll the amount of dice same as its level
-"
 icon = ExtResource( 7 )
+help_index = 7
 unlock_flag = 28
 upgrade_price = 20
 
@@ -134,10 +125,8 @@ margin_left = 890.0
 margin_right = 1190.0
 margin_bottom = 300.0
 title = "Advantage-roller"
-description = "Upgrade to the 'Re-roller' when it reaches its max level
-Advantage-roller:
-Automatically re-rolls D100 dice starting at face 30 all the way to face 100 "
 icon = ExtResource( 8 )
+help_index = 9
 unlock_flag = 30
 upgrade_price = 35
 
@@ -147,13 +136,6 @@ margin_left = 1130.0
 margin_right = 1430.0
 margin_bottom = 300.0
 title = "Delete Dice"
-description = "Upgrade to the 'Add Dice' when it reaches its max level
-Delete Dice:
-Permanently removes a dice in exchange for a reward.
-A D100 dice will transform into a Bolt.
-TODO:
-A D20 dice will transform into a Shadow Feather.
-All other kinds of dice will transform into Prime Feathers."
 icon = ExtResource( 10 )
 unlock_flag = 26
 upgrade_price = 75

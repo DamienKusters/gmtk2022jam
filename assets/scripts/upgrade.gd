@@ -12,9 +12,10 @@ export var levelupPricePercentIncrease: int = 10;
 export(Enums.Upgrade) var kind;
 export var levelCap = -1;
 export(Texture) var spriteTexture;
-export(String, MULTILINE) var description;
 export(Enums.SaveFlag) var saveFlag
 export var super_upgrade = false
+export var help_index = -1
+export var help_page = "upgrades"
 var test_contract;
 var target_enemy: EnemyModel
 
@@ -44,6 +45,9 @@ func _ready():
 			locked = true
 	var _a = Globals.connect("currencyUpdated", self, "setPayable");
 	setPayable(Globals.currency);
+	
+	$Help.help_index = help_index
+	$Help.help_page = help_page
 	
 func updateUi():
 	$"%LabelPrice".text = String(price);

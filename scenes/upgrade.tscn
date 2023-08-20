@@ -199,4 +199,4 @@ hue_variation_random = 1.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="button_down" from="MouseOverlay" to="." method="_on_MouseOverlay_button_down"]
-[connection signal="button_down" from="Help" to="Help" method="_on_Help_button_down"]
+[connection signal="pressed" from="Help" to="Help" method="_on_Help_pressed"]

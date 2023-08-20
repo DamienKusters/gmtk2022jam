@@ -4,4 +4,4 @@ func _on_ThemeButton2_button_clicked():
 	$"../Options".visible = true;
 
 func _on_ThemeButton_button_clicked():
-	$"../About".visible = true;
+	Globals.openHelp(0, "credits")
