@@ -118,7 +118,7 @@ func _on_Timer_timeout():
 
 func playRandomDamageSound():
 	rng.randomize()
-	$AudioDamage.pitch_scale = rng.randf_range(0.80, 1.60)
+	$AudioDamage.pitch_scale = rng.randf_range(0.80, 1.80)
 	$AudioDamage.play()
 
 func showAdvancedUi():

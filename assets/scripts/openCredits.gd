@@ -1,7 +1,10 @@
 extends Control
 
-func _on_ThemeButton2_button_clicked():
-	$"../Options".visible = true;
+func showOptions():
+	$"../Options".visible = true
 
-func _on_ThemeButton_button_clicked():
+func showCredits():
 	Globals.openHelp(0, "credits")
+
+func showHelp():
+	Globals.openHelp(0, "game")

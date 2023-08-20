@@ -147,19 +147,28 @@ func _init():
 var help = {
 	"game": [
 		{
+			"name": "Bounty & Feathers",
+			"description": "Defeating enemies will grant you bounty to spent on upgrades.\n\nFeathers are a rare drop from enemies, you may use feathers to unlock permanent buffs upon ascending. Feathers are not persisted in between ascensions.\n\nShadow feathers are used to unlock Shadow Upgrades upon ascending. Shadow feathers are persisted in between ascensions.",
+		},
+		{
+			"name": "Enemies",
+			"description": "At all times an enemy is on-screen, they will remain there for 8 seconds before being swapped out.\nIf you defeat the enemy within the time limit, you will receive the indicated bounty underneath the enemy's name.",
+		},
+		{
+			"name": "Shields",
+			"description": "Certain enemies are immune to a specific kind of dice, this is indicated with a shield next to the enemy.\nEnemies can only be damaged by using dice not indicated on the shield. The shield cannot be destroyed.",
+		},
+		{
+			"name": "Contract progression",
+			"description": "When leveling the 'Contract' upgrade, you are tasked to defeat a specific enemy in order to continue leveling the contract.\n\nThe more difficult the enemies, the more bounty and feathers you will receive from them.",
+		},
+		{
 			"name": "Ascending",
-			"description": "Ascending will reset your progress and give you the opportunity to unlock permanent upgrades.",
-			"icon": "res://assets/sprites/upgrades/Ascend_Icon.png",
+			"description": "Ascending will reset your current progress and allows you to spend collected (shadow) feathers for permanent buffs and upgrades.",
 		},
 		{
-			"name": "Feathers",
-			"description": "Feathers are used as currency for upgrading your Prime Dice upon Ascending.\nThese dice will allow you to gamble for permantent buffs in your play sessions.\nUnspent feathers will be converted into starting currency.",
-			"contextImage": "res://assets/sprites/icons/angel_feather.png",
-		},
-		{
-			"name": "Shadow Feathers",
-			"description": "Shadow feathers are used to unlock Shadow Upgrades upon Ascending.\nShadow upgrades will be available when certain upgrades reach their max level.\nShadow feathers will be persisted in between ascensions.",
-			"contextImage": "res://assets/sprites/icons/demon_feather.png",
+			"name": "Saving & Loading",
+			"description": "You can manually save the game through the 'Options' menu.\nThe game will be saved in the browser's local storage.\nWhen a save file is found when the game starts, it will load that save automatically.\nBuying new upgrades will also automatically save the game.",
 		},
 	],
 	"upgrades": [
@@ -170,18 +179,18 @@ var help = {
 		},
 		{
 			"name": "Upgrade Dice",
-			"description": "Upgrade the lowest ranking dice to the next one (D4, D6, D8, D10, D12, D20)",
+			"description": "Upgrade the lowest ranking dice to the next one.",
 			"icon": "res://assets/sprites/upgrades/Upgrade_Dice_Icon.png",
 			"contextImage": "res://assets/sprites/help/dice.png",
 		},
 		{
 			"name": "Dungeon Master",
-			"description": "Automatically rolls a dice.",
+			"description": "Automatically rolls a die at a set interval.\nUpgrading will speed up the interval.",
 			"icon": "res://assets/sprites/upgrades/Dungeon_Master_Icon.png",
 		},
 		{
 			"name": "Dice Tray",
-			"description": "Each level decreases the maximum dice rolling time by 0.2 seconds.",
+			"description": "Each level decreases the maximum dice rolling time by 0.2 seconds.\nDice will gradually roll faster, resulting in a better damage output.",
 			"icon": "res://assets/sprites/upgrades/DiceTray.png",
 		},
 		{
@@ -191,7 +200,7 @@ var help = {
 		},
 		{
 			"name": "Contract",
-			"description": "Adds new enemy encounters.",
+			"description": "Adds new enemy encounters.\nNew enemies will be more difficult to defeat but grant more rewards.",
 			"icon": "res://assets/sprites/upgrades/Contract.png",
 		},
 		#todo delete dice
@@ -207,21 +216,25 @@ var help = {
 		},
 		{
 			"name": "Dice Tower",
-			"description": "Shadow upgrade of 'Dice Tray'\nEach level decreases the minimum and maximum dice rolling time.",
+			"description": "Shadow upgrade of 'Dice Tray'\nEach level decreases the minimum and maximum dice rolling time.\nDice will roll incredibly fast.",
 			"icon": "res://assets/sprites/upgrades/Dice_Tower.png",
 		},
 		{
 			"name": "Adv.-roller",
-			"description": "Shadow upgrade of 'Re-roller'\nAutomatically re-rolls D100 dice starting at face 30 all the way to face 100.\n(Shorthand for Advantage-roller)",
+			"description": "Shadow upgrade of 'Re-roller'\nAutomatically re-rolls D100 dice starting at face 30 all the way to face 100 in increments of 10.\n(Shorthand for Advantage-roller)",
 			"icon": "res://assets/sprites/upgrades/Super_Auto_Roll.png",
 		},
 		{
 			"name": "Hexagram",
-			"description": "Shadow upgrade of 'Contract'\nReplaces lower-tier enemies with their shadow realm counterpart.",
+			"description": "Shadow upgrade of 'Contract'\nReplaces lower-tier enemies with their shadow realm counterpart.\nShadow enemies are much more difficult to defeat, but will grant much higher bounties and shadow feathers.",
 			"icon": "res://assets/sprites/upgrades/Hexagram.png",
 		}
 	],
 	"ascend": [
+		{
+			"name": "Feather Value",
+			"description": "Unspent feathers during an ascension will be converted into 10 bounty each. This will become the starting bounty for the next game.\nThe value of each feather can be multiplied by the 'Feather Value Multiplier' Prime Dice.\nShadow Feathers won't be converted and will be persisted in between ascensions.",
+		},
 		{
 			"name": "Prime Dice",
 			"description": "Prime dice are permanent buffs you can unlock by spending feathers.\nYou can either roll the dice for a chance of getting a higher value, or you can upgrade the dice to allow higher rolls.\nThe max value of a prime dice is 20.",
@@ -234,15 +247,15 @@ var help = {
 		},
 		{
 			"name": "Feather Value Multiplier",
-			"description": "Prime Dice\nMultiplies the value of unspent feathers that will be converted into currency when ascending.",
+			"description": "Prime Dice.\nMultiplies the value of unspent feathers that will be converted into bounty when ascending.",
 		},
 		{
 			"name": "Damage Multiplier",
-			"description": "Prime Dice\nMultiplies the dice damage output by its value.",
+			"description": "Prime Dice.\nMultiplies the dice damage output by its value.",
 		},
 		{
 			"name": "Re-roller Starting Level",
-			"description": "Prime Dice\nStarting level of the Re-roller upgrade.",
+			"description": "Prime Dice.\nStarting level of the Re-roller upgrade.",
 		},
 	],
 	"credits": [
