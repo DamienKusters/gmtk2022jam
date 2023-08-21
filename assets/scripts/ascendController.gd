@@ -4,7 +4,12 @@ func _ready():
 	$ui/fader/angelic.visible = false
 	$ui/fader/dark.visible = false
 
+var ascendConfirmed = false
 func ascend():
+	if ascendConfirmed == false:
+		ascendConfirmed = true
+		$ui/menu/AscendNotification.show()
+		return
 	Save.exportSave(Enums.SaveFlag.CURRENCY, Globals.featherValue * (10 * Globals.feathers))
 	Save.exportSave(Enums.SaveFlag.FEATHERS, 0)
 	Save.exportSave(Enums.SaveFlag.U_ADD_DICE, 0)
@@ -27,10 +32,15 @@ func ascend():
 	var _a = get_tree().change_scene("res://scenes/main.tscn");
 
 func showMenu():
+	hideNotification()
 	$ui/MenuNavigator.play("show_menu")
 	$ui/fader/angelic.visible = false
 	$ui/fader/dark.visible = false
-
+	
+func hideNotification():
+	$ui/menu/AscendNotification.visible = false
+	ascendConfirmed = false
+	
 func _on_upgrades_pressed(id: int):
 	$ui/MenuNavigator.play("hide_menu")
 	

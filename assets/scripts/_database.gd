@@ -184,6 +184,7 @@ var help = {
 			"name": "Add Dice",
 			"description": "Adds another D4 dice.",
 			"icon": "res://assets/sprites/upgrades/Add_Dice_Icon.png",
+			"contextImage": "res://assets/sprites/help/add_dice.png",
 		},
 		{
 			"name": "Upgrade Dice",
@@ -216,6 +217,7 @@ var help = {
 			"name": "Enhance Dice",
 			"description": "Shadow upgrade of 'Upgrade Dice'\nEnhances D20 dice to a D100 variant.\n\nCost: 3 shadow feathers.",
 			"icon": "res://assets/sprites/upgrades/Upgrade_Dice_100_Icon.png",
+			"contextImage": "res://assets/sprites/help/enhance_dice.png",
 		},
 		{
 			"name": "Quickroll",
@@ -241,17 +243,17 @@ var help = {
 	"ascend": [
 		{
 			"name": "Prime Dice",
-			"description": "Prime dice are permanent buffs you can unlock by spending feathers.\nYou can either roll the dice for a chance of getting a higher value, or you can upgrade the dice to allow higher rolls.\nThe max value of a prime dice is 20.",
+			"description": "Prime dice are permanent buffs you can unlock by spending feathers.\n\nYou can either roll the dice for a chance of getting a higher value, or you can upgrade the dice to allow higher rolls.\n\nThe max value of a prime dice is 20.",
 			"icon": "res://assets/sprites/upgrades/Ascend_Icon.png",
 		},
 		{
 			"name": "Shadow Upgrades",
-			"description": "Shadow upgrades are extensions of the regular upgrades, they can be unlocked by spending shadow feathers.\nShadow upgrades unlock when the associated upgrade reaches its max level.",
+			"description": "Shadow upgrades are extensions of the regular upgrades, they can be unlocked by spending shadow feathers.\n\nShadow upgrades unlock when the associated upgrade reaches its max level.\n\nIf all shadow upgrades are purchased, you can convert 10 shadow feathers into an additional x1 on top of the damage multiplier.",
 			"icon": "res://assets/sprites/upgrades/Descend_Icon.png",
 		},
 		{
 			"name": "Starting Bounty",
-			"description": "Unspent feathers during an ascension will be converted into 10 bounty each. This will become the starting bounty for the next game.\nThe value of each feather can be multiplied by the 'Feather Value Multiplier' Prime Dice.\nShadow Feathers won't be converted and will be persisted in between ascensions.",
+			"description": "Unspent feathers during an ascension will be converted into 10 bounty each. This will become the starting bounty for the next game.\n\nThe value of each feather can be multiplied by the 'Feather Value Multiplier' Prime Dice.\n\nShadow Feathers won't be converted and will be persisted in between ascensions.",
 		},
 		{
 			"name": "Feather Value Multiplier",
@@ -269,7 +271,7 @@ var help = {
 	"credits": [
 		{
 			"name": "About",
-			"description": "Dice & Dragons - Extended is an updated version of the GMTK Game Jam 2022: Dice & Dragons.\n(damienkusters.itch.io/dice-dragons)",
+			"description": "Dice & Dragons - Extended is an updated version of the GMTK Game Jam 2022 submission: Dice & Dragons.\n(damienkusters.itch.io/dice-dragons)",
 			"contextImage": "res://assets/sprites/logo_extended.png",
 		},
 		{

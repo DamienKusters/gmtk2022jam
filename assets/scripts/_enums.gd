@@ -19,7 +19,6 @@ enum SaveFlag {
 	U_DUNGEON_MASTER,
 	U_DICE_TOWER,
 	U_REROLL,
-	#TODO: ?crits
 	U_CONTRACT,
 	
 	U_DELETE_DICE,
@@ -27,7 +26,6 @@ enum SaveFlag {
 	U_QUICKROLL,
 	U_OVERDRIVE,
 	U_SUPER_REROLL,
-	#TODO: ?crits upgrade
 	U_HEXAGRAM,
 	
 	DICE,
@@ -48,4 +46,8 @@ enum SaveFlag {
 	AS_OVERDRIVE,
 	AS_SUPER_REROLL,
 	AS_HEXAGRAM,
+	AS_MULTIPLIER_VALUE,
+	
+	#TODO: ?crits
+	#TODO: ?crits upgrade
 }

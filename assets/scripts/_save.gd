@@ -37,7 +37,7 @@ func saveGame():
 	var file = File.new()
 	file.open(save_file_location, File.WRITE)
 	var raw_save = _save
-#	raw_save = Marshalls.utf8_to_base64(_save)
+	raw_save = Marshalls.utf8_to_base64(_save)
 	file.store_string(raw_save)
 	file.close()
 	return true
@@ -52,7 +52,7 @@ func loadGame():
 	var raw_save = file.get_as_text()
 	file.close()
 	
-#	raw_save = Marshalls.base64_to_utf8(raw_save);
+	raw_save = Marshalls.base64_to_utf8(raw_save);
 	var s = raw_save.split("|")
 	
 	save = {}

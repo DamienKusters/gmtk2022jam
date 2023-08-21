@@ -140,24 +140,25 @@ func action():
 	if(kind == Enums.Upgrade.ENHANCE_DICE):
 		Globals.tryUpgradeDice(price, true);
 	if(kind == Enums.Upgrade.DUNGEON_MASTER):
-		# exponential from 4 to .1 in 20 steps
-		$Timer.stop();
-		var tim = $Timer.wait_time;
-		if($Timer.wait_time <= 1):
-			$Timer.wait_time = float($Timer.wait_time) - .1;# TODO: FIX
-		elif(tim <= 2):
-			$Timer.wait_time = float($Timer.wait_time) - .2;
-		elif(tim <= 3):
-			$Timer.wait_time = float($Timer.wait_time) - .3;
-		elif(tim <= 4):
-			$Timer.wait_time = float($Timer.wait_time) - .4;
+		if level == 1:
+			$Timer.start()
 		else:
-			$Timer.wait_time = float($Timer.wait_time) - 1;
-		#should be lvl 1 = 4s   -> .1s currently is: 3.9 -> .1 at 19 and .1 at 20
-		$Timer.start();
+			$Timer.stop()
+			var tim = $Timer.wait_time
+			if($Timer.wait_time <= 1):
+				$Timer.wait_time = float($Timer.wait_time) - .1
+			elif(tim <= 2):
+				$Timer.wait_time = float($Timer.wait_time) - .2
+			elif(tim <= 3):
+				$Timer.wait_time = float($Timer.wait_time) - .3
+			elif(tim <= 4):
+				$Timer.wait_time = float($Timer.wait_time) - .4
+			else:
+				$Timer.wait_time = float($Timer.wait_time) - 1
+			$Timer.start()
 		if !(level > 15):
 			$bg/TextureProgress/Tween.interpolate_property($bg/TextureProgress, "value", 0, 100, $Timer.wait_time);
-			$bg/TextureProgress/Tween.start();
+			$bg/TextureProgress/Tween.start()
 		else:
 			$bg/TextureProgress.value = 0;
 	if kind == Enums.Upgrade.CONTRACT:

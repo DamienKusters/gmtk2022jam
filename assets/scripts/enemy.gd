@@ -74,7 +74,7 @@ func damage(value: int, dice: Node2D):
 		$AudioDamage.play();
 		return;
 	
-	var multipliedValue = value * Globals.ascention_dps_multiplier_value;
+	var multipliedValue = value * (Globals.ascention_dps_multiplier_value + Save.importSave(Enums.SaveFlag.AS_MULTIPLIER_VALUE, 0))
 	enemyHealth = enemyHealth - multipliedValue;
 	secondDmg += multipliedValue;
 	if(enemyHealth <= 0):
@@ -130,7 +130,7 @@ func showAdvancedUi():
 	$"../VBoxContainer/inventory/inv_advanced".visible = true
 
 func set_multiplier_text():
-	$VBoxContainer/Label.text = "Damage x " + String(Save.importSave(Enums.SaveFlag.A_MULTIPLIER_VALUE, 1))
+	$VBoxContainer/Label.text = "Damage x " + str(Save.importSave(Enums.SaveFlag.A_MULTIPLIER_VALUE, 1) + Save.importSave(Enums.SaveFlag.AS_MULTIPLIER_VALUE, 0))
 	$VBoxContainer/Label.visible = true
 
 func _on_dpsTimer_timeout():

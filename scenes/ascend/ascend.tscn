@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-mountains.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-trees.png" type="Texture" id=2]
@@ -24,6 +24,10 @@
 [ext_resource path="res://assets/fonts/almendra-all-400-normal.woff" type="DynamicFontData" id=22]
 [ext_resource path="res://scenes/help/help.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/ascend/feather_value_notification.gd" type="Script" id=24]
+[ext_resource path="res://assets/sprites/icons/angel_feather.png" type="Texture" id=25]
+[ext_resource path="res://assets/sprites/icons/demon_feather.png" type="Texture" id=26]
+[ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=27]
+[ext_resource path="res://assets/scripts/feather_converter.gd" type="Script" id=29]
 
 [sub_resource type="Animation" id=20]
 length = 0.001
@@ -391,9 +395,15 @@ outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 22 )
 
-[sub_resource type="DynamicFont" id=28]
-size = 70
+[sub_resource type="DynamicFont" id=30]
+size = 60
 font_data = ExtResource( 22 )
+
+[sub_resource type="DynamicFont" id=31]
+size = 35
+outline_size = 2
+outline_color = Color( 0.196078, 0.196078, 0.196078, 1 )
+font_data = ExtResource( 27 )
 
 [node name="Ascend" type="Control"]
 anchor_right = 1.0
@@ -535,6 +545,9 @@ margin_bottom = 343.0
 mouse_default_cursor_shape = 2
 label_text = "Prime Dice"
 texture = ExtResource( 9 )
+targetEvent = "feathersUpdated"
+defaultSaveFlag = 1
+lootIcon = ExtResource( 25 )
 
 [node name="Node" type="Control" parent="ui/menu"]
 script = ExtResource( 17 )
@@ -550,29 +563,54 @@ margin_bottom = 344.0
 mouse_default_cursor_shape = 2
 label_text = "Shadow Upgrades"
 texture = ExtResource( 10 )
+targetEvent = "dFeathersUpdated"
+defaultSaveFlag = 2
+color = Color( 0.447059, 0.396078, 0.580392, 1 )
+lootIcon = ExtResource( 26 )
 
 [node name="Gupgrades" parent="ui/menu" instance=ExtResource( 14 )]
 visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 597.0
-margin_top = 79.0
+margin_top = 126.0
 margin_right = 997.0
-margin_bottom = 525.0
+margin_bottom = 380.0
 label_text = "The Destroyer"
 
-[node name="Label" type="Label" parent="ui/menu"]
-anchor_top = 0.759
-anchor_right = 0.39
-anchor_bottom = 1.0
-custom_fonts/font = SubResource( 29 )
-text = "Ascending now will convert 
-your remaining 999 feathers
-into 90000 starting bounty.
-(Feather Value multiplier = 20)"
-align = 1
-valign = 1
+[node name="AscendNotification" type="NinePatchRect" parent="ui/menu"]
+self_modulate = Color( 0.184314, 0.129412, 0.219608, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -340.0
+margin_top = -68.0
+margin_right = 340.0
+margin_bottom = 274.0
+texture = ExtResource( 20 )
+patch_margin_left = 21
+patch_margin_top = 21
+patch_margin_right = 20
+patch_margin_bottom = 20
 script = ExtResource( 24 )
+
+[node name="Label" type="Label" parent="ui/menu/AscendNotification"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -56.0
+custom_fonts/font = SubResource( 29 )
+text = "1
+2
+3
+4
+5
+6
+7"
+autowrap = true
 
 [node name="AscendButton" parent="ui/menu" instance=ExtResource( 13 )]
 self_modulate = Color( 0.184314, 0.129412, 0.219608, 1 )
@@ -591,13 +629,13 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -140.0
-margin_top = -151.0
-margin_right = -40.0
+margin_top = -136.0
+margin_right = -55.0
 margin_bottom = -51.0
-rect_min_size = Vector2( 100, 100 )
+rect_min_size = Vector2( 85, 85 )
 mouse_default_cursor_shape = 2
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 28 )
+custom_fonts/font = SubResource( 30 )
 text = "?"
 flat = true
 script = ExtResource( 19 )
@@ -610,6 +648,50 @@ show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 20 )
+
+[node name="FeatherConverter" type="VBoxContainer" parent="ui/menu"]
+anchor_left = 0.724
+anchor_top = 0.434
+anchor_right = 1.0
+anchor_bottom = 0.811
+script = ExtResource( 29 )
+
+[node name="Label" type="Label" parent="ui/menu/FeatherConverter"]
+margin_right = 441.0
+margin_bottom = 97.0
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 31 )
+text = "Convert 10 shadow feathers into x1 damage multiplier"
+align = 1
+autowrap = true
+
+[node name="ConvertButton" parent="ui/menu/FeatherConverter" instance=ExtResource( 13 )]
+self_modulate = Color( 0.184314, 0.129412, 0.219608, 1 )
+margin_left = 120.0
+margin_top = 101.0
+margin_right = 320.0
+margin_bottom = 178.0
+rect_min_size = Vector2( 200, 77 )
+size_flags_horizontal = 4
+button_text = "Convert all"
+modulate_default = Color( 0.184314, 0.129412, 0.219608, 1 )
+modulate_hover = Color( 0.313726, 0.180392, 0.286275, 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui/menu/FeatherConverter"]
+margin_top = 182.0
+margin_right = 441.0
+margin_bottom = 229.0
+alignment = 1
+
+[node name="Label" type="Label" parent="ui/menu/FeatherConverter/HBoxContainer"]
+margin_left = 52.0
+margin_right = 389.0
+margin_bottom = 47.0
+mouse_filter = 1
+custom_fonts/font = SubResource( 31 )
+text = "Current multiplier: x999"
+align = 2
 
 [node name="fader" type="ColorRect" parent="ui"]
 visible = false
@@ -642,4 +724,7 @@ visible = false
 [connection signal="pressed" from="ui/menu/Gupgrades" to="." method="_on_upgrades_pressed" binds= [ 2 ]]
 [connection signal="button_clicked" from="ui/menu/AscendButton" to="." method="ascend"]
 [connection signal="pressed" from="ui/menu/Help" to="ui/menu/Help" method="_on_Help_pressed"]
+[connection signal="button_clicked" from="ui/menu/FeatherConverter/ConvertButton" to="." method="hideNotification"]
+[connection signal="button_clicked" from="ui/menu/FeatherConverter/ConvertButton" to="ui/menu/FeatherConverter" method="_on_ConvertButton_button_clicked"]
 [connection signal="button_clicked" from="ui/fader/BackButton" to="." method="showMenu"]
+[connection signal="button_clicked" from="ui/fader/BackButton" to="ui/menu/FeatherConverter" method="renderVisibility"]
