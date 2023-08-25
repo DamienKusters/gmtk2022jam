@@ -24,7 +24,7 @@ func addRandomDirection():
 	$Tween.interpolate_property(self, 'rect_position', _getRandomDir() * rng.randf_range(damage_intensity_min, damage_intensity_max), Vector2.ZERO, .15, Tween.EASE_OUT)	
 
 func addRandomRotation():
-	$Tween.interpolate_property(self, 'rect_rotation', _getRandomRot(), 0, .15, Tween.EASE_OUT)	
+	$Tween.interpolate_property(self, 'rect_rotation', _getRandomRot(), 0, .15, Tween.EASE_OUT)
 
 func startAnimation():
 	$Tween.start()

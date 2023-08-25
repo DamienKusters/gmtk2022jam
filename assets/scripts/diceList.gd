@@ -1,9 +1,5 @@
 extends Node2D
 
-onready var g = $"/root/Globals";
-
-enum DiceEnum { D4, D6, D8, D10, D12, D20 };
-
 const diceScene = preload("res://scenes/dice.tscn");
 
 onready var spots = [
@@ -15,17 +11,15 @@ onready var spots = [
 var currentSpot = 0;
 
 func _ready():
-	g.connect("addDice", self, "addDice");
+	Globals.connect("addDice", self, "addDice")
 	
-	var initDice = Save.importSave(Enums.SaveFlag.U_ADD_DICE, 0)
+	var initDice = Save.importSave(Enums.SaveFlag.U_ADD_DICE, 0) - Save.importSave(Enums.SaveFlag.U_DELETE_DICE, 0)
 	var diceLevels = Save.importSave(Enums.SaveFlag.DICE, "000000000000000000000", false)
 	for d in initDice+1:
 		var level = 0
 		if diceLevels[d] != null:
 			level = diceLevels[d]
 		addDice(level);
-		
-	#TODO: fix upgrade dice
 		
 	$"../diceContainer".exportAllSaves();
 	pass

@@ -14,6 +14,7 @@ signal dFeathersUpdated;
 signal currencyAddedSingular;
 signal openHelp;
 signal enemyKilled;#todo
+signal deleteDice;#todo
 
 var contractLevel;
 var minDiceRollTime = .5

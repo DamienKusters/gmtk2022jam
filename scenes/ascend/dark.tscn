@@ -79,7 +79,7 @@ margin_right = 470.0
 margin_bottom = 300.0
 title = "Hexagram"
 icon = ExtResource( 5 )
-help_index = 10
+help_index = 11
 unlock_flag = 31
 upgrade_price = 1
 
@@ -89,7 +89,7 @@ margin_right = 950.0
 margin_bottom = 300.0
 title = "Enhance Dice"
 icon = ExtResource( 9 )
-help_index = 6
+help_index = 7
 unlock_flag = 27
 upgrade_price = 3
 
@@ -99,7 +99,7 @@ margin_right = 1430.0
 margin_bottom = 300.0
 title = "Dice Tower"
 icon = ExtResource( 6 )
-help_index = 8
+help_index = 9
 unlock_flag = 29
 upgrade_price = 12
 
@@ -111,31 +111,31 @@ custom_constants/separation = 180
 alignment = 1
 
 [node name="quickroll" parent="VBoxContainer/HBoxContainer2" instance=ExtResource( 4 )]
-margin_left = 410.0
-margin_right = 710.0
+margin_left = 170.0
+margin_right = 470.0
 margin_bottom = 300.0
 title = "Quickroll"
 icon = ExtResource( 7 )
-help_index = 7
+help_index = 8
 unlock_flag = 28
 upgrade_price = 20
 
 [node name="superreroll" parent="VBoxContainer/HBoxContainer2" instance=ExtResource( 4 )]
-margin_left = 890.0
-margin_right = 1190.0
+margin_left = 650.0
+margin_right = 950.0
 margin_bottom = 300.0
 title = "Advantage-roller"
 icon = ExtResource( 8 )
-help_index = 9
+help_index = 10
 unlock_flag = 30
 upgrade_price = 35
 
-[node name="deletedice" parent="VBoxContainer/HBoxContainer2" instance=ExtResource( 4 )]
-visible = false
+[node name="convertdice" parent="VBoxContainer/HBoxContainer2" instance=ExtResource( 4 )]
 margin_left = 1130.0
 margin_right = 1430.0
 margin_bottom = 300.0
-title = "Delete Dice"
+title = "Convert Dice"
 icon = ExtResource( 10 )
+help_index = 6
 unlock_flag = 26
-upgrade_price = 75
+upgrade_price = 50

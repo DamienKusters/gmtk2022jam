@@ -3,6 +3,7 @@ extends Control
 onready var particle = preload("res://scenes/shared/single_particle_effect_enemy_death.tscn");
 onready var particleFeather = preload("res://scenes/shared/single_particle_effect_get_feather.tscn");
 onready var particleDFeather = preload("res://scenes/shared/single_particle_effect_get_dfeather.tscn");
+onready var particleBolt = preload("res://scenes/shared/single_particle_effect_get_bolt.tscn");
 
 var enemy: EnemyModel
 var enemy_loot
@@ -33,6 +34,10 @@ func respawnEnemy():
 	if enemy_loot == Enums.LootType.CURRENCY:
 		if (enemyTier.enemyHasSpecialLoot() == true):
 			enemy_loot = enemyTier.special_loot
+			
+	if Globals.dFeathers <= 0:
+		if enemy == Database.enemy_pool.back().enemy_pool.back():
+			enemy_loot = Enums.LootType.DARK_FEATHERS
 	
 	$LabelEnemy.text = enemy.name;
 	$EnemyContainer/TextureEnemy.texture = enemy.sprite;
@@ -89,7 +94,7 @@ func damage(value: int, dice: Node2D):
 				#TODO: save game?
 			Enums.LootType.BOLTS:
 				Globals.bolts += 1
-				$EnemyContainer.add_child(particleDFeather.instance())
+				$EnemyContainer.add_child(particleBolt.instance())
 				showAdvancedUi()
 				pass
 			Enums.LootType.DARK_FEATHERS:

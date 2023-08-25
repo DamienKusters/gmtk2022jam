@@ -177,6 +177,8 @@ func action():
 		Globals.minDiceRollTime = Globals.minDiceRollTime - .04
 	if kind == Enums.Upgrade.SUPER_REROLL:
 		$"%LabelTitle".text = title + " (≤" + str((level + 2) * 10) + ")"
+	if(kind == Enums.Upgrade.DELETE_DICE):
+		Globals.emit_signal("deleteDice");
 
 func _on_Timer_timeout():
 	if(kind == Enums.Upgrade.DUNGEON_MASTER):

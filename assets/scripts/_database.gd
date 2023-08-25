@@ -93,7 +93,7 @@ func initEnemyPool():
 		EnemyTier.new([
 			EnemyModel.new("Angel", 32000, 0, "Angel", null, Enums.LootType.FEATHERS),
 			EnemyModel.new("Light", 38000, 4000),
-		], .2, Enums.LootType.DARK_FEATHERS)
+		], .2, Enums.LootType.FEATHERS)
 	]
 
 var dark_enemy_pool = [
@@ -104,8 +104,8 @@ var dark_enemy_pool = [
 	], .33, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
 		EnemyModel.new("Cobald Wolf", 50000, 8000, "Cobald_Wolf"),
-		EnemyModel.new("Wild Boar", 64000, 10000, "WildBoarB"),
 		EnemyModel.new("Venomous Wasp", 70000, 15000, "GiantHornetB"),
+		EnemyModel.new("Hellhound", 64000, 10000, "Salamander"),
 	], .25, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
 		EnemyModel.new("Gremlin", 74000, 25000, "GoblinB"),
@@ -119,7 +119,7 @@ var dark_enemy_pool = [
 	], .2, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
 		EnemyModel.new("Corrupted Roots", 155000, 110000, "AnimatedPlantB"),
-#		EnemyModel.new("Drone", 315000, 0, "DestroyerV1", Enums.DiceEnum.D20, Enums.LootType.BOLTS),
+		EnemyModel.new("Drone", 560000, 0, "DestroyerV1", null, Enums.LootType.BOLTS),
 		EnemyModel.new("Undead Log", 170000, 115000, "TreantB"),
 	], .2, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
@@ -182,7 +182,7 @@ var help = {
 	"upgrades": [
 		{
 			"name": "Add Dice",
-			"description": "Adds another D4 dice.",
+			"description": "Adds another D4 dice.\n\nCosts 50 shadow feathers to upgrade to 'Harvest Dice'",
 			"icon": "res://assets/sprites/upgrades/Add_Dice_Icon.png",
 			"contextImage": "res://assets/sprites/help/add_dice.png",
 		},
@@ -204,7 +204,7 @@ var help = {
 		},
 		{
 			"name": "Re-roller",
-			"description": "Automatically re-rolls any dice equal to or below the level of the upgrade.\n\nCosts 35 shadow feathers to upgrade to 'Adv.-roller'",
+			"description": "Automatically re-rolls any dice that rolled a face value equal to or below the level of the upgrade.\n\nCosts 35 shadow feathers to upgrade to 'Adv.-roller'",
 			"icon": "res://assets/sprites/upgrades/Auto_Roll.png",
 		},
 		{
@@ -212,7 +212,11 @@ var help = {
 			"description": "Adds new enemy encounters.\nNew enemies will be more difficult to defeat but grant more rewards.\n\nCosts 1 shadow feather to upgrade to 'Hexagram'",
 			"icon": "res://assets/sprites/upgrades/Contract.png",
 		},
-		#todo delete dice
+		{
+			"name": "Harvest Dice",
+			"description": "Shadow upgrade of 'Add Dice'\nConverts dice into feathers, shadow feathers or bolts.\n\nCost: 50 shadow feathers.",
+			"icon": "res://assets/sprites/upgrades/Delete_Dice_Icon.png",
+		},
 		{
 			"name": "Enhance Dice",
 			"description": "Shadow upgrade of 'Upgrade Dice'\nEnhances D20 dice to a D100 variant.\n\nCost: 3 shadow feathers.",
@@ -296,3 +300,11 @@ var help = {
 		},
 	]
 }
+
+var upgrades = [
+	{
+		"name": "Add Dice",
+		"description": "Adds another D4 dice.\n\nCosts 50 shadow feathers to upgrade to 'Harvest Dice'",
+		"icon": "res://assets/sprites/upgrades/Add_Dice_Icon.png",
+	},
+]
