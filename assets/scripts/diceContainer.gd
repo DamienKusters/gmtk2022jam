@@ -59,12 +59,10 @@ func exportAllSaves():
 func add_dice(dice):
 	add_child(dice)
 	exportAllSaves()
+#	Save.saveGame()# ADD DICE NOT SAVING CORRECTLY WHEN DOING INFNIITE BUY
 
 func deleteDice():
-	var dice = get_children()
-	
-	var d = dice.back()
-	
+	var d = get_children().back()
 	match(d.maxVal):
 		100:
 			Globals.bolts += 1
@@ -74,9 +72,9 @@ func deleteDice():
 			p.position = d.global_position
 			$"..".add_child(p)
 		20:
-			Globals.dFeathers += 10
+			Globals.dFeathers += 2
 			var p = particle.instance()
-			p.amount = 10
+			p.amount = 2
 			p.texture = load("res://assets/sprites/icons/demon_feather.png")
 			p.position = d.global_position
 			$"..".add_child(p)

@@ -1,0 +1,284 @@
+[gd_scene load_steps=28 format=2]
+
+[ext_resource path="res://assets/sprites/bg2/parallax-mountain-bg.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/bg2/sun.png" type="Texture" id=2]
+[ext_resource path="res://scenes/upgrade.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/sprites/enemies/DestroyerV2_noshadow.png" type="Texture" id=4]
+[ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=5]
+[ext_resource path="res://assets/sprites/icons/bolt.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/enemies/DestroyerV2_eyes.png" type="Texture" id=7]
+[ext_resource path="res://assets/scripts/variableLabel.gd" type="Script" id=8]
+[ext_resource path="res://assets/sprites/upgrades/Add_Dice_Icon.png" type="Texture" id=12]
+[ext_resource path="res://assets/sprites/upgrades/Dungeon_Master_Icon.png" type="Texture" id=13]
+[ext_resource path="res://assets/sprites/ui/upgrade/upgrade_box.png" type="Texture" id=16]
+[ext_resource path="res://assets/sprites/upgrades/DiceTray.png" type="Texture" id=18]
+[ext_resource path="res://assets/sprites/upgrades/Upgrade_Dice_Icon.png" type="Texture" id=19]
+[ext_resource path="res://assets/sound/FNAF World - Scott Cawthon Boss Battle Extended.mp3" type="AudioStream" id=24]
+[ext_resource path="res://assets/fonts/almendra-all-400-normal.woff" type="DynamicFontData" id=25]
+[ext_resource path="res://assets/sprites/ui/bar_front.png" type="Texture" id=26]
+[ext_resource path="res://assets/sprites/ui/bar_progress_green.png" type="Texture" id=27]
+[ext_resource path="res://assets/sprites/ui/bar_back.png" type="Texture" id=28]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.188482 )
+colors = PoolColorArray( 0.670588, 0.415686, 0.54902, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="Animation" id=10]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "spawn"
+length = 2.5
+step = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.5, 2.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Gradient" id=7]
+offsets = PoolRealArray( 0.202186, 0.650273, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 0, 0, 0, 0.741176, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=8]
+gradient = SubResource( 7 )
+
+[sub_resource type="DynamicFont" id=13]
+size = 60
+outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 33
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 25 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 60
+outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 5 )
+
+[node name="Destroyer" type="Node2D"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 24 )
+volume_db = -15.0
+pitch_scale = 0.85
+autoplay = true
+bus = "Music"
+
+[node name="Backgrounds" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Sprite" type="Sprite" parent="Backgrounds"]
+position = Vector2( -795, -68 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Sprite3" type="Sprite" parent="Backgrounds/Sprite"]
+position = Vector2( 137.708, 26.5833 )
+scale = Vector2( 0.135295, 55.1667 )
+texture = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite2" type="Sprite" parent="Backgrounds/Sprite"]
+position = Vector2( 113, 17 )
+texture = ExtResource( 2 )
+centered = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Destroyer" type="Node2D" parent="Backgrounds/Sprite"]
+position = Vector2( 76.8, 6 )
+scale = Vector2( 0.1, 0.1 )
+
+[node name="Sprite" type="Sprite" parent="Backgrounds/Sprite/Destroyer"]
+self_modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 419, 212 )
+scale = Vector2( 3.54286, 3.54286 )
+texture = ExtResource( 4 )
+centered = false
+
+[node name="Sprite2" type="Sprite" parent="Backgrounds/Sprite/Destroyer/Sprite"]
+scale = Vector2( 1, 1 )
+texture = ExtResource( 7 )
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Backgrounds/Sprite/Destroyer/Sprite"]
+autoplay = "spawn"
+anims/RESET = SubResource( 10 )
+anims/spawn = SubResource( 11 )
+
+[node name="dark" type="Sprite" parent="Backgrounds"]
+position = Vector2( 800.343, 743.047 )
+rotation = -1.5708
+scale = Vector2( 0.158884, 1605.91 )
+texture = SubResource( 8 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="LabelEnemy" type="Label" parent="ui"]
+anchor_right = 0.701
+anchor_bottom = 0.123
+margin_right = 0.399902
+margin_bottom = 0.299995
+custom_fonts/font = SubResource( 13 )
+text = "The Destroyer"
+align = 1
+valign = 1
+
+[node name="TextureProgress" type="TextureProgress" parent="ui"]
+margin_left = 20.0
+margin_top = 33.0
+margin_right = 334.0
+margin_bottom = 77.0
+value = 50.0
+texture_under = ExtResource( 28 )
+texture_over = ExtResource( 26 )
+texture_progress = ExtResource( 27 )
+nine_patch_stretch = true
+
+[node name="Label" type="Label" parent="ui/TextureProgress"]
+anchor_left = 0.062
+anchor_right = 0.948
+anchor_bottom = 1.0
+margin_left = -0.0280008
+margin_right = 0.0879822
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 12 )
+text = "Health"
+align = 2
+
+[node name="Tween" type="Tween" parent="ui/TextureProgress"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui"]
+anchor_left = 0.7
+anchor_right = 1.0
+anchor_bottom = 0.85
+custom_constants/separation = -5
+
+[node name="inventory" type="NinePatchRect" parent="ui/VBoxContainer"]
+self_modulate = Color( 0.623529, 0.745098, 0.752941, 1 )
+margin_right = 480.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 480, 100 )
+texture = ExtResource( 16 )
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 5
+patch_margin_bottom = 20
+
+[node name="bolts" type="HBoxContainer" parent="ui/VBoxContainer/inventory"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 6
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="ui/VBoxContainer/inventory/bolts"]
+margin_left = 172.0
+margin_right = 222.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 50, 0 )
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="LabelFeathers" type="Label" parent="ui/VBoxContainer/inventory/bolts"]
+self_modulate = Color( 0.0588235, 0.54902, 0.729412, 1 )
+margin_left = 226.0
+margin_top = 10.0
+margin_right = 307.0
+margin_bottom = 89.0
+custom_fonts/font = SubResource( 9 )
+text = "999"
+align = 1
+valign = 1
+script = ExtResource( 8 )
+targetEvent = "boltsUpdated"
+defaultSaveFlag = 3
+
+[node name="u_add" parent="ui/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 95.0
+margin_bottom = 195.0
+title = "Add Dice"
+basePrice = 5
+levelupPriceIncrease = 5
+levelupPricePercentIncrease = 11
+levelCap = 20
+spriteTexture = ExtResource( 12 )
+saveFlag = 4
+super_upgrade = true
+help_index = 0
+
+[node name="u_upgrade" parent="ui/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 190.0
+margin_bottom = 290.0
+title = "Upgrade Dice"
+basePrice = 5
+levelupPriceIncrease = 5
+levelupPricePercentIncrease = 0
+kind = 1
+levelCap = 105
+spriteTexture = ExtResource( 19 )
+saveFlag = 5
+super_upgrade = true
+help_index = 1
+
+[node name="u_dm" parent="ui/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 285.0
+margin_bottom = 385.0
+title = "Dungeon Master"
+basePrice = 15
+levelupPriceIncrease = 6
+levelupPricePercentIncrease = 23
+kind = 2
+levelCap = 20
+spriteTexture = ExtResource( 13 )
+saveFlag = 6
+super_upgrade = true
+help_index = 2
+
+[node name="u_rolltime" parent="ui/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 380.0
+margin_bottom = 480.0
+title = "Dice Tray"
+basePrice = 15
+levelupPriceIncrease = 72
+levelupPricePercentIncrease = 16
+kind = 7
+levelCap = 20
+spriteTexture = ExtResource( 18 )
+saveFlag = 7
+super_upgrade = true
+help_index = 3

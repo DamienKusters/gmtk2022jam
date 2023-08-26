@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-mountains.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-trees.png" type="Texture" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://assets/sprites/icons/angel_feather.png" type="Texture" id=25]
 [ext_resource path="res://assets/sprites/icons/demon_feather.png" type="Texture" id=26]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=27]
+[ext_resource path="res://assets/sprites/icons/bolt.png" type="Texture" id=28]
 [ext_resource path="res://assets/scripts/feather_converter.gd" type="Script" id=29]
 
 [sub_resource type="Animation" id=20]
@@ -569,14 +570,18 @@ color = Color( 0.447059, 0.396078, 0.580392, 1 )
 lootIcon = ExtResource( 26 )
 
 [node name="Gupgrades" parent="ui/menu" instance=ExtResource( 14 )]
-visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 597.0
 margin_top = 126.0
 margin_right = 997.0
 margin_bottom = 380.0
+mouse_default_cursor_shape = 2
 label_text = "The Destroyer"
+targetEvent = "boltsUpdated"
+defaultSaveFlag = 3
+color = Color( 0.0588235, 0.54902, 0.729412, 1 )
+lootIcon = ExtResource( 28 )
 
 [node name="AscendNotification" type="NinePatchRect" parent="ui/menu"]
 self_modulate = Color( 0.184314, 0.129412, 0.219608, 1 )

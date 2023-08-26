@@ -1,9 +1,11 @@
 extends Control
 
 onready var particle = preload("res://scenes/shared/single_particle_effect_enemy_death.tscn");
-onready var particleFeather = preload("res://scenes/shared/single_particle_effect_get_feather.tscn");
-onready var particleDFeather = preload("res://scenes/shared/single_particle_effect_get_dfeather.tscn");
-onready var particleBolt = preload("res://scenes/shared/single_particle_effect_get_bolt.tscn");
+onready var particleLoot = preload("res://scenes/shared/single_particle_effect_get_special_loot.tscn");
+
+onready var featherIcon = preload("res://assets/sprites/icons/angel_feather.png")
+onready var boltIcon = preload("res://assets/sprites/icons/bolt.png")
+onready var dFeatherIcon = preload("res://assets/sprites/icons/demon_feather.png")
 
 var enemy: EnemyModel
 var enemy_loot
@@ -15,11 +17,13 @@ var secondDmg = 0;
 
 func _ready():
 	var _a = Globals.connect("damageEnemy", self, "damage");
+	var _b = Globals.connect("feathersUpdated", self, 'showAdvancedUi');
+	var _c = Globals.connect("boltsUpdated", self, 'showAdvancedUi');
+	var _d = Globals.connect("dFeathersUpdated", self, 'showAdvancedUi');
 	respawnEnemy();
 	$"../VBoxContainer/inventory/inv_basic".visible = true
 	$"../VBoxContainer/inventory/inv_advanced".visible = false
-	if Globals.feathers > 0 || Globals.bolts > 0 || Globals.dFeathers > 0:
-		showAdvancedUi();
+	showAdvancedUi(0);
 	
 	$VBoxContainer/Label.visible = false;
 	if Globals.ascention_dps_multiplier_value > 1: 
@@ -89,19 +93,13 @@ func damage(value: int, dice: Node2D):
 				$AudioMoney.play()
 			Enums.LootType.FEATHERS:
 				Globals.addFeathers(1)
-				$EnemyContainer.add_child(particleFeather.instance())
-				showAdvancedUi()
-				#TODO: save game?
+				spawnLootParticle(enemy_loot, featherIcon)
 			Enums.LootType.BOLTS:
 				Globals.bolts += 1
-				$EnemyContainer.add_child(particleBolt.instance())
-				showAdvancedUi()
-				pass
+				spawnLootParticle(enemy_loot, boltIcon)
 			Enums.LootType.DARK_FEATHERS:
 				Globals.dFeathers += 1
-				$EnemyContainer.add_child(particleDFeather.instance())
-				showAdvancedUi()
-			
+				spawnLootParticle(enemy_loot, dFeatherIcon)
 		Globals.emit_signal("enemyKilled", enemy);
 		$EnemyContainer.add_child(particle.instance());
 		respawnEnemy();
@@ -125,14 +123,20 @@ func damage(value: int, dice: Node2D):
 func _on_Timer_timeout():
 	respawnEnemy()
 
+func spawnLootParticle(kind = Enums.LootType.FEATHERS, texture = featherIcon):
+	var p = particleLoot.instance()
+	p.texture = texture
+	$EnemyContainer.add_child(p)
+
 func playRandomDamageSound():
 	rng.randomize()
 	$AudioDamage.pitch_scale = rng.randf_range(0.80, 1.80)
 	$AudioDamage.play()
 
-func showAdvancedUi():
-	$"../VBoxContainer/inventory/inv_basic".visible = false
-	$"../VBoxContainer/inventory/inv_advanced".visible = true
+func showAdvancedUi(_a):
+	if Globals.feathers > 0 || Globals.bolts > 0 || Globals.dFeathers > 0:
+		$"../VBoxContainer/inventory/inv_basic".visible = false
+		$"../VBoxContainer/inventory/inv_advanced".visible = true
 
 func set_multiplier_text():
 	$VBoxContainer/Label.text = "Damage x " + str(Save.importSave(Enums.SaveFlag.A_MULTIPLIER_VALUE, 1) + Save.importSave(Enums.SaveFlag.AS_MULTIPLIER_VALUE, 0))

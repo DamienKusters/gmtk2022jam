@@ -48,7 +48,16 @@ func _ready():
 	
 	$Help.help_index = help_index
 	$Help.help_page = help_page
-	
+
+var bulkMode = false
+func _process(delta):
+	if Input.is_action_just_pressed("ctrl") && locked == false && level != levelCap:
+		$"%LabelPrice".text = "bulk"
+		bulkMode = true
+	if Input.is_action_just_released("ctrl"):
+		updateUi()
+		bulkMode = false
+
 func updateUi():
 	$"%LabelPrice".text = String(price);
 	$"%LabelLevel".visible = true
@@ -83,13 +92,19 @@ func setContract():
 		updateUi()
 
 func _on_MouseOverlay_button_down():
-	if(locked == true):
-		return;
-	if(kind == 1 || kind == Enums.Upgrade.ENHANCE_DICE):# Quick fix for upgrade dice
-		action();
-	else:
-		if(applyNextLevelUiUpdate(kind == Enums.Upgrade.ENHANCE_DICE)):
+	var maxIters = 1
+	if bulkMode:
+		maxIters = 21
+	for i in maxIters:
+		if(locked == true):
+			break
+		if(kind == 1 || kind == Enums.Upgrade.ENHANCE_DICE):# Quick fix for upgrade dice
 			action();
+		else:
+			if(applyNextLevelUiUpdate(kind == Enums.Upgrade.ENHANCE_DICE)):
+				action();
+			else:
+				break
 	Save.exportSave(saveFlag, level)
 	Save.saveGame()
 
@@ -107,7 +122,7 @@ func applyNextLevelUiUpdate(enhanced):
 		return false;
 	if(levelCap != -1):
 		if(level >= levelCap):
-			return;
+			return false;
 	Globals.removeCurrency(price);
 	level = level + 1;
 	var p = particle.instance();

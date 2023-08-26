@@ -3,16 +3,16 @@ extends Node
 onready var game = "res://scenes/main.tscn";
 
 signal addDice;#TODO: add back functions to keep signals in check
-signal upgradeDice;
+signal upgradeDice
 signal upgradeDiceSuccess;#todo
 signal rollRandomDice;#todo
 signal damageEnemy;#todo
-signal currencyUpdated;
-signal feathersUpdated;
-signal boltsUpdated;
-signal dFeathersUpdated;
-signal currencyAddedSingular;
-signal openHelp;
+signal currencyUpdated
+signal feathersUpdated
+signal boltsUpdated
+signal dFeathersUpdated
+signal currencyAddedSingular
+signal openHelp
 signal enemyKilled;#todo
 signal deleteDice;#todo
 

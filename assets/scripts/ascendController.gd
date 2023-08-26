@@ -18,6 +18,7 @@ func ascend():
 	Save.exportSave(Enums.SaveFlag.U_DICE_TOWER, 0)
 	Save.exportSave(Enums.SaveFlag.U_REROLL, 0)
 	Save.exportSave(Enums.SaveFlag.U_CONTRACT, 0)
+	Save.exportSave(Enums.SaveFlag.U_DELETE_DICE, 0)
 	Save.exportSave(Enums.SaveFlag.U_ENHANCE_DICE, 0)
 	Save.exportSave(Enums.SaveFlag.U_QUICKROLL, 0)
 	Save.exportSave(Enums.SaveFlag.U_HEXAGRAM, 0)
@@ -49,3 +50,5 @@ func _on_upgrades_pressed(id: int):
 			$ui/fader/angelic.visible = true
 		1:
 			$ui/fader/dark.visible = true
+		2:
+			var _e = get_tree().change_scene("res://scenes/destroyer/destroyer.tscn");
