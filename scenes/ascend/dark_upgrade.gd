@@ -1,10 +1,6 @@
 extends Control
 
-export(String, MULTILINE) var title = "Upgrade Name"
-export(Texture) var icon = load("res://assets/sprites/upgrades/Hexagram.png")
-export var help_index = -1
-export var help_page = "upgrades"
-
+export var database_upgrade_ref = "add_dice"
 export(Enums.SaveFlag) var unlock_flag
 export var upgrade_price = 10;
 
@@ -12,12 +8,12 @@ var unlocked
 
 func _ready():
 	var _a = Globals.connect("dFeathersUpdated", self, "render")
-	$Label.text = title;
-	$TextureRect.texture = icon
+	$Label.text = Database.upgrades[database_upgrade_ref]['name'];
+	$TextureRect.texture = Database.upgrades[database_upgrade_ref]['icon'];
 	unlocked = bool(Save.importSave(unlock_flag, 0) > 0)
 	render(0)
-	$TextureRect/Help.help_index = help_index
-	$TextureRect/Help.help_page = help_page
+	$TextureRect/Help.help_index = Database.upgrades[database_upgrade_ref]['helpIndex'];
+	$TextureRect/Help.help_page = "upgrades"
 	
 func render(_x):
 	$HBoxContainer/Label.text = str(upgrade_price)

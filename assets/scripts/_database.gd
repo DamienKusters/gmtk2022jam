@@ -119,7 +119,7 @@ var dark_enemy_pool = [
 	], .2, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
 		EnemyModel.new("Corrupted Roots", 155000, 110000, "AnimatedPlantB"),
-		EnemyModel.new("Drone", 560000, 0, "DestroyerV1", null, Enums.LootType.BOLTS),
+#		EnemyModel.new("Drone", 560000, 0, "DestroyerV1", null, Enums.LootType.BOLTS),
 		EnemyModel.new("Undead Log", 170000, 115000, "TreantB"),
 	], .2, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
@@ -147,6 +147,84 @@ func upgradeEnemyTier(index: int):
 
 func _init():
 	initEnemyPool()
+
+var upgrades = {
+	"add_dice": {
+		"name": "Add Dice",
+		"description": "Adds another D4 dice.\n\nCosts 50 shadow feathers to upgrade to 'Harvest Dice'",
+		"icon": load("res://assets/sprites/upgrades/Add_Dice_Icon.png"),
+		"contextImage": load("res://assets/sprites/help/add_dice.png"),
+		"helpIndex": 0,
+	},
+	"upgrade_dice": {
+		"name": "Upgrade Dice",
+		"description": "Upgrade the lowest ranking dice to the next one.\n\nCosts 3 shadow feathers to upgrade to 'Enhance Dice'",
+		"icon": load("res://assets/sprites/upgrades/Upgrade_Dice_Icon.png"),
+		"contextImage": load("res://assets/sprites/help/dice.png"),
+		"helpIndex": 1,
+	},
+	"dungeon_master": {
+		"name": "Dungeon Master",
+		"description": "Automatically rolls a die at a set interval.\nUpgrading will speed up the interval.\n\nCosts 20 shadow feathers to upgrade to 'Quickroll'",
+		"icon": load("res://assets/sprites/upgrades/Dungeon_Master_Icon.png"),
+		"helpIndex": 2,
+	},
+	"dice_tray": {
+		"name": "Dice Tray",
+		"description": "Each level decreases the maximum dice rolling time by 0.2 seconds.\nDice will gradually roll faster, resulting in a better damage output.\n\nCosts 12 shadow feathers to upgrade to 'Dice Tower'",
+		"icon": load("res://assets/sprites/upgrades/DiceTray.png"),
+		"helpIndex": 3,
+	},
+	"re_roller": {
+		"name": "Re-roller",
+		"description": "Automatically re-rolls any dice that rolled a face value equal to or below the level of the upgrade.\n\nCosts 35 shadow feathers to upgrade to 'Adv.-roller'",
+		"icon": load("res://assets/sprites/upgrades/Auto_Roll.png"),
+		"helpIndex": 4,
+	},
+	"contract": {
+		"name": "Contract",
+		"description": "Adds new enemy encounters.\nNew enemies will be more difficult to defeat but grant more rewards.\n\nCosts 1 shadow feather to upgrade to 'Hexagram'",
+		"icon": load("res://assets/sprites/upgrades/Contract.png"),
+		"helpIndex": 5,
+	},
+	"harvest_dice": {
+		"name": "Harvest Dice",
+		"description": "Shadow upgrade of 'Add Dice'\nConverts dice into feathers, shadow feathers or bolts.",
+		"icon": load("res://assets/sprites/upgrades/Delete_Dice_Icon.png"),
+		"helpIndex": 6,
+	},
+	"enhance_dice": {
+		"name": "Enhance Dice",
+		"description": "Shadow upgrade of 'Upgrade Dice'\nEnhances D20 dice to a D100 variant.",
+		"icon": load("res://assets/sprites/upgrades/Upgrade_Dice_100_Icon.png"),
+		"contextImage": load("res://assets/sprites/help/enhance_dice.png"),
+		"helpIndex": 7,
+	},
+	"quickroll": {
+		"name": "Quickroll",
+		"description": "Shadow upgrade of 'Dungeon Master'\nOn clicking, you automatically roll the amount of dice same as its level.",
+		"icon": load("res://assets/sprites/upgrades/Quickroll.png"),
+		"helpIndex": 8,
+	},
+	"dice_tower": {
+		"name": "Dice Tower",
+		"description": "Shadow upgrade of 'Dice Tray'\nEach level decreases the minimum and maximum dice rolling time.\nDice will roll incredibly fast.",
+		"icon": load("res://assets/sprites/upgrades/Dice_Tower.png"),
+		"helpIndex": 9,
+	},
+	"adv_roller": {
+		"name": "Adv.-roller",
+		"description": "Shadow upgrade of 'Re-roller'\nAutomatically re-rolls D100 dice starting at face 30 all the way to face 100 in increments of 10.\n(Shorthand for Advantage-roller)",
+		"icon": load("res://assets/sprites/upgrades/Super_Auto_Roll.png"),
+		"helpIndex": 10,
+	},
+	"hexagram": {
+		"name": "Hexagram",
+		"description": "Shadow upgrade of 'Contract'\nReplaces lower-tier enemies with their shadow realm counterpart.\nShadow enemies are much more difficult to defeat, but will grant much higher bounties and shadow feathers.",
+		"icon": load("res://assets/sprites/upgrades/Hexagram.png"),
+		"helpIndex": 11,
+	}
+}
 
 var help = {
 	"game": [
@@ -180,80 +258,29 @@ var help = {
 		},
 	],
 	"upgrades": [
-		{
-			"name": "Add Dice",
-			"description": "Adds another D4 dice.\n\nCosts 50 shadow feathers to upgrade to 'Harvest Dice'",
-			"icon": "res://assets/sprites/upgrades/Add_Dice_Icon.png",
-			"contextImage": "res://assets/sprites/help/add_dice.png",
-		},
-		{
-			"name": "Upgrade Dice",
-			"description": "Upgrade the lowest ranking dice to the next one.\n\nCosts 3 shadow feathers to upgrade to 'Enhance Dice'",
-			"icon": "res://assets/sprites/upgrades/Upgrade_Dice_Icon.png",
-			"contextImage": "res://assets/sprites/help/dice.png",
-		},
-		{
-			"name": "Dungeon Master",
-			"description": "Automatically rolls a die at a set interval.\nUpgrading will speed up the interval.\n\nCosts 20 shadow feathers to upgrade to 'Quickroll'",
-			"icon": "res://assets/sprites/upgrades/Dungeon_Master_Icon.png",
-		},
-		{
-			"name": "Dice Tray",
-			"description": "Each level decreases the maximum dice rolling time by 0.2 seconds.\nDice will gradually roll faster, resulting in a better damage output.\n\nCosts 12 shadow feathers to upgrade to 'Dice Tower'",
-			"icon": "res://assets/sprites/upgrades/DiceTray.png",
-		},
-		{
-			"name": "Re-roller",
-			"description": "Automatically re-rolls any dice that rolled a face value equal to or below the level of the upgrade.\n\nCosts 35 shadow feathers to upgrade to 'Adv.-roller'",
-			"icon": "res://assets/sprites/upgrades/Auto_Roll.png",
-		},
-		{
-			"name": "Contract",
-			"description": "Adds new enemy encounters.\nNew enemies will be more difficult to defeat but grant more rewards.\n\nCosts 1 shadow feather to upgrade to 'Hexagram'",
-			"icon": "res://assets/sprites/upgrades/Contract.png",
-		},
-		{
-			"name": "Harvest Dice",
-			"description": "Shadow upgrade of 'Add Dice'\nConverts dice into feathers, shadow feathers or bolts.\n\nCost: 50 shadow feathers.",
-			"icon": "res://assets/sprites/upgrades/Delete_Dice_Icon.png",
-		},
-		{
-			"name": "Enhance Dice",
-			"description": "Shadow upgrade of 'Upgrade Dice'\nEnhances D20 dice to a D100 variant.\n\nCost: 3 shadow feathers.",
-			"icon": "res://assets/sprites/upgrades/Upgrade_Dice_100_Icon.png",
-			"contextImage": "res://assets/sprites/help/enhance_dice.png",
-		},
-		{
-			"name": "Quickroll",
-			"description": "Shadow upgrade of 'Dungeon Master'\nOn clicking, you automatically roll the amount of dice same as its level.\n\nCost: 20 shadow feathers.",
-			"icon": "res://assets/sprites/upgrades/Quickroll.png",
-		},
-		{
-			"name": "Dice Tower",
-			"description": "Shadow upgrade of 'Dice Tray'\nEach level decreases the minimum and maximum dice rolling time.\nDice will roll incredibly fast.\n\nCost: 12 shadow feathers.",
-			"icon": "res://assets/sprites/upgrades/Dice_Tower.png",
-		},
-		{
-			"name": "Adv.-roller",
-			"description": "Shadow upgrade of 'Re-roller'\nAutomatically re-rolls D100 dice starting at face 30 all the way to face 100 in increments of 10.\n(Shorthand for Advantage-roller)\n\nCost: 35 shadow feathers.",
-			"icon": "res://assets/sprites/upgrades/Super_Auto_Roll.png",
-		},
-		{
-			"name": "Hexagram",
-			"description": "Shadow upgrade of 'Contract'\nReplaces lower-tier enemies with their shadow realm counterpart.\nShadow enemies are much more difficult to defeat, but will grant much higher bounties and shadow feathers.\n\nCost: 1 shadow feather.",
-			"icon": "res://assets/sprites/upgrades/Hexagram.png",
-		}
+		self.upgrades['add_dice'],
+		self.upgrades['upgrade_dice'],
+		self.upgrades['dungeon_master'],
+		self.upgrades['dice_tray'],
+		self.upgrades['re_roller'],
+		self.upgrades['contract'],
+		self.upgrades['harvest_dice'],
+		self.upgrades['enhance_dice'],
+		self.upgrades['quickroll'],
+		self.upgrades['dice_tower'],
+		self.upgrades['adv_roller'],
+		self.upgrades['hexagram'],
 	],
 	"ascend": [
 		{
 			"name": "Prime Dice",
 			"description": "Prime dice are permanent buffs you can unlock by spending feathers.\n\nYou can either roll the dice for a chance of getting a higher value, or you can upgrade the dice to allow higher rolls.\n\nThe max value of a prime dice is 20.",
-			"icon": "res://assets/sprites/upgrades/Ascend_Icon.png",
+			"icon": load("res://assets/sprites/upgrades/Ascend_Icon.png"),
 		},
 		{
 			"name": "Shadow Upgrades",
 			"description": "Shadow upgrades are extensions of the regular upgrades, they can be unlocked by spending shadow feathers.\n\nShadow upgrades unlock when the associated upgrade reaches its max level.\n\nIf all shadow upgrades are purchased, you can convert 10 shadow feathers into an additional x1 on top of the damage multiplier.",
-			"icon": "res://assets/sprites/upgrades/Descend_Icon.png",
+			"icon": load("res://assets/sprites/upgrades/Descend_Icon.png"),
 		},
 		{
 			"name": "Starting Bounty",
@@ -276,7 +303,7 @@ var help = {
 		{
 			"name": "About",
 			"description": "Dice & Dragons - Extended is an updated version of the GMTK Game Jam 2022 submission: Dice & Dragons.\n(damienkusters.itch.io/dice-dragons)",
-			"contextImage": "res://assets/sprites/logo_extended.png",
+			"contextImage": load("res://assets/sprites/logo_extended.png"),
 		},
 		{
 			"name": "Development",
@@ -300,11 +327,3 @@ var help = {
 		},
 	]
 }
-
-var upgrades = [
-	{
-		"name": "Add Dice",
-		"description": "Adds another D4 dice.\n\nCosts 50 shadow feathers to upgrade to 'Harvest Dice'",
-		"icon": "res://assets/sprites/upgrades/Add_Dice_Icon.png",
-	},
-]

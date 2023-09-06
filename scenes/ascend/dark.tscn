@@ -1,15 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/sprites/icons/demon_feather.png" type="Texture" id=2]
 [ext_resource path="res://assets/scripts/variableLabel.gd" type="Script" id=3]
 [ext_resource path="res://scenes/ascend/dark_upgrade.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/sprites/upgrades/Hexagram.png" type="Texture" id=5]
-[ext_resource path="res://assets/sprites/upgrades/Dice_Tower.png" type="Texture" id=6]
-[ext_resource path="res://assets/sprites/upgrades/Quickroll.png" type="Texture" id=7]
-[ext_resource path="res://assets/sprites/upgrades/Super_Auto_Roll.png" type="Texture" id=8]
-[ext_resource path="res://assets/sprites/upgrades/Upgrade_Dice_100_Icon.png" type="Texture" id=9]
-[ext_resource path="res://assets/sprites/upgrades/Delete_Dice_Icon.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -77,9 +71,7 @@ alignment = 1
 margin_left = 170.0
 margin_right = 470.0
 margin_bottom = 300.0
-title = "Hexagram"
-icon = ExtResource( 5 )
-help_index = 11
+database_upgrade_ref = "hexagram"
 unlock_flag = 31
 upgrade_price = 1
 
@@ -87,9 +79,7 @@ upgrade_price = 1
 margin_left = 650.0
 margin_right = 950.0
 margin_bottom = 300.0
-title = "Enhance Dice"
-icon = ExtResource( 9 )
-help_index = 7
+database_upgrade_ref = "enhance_dice"
 unlock_flag = 27
 upgrade_price = 3
 
@@ -97,9 +87,7 @@ upgrade_price = 3
 margin_left = 1130.0
 margin_right = 1430.0
 margin_bottom = 300.0
-title = "Dice Tower"
-icon = ExtResource( 6 )
-help_index = 9
+database_upgrade_ref = "dice_tower"
 unlock_flag = 29
 upgrade_price = 12
 
@@ -114,9 +102,7 @@ alignment = 1
 margin_left = 170.0
 margin_right = 470.0
 margin_bottom = 300.0
-title = "Quickroll"
-icon = ExtResource( 7 )
-help_index = 8
+database_upgrade_ref = "quickroll"
 unlock_flag = 28
 upgrade_price = 20
 
@@ -124,9 +110,7 @@ upgrade_price = 20
 margin_left = 650.0
 margin_right = 950.0
 margin_bottom = 300.0
-title = "Advantage-roller"
-icon = ExtResource( 8 )
-help_index = 10
+database_upgrade_ref = "adv_roller"
 unlock_flag = 30
 upgrade_price = 35
 
@@ -134,8 +118,6 @@ upgrade_price = 35
 margin_left = 1130.0
 margin_right = 1430.0
 margin_bottom = 300.0
-title = "Convert Dice"
-icon = ExtResource( 10 )
-help_index = 6
+database_upgrade_ref = "harvest_dice"
 unlock_flag = 26
 upgrade_price = 50

@@ -26,9 +26,7 @@ func _ready():
 	showAdvancedUi(0);
 	
 	$VBoxContainer/Label.visible = false;
-	if Globals.ascention_dps_multiplier_value > 1: 
-		set_multiplier_text();
-	pass
+	try_set_multiplier_text()
 	
 func respawnEnemy():
 	var enemyTier: EnemyTier = Globals.getRandomEnemyTier()
@@ -138,9 +136,10 @@ func showAdvancedUi(_a):
 		$"../VBoxContainer/inventory/inv_basic".visible = false
 		$"../VBoxContainer/inventory/inv_advanced".visible = true
 
-func set_multiplier_text():
-	$VBoxContainer/Label.text = "Damage x " + str(Save.importSave(Enums.SaveFlag.A_MULTIPLIER_VALUE, 1) + Save.importSave(Enums.SaveFlag.AS_MULTIPLIER_VALUE, 0))
-	$VBoxContainer/Label.visible = true
+func try_set_multiplier_text():
+	if Save.importSave(Enums.SaveFlag.A_MULTIPLIER_VALUE, 1) + Save.importSave(Enums.SaveFlag.AS_MULTIPLIER_VALUE, 0) > 1:
+		$VBoxContainer/Label.text = "Damage x " + str(Save.importSave(Enums.SaveFlag.A_MULTIPLIER_VALUE, 1) + Save.importSave(Enums.SaveFlag.AS_MULTIPLIER_VALUE, 0))
+		$VBoxContainer/Label.visible = true
 
 func _on_dpsTimer_timeout():
 	$VBoxContainer/DpsLabel.text = "DPS: " + String(secondDmg)

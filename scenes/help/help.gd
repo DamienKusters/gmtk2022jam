@@ -23,7 +23,7 @@ func addButton(data, index):
 	var i = help_button.instance()
 	i.text = data['name']
 	if data.has('icon'):
-		i.icon = load(data['icon'])
+		i.icon = data['icon']
 	else:
 		i.icon = null
 	i.connect("pressed", self, "loadPage", [index, help_page])
@@ -38,12 +38,12 @@ func loadPage(index, page = help_page):
 	$popup/Control/Control/Label.text = data['description']
 	$popup/Control/Control/HBoxContainer/Label.text = data['name']
 	if data.has('icon'):
-		$popup/Control/Control/HBoxContainer/TextureRect.texture = load(data['icon'])
+		$popup/Control/Control/HBoxContainer/TextureRect.texture = data['icon']
 	else:
 		$popup/Control/Control/HBoxContainer/TextureRect.texture = null
 	$popup/Control/Control/TextureRect.texture = null
 	if data.has('contextImage'):
-		$popup/Control/Control/TextureRect.texture = load(data['contextImage'])
+		$popup/Control/Control/TextureRect.texture = data['contextImage']
 	else:
 		$popup/Control/Control/TextureRect.texture = null
 	visible = true

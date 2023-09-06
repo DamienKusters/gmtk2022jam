@@ -1,5 +1,9 @@
 extends Control
 
+func _init():
+	if Globals.dFeathers > 0:
+		Save.exportSave(Enums.SaveFlag.DARK_FEATHERS_COLLECTED, 1)
+
 func _ready():
 	$ui/fader/angelic.visible = false
 	$ui/fader/dark.visible = false

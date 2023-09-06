@@ -569,7 +569,12 @@ defaultSaveFlag = 2
 color = Color( 0.447059, 0.396078, 0.580392, 1 )
 lootIcon = ExtResource( 26 )
 
-[node name="Gupgrades" parent="ui/menu" instance=ExtResource( 14 )]
+[node name="Node2" type="Control" parent="ui/menu"]
+script = ExtResource( 17 )
+targetEvent = "boltsUpdated"
+defaultSaveFlag = 3
+
+[node name="Gupgrades" parent="ui/menu/Node2" instance=ExtResource( 14 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 597.0
@@ -726,7 +731,7 @@ visible = false
 
 [connection signal="pressed" from="ui/menu/Aupgrades" to="." method="_on_upgrades_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="ui/menu/Node/Dupgrades" to="." method="_on_upgrades_pressed" binds= [ 1 ]]
-[connection signal="pressed" from="ui/menu/Gupgrades" to="." method="_on_upgrades_pressed" binds= [ 2 ]]
+[connection signal="pressed" from="ui/menu/Node2/Gupgrades" to="." method="_on_upgrades_pressed" binds= [ 2 ]]
 [connection signal="button_clicked" from="ui/menu/AscendButton" to="." method="ascend"]
 [connection signal="pressed" from="ui/menu/Help" to="ui/menu/Help" method="_on_Help_pressed"]
 [connection signal="button_clicked" from="ui/menu/FeatherConverter/ConvertButton" to="." method="hideNotification"]
