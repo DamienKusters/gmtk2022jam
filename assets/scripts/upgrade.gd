@@ -50,7 +50,7 @@ func _ready():
 	$Help.help_page = help_page
 
 var bulkMode = false
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("ctrl") && locked == false && level != levelCap:
 		$"%LabelPrice".text = "bulk"
 		bulkMode = true

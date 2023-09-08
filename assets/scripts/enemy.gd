@@ -91,16 +91,16 @@ func damage(value: int, dice: Node2D):
 				$AudioMoney.play()
 			Enums.LootType.FEATHERS:
 				Globals.addFeathers(1)
-				spawnLootParticle(enemy_loot, featherIcon)
+				spawnLootParticle(featherIcon)
 			Enums.LootType.BOLTS:
 				Globals.bolts += 1
-				spawnLootParticle(enemy_loot, boltIcon)
+				spawnLootParticle(boltIcon)
 			Enums.LootType.DARK_FEATHERS:
 				Globals.dFeathers += 1
-				spawnLootParticle(enemy_loot, dFeatherIcon)
-		Globals.emit_signal("enemyKilled", enemy);
-		$EnemyContainer.add_child(particle.instance());
-		respawnEnemy();
+				spawnLootParticle(dFeatherIcon)
+		Globals.emit_signal("enemyKilled", enemy)
+		$EnemyContainer.add_child(particle.instance())
+		respawnEnemy()
 	else:
 		$Control/VBoxContainer/TextureProgress/Tween.interpolate_property(
 			$Control/VBoxContainer/TextureProgress,
@@ -121,7 +121,7 @@ func damage(value: int, dice: Node2D):
 func _on_Timer_timeout():
 	respawnEnemy()
 
-func spawnLootParticle(kind = Enums.LootType.FEATHERS, texture = featherIcon):
+func spawnLootParticle(texture = featherIcon):
 	var p = particleLoot.instance()
 	p.texture = texture
 	$EnemyContainer.add_child(p)
