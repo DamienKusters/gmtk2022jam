@@ -189,7 +189,7 @@ var upgrades = {
 	},
 	"harvest_dice": {
 		"name": "Harvest Dice",
-		"description": "Shadow upgrade of 'Add Dice'\nConverts dice into feathers, shadow feathers or bolts.",
+		"description": "Shadow upgrade of 'Add Dice'\nConverts dice into feathers or shadow feathers",# or bolts.
 		"icon": load("res://assets/sprites/upgrades/Delete_Dice_Icon.png"),
 		"helpIndex": 6,
 	},

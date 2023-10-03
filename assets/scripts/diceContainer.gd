@@ -73,27 +73,24 @@ func add_dice(dice):
 
 func deleteDice():
 	var d = get_children().back()
+	var p = particle.instance()
+	var amount
 	match(d.maxVal):
 		100:
-			Globals.bolts += 1
-			var p = particle.instance()
-			p.amount = 1
-			p.texture = load("res://assets/sprites/icons/bolt.png")
-			p.position = d.global_position
-			$"..".add_child(p)
-		20:
-			Globals.dFeathers += 2
-			var p = particle.instance()
-			p.amount = 2
+			amount = 5
+			Globals.dFeathers += amount
+#			Globals.bolts += amount
 			p.texture = load("res://assets/sprites/icons/demon_feather.png")
-			p.position = d.global_position
-			$"..".add_child(p)
+#			p.texture = load("res://assets/sprites/icons/bolt.png")
+		20:
+			amount = 2
+			Globals.dFeathers += amount
+			p.texture = load("res://assets/sprites/icons/demon_feather.png")
 		_:
-			var amount = (d.maxVal / 2) - 1
+			amount = (d.maxVal / 2) - 1
 			Globals.addFeathers(amount)
-			var p = particle.instance()
-			p.amount = amount
-			p.position = d.global_position
-			$"..".add_child(p)
+	p.position = d.global_position
+	p.amount = amount
+	$"..".add_child(p)
 	remove_child(d)
 	exportAllSaves()
