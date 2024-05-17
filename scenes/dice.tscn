@@ -192,6 +192,10 @@ bus = "Effect"
 
 [node name="Tween" type="Tween" parent="."]
 
+[node name="RollTween" type="Tween" parent="."]
+repeat = true
+playback/repeat = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="input_event" from="Area2D" to="." method="_on_Area2D_input_event"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_Area2D_mouse_entered"]

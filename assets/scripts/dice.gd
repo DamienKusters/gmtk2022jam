@@ -32,6 +32,9 @@ func updateDice(type = Enums.DiceEnum.D4):
 	$Sprite.texture = load(diceData['texture'])
 	$Sprite.self_modulate = diceData['color']
 	maxVal = diceData['value']
+	$Tween.stop_all()
+	$RollTween.stop_all()
+	$Sprite/AnimationPlayer.play("RESET")
 	$Sprite/AnimationPlayer.play("spawn")
 		
 func roll():
@@ -41,12 +44,12 @@ func roll():
 	rng.randomize()
 	$Timer.wait_time = rng.randf_range(Globals.minDiceRollTime,Globals.maxDiceRollTime)
 	$Timer.start()
-	#TODO: Tween a bit scuffed, some roll faster then others, also must keep rolling normally on reroller
 	$Tween.stop_all()
-	$Tween.interpolate_property($Sprite, "modulate", $Sprite.modulate, Color("2effffff"), .15, Tween.EASE_OUT);
-	$Tween.start()
-	if $Sprite/AnimationPlayer.is_playing() == false:
-		$Sprite/AnimationPlayer.play("rotate")
+	$Sprite.modulate = Color("2effffff")
+	
+	$RollTween.stop_all()
+	$RollTween.interpolate_property($Sprite, "rotation_degrees", 0, 360.0, 2, Tween.EASE_OUT);
+	$RollTween.start()
 	$Label.text = "";
 
 func playRandomRollSound():
@@ -63,6 +66,8 @@ func _on_Area2D_input_event(_viewport, event, _shape_idx):
 	if (event is InputEventMouseButton && event.pressed):
 		if(rolling):
 			return
+		$Tween.stop_all()
+		$Sprite.modulate = Color("2effffff")
 		roll()
 		playRandomRollSound()
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW);
@@ -99,12 +104,14 @@ func _on_Timer_timeout():
 			roll()
 			return
 	
-	$Tween.interpolate_property($Sprite, "modulate", $Sprite.modulate, Color(1,1,1,1),.5,Tween.TRANS_BACK)
-	$Tween.interpolate_property($Sprite, "rotation_degrees",0, 360.0,1.5,Tween.TRANS_BACK,Tween.EASE_OUT)
-	$Tween.start()
+	$RollTween.stop_all()
+	$Tween.stop_all()
+	$Sprite.scale = Vector2(1,1)
+	$Sprite.rotation_degrees = 0
 	
-	$Sprite/AnimationPlayer.play("RESET")
-	$Sprite/AnimationPlayer.stop()
+	$Tween.interpolate_property($Sprite, "modulate", $Sprite.modulate, Color(1,1,1,1),.5,Tween.TRANS_BACK)
+	$Tween.interpolate_property($Sprite, "rotation_degrees",$Sprite.rotation_degrees, 360.0,1.5,Tween.TRANS_BACK,Tween.EASE_OUT)
+	$Tween.start()
 
 func _on_Area2D_mouse_entered():
 	if(active == false):

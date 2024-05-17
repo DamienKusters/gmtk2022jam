@@ -256,6 +256,10 @@ var help = {
 			"name": "Saving & Loading",
 			"description": "You can manually save the game through the 'Options' menu.\n\nThe game will be saved in the browser's local storage.\n\nWhen a save file is found when the game starts, it will load that save automatically.\n\nBuying new upgrades will also automatically save the game.",
 		},
+		{
+			"name": "Buy in bulk",
+			"description": "Upgrades can be bought in bulk by holding down 'CTRL' and clicking on the upgrade you want to buy in bulk.",
+		}
 	],
 	"upgrades": [
 		self.upgrades['add_dice'],

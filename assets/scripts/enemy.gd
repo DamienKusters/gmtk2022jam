@@ -36,7 +36,8 @@ func respawnEnemy():
 	if enemy_loot == Enums.LootType.CURRENCY:
 		if (enemyTier.enemyHasSpecialLoot() == true):
 			enemy_loot = enemyTier.special_loot
-			
+	
+	# Make the Light enemy always drop a single dark feather if the player has none.
 	if Globals.dFeathers <= 0:
 		if enemy == Database.enemy_pool.back().enemy_pool.back():
 			enemy_loot = Enums.LootType.DARK_FEATHERS

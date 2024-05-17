@@ -1,6 +1,7 @@
 extends Node
 
 func _ready():
+	return;#Currently not implemented destroyer
 	if Save.importSave(Enums.SaveFlag.DESTROYER_SPAWNED, 0) > 0:
 		$AnimationPlayer.play("hover")
 		return
