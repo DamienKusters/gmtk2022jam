@@ -25,4 +25,5 @@ func renderVisibility():
 		Save.importSave(Enums.SaveFlag.AS_QUICKROLL, 0) > 0 &&
 		Save.importSave(Enums.SaveFlag.AS_OVERDRIVE, 0) > 0 &&
 		Save.importSave(Enums.SaveFlag.AS_SUPER_REROLL, 0) > 0 &&
+		Save.importSave(Enums.SaveFlag.AS_DELETE_DICE, 0) > 0 &&
 		Save.importSave(Enums.SaveFlag.AS_HEXAGRAM, 0) > 0)

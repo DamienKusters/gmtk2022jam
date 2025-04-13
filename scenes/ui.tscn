@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=2]
+[gd_scene load_steps=79 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
@@ -352,6 +352,12 @@ font_data = ExtResource( 2 )
 size = 19
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=17]
+size = 40
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
 
 [sub_resource type="Animation" id=19]
 length = 0.001
@@ -1121,8 +1127,8 @@ texture_over = ExtResource( 25 )
 texture_progress = ExtResource( 24 )
 
 [node name="Label" type="Label" parent="uiRoot/enemyUi/Control/VBoxContainer/TextureProgress"]
-anchor_left = 0.062
-anchor_right = 0.948
+anchor_left = 0.1
+anchor_right = 0.9
 anchor_bottom = 1.0
 margin_left = -0.0280008
 margin_right = 0.0879822
@@ -1144,8 +1150,8 @@ texture_over = ExtResource( 25 )
 texture_progress = ExtResource( 27 )
 
 [node name="Label" type="Label" parent="uiRoot/enemyUi/Control/VBoxContainer/TextureProgress2"]
-anchor_left = 0.063
-anchor_right = 0.948
+anchor_left = 0.1
+anchor_right = 0.9
 anchor_bottom = 1.0
 margin_left = -0.222
 margin_right = 0.0879822
@@ -1161,17 +1167,33 @@ margin_right = 226.0
 margin_bottom = 171.0
 
 [node name="Label" parent="uiRoot/enemyUi/VBoxContainer" instance=ExtResource( 40 )]
+margin_right = 216.0
 
 [node name="DpsLabel" parent="uiRoot/enemyUi/VBoxContainer" instance=ExtResource( 40 )]
 margin_top = 57.0
+margin_right = 216.0
 margin_bottom = 110.0
 text = "DPS: 999"
 
-[node name="Label2" parent="uiRoot/enemyUi/VBoxContainer" instance=ExtResource( 40 )]
-visible = false
+[node name="BountyLabel" parent="uiRoot/enemyUi/VBoxContainer" instance=ExtResource( 40 )]
 margin_top = 114.0
+margin_right = 216.0
 margin_bottom = 167.0
-text = "Combo x 100"
+text = "Bounty x 1"
+
+[node name="FeathersLabel" parent="uiRoot/enemyUi/VBoxContainer" instance=ExtResource( 40 )]
+margin_top = 171.0
+margin_right = 216.0
+margin_bottom = 224.0
+custom_fonts/font = SubResource( 17 )
+text = "Feathers x 1"
+
+[node name="SFeathersLabel" parent="uiRoot/enemyUi/VBoxContainer" instance=ExtResource( 40 )]
+margin_top = 228.0
+margin_right = 216.0
+margin_bottom = 281.0
+custom_fonts/font = SubResource( 17 )
+text = "S.Feathers x 1"
 
 [node name="dpsTimer" type="Timer" parent="uiRoot/enemyUi"]
 autostart = true

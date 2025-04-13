@@ -189,7 +189,7 @@ var upgrades = {
 	},
 	"harvest_dice": {
 		"name": "Harvest Dice",
-		"description": "Shadow upgrade of 'Add Dice'\nConverts dice into feathers or shadow feathers",# or bolts.
+		"description": "Shadow upgrade of 'Add Dice'\nConverts dice into feathers or shadow feathers\n\n...\nAlso 'unlocks' something else...",# or bolts.
 		"icon": load("res://assets/sprites/upgrades/Delete_Dice_Icon.png"),
 		"helpIndex": 6,
 	},
@@ -323,11 +323,36 @@ var help = {
 		},
 		{
 			"name": "Music & Sound",
-			"description": "'The Adventurer's Collection Tabletop Soundtrack' by Slaleky (slaleky.itch.io)\n\n'Hiding Your Reality' by Kevin MacLeod\n\n'Collect_Point_00' by LittleRobotSoundFactory (freesound.org/people/LittleRobotSoundFactory)\n\n'Coins - 01' by DWOBoyle (freesound.org/people/DWOBoyle)",
+			"description": "'The Adventurer's Collection Tabletop Soundtrack' by Slaleky (slaleky.itch.io)\n\n'Hiding Your Reality' & 'Harmful or Fatal'\nby Kevin MacLeod\n\n'Collect_Point_00' by LittleRobotSoundFactory (freesound.org/people/LittleRobotSoundFactory)\n\n'Coins - 01' by DWOBoyle (freesound.org/people/DWOBoyle)",
 		},
 		{
 			"name": "Font",
 			"description": "'Almendra' by Fontsource (fontsource.org/fonts/almendra)",
+		},
+	],
+	"destroyer": [
+		{
+			"name": "The Destroyer",
+			"description": "This is it...\nThe Destroyer has awakend to reign over the lands.\nThis is the final challenge of: Dice & Dragons - Extended",
+			"contextImage": load("res://assets/sprites/enemies/DestroyerV2_noshadow.png"),
+		},
+		{
+			"name": "Bolts",
+			"description": "Bolts are the currency to buy upgrades related to The Destroyer fight.\nBolts are dropped by the rare D.R.O.N.E enemy.\nUpgrade Boutiful Harvest to collect bolts from harvesting dice.",
+			"contextImage": load("res://assets/sprites/icons/bolt.png"),
+		},
+		{
+			"name": "Add Mechanical Dice",
+			"description": "",
+		},
+		{
+			"name": "Upgrade Mech.Dice",
+			"description": "",
+		},
+		{
+			"name": "Boutiful Harvest",
+			"description": "Add a +5% chance of receiving a bolt.",
+			"icon": load("res://assets/sprites/upgrades/Boutiful_Harvest.png"),
 		},
 	]
 }

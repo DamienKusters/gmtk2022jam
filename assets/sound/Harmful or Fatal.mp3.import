@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Harmful or Fatal.mp3-c471f71510ce137612091f2f4357476e.mp3str"
+
+[deps]
+
+source_file="res://assets/sound/Harmful or Fatal.mp3"
+dest_files=[ "res://.import/Harmful or Fatal.mp3-c471f71510ce137612091f2f4357476e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
