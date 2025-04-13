@@ -50,4 +50,7 @@ enum SaveFlag {
 	
 	#TODO: ?crits
 	#TODO: ?crits upgrade
+	#Destroyer fight
+	DES_FIGHT_START_EPOCH,
+	DES_LAST_UPGRADE_EPOCH,
 }

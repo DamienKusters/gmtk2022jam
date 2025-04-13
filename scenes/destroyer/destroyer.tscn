@@ -1,8 +1,8 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-bg.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/bg2/sun.png" type="Texture" id=2]
-[ext_resource path="res://scenes/upgrade.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/destroyer/destroyer.gd" type="Script" id=3]
 [ext_resource path="res://assets/sprites/enemies/DestroyerV2_noshadow.png" type="Texture" id=4]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=5]
 [ext_resource path="res://assets/sprites/icons/bolt.png" type="Texture" id=6]
@@ -11,15 +11,10 @@
 [ext_resource path="res://assets/sound/Harmful or Fatal.mp3" type="AudioStream" id=9]
 [ext_resource path="res://assets/scripts/destroyer_music_starter.gd" type="Script" id=10]
 [ext_resource path="res://scenes/ThemeButton.tscn" type="PackedScene" id=11]
-[ext_resource path="res://assets/sprites/upgrades/Add_Dice_Icon.png" type="Texture" id=12]
 [ext_resource path="res://scenes/destroyer/MenuButtons.gd" type="Script" id=13]
 [ext_resource path="res://scenes/help/help.tscn" type="PackedScene" id=14]
 [ext_resource path="res://assets/sprites/ui/upgrade/upgrade_box.png" type="Texture" id=16]
-[ext_resource path="res://assets/sprites/upgrades/Upgrade_Dice_Icon.png" type="Texture" id=19]
 [ext_resource path="res://assets/fonts/almendra-all-400-normal.woff" type="DynamicFontData" id=25]
-[ext_resource path="res://assets/sprites/ui/bar_front.png" type="Texture" id=26]
-[ext_resource path="res://assets/sprites/ui/bar_progress_green.png" type="Texture" id=27]
-[ext_resource path="res://assets/sprites/ui/bar_back.png" type="Texture" id=28]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.188482 )
@@ -67,16 +62,17 @@ colors = PoolColorArray( 0, 0, 0, 1, 0, 0, 0, 0.741176, 0, 0, 0, 0 )
 [sub_resource type="GradientTexture" id=8]
 gradient = SubResource( 7 )
 
+[sub_resource type="DynamicFont" id=14]
+size = 35
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 5 )
+
 [sub_resource type="DynamicFont" id=13]
 size = 60
 outline_size = 4
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 5 )
-
-[sub_resource type="DynamicFont" id=12]
-size = 33
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 25 )
 
 [sub_resource type="DynamicFont" id=9]
 size = 60
@@ -84,7 +80,12 @@ outline_size = 4
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 5 )
 
+[sub_resource type="DynamicFont" id=15]
+size = 30
+font_data = ExtResource( 25 )
+
 [node name="Destroyer" type="Node2D"]
+script = ExtResource( 3 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
@@ -148,47 +149,49 @@ __meta__ = {
 
 [node name="ui" type="CanvasLayer" parent="."]
 
-[node name="LabelEnemy" type="Label" parent="ui"]
-anchor_right = 0.701
-anchor_bottom = 0.123
-margin_right = 0.399902
-margin_bottom = 0.299995
+[node name="Control" type="Control" parent="ui"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Control" type="VBoxContainer" parent="ui/Control"]
+anchor_right = 0.25
+anchor_bottom = 0.2
+margin_right = -361.6
+margin_bottom = -481.1
+alignment = 1
+
+[node name="LabelEnemy" type="Label" parent="ui/Control/Control"]
+margin_right = 271.0
+margin_bottom = 47.0
+custom_fonts/font = SubResource( 14 )
+text = "Will be defeated in:"
+
+[node name="LabelEnemy2" type="Label" parent="ui/Control/Control"]
+margin_top = 51.0
+margin_right = 271.0
+margin_bottom = 248.0
+custom_fonts/font = SubResource( 14 )
+text = "99 million years
+---
+99 years/months
+99 days + 00:00:00"
+
+[node name="LabelEnemy" type="Label" parent="ui/Control"]
+anchor_right = 0.7
+anchor_bottom = 0.088
+margin_bottom = -0.200005
 custom_fonts/font = SubResource( 13 )
 text = "The Destroyer"
 align = 1
 valign = 1
 
-[node name="TextureProgress" type="TextureProgress" parent="ui"]
-margin_left = 20.0
-margin_top = 33.0
-margin_right = 334.0
-margin_bottom = 77.0
-value = 50.0
-texture_under = ExtResource( 28 )
-texture_over = ExtResource( 26 )
-texture_progress = ExtResource( 27 )
-nine_patch_stretch = true
-
-[node name="Label" type="Label" parent="ui/TextureProgress"]
-anchor_left = 0.062
-anchor_right = 0.948
-anchor_bottom = 1.0
-margin_left = -0.0280008
-margin_right = 0.0879822
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 12 )
-text = "Health"
-align = 2
-
-[node name="Tween" type="Tween" parent="ui/TextureProgress"]
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ui"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/Control"]
 anchor_left = 0.7
 anchor_right = 1.0
 anchor_bottom = 0.85
 custom_constants/separation = -5
 
-[node name="inventory" type="NinePatchRect" parent="ui/VBoxContainer"]
+[node name="inventory" type="NinePatchRect" parent="ui/Control/VBoxContainer"]
 self_modulate = Color( 0.623529, 0.745098, 0.752941, 1 )
 margin_right = 480.0
 margin_bottom = 100.0
@@ -199,13 +202,13 @@ patch_margin_top = 20
 patch_margin_right = 5
 patch_margin_bottom = 20
 
-[node name="bolts" type="HBoxContainer" parent="ui/VBoxContainer/inventory"]
+[node name="bolts" type="HBoxContainer" parent="ui/Control/VBoxContainer/inventory"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 6
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="ui/VBoxContainer/inventory/bolts"]
+[node name="TextureRect" type="TextureRect" parent="ui/Control/VBoxContainer/inventory/bolts"]
 margin_left = 172.0
 margin_right = 222.0
 margin_bottom = 100.0
@@ -214,7 +217,7 @@ texture = ExtResource( 6 )
 expand = true
 stretch_mode = 6
 
-[node name="LabelFeathers" type="Label" parent="ui/VBoxContainer/inventory/bolts"]
+[node name="LabelFeathers" type="Label" parent="ui/Control/VBoxContainer/inventory/bolts"]
 self_modulate = Color( 0.0588235, 0.54902, 0.729412, 1 )
 margin_left = 226.0
 margin_top = 10.0
@@ -228,36 +231,19 @@ script = ExtResource( 8 )
 targetEvent = "boltsUpdated"
 defaultSaveFlag = 3
 
-[node name="u_add" parent="ui/VBoxContainer" instance=ExtResource( 3 )]
+[node name="Button" type="Button" parent="ui/Control/VBoxContainer"]
 margin_top = 95.0
-margin_bottom = 195.0
-title = "Add Dice"
-basePrice = 5
-levelupPriceIncrease = 5
-levelupPricePercentIncrease = 11
-levelCap = 20
-spriteTexture = ExtResource( 12 )
-saveFlag = 4
-super_upgrade = true
-help_index = 0
+margin_right = 480.0
+margin_bottom = 141.0
+custom_fonts/font = SubResource( 15 )
+text = "Add Mechanical Dice"
 
-[node name="u_upgrade" parent="ui/VBoxContainer" instance=ExtResource( 3 )]
-margin_top = 190.0
-margin_bottom = 290.0
-title = "Upgrade Dice"
-basePrice = 5
-levelupPriceIncrease = 5
-levelupPricePercentIncrease = 0
-kind = 1
-levelCap = 105
-spriteTexture = ExtResource( 19 )
-saveFlag = 5
-super_upgrade = true
-help_index = 1
-
-[node name="Control" type="Control" parent="ui"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Button2" type="Button" parent="ui/Control/VBoxContainer"]
+margin_top = 136.0
+margin_right = 480.0
+margin_bottom = 182.0
+custom_fonts/font = SubResource( 15 )
+text = "Upgrade Mechanical Dice"
 
 [node name="MenuButtons" type="HBoxContainer" parent="ui/Control"]
 anchor_left = 0.7
@@ -300,5 +286,7 @@ modulate_default = Color( 0.556863, 0.407843, 0.0666667, 1 )
 visible = false
 help_page = "destroyer"
 
+[connection signal="pressed" from="ui/Control/VBoxContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="ui/Control/VBoxContainer/Button2" to="." method="_on_Button2_pressed"]
 [connection signal="button_clicked" from="ui/Control/MenuButtons/back" to="ui/Control/MenuButtons" method="_on_back_button_clicked"]
 [connection signal="button_clicked" from="ui/Control/MenuButtons/help" to="ui/Control/MenuButtons" method="_on_help_button_clicked"]
