@@ -119,7 +119,6 @@ var dark_enemy_pool = [
 	], .2, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
 		EnemyModel.new("Corrupted Roots", 155000, 110000, "AnimatedPlantB"),
-#		EnemyModel.new("Drone", 560000, 0, "DestroyerV1", null, Enums.LootType.BOLTS),
 		EnemyModel.new("Undead Log", 170000, 115000, "TreantB"),
 	], .2, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
@@ -135,6 +134,7 @@ var dark_enemy_pool = [
 	EnemyTier.new([
 		EnemyModel.new("Dark Lord", 350000, 0, "Demon", null, Enums.LootType.DARK_FEATHERS),
 		EnemyModel.new("Darkness", 370000, 1000000),
+		EnemyModel.new("D.R.O.N.E", 4300000, 0, "DestroyerV1", null, Enums.LootType.BOLTS),
 	], 0, Enums.LootType.DARK_FEATHERS),
 ]
 
@@ -258,7 +258,7 @@ var help = {
 		},
 		{
 			"name": "Buy in bulk",
-			"description": "Upgrades can be bought in bulk by holding down 'CTRL' and clicking on the upgrade you want to buy in bulk.",
+			"description": "Upgrades can be bought in bulk by holding down 'SHIFT' and clicking on the upgrade you want to buy in bulk.",
 		}
 	],
 	"upgrades": [

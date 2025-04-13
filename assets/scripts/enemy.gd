@@ -12,6 +12,7 @@ var enemy_loot
 var enemyHealth = 0;
 var enemyShield = null;
 var rng = RandomNumberGenerator.new();
+var spawn_drone = false
 
 var secondDmg = 0;
 
@@ -27,10 +28,23 @@ func _ready():
 	
 	$VBoxContainer/Label.visible = false;
 	try_set_multiplier_text()
-	
+	Save.connect("save_exported", self, "saveUpdated")
+	saveUpdated()
+
+func saveUpdated():
+	# Spawn drone when player got some of the most important shadow upgrades,
+	# this will tease the player when they are becoming powerfull, instead of showing an undefeatable enemy for a long while 
+	spawn_drone = (Save.importSave(Enums.SaveFlag.AS_ENHANCE_DICE, 0) > 0 &&
+		Save.importSave(Enums.SaveFlag.AS_OVERDRIVE, 0) > 0 &&
+		Save.importSave(Enums.SaveFlag.AS_SUPER_REROLL, 0) > 0 &&
+		Save.importSave(Enums.SaveFlag.AS_HEXAGRAM, 0) > 0)
+
 func respawnEnemy():
 	var enemyTier: EnemyTier = Globals.getRandomEnemyTier()
 	enemy = enemyTier.getRandomEnemy()
+	# Only pull drone enemy (any bolt wielding enemy when all shadow upgrades are unlocked)
+	while(spawn_drone == false and enemy.loot_type == Enums.LootType.BOLTS):
+		enemy = enemyTier.getRandomEnemy()
 	
 	enemy_loot = enemy.loot_type
 	if enemy_loot == Enums.LootType.CURRENCY:

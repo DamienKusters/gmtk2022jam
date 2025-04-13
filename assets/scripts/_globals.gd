@@ -15,6 +15,7 @@ signal currencyAddedSingular
 signal openHelp
 signal enemyKilled;#todo
 signal deleteDice;#todo
+signal triggerDestroyerShowButton
 
 var contractLevel;
 var minDiceRollTime = .5

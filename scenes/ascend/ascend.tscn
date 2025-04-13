@@ -119,9 +119,9 @@ void fragment () {
 	COLOR = texture(TEXTURE, UV + vec2( mod(TIME * speed, 2.0) - 1.0, 0.0));
 }"
 
-[sub_resource type="ShaderMaterial" id=6]
+[sub_resource type="ShaderMaterial" id=23]
 shader = SubResource( 22 )
-shader_param/speed = -0.003
+shader_param/speed = 0.007
 
 [sub_resource type="Animation" id=19]
 resource_name = "HIDE"
@@ -245,7 +245,7 @@ end_node = "hover"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=18]
 
-[sub_resource type="Shader" id=23]
+[sub_resource type="Shader" id=32]
 code = "shader_type canvas_item;
 
 uniform float speed;
@@ -255,7 +255,7 @@ void fragment () {
 }"
 
 [sub_resource type="ShaderMaterial" id=4]
-shader = SubResource( 23 )
+shader = SubResource( 32 )
 shader_param/speed = 0.03
 
 [sub_resource type="Shader" id=24]
@@ -454,7 +454,7 @@ texture = ExtResource( 11 )
 expand = true
 
 [node name="backmountains" type="TextureRect" parent="canvas/bg"]
-material = SubResource( 6 )
+material = SubResource( 23 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 1 )
@@ -492,6 +492,10 @@ anims/spawn = SubResource( 13 )
 tree_root = SubResource( 17 )
 anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 18 )
+
+[node name="Timer" type="Timer" parent="canvas/bg/destroyer"]
+wait_time = 20.0
+one_shot = true
 
 [node name="centermountain" type="TextureRect" parent="canvas/bg"]
 anchor_right = 1.0
@@ -570,10 +574,6 @@ color = Color( 0.447059, 0.396078, 0.580392, 1 )
 lootIcon = ExtResource( 26 )
 
 [node name="Node2" type="Control" parent="ui/menu"]
-script = ExtResource( 17 )
-targetEvent = "boltsUpdated"
-defaultSaveFlag = 3
-disabled = true
 
 [node name="Gupgrades" parent="ui/menu/Node2" instance=ExtResource( 14 )]
 anchor_right = 0.0
@@ -730,6 +730,7 @@ defaultSaveFlag = 17
 [node name="Help" parent="ui" instance=ExtResource( 23 )]
 visible = false
 
+[connection signal="timeout" from="canvas/bg/destroyer/Timer" to="canvas/bg/destroyer" method="triggerDestroyerShowButton"]
 [connection signal="pressed" from="ui/menu/Aupgrades" to="." method="_on_upgrades_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="ui/menu/Node/Dupgrades" to="." method="_on_upgrades_pressed" binds= [ 1 ]]
 [connection signal="pressed" from="ui/menu/Node2/Gupgrades" to="." method="_on_upgrades_pressed" binds= [ 2 ]]

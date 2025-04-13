@@ -10,7 +10,7 @@ func _init(_enemy_pool: Array, _special_loot_rarity: float, _special_loot = Enum
 	self.special_loot_rarity = _special_loot_rarity
 	self.special_loot = _special_loot
 
-func getRandomEnemy():
+func getRandomEnemy() -> EnemyModel:
 	rng.randomize()
 	return enemy_pool[rng.randi_range(0, enemy_pool.size() - 1)]
 

@@ -51,10 +51,10 @@ func _ready():
 
 var bulkMode = false
 func _process(_delta):
-	if Input.is_action_just_pressed("ctrl") && locked == false && level != levelCap:
+	if Input.is_action_just_pressed("shift") && locked == false && level != levelCap:
 		$"%LabelPrice".text = "bulk"
 		bulkMode = true
-	if Input.is_action_just_released("ctrl"):
+	if Input.is_action_just_released("shift"):
 		updateUi()
 		bulkMode = false
 

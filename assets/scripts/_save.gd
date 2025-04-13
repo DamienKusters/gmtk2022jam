@@ -1,5 +1,7 @@
 extends Node
 
+signal save_exported
+
 const save_file_location = "user://dnde.save"
 var save = {}
 
@@ -20,6 +22,7 @@ func exportSave(_flag, _value, autosave = false):
 	
 	if autosave:
 		saveGame()
+	emit_signal("save_exported")
 
 func resetSave():
 	save = {}
@@ -37,7 +40,7 @@ func saveGame():
 	var file = File.new()
 	file.open(save_file_location, File.WRITE)
 	var raw_save = _save
-	raw_save = Marshalls.utf8_to_base64(_save)
+#	raw_save = Marshalls.utf8_to_base64(_save)
 	file.store_string(raw_save)
 	file.close()
 	return true
@@ -52,7 +55,7 @@ func loadGame():
 	var raw_save = file.get_as_text()
 	file.close()
 	
-	raw_save = Marshalls.base64_to_utf8(raw_save);
+#	raw_save = Marshalls.base64_to_utf8(raw_save);
 	var s = raw_save.split("|")
 	
 	save = {}
