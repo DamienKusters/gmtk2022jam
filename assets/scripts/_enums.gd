@@ -48,9 +48,19 @@ enum SaveFlag {
 	AS_HEXAGRAM,
 	AS_MULTIPLIER_VALUE,
 	
+	# DRAGON UPGRADES
+	DU_BOUNTY_MULTIPLIER,
+	DU_FEATHER_MULTIPLIER,
+	DU_SFEATHER_MULTIPLIER,
+	DU_ADD_DICE_MAX,
+	DU_DM_MAX,
+	DU_TRAY_MAX,
+	
+	# %Chance of bolts being harvested instead of usual loot
+	HARVEST_DICE_BOLT_CHANCE,
+	
 	#TODO: ?crits
 	#TODO: ?crits upgrade
 	#Destroyer fight
 	DES_FIGHT_START_EPOCH,
-	DES_LAST_UPGRADE_EPOCH,
 }

@@ -7,6 +7,10 @@ onready var featherIcon = preload("res://assets/sprites/icons/angel_feather.png"
 onready var boltIcon = preload("res://assets/sprites/icons/bolt.png")
 onready var dFeatherIcon = preload("res://assets/sprites/icons/demon_feather.png")
 
+onready var duBountyMultiplier = Save.importSave(Enums.SaveFlag.DU_BOUNTY_MULTIPLIER, 1)
+onready var duFeatherMultiplier = Save.importSave(Enums.SaveFlag.DU_FEATHER_MULTIPLIER, 1)
+onready var duSFeatherMultiplier = Save.importSave(Enums.SaveFlag.DU_SFEATHER_MULTIPLIER, 1)
+
 var enemy: EnemyModel
 var enemy_loot
 var enemyHealth = 0;
@@ -27,7 +31,21 @@ func _ready():
 	showAdvancedUi(0);
 	
 	$VBoxContainer/Label.visible = false;
+	$VBoxContainer/BountyLabel.visible = false;
+	$VBoxContainer/FeathersLabel.visible = false;
+	$VBoxContainer/SFeathersLabel.visible = false;
 	try_set_multiplier_text()
+	try_set_bounty_multiplier_text()
+	try_set_feather_multiplier_text()
+	try_set_sfeather_multiplier_text()
+	
+	if duBountyMultiplier < 1:
+		duBountyMultiplier = 1
+	if duFeatherMultiplier < 1:
+		duFeatherMultiplier = 1
+	if duSFeatherMultiplier < 1:
+		duSFeatherMultiplier = 1
+	
 	Save.connect("save_exported", self, "saveUpdated")
 	saveUpdated()
 
@@ -62,7 +80,7 @@ func respawnEnemy():
 	if enemy_loot != Enums.LootType.CURRENCY:
 		$LabelEnemy/LabelBounty.text = "";
 	else:
-		$LabelEnemy/LabelBounty.text = str(enemy.currency);
+		$LabelEnemy/LabelBounty.text = str(enemy.currency * duBountyMultiplier);
 	
 	enemyHealth = enemy.health;
 	$Control/VBoxContainer/TextureProgress/Tween.stop_all()
@@ -98,17 +116,19 @@ func damage(value: int, dice: Node2D):
 	if(enemyHealth <= 0):
 		match(enemy_loot):
 			Enums.LootType.CURRENCY:
-				Globals.addCurrency(enemy.currency)
+				Globals.addCurrency(enemy.currency * duBountyMultiplier)
 				$AudioMoney.play()
 			Enums.LootType.FEATHERS:
-				Globals.addFeathers(1)
-				spawnLootParticle(featherIcon)
+				Globals.addFeathers(1 * duFeatherMultiplier)
+				for i in clamp(duFeatherMultiplier, 1, 10):
+					spawnLootParticle(featherIcon)
 			Enums.LootType.BOLTS:
 				Globals.bolts += 1
 				spawnLootParticle(boltIcon)
 			Enums.LootType.DARK_FEATHERS:
-				Globals.dFeathers += 1
-				spawnLootParticle(dFeatherIcon)
+				Globals.dFeathers += (1 * duSFeatherMultiplier)
+				for i in clamp(duSFeatherMultiplier, 1, 10):
+					spawnLootParticle(dFeatherIcon)
 		Globals.emit_signal("enemyKilled", enemy)
 		$EnemyContainer.add_child(particle.instance())
 		respawnEnemy()
@@ -151,6 +171,21 @@ func try_set_multiplier_text():
 	if Save.importSave(Enums.SaveFlag.A_MULTIPLIER_VALUE, 1) + Save.importSave(Enums.SaveFlag.AS_MULTIPLIER_VALUE, 0) > 1:
 		$VBoxContainer/Label.text = "Damage x " + str(Save.importSave(Enums.SaveFlag.A_MULTIPLIER_VALUE, 1) + Save.importSave(Enums.SaveFlag.AS_MULTIPLIER_VALUE, 0))
 		$VBoxContainer/Label.visible = true
+
+func try_set_bounty_multiplier_text():
+	if Save.importSave(Enums.SaveFlag.DU_BOUNTY_MULTIPLIER, 1) > 1:
+		$VBoxContainer/BountyLabel.text = "Bounty x " + str(Save.importSave(Enums.SaveFlag.DU_BOUNTY_MULTIPLIER, 1))
+		$VBoxContainer/BountyLabel.visible = true
+
+func try_set_feather_multiplier_text():
+	if Save.importSave(Enums.SaveFlag.DU_FEATHER_MULTIPLIER, 1) > 1:
+		$VBoxContainer/FeathersLabel.text = "Feathers x " + str(Save.importSave(Enums.SaveFlag.DU_FEATHER_MULTIPLIER, 1))
+		$VBoxContainer/FeathersLabel.visible = true
+
+func try_set_sfeather_multiplier_text():
+	if Save.importSave(Enums.SaveFlag.DU_SFEATHER_MULTIPLIER, 1) > 1:
+		$VBoxContainer/SFeathersLabel.text = "S.Feathers x " + str(Save.importSave(Enums.SaveFlag.DU_SFEATHER_MULTIPLIER, 1))
+		$VBoxContainer/SFeathersLabel.visible = true
 
 func _on_dpsTimer_timeout():
 	var damage = String(secondDmg)

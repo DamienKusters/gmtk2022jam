@@ -322,6 +322,7 @@ position = Vector2( 104, -42 )
 texture = ExtResource( 15 )
 
 [node name="clouds scroll" type="Sprite" parent="Backgrounds/bg2"]
+self_modulate = Color( 1, 1, 1, 0.784314 )
 material = SubResource( 23 )
 position = Vector2( 5.5, 0 )
 texture = ExtResource( 6 )

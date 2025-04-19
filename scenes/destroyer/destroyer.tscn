@@ -87,6 +87,8 @@ font_data = ExtResource( 25 )
 [node name="Destroyer" type="Node2D"]
 script = ExtResource( 3 )
 
+[node name="Timer" type="Timer" parent="."]
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
 volume_db = -10.0
@@ -286,6 +288,7 @@ modulate_default = Color( 0.556863, 0.407843, 0.0666667, 1 )
 visible = false
 help_page = "destroyer"
 
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="pressed" from="ui/Control/VBoxContainer/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="ui/Control/VBoxContainer/Button2" to="." method="_on_Button2_pressed"]
 [connection signal="button_clicked" from="ui/Control/MenuButtons/back" to="ui/Control/MenuButtons" method="_on_back_button_clicked"]

@@ -3,6 +3,7 @@ extends Node
 onready var destroyer_button: Control = $"../../../ui/menu/Node2"
 
 func _ready():
+	destroyer_button.visible = false
 	if Save.importSave(Enums.SaveFlag.DESTROYER_SPAWNED, 0) > 0:
 		$AnimationPlayer.play("hover")
 		destroyer_button.visible = true

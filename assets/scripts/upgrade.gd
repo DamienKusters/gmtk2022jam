@@ -25,6 +25,10 @@ var price = 0;
 func _ready():
 	$"%LabelTitle".text = title;
 	$"%Icon".texture = spriteTexture;
+	if kind == Enums.Upgrade.DELETE_DICE && Save.importSave(Enums.SaveFlag.HARVEST_DICE_BOLT_CHANCE, 0) > 0:
+		$"%LabelTitle".text = "Boutiful Harvest";
+		$"%Icon".texture = load("res://assets/sprites/upgrades/Boutiful_Harvest.png");
+		help_index = 12
 	
 	if super_upgrade:
 		$bg.self_modulate = Color("6A4F76")

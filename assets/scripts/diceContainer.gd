@@ -75,20 +75,30 @@ func deleteDice():
 	var d = get_children().back()
 	var p = particle.instance()
 	var amount
-	match(d.maxVal):
-		100:
-			amount = 5
-			Globals.dFeathers += amount
-#			Globals.bolts += amount
-			p.texture = load("res://assets/sprites/icons/demon_feather.png")
-#			p.texture = load("res://assets/sprites/icons/bolt.png")
-		20:
-			amount = 2
-			Globals.dFeathers += amount
-			p.texture = load("res://assets/sprites/icons/demon_feather.png")
-		_:
-			amount = (d.maxVal / 2) - 1
-			Globals.addFeathers(amount)
+	
+	var bolt_chance = clamp(Save.importSave(Enums.SaveFlag.HARVEST_DICE_BOLT_CHANCE, 0), 0, 100)
+	var bolt_reward = false
+	if bolt_chance > 0:
+		if round(rand_range(0, 100)) <= bolt_chance:
+			amount = 1
+			Globals.bolts += amount
+			p.texture = load("res://assets/sprites/icons/bolt.png")
+			bolt_reward = true
+	
+	if bolt_reward == false:
+		match(d.maxVal):
+			100:
+				amount = 5
+				Globals.dFeathers += amount
+				p.texture = load("res://assets/sprites/icons/demon_feather.png")
+			20:
+				amount = 2
+				Globals.dFeathers += amount
+				p.texture = load("res://assets/sprites/icons/demon_feather.png")
+			_:
+				amount = (d.maxVal / 2) - 1
+				Globals.addFeathers(amount)
+	
 	p.position = d.global_position
 	p.amount = amount
 	$"..".add_child(p)

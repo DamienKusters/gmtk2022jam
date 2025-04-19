@@ -189,7 +189,7 @@ var upgrades = {
 	},
 	"harvest_dice": {
 		"name": "Harvest Dice",
-		"description": "Shadow upgrade of 'Add Dice'\nConverts dice into feathers or shadow feathers\n\n...\nAlso 'unlocks' something else...",# or bolts.
+		"description": "Shadow upgrade of 'Add Dice'\nConverts dice into feathers or shadow feathers\n\nCan be upgraded to 'Boutiful Harvest'",
 		"icon": load("res://assets/sprites/upgrades/Delete_Dice_Icon.png"),
 		"helpIndex": 6,
 	},
@@ -223,6 +223,12 @@ var upgrades = {
 		"description": "Shadow upgrade of 'Contract'\nReplaces lower-tier enemies with their shadow realm counterpart.\nShadow enemies are much more difficult to defeat, but will grant much higher bounties and shadow feathers.",
 		"icon": load("res://assets/sprites/upgrades/Hexagram.png"),
 		"helpIndex": 11,
+	},
+	"boutiful_harvest": {
+		"name": "Boutiful Harvest",
+		"description": "Additional upgrade of 'Harvest Dice'\nConverts dice into feathers or shadow feathers with a chance of receiving bolts instead.\n\n'Boutiful' is a play on the word Bountiful, using the dutch word 'bout' meaning; 'bolt'",
+		"icon": load("res://assets/sprites/upgrades/Boutiful_Harvest.png"),
+		"helpIndex": 12,
 	}
 }
 
@@ -274,6 +280,7 @@ var help = {
 		self.upgrades['dice_tower'],
 		self.upgrades['adv_roller'],
 		self.upgrades['hexagram'],
+		self.upgrades['boutiful_harvest'],
 	],
 	"ascend": [
 		{
