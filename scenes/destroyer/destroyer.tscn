@@ -11,10 +11,11 @@
 [ext_resource path="res://assets/sound/Harmful or Fatal.mp3" type="AudioStream" id=9]
 [ext_resource path="res://assets/scripts/destroyer_music_starter.gd" type="Script" id=10]
 [ext_resource path="res://scenes/ThemeButton.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/sprites/upgrades/Dice_Tray.png" type="Texture" id=12]
 [ext_resource path="res://scenes/destroyer/MenuButtons.gd" type="Script" id=13]
 [ext_resource path="res://scenes/help/help.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/destroyer/DestroyerUpgradeButton.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/sprites/ui/upgrade/upgrade_box.png" type="Texture" id=16]
-[ext_resource path="res://assets/fonts/almendra-all-400-normal.woff" type="DynamicFontData" id=25]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.188482 )
@@ -80,10 +81,6 @@ outline_size = 4
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 5 )
 
-[sub_resource type="DynamicFont" id=15]
-size = 30
-font_data = ExtResource( 25 )
-
 [node name="Destroyer" type="Node2D"]
 script = ExtResource( 3 )
 
@@ -148,6 +145,98 @@ texture = SubResource( 8 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="diceContainer" type="Node2D" parent="."]
+position = Vector2( 53, 625 )
+
+[node name="Sprite" type="Node2D" parent="diceContainer"]
+
+[node name="Sprite2" type="Node2D" parent="diceContainer"]
+position = Vector2( 110, 0 )
+
+[node name="Sprite3" type="Node2D" parent="diceContainer"]
+position = Vector2( 220, 0 )
+
+[node name="Sprite4" type="Node2D" parent="diceContainer"]
+position = Vector2( 330, 0 )
+
+[node name="Sprite5" type="Node2D" parent="diceContainer"]
+position = Vector2( 440, 0 )
+
+[node name="Sprite6" type="Node2D" parent="diceContainer"]
+position = Vector2( 550, 0 )
+
+[node name="Sprite7" type="Node2D" parent="diceContainer"]
+position = Vector2( 660, 0 )
+
+[node name="Sprite8" type="Node2D" parent="diceContainer"]
+position = Vector2( 770, 0 )
+
+[node name="Sprite9" type="Node2D" parent="diceContainer"]
+position = Vector2( 880, 0 )
+
+[node name="Sprite10" type="Node2D" parent="diceContainer"]
+position = Vector2( 990, 0 )
+
+[node name="Sprite11" type="Node2D" parent="diceContainer"]
+position = Vector2( 0, 110 )
+
+[node name="Sprite12" type="Node2D" parent="diceContainer"]
+position = Vector2( 110, 110 )
+
+[node name="Sprite13" type="Node2D" parent="diceContainer"]
+position = Vector2( 220, 110 )
+
+[node name="Sprite14" type="Node2D" parent="diceContainer"]
+position = Vector2( 330, 110 )
+
+[node name="Sprite15" type="Node2D" parent="diceContainer"]
+position = Vector2( 440, 110 )
+
+[node name="Sprite16" type="Node2D" parent="diceContainer"]
+position = Vector2( 550, 110 )
+
+[node name="Sprite17" type="Node2D" parent="diceContainer"]
+position = Vector2( 660, 110 )
+
+[node name="Sprite18" type="Node2D" parent="diceContainer"]
+position = Vector2( 770, 110 )
+
+[node name="Sprite19" type="Node2D" parent="diceContainer"]
+position = Vector2( 880, 110 )
+
+[node name="Sprite20" type="Node2D" parent="diceContainer"]
+position = Vector2( 990, 110 )
+
+[node name="Sprite21" type="Node2D" parent="diceContainer"]
+position = Vector2( 0, 220 )
+
+[node name="Sprite22" type="Node2D" parent="diceContainer"]
+position = Vector2( 110, 220 )
+
+[node name="Sprite23" type="Node2D" parent="diceContainer"]
+position = Vector2( 220, 220 )
+
+[node name="Sprite24" type="Node2D" parent="diceContainer"]
+position = Vector2( 330, 220 )
+
+[node name="Sprite25" type="Node2D" parent="diceContainer"]
+position = Vector2( 440, 220 )
+
+[node name="Sprite26" type="Node2D" parent="diceContainer"]
+position = Vector2( 550, 220 )
+
+[node name="Sprite27" type="Node2D" parent="diceContainer"]
+position = Vector2( 660, 220 )
+
+[node name="Sprite28" type="Node2D" parent="diceContainer"]
+position = Vector2( 770, 220 )
+
+[node name="Sprite29" type="Node2D" parent="diceContainer"]
+position = Vector2( 880, 220 )
+
+[node name="Sprite30" type="Node2D" parent="diceContainer"]
+position = Vector2( 990, 220 )
 
 [node name="ui" type="CanvasLayer" parent="."]
 
@@ -233,19 +322,16 @@ script = ExtResource( 8 )
 targetEvent = "boltsUpdated"
 defaultSaveFlag = 3
 
-[node name="Button" type="Button" parent="ui/Control/VBoxContainer"]
+[node name="DestroyerUpgradeButton" parent="ui/Control/VBoxContainer" instance=ExtResource( 15 )]
 margin_top = 95.0
-margin_right = 480.0
-margin_bottom = 141.0
-custom_fonts/font = SubResource( 15 )
-text = "Add Mechanical Dice"
-
-[node name="Button2" type="Button" parent="ui/Control/VBoxContainer"]
-margin_top = 136.0
-margin_right = 480.0
-margin_bottom = 182.0
-custom_fonts/font = SubResource( 15 )
-text = "Upgrade Mechanical Dice"
+margin_bottom = 195.0
+label = "Add Mecha-dice"
+spriteTexture = ExtResource( 12 )
+help_index = 2
+basePrice = 1
+levelupPriceIncrease = 1
+levelupPricePercentIncrease = 0
+saveFlag = 41
 
 [node name="MenuButtons" type="HBoxContainer" parent="ui/Control"]
 anchor_left = 0.7
@@ -289,7 +375,5 @@ visible = false
 help_page = "destroyer"
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
-[connection signal="pressed" from="ui/Control/VBoxContainer/Button" to="." method="_on_Button_pressed"]
-[connection signal="pressed" from="ui/Control/VBoxContainer/Button2" to="." method="_on_Button2_pressed"]
 [connection signal="button_clicked" from="ui/Control/MenuButtons/back" to="ui/Control/MenuButtons" method="_on_back_button_clicked"]
 [connection signal="button_clicked" from="ui/Control/MenuButtons/help" to="ui/Control/MenuButtons" method="_on_help_button_clicked"]

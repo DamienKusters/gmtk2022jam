@@ -1,24 +1,38 @@
 extends Node2D
 
+onready var mechDice = preload("res://scenes/destroyer/MechanicalDice.tscn")
+
 var fight_start_epoch: int
 
 var health_is_simulated = true
 const MAX_TIME_YEAR_HEALTH: float = 10000000.0 # 10 million years
 
-var upgrades = 0
+var upgrades setget setUpgrades
 
 const EPOCH_THOUSAND_YEARS: float = 31556995200.00
 const SIMULATED_UPGRADES: int = 13
 
 var real_time_health: float
 
+func setUpgrades(value):
+	upgrades = value
+	for c in $diceContainer.get_children():
+		c.visible = false
+	for i in upgrades:
+		$diceContainer.get_child(i).visible = true
+
 func _ready():
+	$ui/Control/VBoxContainer/DestroyerUpgradeButton.connect("upgrade", self, "upgrade")
+	
 	fight_start_epoch = Save.importSave(Enums.SaveFlag.DES_FIGHT_START_EPOCH, 0, true)
+	setUpgrades(Save.importSave(Enums.SaveFlag.DES_ADD_DICE, 0, true))
 	$ui/Control/Control/LabelEnemy2.text = get_simulated_health_text(MAX_TIME_YEAR_HEALTH)
 	$Timer.start()
 	
 func upgrade():
-	upgrades += 1
+	var dice = mechDice.instance()
+	$diceContainer.get_child(upgrades).add_child(dice)
+	setUpgrades(upgrades + 1)
 	
 	if health_is_simulated:
 		update_simulated_health()
@@ -64,12 +78,6 @@ func update_health_text():
 
 func get_remaining_time_epoch(now):
 	return real_time_health - now
-
-func _on_Button_pressed():
-	upgrade()
-
-func _on_Button2_pressed():
-	upgrade()
 
 # Returns health text that does not update
 func get_simulated_health_text(years: float) -> String:

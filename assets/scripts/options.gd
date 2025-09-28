@@ -27,11 +27,34 @@ func _on_SoundSlider_tree_entered():
 func _on_Save_button_clicked():
 	if Save.saveGame() == true:
 		$"HBoxContainer/SaveButtons/Reset Info".visible = false;
+		$"HBoxContainer/SaveButtons/Export Info".visible = false;
+		$"HBoxContainer/SaveButtons/Import Info".visible = false;
+		$"HBoxContainer/SaveButtons/Import Error".visible = false;
 		$HBoxContainer/SaveButtons/HBoxContainer/Save.button_text = "Game Saved!"
-	
+
+func _on_Export_button_clicked():
+	if Save.saveGame() == true:
+		OS.clipboard = Save.exportSaveString()
+		$"HBoxContainer/SaveButtons/Reset Info".visible = false;
+		$"HBoxContainer/SaveButtons/Export Info".visible = true;
+		$"HBoxContainer/SaveButtons/Import Info".visible = false;
+		$"HBoxContainer/SaveButtons/Import Error".visible = false;
+		resetSaveButtonText();
+
+func _on_Import_button_clicked():
+	var raw_save = OS.clipboard
+	$"HBoxContainer/SaveButtons/Reset Info".visible = false;
+	$"HBoxContainer/SaveButtons/Export Info".visible = false;
+	$"HBoxContainer/SaveButtons/Import Info".visible = false;
+	$"HBoxContainer/SaveButtons/Import Error".visible = false;
+	resetSaveButtonText();
+
 func _on_ResetSave_button_clicked():
 	if Save.deleteGame() == true:
 		$"HBoxContainer/SaveButtons/Reset Info".visible = true;
+		$"HBoxContainer/SaveButtons/Export Info".visible = false;
+		$"HBoxContainer/SaveButtons/Import Info".visible = false;
+		$"HBoxContainer/SaveButtons/Import Error".visible = false;
 		resetSaveButtonText();
 
 func resetSaveButtonText():

@@ -56,7 +56,7 @@ func saveUpdated():
 func respawnEnemy():
 	var enemyTier: EnemyTier = Globals.getRandomEnemyTier()
 	enemy = enemyTier.getRandomEnemy()
-	# Only pull drone enemy (any bolt wielding enemy when all shadow upgrades are unlocked)
+	# Only pull drone enemy (any bolt wielding enemy when harvest dice is unlocked)
 	while(spawn_drone == false and enemy.loot_type == Enums.LootType.BOLTS):
 		enemy = enemyTier.getRandomEnemy()
 	

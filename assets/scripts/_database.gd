@@ -340,7 +340,7 @@ var help = {
 	"destroyer": [
 		{
 			"name": "The Destroyer",
-			"description": "This is it...\nThe Destroyer has awakend to reign over the lands.\nThis is the final challenge of: Dice & Dragons - Extended",
+			"description": "The Destroyer has awakend to reign over the lands.\nThis is the final challenge of: Dice & Dragons - Extended",
 			"contextImage": load("res://assets/sprites/enemies/DestroyerV2_noshadow.png"),
 		},
 		{
@@ -349,17 +349,14 @@ var help = {
 			"contextImage": load("res://assets/sprites/icons/bolt.png"),
 		},
 		{
-			"name": "Add Mechanical Dice",
+			"name": "Add Mecha-dice",
 			"description": "",
+			"icon": load("res://assets/sprites/upgrades/Dice_Tray.png"),
 		},
 		{
-			"name": "Upgrade Mech.Dice",
+			"name": "Upgrade Mecha-dice",
 			"description": "",
-		},
-		{
-			"name": "Boutiful Harvest",
-			"description": "Add a +5% chance of receiving a bolt.",
-			"icon": load("res://assets/sprites/upgrades/Boutiful_Harvest.png"),
+			"icon": load("res://assets/sprites/upgrades/Upgrade_Dice_Mechanical.png"),
 		},
 	]
 }

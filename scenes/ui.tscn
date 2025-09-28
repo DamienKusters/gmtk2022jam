@@ -1438,6 +1438,22 @@ button_text = "Delete Save"
 modulate_default = Color( 0.517647, 0.105882, 0.105882, 1 )
 modulate_hover = Color( 0.686275, 0.105882, 0.105882, 1 )
 
+[node name="Export" parent="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons/HBoxContainer" instance=ExtResource( 33 )]
+visible = false
+self_modulate = Color( 0.254902, 0.176471, 0.0901961, 1 )
+margin_left = 171.0
+margin_right = 338.0
+size_flags_horizontal = 3
+button_text = "Export Save"
+
+[node name="Import" parent="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons/HBoxContainer" instance=ExtResource( 33 )]
+visible = false
+self_modulate = Color( 0.254902, 0.176471, 0.0901961, 1 )
+margin_left = 228.0
+margin_right = 452.0
+size_flags_horizontal = 3
+button_text = "Import Save"
+
 [node name="Save" parent="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons/HBoxContainer" instance=ExtResource( 33 )]
 self_modulate = Color( 0.254902, 0.176471, 0.0901961, 1 )
 margin_left = 342.0
@@ -1455,6 +1471,40 @@ custom_fonts/font = SubResource( 36 )
 text = "Save deleted!
 To permanently remove your save, refresh the web-page.
 To restore your save, click the 'Save Game' button again."
+align = 1
+
+[node name="Export Info" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons"]
+visible = false
+self_modulate = Color( 0.580392, 0.580392, 0.580392, 1 )
+margin_top = 48.0
+margin_right = 680.0
+margin_bottom = 107.0
+custom_fonts/font = SubResource( 36 )
+text = "Save Exported to clipboard!
+Press 'Import Save' on the desktop version to restore your save there."
+align = 1
+
+[node name="Import Info" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons"]
+visible = false
+self_modulate = Color( 0.580392, 0.580392, 0.580392, 1 )
+margin_top = 48.0
+margin_right = 685.0
+margin_bottom = 138.0
+custom_fonts/font = SubResource( 36 )
+text = "Save Imported!
+Press 'Import Save' again to load the save.
+WARNING: This will reset your current save!"
+align = 1
+
+[node name="Import Error" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons"]
+visible = false
+self_modulate = Color( 0.580392, 0.580392, 0.580392, 1 )
+margin_top = 48.0
+margin_right = 685.0
+margin_bottom = 107.0
+custom_fonts/font = SubResource( 36 )
+text = "No valid save file could be imported.
+On the web version, press 'Export Save' and immediately press 'Import Save' here."
 align = 1
 
 [node name="IntroFader" type="ColorRect" parent="uiRoot"]
@@ -1504,5 +1554,7 @@ anims/flash = SubResource( 42 )
 [connection signal="tree_entered" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer2/SoundSlider" to="uiRoot/Options/ColorRect" method="_on_SoundSlider_tree_entered"]
 [connection signal="value_changed" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer2/SoundSlider" to="uiRoot/Options/ColorRect" method="_on_SoundSlider_value_changed"]
 [connection signal="button_clicked" from="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons/HBoxContainer/ResetSave" to="uiRoot/Options/ColorRect" method="_on_ResetSave_button_clicked"]
+[connection signal="button_clicked" from="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons/HBoxContainer/Export" to="uiRoot/Options/ColorRect" method="_on_Export_button_clicked"]
+[connection signal="button_clicked" from="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons/HBoxContainer/Import" to="uiRoot/Options/ColorRect" method="_on_Import_button_clicked"]
 [connection signal="button_clicked" from="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons/HBoxContainer/Save" to="uiRoot/Options/ColorRect" method="_on_Save_button_clicked"]
 [connection signal="animation_finished" from="uiRoot/AscendFlash/AnimationPlayer" to="uiRoot/AscendFlash" method="_on_AnimationPlayer_animation_finished"]

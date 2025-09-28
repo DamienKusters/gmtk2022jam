@@ -66,6 +66,15 @@ func loadGame():
 		x += 1
 	pass
 
+func exportSaveString():
+	var file = File.new()
+	
+	if file.file_exists(save_file_location) == false:
+		file.close()
+		return
+	file.open(save_file_location, File.READ)
+	return file.get_as_text()
+
 func deleteGame():
 	var file = File.new()
 	if file.file_exists(save_file_location) == true:

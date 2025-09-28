@@ -1,0 +1,167 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/sprites/icons/rhombus_question.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/shadow_upgrade_particle.png" type="Texture" id=3]
+[ext_resource path="res://assets/sound/upgrade.mp3" type="AudioStream" id=4]
+[ext_resource path="res://assets/sprites/upgrades/Contract.png" type="Texture" id=5]
+[ext_resource path="res://assets/scripts/openHelp.gd" type="Script" id=6]
+[ext_resource path="res://scenes/destroyer/DestroyerUpgradeButton.gd" type="Script" id=7]
+
+[sub_resource type="StreamTexture" id=16]
+load_path = "res://.import/upgrade_box.png-55baa33a83ffecd635eabf7725610280.stex"
+
+[sub_resource type="DynamicFont" id=17]
+size = 32
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=18]
+size = 50
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="Gradient" id=19]
+offsets = PoolRealArray( 0, 0.759777, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[node name="DestroyerUpgradeButton" type="Control"]
+margin_top = 177.0
+margin_right = 480.0
+margin_bottom = 277.0
+rect_min_size = Vector2( 380, 100 )
+script = ExtResource( 7 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+mix_target = 1
+bus = "Effect"
+
+[node name="bg" type="NinePatchRect" parent="."]
+self_modulate = Color( 0.423529, 0.6, 0.607843, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = SubResource( 16 )
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 5
+patch_margin_bottom = 20
+
+[node name="h" type="HBoxContainer" parent="bg"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 0
+
+[node name="c" type="Control" parent="bg/h"]
+margin_right = 96.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 96, 100 )
+
+[node name="Icon" type="TextureRect" parent="bg/h/c"]
+unique_name_in_owner = true
+self_modulate = Color( 0, 0, 0, 1 )
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+
+[node name="v" type="VBoxContainer" parent="bg/h"]
+margin_left = 96.0
+margin_right = 350.0
+margin_bottom = 100.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="LabelTitle" type="Label" parent="bg/h/v"]
+unique_name_in_owner = true
+margin_top = 5.0
+margin_right = 254.0
+margin_bottom = 48.0
+custom_fonts/font = SubResource( 17 )
+text = "Upgrade Cursor"
+valign = 1
+clip_text = true
+
+[node name="LabelPrice" type="Label" parent="bg/h/v"]
+unique_name_in_owner = true
+margin_top = 52.0
+margin_right = 254.0
+margin_bottom = 95.0
+custom_colors/font_color = Color( 0.0588235, 0.54902, 0.729412, 1 )
+custom_fonts/font = SubResource( 17 )
+text = "$5000"
+valign = 1
+clip_text = true
+
+[node name="c2" type="Control" parent="bg/h"]
+margin_left = 350.0
+margin_right = 480.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 130, 0 )
+
+[node name="LabelLevel" type="Label" parent="bg/h/c2"]
+unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 18 )
+text = "max"
+align = 1
+valign = 1
+
+[node name="particle_point" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2( 415, 54 )
+
+[node name="MouseOverlay" type="Button" parent="."]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
+
+[node name="Help" type="Button" parent="."]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.933
+anchor_right = 1.0
+anchor_bottom = 0.3
+mouse_default_cursor_shape = 2
+script = ExtResource( 6 )
+help_page = "destroyer"
+
+[node name="TextureRect" type="TextureRect" parent="Help"]
+modulate = Color( 0.87451, 0.572549, 0, 1 )
+anchor_left = -0.19
+anchor_top = 0.099
+anchor_right = 0.971
+anchor_bottom = 1.148
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2( 532, 50 )
+emitting = false
+amount = 10
+lifetime = 0.45
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.1
+randomness = 0.16
+texture = ExtResource( 3 )
+direction = Vector2( -1, 0 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 1500.0
+initial_velocity_random = 0.4
+color_ramp = SubResource( 19 )
+hue_variation = 0.04
+hue_variation_random = 1.0
+
+[connection signal="button_down" from="MouseOverlay" to="." method="_on_MouseOverlay_button_down"]
+[connection signal="pressed" from="Help" to="Help" method="_on_Help_pressed"]
