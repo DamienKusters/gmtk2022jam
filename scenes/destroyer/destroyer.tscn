@@ -132,7 +132,7 @@ centered = false
 texture = ExtResource( 7 )
 centered = false
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Backgrounds/Sprite/Destroyer/Sprite"]
+[node name="AnimSpawn" type="AnimationPlayer" parent="Backgrounds/Sprite/Destroyer/Sprite"]
 autoplay = "spawn"
 anims/RESET = SubResource( 10 )
 anims/spawn = SubResource( 11 )

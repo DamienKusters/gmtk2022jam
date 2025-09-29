@@ -21,6 +21,14 @@ func setUpgrades(value):
 	for i in upgrades:
 		$diceContainer.get_child(i).visible = true
 
+func addDice(index):
+	var dice = mechDice.instance()
+	$diceContainer.get_child(index).add_child(dice)
+
+func loadExistingDice():
+	for i in upgrades:
+		addDice(i)
+
 func _ready():
 	$ui/Control/VBoxContainer/DestroyerUpgradeButton.connect("upgrade", self, "upgrade")
 	
@@ -28,10 +36,10 @@ func _ready():
 	setUpgrades(Save.importSave(Enums.SaveFlag.DES_ADD_DICE, 0, true))
 	$ui/Control/Control/LabelEnemy2.text = get_simulated_health_text(MAX_TIME_YEAR_HEALTH)
 	$Timer.start()
+	loadExistingDice()
 	
 func upgrade():
-	var dice = mechDice.instance()
-	$diceContainer.get_child(upgrades).add_child(dice)
+	addDice(upgrades)
 	setUpgrades(upgrades + 1)
 	
 	if health_is_simulated:
