@@ -75,8 +75,8 @@ func update_health():
 		total_duration /= 2.0
 	
 	# TODO: must use fight_start_epoch to retain fight time, if using now() it will always halve it, thus punish when you take longer with the fight.
-	# For 'flavour' below ~15 mins the fight should use now() instead to show the timer ticking down 
-	real_time_health = fight_start_epoch + total_duration
+	# For 'flavour' below ~15 mins the fight should use now() instead to show the timer ticking down
+	real_time_health = fight_start_epoch + total_duration + 15#seconds
 	
 	$ui/Control/Control/LabelEnemy2.text = get_health_text(now, real_time_health)
 
