@@ -18,7 +18,7 @@ var enemyShield = null;
 var rng = RandomNumberGenerator.new();
 var spawn_drone = false
 
-var secondDmg = 0;
+var dpsTimerDamage = 0;
 
 func _ready():
 	var _a = Globals.connect("damageEnemy", self, "damage");
@@ -112,7 +112,7 @@ func damage(value: int, dice: Node2D):
 	
 	var multipliedValue = value * (Globals.ascention_dps_multiplier_value + Save.importSave(Enums.SaveFlag.AS_MULTIPLIER_VALUE, 0))
 	enemyHealth = enemyHealth - multipliedValue;
-	secondDmg += multipliedValue;
+	dpsTimerDamage += multipliedValue;
 	if(enemyHealth <= 0):
 		match(enemy_loot):
 			Enums.LootType.CURRENCY:
@@ -188,12 +188,14 @@ func try_set_sfeather_multiplier_text():
 		$VBoxContainer/SFeathersLabel.visible = true
 
 func _on_dpsTimer_timeout():
-	var damage = String(secondDmg)
+	var damage = String(dpsTimerDamage)
+	
+	var secondDamage = dpsTimerDamage / $dpsTimer.wait_time
 
-	if secondDmg > 1000000:
-		damage = String(round(secondDmg / 1000000)) + "M"
-	elif secondDmg > 1000:
-		damage = String(round(secondDmg / 1000)) + "K"
+	if secondDamage > 1000000:
+		damage = String(round(secondDamage / 1000000)) + "M"
+	elif secondDamage > 1000:
+		damage = String(round(secondDamage / 1000)) + "K"
 	
 	$VBoxContainer/DpsLabel.text = "DPS: " + damage
-	secondDmg = 0
+	dpsTimerDamage = 0

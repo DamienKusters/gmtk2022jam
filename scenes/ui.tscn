@@ -1196,6 +1196,7 @@ custom_fonts/font = SubResource( 17 )
 text = "S.Feathers x 1"
 
 [node name="dpsTimer" type="Timer" parent="uiRoot/enemyUi"]
+wait_time = 5.0
 autostart = true
 
 [node name="Control2" type="Control" parent="uiRoot/enemyUi"]
