@@ -14,7 +14,7 @@ func ascend():
 		ascendConfirmed = true
 		$ui/menu/AscendNotification.show()
 		return
-	Save.exportSave(Enums.SaveFlag.CURRENCY, Globals.featherValue * (10 * Globals.feathers))
+	Save.exportSave(Enums.SaveFlag.CURRENCY, Globals.featherValue * (50 * Globals.feathers))
 	Save.exportSave(Enums.SaveFlag.FEATHERS, 0)
 	Save.exportSave(Enums.SaveFlag.U_ADD_DICE, 0)
 	Save.exportSave(Enums.SaveFlag.U_UPGRADE_DICE, 0)
