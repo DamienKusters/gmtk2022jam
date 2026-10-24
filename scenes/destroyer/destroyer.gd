@@ -9,9 +9,6 @@ const MAX_TIME_YEAR_HEALTH: float = 10000000.0 # 10 million years
 
 var upgrades setget setUpgrades
 
-const EPOCH_THOUSAND_YEARS: float = 31556995200.00
-const SIMULATED_UPGRADES: int = 13
-
 var real_time_health: float
 
 func setUpgrades(value):
@@ -59,24 +56,13 @@ func update_simulated_health():
 	
 	if year_time_health <= 1000:
 		health_is_simulated = false
-		real_time_health = fight_start_epoch + EPOCH_THOUSAND_YEARS
+		real_time_health = fight_start_epoch + Globals.EPOCH_THOUSAND_YEARS
 		return update_health()
 	$"%HealthLabel".text = get_simulated_health_text(year_time_health)
 
 func update_health():
 	var now = floor(Time.get_unix_time_from_system())
-	var u = upgrades - SIMULATED_UPGRADES
-	
-	# Start from full duration
-	var total_duration = EPOCH_THOUSAND_YEARS
-	
-	# Halve the duration based on real upgrades
-	for i in range(u):
-		total_duration /= 2.0
-	
-	# TODO: must use fight_start_epoch to retain fight time, if using now() it will always halve it, thus punish when you take longer with the fight.
-	# For 'flavour' below ~15 mins the fight should use now() instead to show the timer ticking down
-	real_time_health = fight_start_epoch + total_duration + 15#seconds
+	real_time_health = Globals.get_destroyer_time_remaining_epoch()
 	
 	$"%HealthLabel".text = get_health_text(now, real_time_health)
 

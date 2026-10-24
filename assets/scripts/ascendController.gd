@@ -1,5 +1,7 @@
 extends Control
 
+signal spawn_screen_finished
+
 func _init():
 	if Globals.dFeathers > 0:
 		Save.exportSave(Enums.SaveFlag.DARK_FEATHERS_COLLECTED, 1)
@@ -56,3 +58,6 @@ func _on_upgrades_pressed(id: int):
 			$ui/fader/dark.visible = true
 		2:
 			var _e = get_tree().change_scene("res://scenes/destroyer/destroyer.tscn");
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	emit_signal("spawn_screen_finished")

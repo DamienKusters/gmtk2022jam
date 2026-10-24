@@ -34,6 +34,10 @@ var ascention_reroller_level = 0;
 var options_music = 1;
 var options_sound = 2;
 
+# From destroyer
+const EPOCH_THOUSAND_YEARS: float = 31556995200.00
+const SIMULATED_UPGRADES: int = 13
+
 #TODO: global rng object & seeded object
 var rng = RandomNumberGenerator.new()
 
@@ -112,3 +116,17 @@ func reload():
 	if reroller > ascention_reroller_value:
 		ascention_reroller_value = reroller
 	Save.exportSave(Enums.SaveFlag.U_REROLL, ascention_reroller_value);
+
+func get_destroyer_time_remaining_epoch():
+	var fight_start_epoch = Save.importSave(Enums.SaveFlag.DES_FIGHT_START_EPOCH, 0, true)
+	var upgrades = Save.importSave(Enums.SaveFlag.DES_ADD_DICE, 0, true)
+	var u = upgrades - SIMULATED_UPGRADES
+	var total_duration = EPOCH_THOUSAND_YEARS
+	
+	# Halve the duration based on real upgrades
+	for i in range(u):
+		total_duration /= 2.0
+	
+	# TODO: must use fight_start_epoch to retain fight time, if using now() it will always halve it, thus punish when you take longer with the fight.
+	# For 'flavour' below ~15 mins the fight should use now() instead to show the timer ticking down
+	return fight_start_epoch + total_duration + 15#seconds

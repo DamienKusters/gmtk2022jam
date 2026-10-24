@@ -81,7 +81,7 @@ func initEnemyPool():
 		EnemyTier.new([#killed necro maxed on DPS 7
 			EnemyModel.new("Skeleton", 8000, 1800),
 			EnemyModel.new("Wizard", 10500, 2023),
-			EnemyModel.new("Wraith", 11500, 2200),
+			EnemyModel.new("Wraith", 11500, 2200, "Wrath"),
 			EnemyModel.new("Necromancer", 13000, 2500, "Necromancer",Enums.DiceEnum.D12),
 		], .07),
 		EnemyTier.new([#killed power maxed on DPS 12
