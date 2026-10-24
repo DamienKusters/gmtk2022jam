@@ -34,13 +34,14 @@ func _ready():
 	
 	fight_start_epoch = Save.importSave(Enums.SaveFlag.DES_FIGHT_START_EPOCH, 0, true)
 	setUpgrades(Save.importSave(Enums.SaveFlag.DES_ADD_DICE, 0, true))
-	$ui/Control/Control/LabelEnemy2.text = get_simulated_health_text(MAX_TIME_YEAR_HEALTH)
+	upgrade(true)
 	$Timer.start()
 	loadExistingDice()
 	
-func upgrade():
-	addDice(upgrades)
-	setUpgrades(upgrades + 1)
+func upgrade(skip_upgrades = false):
+	if skip_upgrades == false:
+		addDice(upgrades)
+		setUpgrades(upgrades + 1)
 	
 	if health_is_simulated:
 		update_simulated_health()
@@ -61,7 +62,7 @@ func update_simulated_health():
 		health_is_simulated = false
 		real_time_health = fight_start_epoch + EPOCH_THOUSAND_YEARS
 		return update_health()
-	$ui/Control/Control/LabelEnemy2.text = get_simulated_health_text(year_time_health)
+	$"%HealthLabel".text = get_simulated_health_text(year_time_health)
 
 func update_health():
 	var now = floor(Time.get_unix_time_from_system())
@@ -78,11 +79,11 @@ func update_health():
 	# For 'flavour' below ~15 mins the fight should use now() instead to show the timer ticking down
 	real_time_health = fight_start_epoch + total_duration + 15#seconds
 	
-	$ui/Control/Control/LabelEnemy2.text = get_health_text(now, real_time_health)
+	$"%HealthLabel".text = get_health_text(now, real_time_health)
 
 func update_health_text():
 	var now = floor(Time.get_unix_time_from_system())
-	$ui/Control/Control/LabelEnemy2.text = get_health_text(now, now + get_remaining_time_epoch(now))
+	$"%HealthLabel".text = get_health_text(now, now + get_remaining_time_epoch(now))
 
 func get_remaining_time_epoch(now):
 	return real_time_health - now

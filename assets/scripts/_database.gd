@@ -103,7 +103,7 @@ var dark_enemy_pool = [
 		EnemyModel.new("Corrosive Jelly", 45000, 7600, "GelatinousCube"),
 	], .33, Enums.LootType.DARK_FEATHERS),
 	EnemyTier.new([
-		EnemyModel.new("Cobald Wolf", 50000, 8000, "Cobald_Wolf"),
+		EnemyModel.new("Cobalt Wolf", 50000, 8000, "Cobald_Wolf"),
 		EnemyModel.new("Venomous Wasp", 70000, 15000, "GiantHornetB"),
 		EnemyModel.new("Hellhound", 64000, 10000, "Salamander"),
 	], .25, Enums.LootType.DARK_FEATHERS),
@@ -226,7 +226,7 @@ var upgrades = {
 	},
 	"boutiful_harvest": {
 		"name": "Boutiful Harvest",
-		"description": "Additional upgrade of 'Harvest Dice'\nConverts dice into feathers or shadow feathers with a chance of receiving bolts instead.\n\n'Boutiful' is a play on the word Bountiful, using the dutch word 'bout' meaning; 'bolt'",
+		"description": "Additional upgrade of 'Harvest Dice'\nConverts dice into feathers or shadow feathers with a chance of receiving bolts instead.\nIncrease bolt drop chances by upgrading it during ascention.\n\n'Boutiful' is a play on the word Bountiful, using the dutch word 'bout' meaning; 'bolt'",
 		"icon": load("res://assets/sprites/upgrades/Boutiful_Harvest.png"),
 		"helpIndex": 12,
 	}
@@ -350,13 +350,8 @@ var help = {
 		},
 		{
 			"name": "Add Mecha-dice",
-			"description": "",
+			"description": "Add a mecha-dice to damage The Destroyer.\n\nEach additional mecha-dice doubles the damage!",
 			"icon": load("res://assets/sprites/upgrades/Dice_Tray.png"),
-		},
-		{
-			"name": "Upgrade Mecha-dice",
-			"description": "",
-			"icon": load("res://assets/sprites/upgrades/Upgrade_Dice_Mechanical.png"),
 		},
 	]
 }

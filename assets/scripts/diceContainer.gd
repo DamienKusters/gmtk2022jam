@@ -72,7 +72,15 @@ func add_dice(dice):
 #	Save.saveGame()# ADD DICE NOT SAVING CORRECTLY WHEN DOING INFNIITE BUY
 
 func deleteDice():
-	var d = get_children().back()
+	var dice = get_children()
+	dice.invert()
+	var d
+	for _d in dice:
+		if _d.active:
+			d = _d
+			break;
+	if d == null:
+		return
 	var p = particle.instance()
 	var amount
 	

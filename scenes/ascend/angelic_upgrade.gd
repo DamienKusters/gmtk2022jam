@@ -30,7 +30,10 @@ func _on_Roll_pressed():
 		if value == d['value']:
 			return;
 		rng.randomize();
-		value = rng.randi_range(1,d['value']);
+		value = max(
+			rng.randi_range(1,d['value']),
+			rng.randi_range(1,d['value'])
+		)
 		Save.exportSave(value_flag, value)
 		Globals.removeFeathers(roll_price);
 		particles(roll_price)
