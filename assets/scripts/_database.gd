@@ -81,7 +81,7 @@ func initEnemyPool():
 		EnemyTier.new([#killed necro maxed on DPS 7
 			EnemyModel.new("Skeleton", 8000, 1800),
 			EnemyModel.new("Wizard", 10500, 2023),
-			EnemyModel.new("Wrath", 11500, 2200),
+			EnemyModel.new("Wraith", 11500, 2200),
 			EnemyModel.new("Necromancer", 13000, 2500, "Necromancer",Enums.DiceEnum.D12),
 		], .07),
 		EnemyTier.new([#killed power maxed on DPS 12
@@ -240,7 +240,7 @@ var help = {
 		},
 		{
 			"name": "Bounty & Feathers",
-			"description": "Defeating enemies will grant you bounty to spent on upgrades.\n\nFeathers are a rare drop from enemies, you may use feathers to unlock permanent buffs upon ascending. Feathers are not persisted in between ascensions.\n\nShadow feathers are used to unlock Shadow Upgrades upon ascending. Shadow feathers are persisted in between ascensions.",
+			"description": "Defeating enemies will grant you bounty to spend on upgrades.\n\nFeathers are a rare drop from enemies, you may use feathers to unlock permanent buffs upon ascending. Feathers are not persisted in between ascensions.\n\nShadow feathers are used to unlock Shadow Upgrades upon ascending. Shadow feathers are persisted in between ascensions.",
 		},
 		{
 			"name": "Enemies",
@@ -252,7 +252,7 @@ var help = {
 		},
 		{
 			"name": "Contract progression",
-			"description": "When leveling the 'Contract' upgrade, you are tasked to defeat a specific enemy in order to continue leveling the contract.\n\nThe more difficult the enemies, the more bounty and feathers you will receive from them.",
+			"description": "When levelling the 'Contract' upgrade, you are tasked to defeat a specific enemy in order to continue levelling contract.\n\nThe more difficult the enemies, the more bounty and feathers you will receive from them.",
 		},
 		{
 			"name": "Ascending",
@@ -340,7 +340,7 @@ var help = {
 	"destroyer": [
 		{
 			"name": "The Destroyer",
-			"description": "The Destroyer has awakend to reign over the lands.\nThis is the final challenge of: Dice & Dragons - Extended",
+			"description": "The Destroyer has awakened to reign over the lands.\nThis is the final challenge of: Dice & Dragons - Extended",
 			"contextImage": load("res://assets/sprites/enemies/DestroyerV2_noshadow.png"),
 		},
 		{

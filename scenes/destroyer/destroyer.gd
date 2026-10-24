@@ -50,8 +50,7 @@ func upgrade(skip_upgrades = false):
 	
 	if fight_start_epoch == 0:
 		fight_start_epoch = floor(Time.get_unix_time_from_system())
-		# TODO: DO NOT SAVE IN FIGHT; WILL MESS WITH REAL SAVE FILE
-		Save.exportSave(Enums.SaveFlag.DES_FIGHT_START_EPOCH, fight_start_epoch, true)
+		Save.exportSave(Enums.SaveFlag.DES_FIGHT_START_EPOCH, fight_start_epoch, false)
 
 func update_simulated_health():
 	var year_time_health = MAX_TIME_YEAR_HEALTH
