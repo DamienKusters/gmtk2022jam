@@ -25,6 +25,12 @@ func _ready():
 	var _b = Globals.connect("feathersUpdated", self, 'showAdvancedUi');
 	var _c = Globals.connect("boltsUpdated", self, 'showAdvancedUi');
 	var _d = Globals.connect("dFeathersUpdated", self, 'showAdvancedUi');
+	if duBountyMultiplier < 1:
+		duBountyMultiplier = 1
+	if duFeatherMultiplier < 1:
+		duFeatherMultiplier = 1
+	if duSFeatherMultiplier < 1:
+		duSFeatherMultiplier = 1
 	respawnEnemy();
 	$"../VBoxContainer/inventory/inv_basic".visible = true
 	$"../VBoxContainer/inventory/inv_advanced".visible = false
@@ -38,13 +44,6 @@ func _ready():
 	try_set_bounty_multiplier_text()
 	try_set_feather_multiplier_text()
 	try_set_sfeather_multiplier_text()
-	
-	if duBountyMultiplier < 1:
-		duBountyMultiplier = 1
-	if duFeatherMultiplier < 1:
-		duFeatherMultiplier = 1
-	if duSFeatherMultiplier < 1:
-		duSFeatherMultiplier = 1
 	
 	Save.connect("save_exported", self, "saveUpdated")
 	saveUpdated()
