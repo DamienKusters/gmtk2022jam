@@ -13,6 +13,7 @@ onready var rubble_particles_node = get_node(rubble_particles)
 onready var ascend_animation_player_node = get_node(ascend_animation_player)
 
 var crashed = false
+var first_run = true
 
 func _ready():
 	get_parent().connect("ready", self, "_on_DestroyerVisualIndicator_timeout")
@@ -30,10 +31,15 @@ func _on_DestroyerVisualIndicator_timeout():
 	smoke_particles_node.emitting = remaining <= 300 # 5 minutes remaining
 	rubble_particles_node.emitting = remaining <= 60 # 1 minute remaining
 	
+	if first_run == false:
+		check_crash()
+	first_run = false
+	
+	
 func check_crash():
-	ascend_animation_player_node.stop()
 	var remaining = Globals.get_destroyer_time_remaining_epoch() - floor(Time.get_unix_time_from_system())
 	if for_use_in_ascention && remaining <= 0:
+		ascend_animation_player_node.stop()
 		$"../AnimationPlayer".play("crash")
 		$"../../../../ui".visible = false
 		crashed = true

@@ -1092,6 +1092,7 @@ color = Color( 1, 1, 1, 0 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="canvas/bg/destroyer/Timer" to="canvas/bg/destroyer" method="triggerDestroyerShowButton"]
+[connection signal="timeout" from="canvas/bg/destroyer/DestroyerVisualIndicator" to="canvas/bg/destroyer/DestroyerVisualIndicator" method="_on_DestroyerVisualIndicator_timeout"]
 [connection signal="pressed" from="ui/menu/Aupgrades" to="." method="_on_upgrades_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="ui/menu/Node/Dupgrades" to="." method="_on_upgrades_pressed" binds= [ 1 ]]
 [connection signal="pressed" from="ui/menu/Node2/Gupgrades" to="." method="_on_upgrades_pressed" binds= [ 2 ]]

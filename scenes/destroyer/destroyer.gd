@@ -68,7 +68,10 @@ func update_health():
 
 func update_health_text():
 	var now = floor(Time.get_unix_time_from_system())
-	$"%HealthLabel".text = get_health_text(now, now + get_remaining_time_epoch(now))
+	var remaining = now + get_remaining_time_epoch(now)
+	if remaining - now <= 0:
+		$ui/Control/MenuButtons._on_back_button_clicked()
+	$"%HealthLabel".text = get_health_text(now, remaining)
 
 func get_remaining_time_epoch(now):
 	return real_time_health - now
@@ -142,15 +145,15 @@ func get_health_text(now_epoch: float, epoch: float) -> String:
 	elif days > 0:
 		return "{d} days, {h}:{mm}:{s}".format({
 			"d": days,
-			"h": hours,
-			"mm": minutes,
-			"s": seconds,
+			"h": str(hours).pad_zeros(2),
+			"mm": str(minutes).pad_zeros(2),
+			"s": str(seconds).pad_zeros(2),
 		})
 	else:
 		return "{h}:{mm}:{s}".format({
-			"h": hours,
-			"mm": minutes,
-			"s": seconds,
+			"h": str(hours).pad_zeros(2),
+			"mm": str(minutes).pad_zeros(2),
+			"s": str(seconds).pad_zeros(2),
 		})
 
 func _on_Timer_timeout():
