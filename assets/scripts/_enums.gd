@@ -64,5 +64,4 @@ enum SaveFlag {
 	#Destroyer fight
 	DES_FIGHT_START_EPOCH,
 	DES_ADD_DICE,
-	DES_UPGRADE_DICE,
 }

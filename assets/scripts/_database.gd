@@ -353,5 +353,10 @@ var help = {
 			"description": "Add a mecha-dice to damage The Destroyer.\n\nEach additional mecha-dice doubles the damage!",
 			"icon": load("res://assets/sprites/upgrades/Dice_Tray.png"),
 		},
+		#{
+		#	"name": "Upgrade Boutiful Harvest",
+		#	"description": "Add a mecha-dice to damage The Destroyer.\n\nEach additional mecha-dice doubles the damage!",
+		#	"icon": load("res://assets/sprites/upgrades/Dice_Tray.png"),
+		#},
 	]
 }

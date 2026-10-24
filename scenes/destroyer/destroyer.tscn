@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://assets/sprites/bg2/parallax-mountain-bg.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/bg2/sun.png" type="Texture" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://scenes/destroyer/DestroyerUpgradeButton.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/sprites/ui/upgrade/upgrade_box.png" type="Texture" id=16]
 [ext_resource path="res://scenes/destroyer/destroyer_idle_animation.gd" type="Script" id=17]
+[ext_resource path="res://assets/sprites/upgrades/Boutiful_Harvest.png" type="Texture" id=18]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.188482 )
@@ -384,6 +385,18 @@ levelupPriceIncrease = 1
 levelupPricePercentIncrease = 0
 saveFlag = 41
 levelCap = 30
+
+[node name="BoutifulHarvestButton" parent="ui/Control/VBoxContainer" instance=ExtResource( 15 )]
+visible = false
+margin_top = 190.0
+margin_bottom = 290.0
+label = "Boutiful Harvest"
+spriteTexture = ExtResource( 18 )
+help_index = 2
+basePrice = 3
+levelupPriceIncrease = 5
+saveFlag = 39
+levelCap = 18
 
 [node name="MenuButtons" type="HBoxContainer" parent="ui/Control"]
 anchor_left = 0.7
