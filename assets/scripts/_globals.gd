@@ -117,9 +117,9 @@ func reload():
 		ascention_reroller_value = reroller
 	Save.exportSave(Enums.SaveFlag.U_REROLL, ascention_reroller_value);
 
-func get_destroyer_time_remaining_epoch():
+func get_destroyer_time_remaining_epoch(_upgrades = null):
 	var fight_start_epoch = Save.importSave(Enums.SaveFlag.DES_FIGHT_START_EPOCH, 0, true)
-	var upgrades = Save.importSave(Enums.SaveFlag.DES_ADD_DICE, 0, true)
+	var upgrades = _upgrades if _upgrades else Save.importSave(Enums.SaveFlag.DES_ADD_DICE, 0, true)
 	var u = upgrades - SIMULATED_UPGRADES
 	var total_duration = EPOCH_THOUSAND_YEARS
 	

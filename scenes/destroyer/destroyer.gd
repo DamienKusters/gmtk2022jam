@@ -59,10 +59,11 @@ func update_simulated_health():
 
 func update_health_text():
 	var now = floor(Time.get_unix_time_from_system())
-	var remaining = Globals.get_destroyer_time_remaining_epoch()
+	var remaining = Globals.get_destroyer_time_remaining_epoch(upgrades)
 	if remaining - now <= 0:
 		$ui/Control/MenuButtons._on_back_button_clicked()
 	$"%HealthLabel".text = get_health_text(now, remaining)
+	print($"%HealthLabel".text)
 
 # Returns health text that does not update
 func get_simulated_health_text(years: float) -> String:
