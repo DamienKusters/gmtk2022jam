@@ -9,8 +9,6 @@ const MAX_TIME_YEAR_HEALTH: float = 10000000.0 # 10 million years
 
 var upgrades setget setUpgrades
 
-var real_time_health: float
-
 func setUpgrades(value):
 	upgrades = value
 	for c in $diceContainer.get_children():
@@ -43,7 +41,7 @@ func upgrade(skip_upgrades = false):
 	if health_is_simulated:
 		update_simulated_health()
 	else:
-		update_health()
+		update_health_text()
 	
 	if fight_start_epoch == 0:
 		fight_start_epoch = floor(Time.get_unix_time_from_system())
@@ -56,25 +54,15 @@ func update_simulated_health():
 	
 	if year_time_health <= 1000:
 		health_is_simulated = false
-		real_time_health = fight_start_epoch + Globals.EPOCH_THOUSAND_YEARS
-		return update_health()
+		return update_health_text()
 	$"%HealthLabel".text = get_simulated_health_text(year_time_health)
-
-func update_health():
-	var now = floor(Time.get_unix_time_from_system())
-	real_time_health = Globals.get_destroyer_time_remaining_epoch()
-	
-	$"%HealthLabel".text = get_health_text(now, real_time_health)
 
 func update_health_text():
 	var now = floor(Time.get_unix_time_from_system())
-	var remaining = now + get_remaining_time_epoch(now)
+	var remaining = Globals.get_destroyer_time_remaining_epoch()
 	if remaining - now <= 0:
 		$ui/Control/MenuButtons._on_back_button_clicked()
 	$"%HealthLabel".text = get_health_text(now, remaining)
-
-func get_remaining_time_epoch(now):
-	return real_time_health - now
 
 # Returns health text that does not update
 func get_simulated_health_text(years: float) -> String:

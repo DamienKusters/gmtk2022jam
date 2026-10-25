@@ -129,4 +129,4 @@ func get_destroyer_time_remaining_epoch():
 	
 	# TODO: must use fight_start_epoch to retain fight time, if using now() it will always halve it, thus punish when you take longer with the fight.
 	# For 'flavour' below ~15 mins the fight should use now() instead to show the timer ticking down
-	return fight_start_epoch + total_duration + 15#seconds
+	return fight_start_epoch + total_duration - 172800 - 64800 - 2400 # minus 2 days, 18 hours, 40 minutes
