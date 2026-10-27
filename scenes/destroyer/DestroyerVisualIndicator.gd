@@ -23,22 +23,35 @@ func _ready():
 func _on_DestroyerVisualIndicator_timeout():
 	if crashed:
 		return
-	
-	var remaining = Globals.get_destroyer_time_remaining_epoch() - floor(Time.get_unix_time_from_system())
-	
-	if animation_player_node.current_animation != animation_player_blink && remaining <= 600: # 10 minutes remaining
+
+	var deadline = Globals.get_destroyer_time_remaining_epoch()
+	if deadline == 0:
+		return
+
+	var remaining = deadline - floor(Time.get_unix_time_from_system())
+
+	if animation_player_node.current_animation != animation_player_blink && remaining <= 600:
 		animation_player_node.play(animation_player_blink)
-	smoke_particles_node.emitting = remaining <= 300 # 5 minutes remaining
-	rubble_particles_node.emitting = remaining <= 60 # 1 minute remaining
-	
-	if first_run == false:
+
+	smoke_particles_node.emitting = remaining <= 300# 5 min remaining
+	rubble_particles_node.emitting = remaining <= 60# 1 min remaining
+
+	if not first_run:
 		check_crash()
+
 	first_run = false
-	
-	
+
+
 func check_crash():
-	var remaining = Globals.get_destroyer_time_remaining_epoch() - floor(Time.get_unix_time_from_system())
-	if for_use_in_ascention && remaining <= 0:
+	if crashed or not for_use_in_ascention:
+		return
+
+	var deadline = Globals.get_destroyer_time_remaining_epoch()
+	if deadline == 0:
+		return
+
+	var remaining = deadline - floor(Time.get_unix_time_from_system())
+	if remaining <= 0:
 		ascend_animation_player_node.stop()
 		$"../AnimationPlayer".play("crash")
 		$"../../../../ui".visible = false

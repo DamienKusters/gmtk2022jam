@@ -37,6 +37,23 @@ func upgrade(skip_upgrades = false):
 	if skip_upgrades == false:
 		addDice(upgrades)
 		setUpgrades(upgrades + 1)
+		var now = OS.get_unix_time()
+		var deadline = Globals.get_destroyer_time_remaining_epoch(upgrades)
+
+		if deadline - now < 30:
+			var adjustment = 30 - (deadline - now)
+			var start_epoch = Save.importSave(
+				Enums.SaveFlag.DES_FIGHT_START_EPOCH,
+				0,
+				true
+			)
+
+			start_epoch += adjustment
+			Save.exportSave(
+				Enums.SaveFlag.DES_FIGHT_START_EPOCH,
+				start_epoch,
+				false
+			)
 	
 	if health_is_simulated:
 		update_simulated_health()
@@ -63,7 +80,6 @@ func update_health_text():
 	if remaining - now <= 0:
 		$ui/Control/MenuButtons._on_back_button_clicked()
 	$"%HealthLabel".text = get_health_text(now, remaining)
-	print($"%HealthLabel".text)
 
 # Returns health text that does not update
 func get_simulated_health_text(years: float) -> String:

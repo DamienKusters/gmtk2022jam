@@ -563,6 +563,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=42]
 resource_name = "flash"
@@ -578,6 +590,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0.0862745, 0.0313726, 0.0196078, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [node name="ui" type="CanvasLayer"]
@@ -1526,9 +1550,9 @@ anims/spawn = SubResource( 35 )
 visible = false
 
 [node name="AscendFlash" type="ColorRect" parent="uiRoot"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 2
 color = Color( 1, 1, 1, 0 )
 script = ExtResource( 39 )
 __meta__ = {
@@ -1548,8 +1572,8 @@ anims/flash = SubResource( 42 )
 [connection signal="button_clicked" from="uiRoot/MenuButtons/help" to="uiRoot/MenuButtons" method="showHelp"]
 [connection signal="button_down" from="uiRoot/TextureRect/Button" to="uiRoot/TextureRect" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/Options/Button" to="uiRoot/Options" method="_on_Button_button_down"]
-[connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="resetSaveButtonText"]
 [connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="_on_ColorRect_visibility_changed"]
+[connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="resetSaveButtonText"]
 [connection signal="tree_entered" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer/MusicSlider" to="uiRoot/Options/ColorRect" method="_on_MusicSlider_tree_entered"]
 [connection signal="value_changed" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer/MusicSlider" to="uiRoot/Options/ColorRect" method="_on_MusicSlider_value_changed"]
 [connection signal="tree_entered" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer2/SoundSlider" to="uiRoot/Options/ColorRect" method="_on_SoundSlider_tree_entered"]
