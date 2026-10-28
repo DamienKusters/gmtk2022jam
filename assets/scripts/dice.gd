@@ -45,9 +45,9 @@ func roll():
 	$Timer.wait_time = rng.randf_range(Globals.minDiceRollTime,Globals.maxDiceRollTime)
 	$Timer.start()
 	$Tween.stop_all()
-	$Sprite.modulate = Color("2effffff")
-	
 	$RollTween.stop_all()
+	$Sprite.modulate = Color("2effffff")# lightly transparent
+	
 	$RollTween.interpolate_property($Sprite, "rotation_degrees", 0, 360.0, 2, Tween.EASE_OUT);
 	$RollTween.start()
 	$Label.text = "";
@@ -67,7 +67,7 @@ func _on_Area2D_input_event(_viewport, event, _shape_idx):
 		if(rolling):
 			return
 		$Tween.stop_all()
-		$Sprite.modulate = Color("2effffff")
+		$Sprite.modulate = Color("2effffff")# lightly transparent
 		roll()
 		playRandomRollSound()
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW);
@@ -107,7 +107,6 @@ func _on_Timer_timeout():
 	$RollTween.stop_all()
 	$Tween.stop_all()
 	$Sprite.scale = Vector2(1,1)
-	$Sprite.rotation_degrees = 0
 	
 	$Tween.interpolate_property($Sprite, "modulate", $Sprite.modulate, Color(1,1,1,1),.5,Tween.TRANS_BACK)
 	$Tween.interpolate_property($Sprite, "rotation_degrees",$Sprite.rotation_degrees, 360.0,1.5,Tween.TRANS_BACK,Tween.EASE_OUT)
@@ -118,11 +117,18 @@ func _on_Area2D_mouse_entered():
 		return
 	if rolling == false:
 		Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+		$Sprite.rotation_degrees = 0
+		$Tween.interpolate_property($Sprite, "rotation_degrees",$Sprite.rotation_degrees, -15,.7,Tween.TRANS_ELASTIC,Tween.EASE_OUT)
+		$Tween.start()
 
 func _on_Area2D_mouse_exited():
 	if(active == false):
 		return
 	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
+	if rolling == false:
+		$Tween.interpolate_property($Sprite, "rotation_degrees",$Sprite.rotation_degrees, 0,.7,Tween.TRANS_ELASTIC,Tween.EASE_OUT)
+		$Tween.start()
+
 
 func exportSave():
 	return str(kind);

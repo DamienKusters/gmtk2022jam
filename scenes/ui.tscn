@@ -1,7 +1,8 @@
-[gd_scene load_steps=79 format=2]
+[gd_scene load_steps=82 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/sprites/upgrades/crit.png" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/almendra-all-400-normal.woff" type="DynamicFontData" id=4]
 [ext_resource path="res://scenes/upgrade.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/sprites/upgrades/Upgrade_Dice_100_Icon.png" type="Texture" id=6]
@@ -55,6 +56,38 @@ size = 33
 outline_size = 1
 use_filter = true
 font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=43]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.560784, 0.411765, 0.0705882, 1 ) ]
+}
+
+[sub_resource type="Animation" id=44]
+resource_name = "pulse"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.560784, 0.411765, 0.0705882, 1 ), Color( 0.713726, 0.52549, 0.0901961, 1 ) ]
+}
 
 [sub_resource type="DynamicFont" id=25]
 size = 60
@@ -619,7 +652,7 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="AscendButton" type="NinePatchRect" parent="uiRoot"]
-self_modulate = Color( 0.556863, 0.407843, 0.0666667, 1 )
+self_modulate = Color( 0.560784, 0.411765, 0.0705882, 1 )
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -597.0
@@ -653,6 +686,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_default_cursor_shape = 2
 flat = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="uiRoot/AscendButton"]
+autoplay = "pulse"
+anims/RESET = SubResource( 43 )
+anims/pulse = SubResource( 44 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="uiRoot"]
 anchor_left = 0.7
@@ -1000,6 +1038,20 @@ spriteTexture = ExtResource( 43 )
 saveFlag = 15
 super_upgrade = true
 help_index = 11
+
+[node name="u_crit" parent="uiRoot/VBoxContainer" instance=ExtResource( 5 )]
+visible = false
+margin_top = 665.0
+margin_bottom = 765.0
+title = "Critical Dice"
+basePrice = 50
+levelupPriceIncrease = 120
+levelupPricePercentIncrease = 37
+kind = 6
+levelCap = 8
+spriteTexture = ExtResource( 3 )
+saveFlag = 9
+help_index = 5
 
 [node name="enemyUi" type="Control" parent="uiRoot"]
 anchor_right = 0.7
@@ -1572,8 +1624,8 @@ anims/flash = SubResource( 42 )
 [connection signal="button_clicked" from="uiRoot/MenuButtons/help" to="uiRoot/MenuButtons" method="showHelp"]
 [connection signal="button_down" from="uiRoot/TextureRect/Button" to="uiRoot/TextureRect" method="_on_Button_button_down"]
 [connection signal="button_down" from="uiRoot/Options/Button" to="uiRoot/Options" method="_on_Button_button_down"]
-[connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="_on_ColorRect_visibility_changed"]
 [connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="resetSaveButtonText"]
+[connection signal="visibility_changed" from="uiRoot/Options/ColorRect" to="uiRoot/Options/ColorRect" method="_on_ColorRect_visibility_changed"]
 [connection signal="tree_entered" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer/MusicSlider" to="uiRoot/Options/ColorRect" method="_on_MusicSlider_tree_entered"]
 [connection signal="value_changed" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer/MusicSlider" to="uiRoot/Options/ColorRect" method="_on_MusicSlider_value_changed"]
 [connection signal="tree_entered" from="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer2/SoundSlider" to="uiRoot/Options/ColorRect" method="_on_SoundSlider_tree_entered"]
