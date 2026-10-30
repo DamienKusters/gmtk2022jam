@@ -189,7 +189,7 @@ var upgrades = {
 	},
 	"harvest_dice": {
 		"name": "Harvest Dice",
-		"description": "Shadow upgrade of 'Add Dice'\nConverts dice into feathers or shadow feathers\n\nCan be upgraded to 'Boutiful Harvest'",
+		"description": "Shadow upgrade of 'Add Dice'\nConverts dice into feathers or shadow feathers\n\nCan be upgraded to 'Boutiful Harvest'\nWarning; you will lose DPS on each purchase!",
 		"icon": load("res://assets/sprites/upgrades/Delete_Dice_Icon.png"),
 		"helpIndex": 6,
 	},
@@ -202,7 +202,7 @@ var upgrades = {
 	},
 	"quickroll": {
 		"name": "Quickroll",
-		"description": "Shadow upgrade of 'Dungeon Master'\nOn clicking, you automatically roll the amount of dice same as its level.",
+		"description": "Shadow upgrade of 'Dungeon Master'\nOn clicking, you additionally roll the amount of dice same as its level.",
 		"icon": load("res://assets/sprites/upgrades/Quickroll.png"),
 		"helpIndex": 8,
 	},

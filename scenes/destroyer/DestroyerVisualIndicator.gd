@@ -54,5 +54,10 @@ func check_crash():
 	if remaining <= 0:
 		ascend_animation_player_node.stop()
 		$"../AnimationPlayer".play("crash")
+		$"../AnimationPlayer".connect("animation_finished", self, "animation_finished")
 		$"../../../../ui".visible = false
 		crashed = true
+
+func animation_finished(anim):
+	if anim == 'crash':
+		get_tree().change_scene("res://scenes/constellations/Constellations.tscn");
