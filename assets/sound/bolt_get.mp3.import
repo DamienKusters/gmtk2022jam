@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/bolt_get.mp3-a449e807593ec0f2adb483d00f88799b.mp3str"
+
+[deps]
+
+source_file="res://assets/sound/bolt_get.mp3"
+dest_files=[ "res://.import/bolt_get.mp3-a449e807593ec0f2adb483d00f88799b.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

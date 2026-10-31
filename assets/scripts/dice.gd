@@ -41,6 +41,7 @@ func roll():
 	if(rolling || active == false):
 		return
 	rolling = true
+	$RollParticles.set_emitting(true)
 	rng.randomize()
 	$Timer.wait_time = rng.randf_range(Globals.minDiceRollTime,Globals.maxDiceRollTime)
 	$Timer.start()

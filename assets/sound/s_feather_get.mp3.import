@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/s_feather_get.mp3-adc636984d94ed95919056efb206dfba.mp3str"
+
+[deps]
+
+source_file="res://assets/sound/s_feather_get.mp3"
+dest_files=[ "res://.import/s_feather_get.mp3-adc636984d94ed95919056efb206dfba.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

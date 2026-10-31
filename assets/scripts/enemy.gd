@@ -121,13 +121,16 @@ func damage(value: int, dice: Node2D):
 				Globals.addFeathers(1 * duFeatherMultiplier)
 				for i in clamp(duFeatherMultiplier, 1, 10):
 					spawnLootParticle(featherIcon)
+				$AudioFeathers.play()
 			Enums.LootType.BOLTS:
 				Globals.bolts += 1
 				spawnLootParticle(boltIcon)
+				$AudioBolts.play()
 			Enums.LootType.DARK_FEATHERS:
 				Globals.dFeathers += (1 * duSFeatherMultiplier)
 				for i in clamp(duSFeatherMultiplier, 1, 10):
 					spawnLootParticle(dFeatherIcon)
+				$AudioSFeathers.play()
 		Globals.emit_signal("enemyKilled", enemy)
 		$EnemyContainer.add_child(particle.instance())
 		respawnEnemy()
