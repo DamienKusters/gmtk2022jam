@@ -60,4 +60,4 @@ func check_crash():
 
 func animation_finished(anim):
 	if anim == 'crash':
-		get_tree().change_scene("res://scenes/constellations/Constellations.tscn");
+		get_tree().change_scene("res://scenes/constellations/constellations.tscn");

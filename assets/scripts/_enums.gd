@@ -48,14 +48,6 @@ enum SaveFlag {
 	AS_HEXAGRAM,
 	AS_MULTIPLIER_VALUE,
 	
-	# DRAGON UPGRADES
-	DU_BOUNTY_MULTIPLIER,
-	DU_FEATHER_MULTIPLIER,
-	DU_SFEATHER_MULTIPLIER,
-	DU_ADD_DICE_MAX,
-	DU_DM_MAX,
-	DU_TRAY_MAX,
-	
 	# %Chance of bolts being harvested instead of usual loot
 	HARVEST_DICE_BOLT_CHANCE,
 	
@@ -66,4 +58,26 @@ enum SaveFlag {
 	DES_ADD_DICE,
 	
 	U_CRIT_DICE,
+	
+	#Dragon unlocks
+	DRG_1,
+	DRG_2,
+	DRG_3,
+	DRG_4,
+	DRG_5,
+	DRG_6,
+	DRG_7,
+	DRG_8,
+	DRG_9,
+	DRG_10,
+	DRG_11,
+	DRG_12,
+	DRG_13,
+	DRG_14,
+	DRG_15,
+	DRG_16,
+	DRG_17,
+	DRG_18,
+	DRG_19,
+	DRG_20,
 }

@@ -31,6 +31,7 @@ func updateDice(type = Enums.DiceEnum.D4):
 	$Label.text = ""
 	$Sprite.texture = load(diceData['texture'])
 	$Sprite.self_modulate = diceData['color']
+	$RollParticles.modulate = diceData['color']
 	maxVal = diceData['value']
 	$Tween.stop_all()
 	$RollTween.stop_all()

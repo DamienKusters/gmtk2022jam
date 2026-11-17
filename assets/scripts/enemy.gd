@@ -7,9 +7,9 @@ onready var featherIcon = preload("res://assets/sprites/icons/angel_feather.png"
 onready var boltIcon = preload("res://assets/sprites/icons/bolt.png")
 onready var dFeatherIcon = preload("res://assets/sprites/icons/demon_feather.png")
 
-onready var duBountyMultiplier = Save.importSave(Enums.SaveFlag.DU_BOUNTY_MULTIPLIER, 1)
-onready var duFeatherMultiplier = Save.importSave(Enums.SaveFlag.DU_FEATHER_MULTIPLIER, 1)
-onready var duSFeatherMultiplier = Save.importSave(Enums.SaveFlag.DU_SFEATHER_MULTIPLIER, 1)
+onready var duBountyMultiplier = Globals.du_bounty_multiplier
+onready var duFeatherMultiplier = Globals.du_feather_multiplier
+onready var duSFeatherMultiplier = Globals.du_s_feather_multiplier
 
 var enemy: EnemyModel
 var enemy_loot
@@ -175,18 +175,18 @@ func try_set_multiplier_text():
 		$VBoxContainer/Label.visible = true
 
 func try_set_bounty_multiplier_text():
-	if Save.importSave(Enums.SaveFlag.DU_BOUNTY_MULTIPLIER, 1) > 1:
-		$VBoxContainer/BountyLabel.text = "Bounty x " + str(Save.importSave(Enums.SaveFlag.DU_BOUNTY_MULTIPLIER, 1))
+	if Globals.du_bounty_multiplier > 1:
+		$VBoxContainer/BountyLabel.text = "Bounty x " + str(Globals.du_bounty_multiplier)
 		$VBoxContainer/BountyLabel.visible = true
 
 func try_set_feather_multiplier_text():
-	if Save.importSave(Enums.SaveFlag.DU_FEATHER_MULTIPLIER, 1) > 1:
-		$VBoxContainer/FeathersLabel.text = "Feathers x " + str(Save.importSave(Enums.SaveFlag.DU_FEATHER_MULTIPLIER, 1))
+	if Globals.du_feather_multiplier > 1:
+		$VBoxContainer/FeathersLabel.text = "Feathers x " + str(Globals.du_feather_multiplier)
 		$VBoxContainer/FeathersLabel.visible = true
 
 func try_set_sfeather_multiplier_text():
-	if Save.importSave(Enums.SaveFlag.DU_SFEATHER_MULTIPLIER, 1) > 1:
-		$VBoxContainer/SFeathersLabel.text = "S.Feathers x " + str(Save.importSave(Enums.SaveFlag.DU_SFEATHER_MULTIPLIER, 1))
+	if Globals.du_s_feather_multiplier > 1:
+		$VBoxContainer/SFeathersLabel.text = "S.Feathers x " + str(Globals.du_s_feather_multiplier)
 		$VBoxContainer/SFeathersLabel.visible = true
 
 func _on_dpsTimer_timeout():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=2]
+[gd_scene load_steps=86 format=2]
 
 [ext_resource path="res://assets/scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/primary_almendra.tres" type="DynamicFontData" id=2]
@@ -52,6 +52,8 @@
 [ext_resource path="res://assets/sprites/enemies/Angel.png" type="Texture" id=50]
 [ext_resource path="res://assets/sound/bolt_get.mp3" type="AudioStream" id=51]
 [ext_resource path="res://assets/sound/feather_get.mp3" type="AudioStream" id=52]
+[ext_resource path="res://assets/sprites/icons/options_pin.png" type="Texture" id=53]
+[ext_resource path="res://assets/sprites/icons/options_pin_2.png" type="Texture" id=54]
 
 [sub_resource type="DynamicFont" id=40]
 size = 33
@@ -1255,7 +1257,7 @@ margin_right = 216.0
 margin_top = 57.0
 margin_right = 216.0
 margin_bottom = 110.0
-text = "DPS: 999"
+text = "DPS: 0"
 
 [node name="BountyLabel" parent="uiRoot/enemyUi/VBoxContainer" instance=ExtResource( 40 )]
 margin_top = 114.0
@@ -1447,12 +1449,12 @@ align = 1
 [node name="HBoxContainer" type="HBoxContainer" parent="uiRoot/Options/ColorRect/HBoxContainer"]
 margin_top = 112.0
 margin_right = 680.0
-margin_bottom = 142.0
+margin_bottom = 152.0
 
 [node name="Label" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer"]
-margin_top = 1.0
+margin_top = 6.0
 margin_right = 193.0
-margin_bottom = 28.0
+margin_bottom = 33.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
 custom_fonts/font = SubResource( 33 )
@@ -1462,22 +1464,25 @@ align = 2
 [node name="MusicSlider" type="HSlider" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer"]
 margin_left = 197.0
 margin_right = 680.0
-margin_bottom = 30.0
+margin_bottom = 40.0
 rect_min_size = Vector2( 0, 30 )
 size_flags_horizontal = 3
+custom_icons/grabber_disabled = ExtResource( 53 )
+custom_icons/grabber_highlight = ExtResource( 53 )
+custom_icons/grabber = ExtResource( 54 )
 max_value = 10.0
 value = 1.0
 ticks_on_borders = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="uiRoot/Options/ColorRect/HBoxContainer"]
-margin_top = 145.0
+margin_top = 155.0
 margin_right = 680.0
-margin_bottom = 175.0
+margin_bottom = 195.0
 
 [node name="Label" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer2"]
-margin_top = 1.0
+margin_top = 6.0
 margin_right = 193.0
-margin_bottom = 28.0
+margin_bottom = 33.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
 custom_fonts/font = SubResource( 33 )
@@ -1487,26 +1492,29 @@ align = 2
 [node name="SoundSlider" type="HSlider" parent="uiRoot/Options/ColorRect/HBoxContainer/HBoxContainer2"]
 margin_left = 197.0
 margin_right = 680.0
-margin_bottom = 30.0
+margin_bottom = 40.0
 rect_min_size = Vector2( 0, 30 )
 size_flags_horizontal = 3
+custom_icons/grabber_disabled = ExtResource( 53 )
+custom_icons/grabber_highlight = ExtResource( 53 )
+custom_icons/grabber = ExtResource( 54 )
 max_value = 10.0
 value = 2.0
 ticks_on_borders = true
 
 [node name="Save" type="Label" parent="uiRoot/Options/ColorRect/HBoxContainer"]
-margin_top = 178.0
+margin_top = 198.0
 margin_right = 680.0
-margin_bottom = 261.0
+margin_bottom = 281.0
 custom_fonts/font = SubResource( 32 )
 text = "
 ~ Save ~"
 align = 1
 
 [node name="SaveButtons" type="VBoxContainer" parent="uiRoot/Options/ColorRect/HBoxContainer"]
-margin_top = 264.0
+margin_top = 284.0
 margin_right = 680.0
-margin_bottom = 308.0
+margin_bottom = 328.0
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="uiRoot/Options/ColorRect/HBoxContainer/SaveButtons"]
